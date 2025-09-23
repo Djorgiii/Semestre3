@@ -1,13 +1,26 @@
 public class App {
-    private GUI gui;
-
+	
+    private BaseDados bd;
+    
+    
+    // mudamos e colocamos a base de dados na aplicação
+    //antes tinhas a base de dados na GUI
+    // assim a gui fica espeficiamente apenas para tratar da interface da aplicação
+    
     public App() {
-        gui = new GUI();
+    	// inicializa a base de dados e a gui
+    	// a gui recebe um this que tem a ver com a bse de dados
+    	bd = new BaseDados();
+    	new GUI(this);
+        
     }
+    public BaseDados getBd() {
+		return bd;
+	}
 
     public void run() {
         System.out.println("A aplicação começou.");
-        while(!gui.getBd().isTerminar()) {
+        while(!bd.isTerminar()) {
             try {
                 Thread.sleep(100);
             }
