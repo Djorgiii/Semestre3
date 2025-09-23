@@ -71,7 +71,8 @@ public class GUI extends JFrame {
                         public void actionPerformed(ActionEvent arg0) {
                             bd.getRobot().Reta(bd.getDistancia());
                             bd.getRobot().Parar(false);
-                            myPrint("Fez uma reta de " + bd.getDistancia() + " cm.");	
+                            myPrint("Fez uma reta de "
+                                    + bd.getDistancia() + " cm.");
                         }
                     });
                     btnFrente.setBounds(242, 84, 105, 37);
