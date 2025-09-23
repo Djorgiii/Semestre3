@@ -62,6 +62,8 @@ public class GUI extends JFrame {
 
                     // Botão Fazer Reta
                     btnFrente = new JButton("FRENTE");
+                    btnFrente.setForeground(new Color(0, 0, 0));
+                    btnFrente.setBackground(new Color(128, 255, 128));
                     btnFrente.setFont(new Font("Tahoma", Font.PLAIN, 16));
                     btnFrente.addActionListener(new ActionListener() {
                         public void actionPerformed(ActionEvent arg0) {
@@ -164,11 +166,13 @@ public class GUI extends JFrame {
                     contentPane.add(textFieldRobot);
                     
                     JButton btnParar = new JButton("PARAR");
+                    btnParar.setBackground(new Color(255, 0, 0));
                     btnParar.setFont(new Font("Tahoma", Font.PLAIN, 16));
                     btnParar.setBounds(242, 119, 105, 37);
                     contentPane.add(btnParar);
                     
                     JButton btnDireita = new JButton("DIREITA");
+                    btnDireita.setBackground(new Color(0, 128, 255));
                     btnDireita.addActionListener(new ActionListener() {
                     	public void actionPerformed(ActionEvent e) {
                     		bd.getRobot().CurvarDireita(bd.getRaio(), bd.getAngulo());
@@ -181,6 +185,7 @@ public class GUI extends JFrame {
                     contentPane.add(btnDireita);
                     
                     JButton btnEsquerda = new JButton("ESQUERDA");
+                    btnEsquerda.setBackground(new Color(255, 128, 255));
                     btnEsquerda.addActionListener(new ActionListener() {
                     	public void actionPerformed(ActionEvent e) {
                     		bd.getRobot().CurvarEsquerda(bd.getRaio(), bd.getAngulo());
@@ -193,6 +198,7 @@ public class GUI extends JFrame {
                     contentPane.add(btnEsquerda);
                     
                     JButton btnTras = new JButton("TRÁS");
+                    btnTras.setBackground(new Color(255, 128, 128));
                     btnTras.addActionListener(new ActionListener() {
                     	public void actionPerformed(ActionEvent e) {
                     		bd.getRobot().Reta(bd.getDistancia() * -1);
