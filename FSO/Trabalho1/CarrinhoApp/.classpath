@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8">
+		<attributes>
+			<attribute name="module" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="lib" path="C:/Users/GoncalJo/OneDrive - Instituto Superior de Engenharia de Lisboa/TrabalhosGrupo/2ano1semestre(fso e psm)/FSO/bluecove-2.1.1-SNAPSHOT.jar"/>
+	<classpathentry kind="lib" path="C:/Users/GoncalJo/OneDrive - Instituto Superior de Engenharia de Lisboa/TrabalhosGrupo/2ano1semestre(fso e psm)/FSO/RobotLegoEV3.jar"/>
+	<classpathentry kind="lib" path="src/RobotLegoEV3.jar"/>
+	<classpathentry kind="lib" path="src/bluecove-2.1.1-SNAPSHOT.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
