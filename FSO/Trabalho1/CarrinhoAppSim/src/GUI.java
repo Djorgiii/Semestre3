@@ -20,8 +20,6 @@ public class GUI extends JFrame {
 
     private static final long serialVersionUID = 1L;
     private JPanel contentPane;
-
-    private BaseDados bd;
     private JButton btnFrente;
     private JRadioButton rdbtnOnOff;
     private JTextField textFieldDistancia;
@@ -31,6 +29,8 @@ public class GUI extends JFrame {
     private JTextField textFieldAngulo;
     private JTextField textFieldRobot;
     
+    private BaseDados bd;
+    
     private void myPrint(String s) {
 		textAreaConsola.append(s + "\n");
 	}
@@ -38,9 +38,10 @@ public class GUI extends JFrame {
     /**
      * Create the frame.
      */
-    public GUI() {
-        bd = new BaseDados();
-
+    public GUI(App app) {
+        
+    	bd = app.getBd();
+    	
         EventQueue.invokeLater(new Runnable() {
             public void run() {
                 try { 
@@ -167,6 +168,12 @@ public class GUI extends JFrame {
                     contentPane.add(textFieldRobot);
                     
                     JButton btnParar = new JButton("PARAR");
+                    btnParar.addActionListener(new ActionListener() {
+                    	public void actionPerformed(ActionEvent arg0) {
+                    		bd.getRobot().Parar(false);
+                    		myPrint("O Robot parou!");
+                    	}
+                    });
                     btnParar.setBackground(new Color(255, 0, 0));
                     btnParar.setFont(new Font("Tahoma", Font.PLAIN, 16));
                     btnParar.setBounds(242, 119, 105, 37);
@@ -204,7 +211,7 @@ public class GUI extends JFrame {
                     	public void actionPerformed(ActionEvent e) {
                     		bd.getRobot().Reta(bd.getDistancia() * -1);
                             bd.getRobot().Parar(false);
-                            myPrint("Fez uma reta de " + bd.getDistancia() + " cm.");	
+                            myPrint("Fez uma reta para trás de " + bd.getDistancia() + " cm.");	
                     	}
                     });
                     btnTras.setFont(new Font("Tahoma", Font.PLAIN, 16));
