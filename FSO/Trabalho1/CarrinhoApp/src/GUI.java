@@ -15,6 +15,8 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JScrollPane;
 import java.awt.Font;
+import javax.swing.JSpinner;
+import javax.swing.SpinnerNumberModel;
 
 public class GUI extends JFrame {
 
@@ -101,7 +103,8 @@ public class GUI extends JFrame {
                     contentPane.add(lblDistancia);
                     
                     textFieldDistancia = new JTextField();
-                    textFieldDistancia.setFont(new Font("Tahoma", Font.PLAIN, 12));
+                    textFieldDistancia.setText("33");
+                    textFieldDistancia.setFont(new Font("Tahoma", Font.PLAIN, 16));
                     textFieldDistancia.addActionListener(new ActionListener() {
                     	public void actionPerformed(ActionEvent arg0) {
                     		bd.setDistancia(Integer.parseInt(textFieldDistancia.getText()));
@@ -127,13 +130,14 @@ public class GUI extends JFrame {
                     contentPane.add(lblRaio);
                     
                     textFieldRaio = new JTextField();
+                    textFieldRaio.setText("20");
                     textFieldRaio.addActionListener(new ActionListener() {
                     	public void actionPerformed(ActionEvent e) {
                     		bd.setRaio(Integer.parseInt(textFieldRaio.getText()));
                     		myPrint("O Raio foi alterado para " + bd.getRaio() + " cm.");
                     	}
                     });
-                    textFieldRaio.setFont(new Font("Tahoma", Font.PLAIN, 12));
+                    textFieldRaio.setFont(new Font("Tahoma", Font.PLAIN, 16));
                     textFieldRaio.setBounds(50, 10, 34, 19);
                     contentPane.add(textFieldRaio);
                     textFieldRaio.setColumns(10);
@@ -144,13 +148,14 @@ public class GUI extends JFrame {
                     contentPane.add(lblAngulo);
                     
                     textFieldAngulo = new JTextField();
+                    textFieldAngulo.setText("90");
                     textFieldAngulo.addActionListener(new ActionListener() {
                     	public void actionPerformed(ActionEvent e) {
                     		bd.setAngulo(Integer.parseInt(textFieldAngulo.getText()));
                     		myPrint("O Ângulo foi alterado para " + bd.getAngulo() + " graus.");
                     	}
                     });
-                    textFieldAngulo.setFont(new Font("Tahoma", Font.PLAIN, 12));
+                    textFieldAngulo.setFont(new Font("Tahoma", Font.PLAIN, 16));
                     textFieldAngulo.setColumns(10);
                     textFieldAngulo.setBounds(159, 10, 34, 19);
                     contentPane.add(textFieldAngulo);
@@ -161,6 +166,8 @@ public class GUI extends JFrame {
                     contentPane.add(lblRobot);
                     
                     textFieldRobot = new JTextField();
+                    textFieldRobot.setEditable(false);
+                    textFieldRobot.setText("EV2");
                     textFieldRobot.setFont(new Font("Tahoma", Font.PLAIN, 12));
                     textFieldRobot.setColumns(10);
                     textFieldRobot.setBounds(527, 9, 34, 19);
@@ -168,6 +175,12 @@ public class GUI extends JFrame {
                     
                     JButton btnParar = new JButton("PARAR");
                     btnParar.setBackground(new Color(255, 0, 0));
+                    btnParar.addActionListener(new ActionListener() {
+                    	public void actionPerformed(ActionEvent arg0) {
+                    		bd.getRobot().Parar(true);
+                    		myPrint("O Robot parou!");
+                    	}
+                    });
                     btnParar.setFont(new Font("Tahoma", Font.PLAIN, 16));
                     btnParar.setBounds(242, 119, 105, 37);
                     contentPane.add(btnParar);
@@ -215,6 +228,28 @@ public class GUI extends JFrame {
                     lblConsola.setFont(new Font("Tahoma", Font.PLAIN, 18));
                     lblConsola.setBounds(17, 218, 67, 18);
                     contentPane.add(lblConsola);
+                    
+                    JLabel lblNmero = new JLabel("Número");
+                    lblNmero.setFont(new Font("Tahoma", Font.PLAIN, 18));
+                    lblNmero.setBounds(252, 201, 70, 18);
+                    contentPane.add(lblNmero);
+                    
+                    JSpinner spinner = new JSpinner();
+                    spinner.setModel(new SpinnerNumberModel(5, 1, 16, 1));
+                    spinner.setFont(new Font("Tahoma", Font.PLAIN, 18));
+                    spinner.setBounds(327, 199, 45, 21);
+                    
+                    contentPane.add(spinner);
+                    
+                    JRadioButton rdbtnMovimentosAleatrios = new JRadioButton("Movimentos Aleatórios");
+                    rdbtnMovimentosAleatrios.addActionListener(new ActionListener() {
+                    	public void actionPerformed(ActionEvent e) {
+                    		
+                    	}
+                    });
+                    rdbtnMovimentosAleatrios.setFont(new Font("Tahoma", Font.PLAIN, 18));
+                    rdbtnMovimentosAleatrios.setBounds(378, 200, 221, 21);
+                    contentPane.add(rdbtnMovimentosAleatrios);
 
                     setVisible(true);
                 } catch (Exception e) {
