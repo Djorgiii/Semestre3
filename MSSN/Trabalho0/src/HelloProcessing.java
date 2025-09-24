@@ -1,9 +1,9 @@
 import processing.core.PApplet;
 
 public class HelloProcessing extends PApplet {
+
     public static void main(String[] args) {
         PApplet.main(HelloProcessing.class.getName());
-
     }
 
     @Override
@@ -13,12 +13,18 @@ public class HelloProcessing extends PApplet {
 
     @Override
     public void setup() {
-        background(255,0,0);
+        fill(255, 0, 0);
     }
 
     @Override
-    public void draw() {
+    public void draw() 
+    {
         //background(0);
-        circle(mouseX,mouseY,50);
+
+        fill(0, 255, 0, 64);
+        rect(100, 100, 200, 150);
+
+        fill(255, 0, 0, 64);
+        circle(mouseX, mouseY, 50);
     }
 }
