@@ -2,37 +2,41 @@ package apps;
 
 import processing.core.PApplet;
 import processing.core.PVector;
-import setup.IProcessing;
+import setup.iProcessing;
+import apps.HelloFaceApp;
 
-public class HelloFaceApp implements IProcessing 
-{
-    private Face f;
+public class HelloFaceApp implements iProcessing{
+	
 
-    @Override
-    public void setup(PApplet parent) 
-    {
-        PVector pos = new PVector(200, 300);
-        float r = parent.random(20, 100);
-        f = new Face(pos, r, parent);
-    }
-
-    @Override
-    public void draw(PApplet parent, float dt) 
-    {
-        f.display(parent);
-    }
-
-    @Override
-    public void keyPressed(PApplet parent) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'keyPressed'");
-    }
-
-    @Override
-    public void mousePressed(PApplet parent) 
-    {
-        int c = parent.color(255, 0, 0);
-        f.setEyeColor(c);
-    }
-    
+	@Override
+	public void setup(processing.core.PApplet parent) {
+		
+		
+	
+	}
+	
+	@Override
+	public void draw(processing.core.PApplet parent, float dt) {
+		
+		
+		
+	}
+	
+	@Override
+	public void keyPressed(processing.core.PApplet parent) {
+		
+		
+		
+	}
+	
+	@Override
+	public void mousePressed(processing.core.PApplet parent) {
+		
+		PVector position= new PVector(parent.mouseX,parent.mouseY);
+		Face f= new Face(position,parent.random(50,100),parent);
+		f.display(parent);
+		
+	}
+	
+	
 }
