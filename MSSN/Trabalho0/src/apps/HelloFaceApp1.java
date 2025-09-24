@@ -23,6 +23,11 @@ public class HelloFaceApp1 implements iProcessing{
 	private float timer;
 	private List<Face> faces;
 	
+	public void mouseMoved(PApplet parent) {
+
+		this.mousePressed(parent);
+		
+	}
 
 	@Override
 	public void setup(processing.core.PApplet parent) {
@@ -72,6 +77,7 @@ public class HelloFaceApp1 implements iProcessing{
 		
 		if(parent.mouseButton == PApplet.RIGHT) { //quando clicar como botao direito
 			//mudar a cor dos olhos
+			
 			Face f= new Face(clickPos, 30 ,parent);
 			faces.add(f);
 			
@@ -87,7 +93,7 @@ public class HelloFaceApp1 implements iProcessing{
 					f.setTarget(clickPos);
 				}
 			}
-			if(!anyface) {
+			if(!anyface && faces.size()>0) {
 				Face f= faces.get(0);
 				f.setTarget(clickPos);
 				

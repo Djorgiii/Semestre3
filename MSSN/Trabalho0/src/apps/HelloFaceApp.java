@@ -11,7 +11,6 @@ public class HelloFaceApp implements iProcessing{
 	@Override
 	public void setup(processing.core.PApplet parent) {
 		
-		
 	
 	}
 	
@@ -35,6 +34,11 @@ public class HelloFaceApp implements iProcessing{
 		PVector position= new PVector(parent.mouseX,parent.mouseY);
 		Face f= new Face(position,parent.random(50,100),parent);
 		f.display(parent);
+		
+	}
+	public void mouseMoved(processing.core.PApplet parent) {
+		
+		
 		
 	}
 	

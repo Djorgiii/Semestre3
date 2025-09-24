@@ -49,6 +49,9 @@ public class processingMain extends PApplet {
 	public void mousePressed() {
 		app.mousePressed(this);
 	}
-	
+	@Override
+	public void mouseMoved() {
+		app.mouseMoved(this);
+	}
 	
 }

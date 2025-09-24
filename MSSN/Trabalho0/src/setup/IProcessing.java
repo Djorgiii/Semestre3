@@ -12,5 +12,7 @@ public interface iProcessing {
 	public void keyPressed(PApplet parent);
 	
 	public void mousePressed(PApplet parent);
+	
+	public void mouseMoved(PApplet parent);
 
 }
