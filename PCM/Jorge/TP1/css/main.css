@@ -1,3 +1,35 @@
 body {
-    font-family: 'Kalam', cursive;
+  font-family: "Ubuntu", sans-serif;
+}
+
+#nav-socials {
+  background-color: #d8d8d8; /* fundo cinza claro */
+  min-height: 40px;
+}
+
+#nav-socials a {
+  display: inline-flex; /* corrige alinhamento */
+  align-items: center; /* centraliza verticalmente */
+  text-decoration: none !important; /* remove sublinhado */
+}
+
+/* Estilo base para os ícones */
+#nav-socials a i {
+  font-size: 24px; /* tamanho do ícone */
+  transition: color 0.3s ease; /* animação suave */
+  cursor: pointer;
+}
+
+/* Cores no hover */
+#nav-socials a:hover i {
+  color: #000000;
+}
+
+/* Exceção: Twitter/X */
+#nav-socials a.link-dark:hover i {
+  color: #ffffff; /* azul oficial do Twitter */
+}
+
+#nav-main {
+  background-color: #800000;
 }
