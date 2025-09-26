@@ -1,0 +1,76 @@
+# =====================================
+# JAVA
+# =====================================
+*.class
+*.jar
+*.war
+*.ear
+
+# Build / output dirs
+bin/
+out/
+build/
+target/
+dist/
+
+# =====================================
+# PYTHON
+# =====================================
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.pkl
+*.egg-info/
+.env
+.venv/
+venv/
+ENV/
+
+# Virtualenv
+env/
+env.bak/
+
+# Jupyter checkpoints
+.ipynb_checkpoints/
+*.ipynb_checkpoints
+
+# Cache
+.cache/
+.pytest_cache/
+.mypy_cache/
+
+# =====================================
+# JAVASCRIPT / NODE
+# =====================================
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+package-lock.json
+.pnp.*
+.pnpm-debug.log*
+
+# Build output
+dist/
+.next/
+out/
+coverage/
+*.tsbuildinfo
+
+# =====================================
+# IDEs & EDITORS
+# =====================================
+.vscode/
+.idea/
+*.iml
+.project
+.classpath
+.settings/
+nbproject/private/
+
+# =====================================
+# MISC
+# =====================================
+.DS_Store
+Thumbs.db
