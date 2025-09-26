@@ -1,18 +1,24 @@
+import java.util.concurrent.Semaphore;
 
 public class Application {
 	private TarefaPing ping;
 	private TarefaPong pong;
 	
+	private Semaphore semaforo;
+	
+	
 	public Application() {
-		ping = new TarefaPing();
-		pong = new TarefaPong();
+		semaforo = new Semaphore(1);
+		
+		ping = new TarefaPing(semaforo);
+		pong = new TarefaPong(semaforo);
 		
 		ping.start();
-		pong.start();
+		new Thread(pong).start();
 	}
 	
 	public static void main(String[] args) {
-		new Application();
+		new Application(); // reserva a memoria e chama o construtor
 		
 	}
 }
