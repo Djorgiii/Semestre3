@@ -6,6 +6,7 @@ public class BaseDados {
     private int distancia;
     private int angulo;
     private int raio;
+    private int numAleatorio;
 
     public int getDistancia() {
 		return distancia;
@@ -13,6 +14,14 @@ public class BaseDados {
 
 	public int getAngulo() {
 		return angulo;
+	}
+	
+	public int getNumAleatorio() {
+		return numAleatorio;
+	}
+
+	public void setNumAleatorio(int numAleatorio) {
+		this.numAleatorio = numAleatorio;
 	}
 
 	public void setAngulo(int angulo) {
