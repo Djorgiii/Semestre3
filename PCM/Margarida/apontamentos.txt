@@ -1,0 +1,24 @@
+usar icons com vetores e nao com raster, mas imagens n. Comprimir na mesma as imagens com rasta
+    sempre colocar imagens comprimidas para diminuir o tempo de espera de carregamento do site 
+        (WebP -> formato)
+
+h1 {
+  color: blue;
+  text-align: left;
+  font-size: 8 pt;
+}
+a:visited {
+  color: purple;
+}
+#para1 {
+  /* unico elemento neste exemplo */
+  text-align: center;
+  color: black;
+}
+
+html
+    head
+        title
+        <meta name = "description" content = "Free Web tutorials">
+utilizado para escrever o titulo do site e meta informações sobre o site tipo quem mecheu e cenas
+
