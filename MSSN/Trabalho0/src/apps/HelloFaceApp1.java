@@ -7,8 +7,6 @@ import setup.iProcessing;
 import java.util.ArrayList;
 import java.util.List;
 
-import apps.HelloFaceApp1;
-
 public class HelloFaceApp1 implements iProcessing{
 	
 	
