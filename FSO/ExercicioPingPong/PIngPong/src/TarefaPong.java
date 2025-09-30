@@ -2,39 +2,30 @@ import java.util.concurrent.Semaphore;
 
 public class TarefaPong extends Thread {
 	
-	private Semaphore semaforo;
+	private Semaphore semPing;
+	private Semaphore semPong;
 	
-	public TarefaPong(Semaphore sem) {
-		this.semaforo = sem;
-	}
-
-	public void dormirRandom(int time) {
-		try {
-			Thread.sleep((long) (Math.random()*time));
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}	
-	}
 	
+	public TarefaPong(Semaphore sPing, Semaphore sPong) {
+		semPing = sPing;
+		semPong = sPong;
+	}
 	public void run() {
 		while(true) {
 			try {
-				semaforo.acquire();
+				semPong.acquire();
+			
 			} catch (InterruptedException e) {e.printStackTrace();}
 				
 				// inicio  da zona critica
 				System.out.println("PONG");
-				dormirRandom(1000);
-				//final da zona critica
-				
-				semaforo.release();
-				dormirRandom(1000);
+			
+				semPing.release();
+			try {
+				Thread.sleep((long) (Math.random()*1000));
+			}catch(InterruptedException e) {e.printStackTrace();	
 				
 			}
-			
-			
 		}
-		
 	}
-	
+}
