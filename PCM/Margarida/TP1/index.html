@@ -35,10 +35,41 @@
 
   <body>
     <!-- Barra de cima -->
+    <div
+      class="p-3 mb-2 bg-roxoacinzentado text-white d-flex align-items-center"
+    >
+      <a
+        class="navbar-brand me-3"
+        href="https://web.facebook.com/?locale=pt_PT&_rdc=1&_rdr#"
+      >
+        <i class="bi bi-facebook fs-3"></i>
+      </a>
+      <a class="navbar-brand me-3" href="https://x.com/">
+        <i class="bi bi-twitter-x fs-3"></i>
+      </a>
+      <a class="navbar-brand me-3" href="https://www.instagram.com/">
+        <i class="bi bi-instagram fs-3"></i>
+      </a>
+      <a class="navbar-brand me-3" href="https://pt.linkedin.com/">
+        <i class="bi bi-linkedin fs-3"></i>
+      </a>
+      <a class="navbar-brand" href="https://github.com/msca0431">
+        <i class="bi bi-github fs-3"></i>
+      </a>
+      <span class="ms-auto fs-5"
+        ><i class="bi bi-star"></i> All Rights Reserved
+        <i class="bi bi-moon"></i
+      ></span>
+    </div>
+    <!-- Barra de nav -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      <a class="navbar-brand" href="#"
-        >Barra de navegação <i class="bi bi-emoji-smile"></i
-      ></a>
+      <!-- a primeira border é para chamar a broda, a segunda border-n é para definir a grossura
+       a border-azulado é para definir a cor e rounded é para arredondar os cantos e px-2 é o espaçamento do texto à borda-->
+      <a
+        class="navbar-brand ms-3 fs-4 text-azulado border border-2 border-azulado rounded px-2 me-3"
+      >
+        Margarida Andrade</a
+      >
       <button
         class="navbar-toggler"
         type="button"
@@ -53,24 +84,55 @@
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav">
           <li class="nav-item active">
-            <a class="nav-link" href="#"
+            <a class="nav-link text-azulado me-3" href="#"
               >Home <span class="sr-only">(current)</span></a
             >
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Features</a>
+            <a class="nav-link text-azulado me-3" href="#">Skills</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Pricing</a>
+            <a
+              class="nav-link text-azulado me-3"
+              href="http://127.0.0.1:5500/TP1/about.html"
+              >About</a
+            >
+          </li>
+          <li class="nav-item dropdown">
+            <!-- por adicionar os projetos e os butões e cenas-->
+            <a
+              class="nav-link dropdown-toggle text-azulado me-3 disabled"
+              href="#"
+              id="projectsDropdown"
+              role="button"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              Projects
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="projectsDropdown">
+              <li><a class="dropdown-item" href="#">Projeto 1</a></li>
+              <li><a class="dropdown-item" href="#">Projeto 2</a></li>
+              <li><a class="dropdown-item" href="#">Projeto 3</a></li>
+            </ul>
           </li>
           <li class="nav-item">
-            <a class="nav-link disabled" href="#">Disabled</a>
+            <a class="nav-link text-azulado me-3" href="#">Contact Me!</a>
           </li>
         </ul>
       </div>
     </nav>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-12 text-center my-5">
+          <h1 class="text-azulado">
+            Meu Portfólio <i class="bi bi-emoji-smile-fill"></i>
+          </h1>
+          <p class="lead">Bem-vindo ao meu portfólio online!</p>
+        </div>
+      </div>
+    </div>
 
-    <h1>Olá Gentinha <i class="bi bi-emoji-smile-fill"></i></h1>
     <!-- Optional JavaScript -->
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"

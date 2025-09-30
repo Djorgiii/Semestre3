@@ -1,6 +1,32 @@
+/* paleta de cores para o meu portefolio */
+:root {
+  --periwinkle: #ccccff;
+  --roxoacinzentado: #a3a3cc;
+  --roxoescuro: #5c5c99;
+  --azulado: #292966;
+}
 
+.bar1,
+.bar2,
+.bar3 {
+  width: 23px;
+  height: 2px;
+  margin: 5px;
+  background: var(--roxoacinzentado);
+  transition: all 0.5s ease;
+}
 
+.navbar-toggler.change .bar1 {
+  transform: rotate(-45deg) translate(-5px, 6px);
+}
 
+.navbar-toggler.change .bar2 {
+  opacity: 0;
+}
+
+.navbar-toggler.change .bar3 {
+  transform: rotate(45deg) translate(-5px, -8px);
+}
 
 /* fonte do site */
 .suse-mono-uniquifier {
@@ -8,4 +34,26 @@
   font-optical-sizing: auto;
   font-weight: normal;
   font-style: normal;
+}
+
+/* background customizado */
+.bg-roxoacinzentado {
+  background-color: var(--roxoacinzentado) !important;
+}
+
+/* texto customizado */
+.text-azulado {
+  color: var(--azulado) !important;
+}
+.bg-periwinkle {
+  background-color: var(--periwinkle) !important;
+}
+.bg-roxoescuro {
+  background-color: var(--roxoescuro) !important;
+}
+.bg-azulado {
+  background-color: var(--azulado) !important;
+}
+.border-azulado {
+  border-color: var(--azulado) !important;
 }
