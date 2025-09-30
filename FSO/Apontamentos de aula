@@ -1,0 +1,111 @@
+
+Heap - tem a ver com a memoria
+se uma cena ja nao tem uso na memroia vai po lixo( garbadge colector ) é uma cena do java
+
+
+public class controlarRobot1 implements Runnable{
+	ArrayList<String> comandos;
+	controlarRobot1(){
+		comandos = new ArrayList<String>();
+	}
+	public void run(){
+		// interpretar e executar comandos 
+	}
+	// para instanciar a classe 
+	controlarRobot1 cr1 = new controlarRobot1(); // cria uma instancia da classe controlarRobot1
+	//cr1.run(); // lança o processo
+	new Thread(cr1).start();// tambem lança o processo
+}
+
+===Semaforos ===
+
+2 partes:- contador de unidades
+		 - Lista de tarefas em espera
+o java tem 2 metodos para sincronização ( acquire() e release() )
+	wait/acquire() - decresce o contador (por 1)
+		se quiseres decrescer o contador com 0 permições a tarefa bloqueia e PARA 
+		e vai para a lista de tarefas em espera
+	
+	signal/release() -	incrementa o contador (por 1)
+        se o contador for 0 e houver tarefas em espera, uma delas é desbloqueada e sai da lista de espera
+        se o contador for maior que 0, nenhuma tarefa é desbloqueada
+        
+DeadLock - se inicializar o semaforo com 0 unidades,     
+O ponto sincronismo é um ponto no codigo em que uma tarefa espera por outra tarefa em relação as atividades a executar.  
+
+exemplo de semaforo, cenario de exclusao mutua:
+public class Application {
+	private TarefaPing ping;
+	private TarefaPong pong;
+	
+	//private Semaphore semaforo;
+	
+	
+	public Application() {
+		/*
+		semaforo = new Semaphore(1);
+		
+		ping = new TarefaPing(semaforo);
+		pong = new TarefaPong(semaforo);
+		
+		ping.start();
+		new Thread(pong).start();
+		*/
+	}
+	
+	public static void main(String[] args) {
+		new Application(); // reserva a memoria e chama o construtor
+		
+	}
+}
+
+	
+public class TarefaPong extends Thread {
+	
+	/* private Semaphore semaforo;
+	
+	public TarefaPong(Semaphore sem) {
+		this.semaforo = sem;
+	}
+
+	public void dormirRandom(int time) {
+		try {
+			Thread.sleep((long) (Math.random()*time));
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}	
+	}
+	*/
+	public void run() {
+		while(true) {
+			try {
+				//semaforo.acquire();
+			
+			} catch (InterruptedException e) {e.printStackTrace();}
+				
+				// inicio  da zona critica
+				System.out.println("PONG");
+				
+				/*
+				dormirRandom(1000);
+				//final da zona critica
+				
+				semaforo.release();
+				dormirRandom(1000);
+				*/
+			}
+		}
+	}
+
+exercicio das tarefas produtor e consumidor:
+- 3 semaforos: 
+quando o produtor produz retira um elemento do semaforo dos livres e coloca nos ocupados
+e desbloqueia o consumidor 
+consumidor vai ser o primeiro a inicializar
+ -um de exclusão mutua(inicializado com 1)(acessoElemento) 
+ 		se um tiver a manipular o buffer o outro fica bloqueado para nao mexerem ao mesmo tempo
+ -um dos elementos livres( inicializa com o tamanho do buffer)(elementoLivres)
+ -um com os elementos ocupados(inicializa com zero )aka contador de unidades do semaforo(elementosOcupados)
+ 
+
