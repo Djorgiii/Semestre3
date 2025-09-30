@@ -1,3 +1,25 @@
+/* Efeito hover para ícones barra superior */
+.navbar-brand[href*="facebook.com"]:hover .bi-facebook {
+  color: var(--roxoescuro) !important;
+  transition: color 0.2s;
+}
+.navbar-brand[href*="x.com"]:hover .bi-twitter-x {
+  color: var(--roxoescuro) !important;
+  transition: color 0.2s;
+}
+.navbar-brand[href*="instagram.com"]:hover .bi-instagram {
+  color: var(--roxoescuro) !important;
+  transition: color 0.2s;
+}
+.navbar-brand[href*="linkedin.com"]:hover .bi-linkedin {
+  color: var(--roxoescuro) !important;
+  transition: color 0.2s;
+}
+/* Efeito hover para o ícone do GitHub na barra superior */
+.navbar-brand[href*="github.com"]:hover .bi-github {
+  color: var(--roxoescuro) !important;
+  transition: color 0.2s;
+}
 /* paleta de cores para o meu portefolio */
 :root {
   --periwinkle: #ccccff;
@@ -56,4 +78,8 @@
 }
 .border-azulado {
   border-color: var(--azulado) !important;
+}
+.nav-link.text-azulado:hover {
+  color: var(--roxoacinzentado) !important;
+  transition: color 0.2s;
 }
