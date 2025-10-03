@@ -109,3 +109,4 @@ consumidor vai ser o primeiro a inicializar
  -um com os elementos ocupados(inicializa com zero )aka contador de unidades do semaforo(elementosOcupados)
  
 
+criar classe base tarefa( que deriva da classe thread do java) e depois outras duas que derivam dessa, tarefaPing e tarefaPong;
