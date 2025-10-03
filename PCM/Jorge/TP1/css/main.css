@@ -1,5 +1,6 @@
 body {
   font-family: "Ubuntu", sans-serif;
+  margin: 0;
 }
 
 /* BACKGROUND COLORS */
@@ -62,9 +63,54 @@ body {
 #nav-socials a:hover {
   color: #ffffff; /* fica branco no hover */
 }
+/*
+#heroCarousel,
+#heroCarousel .carousel-inner,
+#heroCarousel .carousel-item {
+  height: calc(100vh - 88px);
+}
 
 .carousel-item img {
-  width: 100%; /* ocupa sempre a largura */
-  height: 600px; /* altura fixa */
-  object-fit: cover; /* corta para preencher o espaço */
+  object-fit: cover;
+  display: block;
+}
+*/
+/* MOBILE: topbar (~32px) + navbar com botão (~64px) ≈ 96px */
+#heroCarousel,
+#heroCarousel .carousel-inner,
+#heroCarousel .carousel-item {
+  height: calc(100vh - 85px);
+}
+
+/* DESKTOP: topbar (~36px) + navbar expandida (~56px) ≈ 92px */
+@media (min-width: 992px) {
+  #heroCarousel,
+  #heroCarousel .carousel-inner,
+  #heroCarousel .carousel-item {
+    height: calc(100vh - 88px);
+  }
+}
+
+/* a imagem ocupa todo o slide */
+#heroCarousel img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Normal: branco */
+#menu .nav-link {
+  color: #ffffff !important;
+  transition: color 0.3s ease;
+}
+
+/* Hover: dourado */
+#menu .nav-link:hover {
+  color: #d3a625 !important;
+}
+
+/* Ativo: dourado */
+#menu .nav-link.active {
+  color: #d3a625 !important;
 }
