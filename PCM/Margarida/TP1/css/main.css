@@ -34,19 +34,19 @@
   width: 23px;
   height: 2px;
   margin: 5px;
-  background: var(--roxoacinzentado);
+  background: #2a9134;
   transition: all 0.5s ease;
 }
 
-.navbar-toggler.change .bar1 {
+.change .bar1{
   transform: rotate(-45deg) translate(-5px, 6px);
 }
 
-.navbar-toggler.change .bar2 {
+.change .bar2{
   opacity: 0;
 }
 
-.navbar-toggler.change .bar3 {
+.change .bar3{
   transform: rotate(45deg) translate(-5px, -8px);
 }
 
@@ -88,3 +88,4 @@
   height: 600px;
   object-fit: cover;
 }
+/* vh para redimencionar as imagens */
