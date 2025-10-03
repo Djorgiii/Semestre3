@@ -1,35 +1,116 @@
 body {
   font-family: "Ubuntu", sans-serif;
+  margin: 0;
 }
 
-#nav-socials {
-  background-color: #d8d8d8; /* fundo cinza claro */
-  min-height: 40px;
+/* BACKGROUND COLORS */
+.bg-red-dark {
+  background-color: #740001;
+}
+.bg-red {
+  background-color: #ae0001;
+}
+.bg-yellow {
+  background-color: #eeba30;
+}
+.bg-gold {
+  background-color: #d3a625;
+}
+.bg-black {
+  background-color: #000000;
 }
 
-#nav-socials a {
-  display: inline-flex; /* corrige alinhamento */
-  align-items: center; /* centraliza verticalmente */
-  text-decoration: none !important; /* remove sublinhado */
+/* TEXT COLORS */
+.text-red-dark {
+  color: #740001;
 }
-
-/* Estilo base para os ícones */
-#nav-socials a i {
-  font-size: 24px; /* tamanho do ícone */
-  transition: color 0.3s ease; /* animação suave */
-  cursor: pointer;
+.text-red {
+  color: #ae0001;
 }
-
-/* Cores no hover */
-#nav-socials a:hover i {
+.text-yellow {
+  color: #eeba30;
+}
+.text-gold {
+  color: #d3a625;
+}
+.text-black {
   color: #000000;
 }
 
-/* Exceção: Twitter/X */
-#nav-socials a.link-dark:hover i {
-  color: #ffffff; /* azul oficial do Twitter */
+/* BORDER COLORS */
+.border-red-dark {
+  border-color: #740001;
+}
+.border-red {
+  border-color: #ae0001;
+}
+.border-yellow {
+  border-color: #eeba30;
+}
+.border-gold {
+  border-color: #d3a625;
+}
+.border-black {
+  border-color: #000000;
 }
 
-#nav-main {
-  background-color: #800000;
+#nav-socials a {
+  color: #d3a625; /* cor dourada */
+  text-decoration: none;
+  transition: color 0.3s ease; /* animação suave */
+}
+
+#nav-socials a:hover {
+  color: #ffffff; /* fica branco no hover */
+}
+/*
+#heroCarousel,
+#heroCarousel .carousel-inner,
+#heroCarousel .carousel-item {
+  height: calc(100vh - 88px);
+}
+
+.carousel-item img {
+  object-fit: cover;
+  display: block;
+}
+*/
+/* MOBILE: topbar (~32px) + navbar com botão (~64px) ≈ 96px */
+#heroCarousel,
+#heroCarousel .carousel-inner,
+#heroCarousel .carousel-item {
+  height: calc(100vh - 85px);
+}
+
+/* DESKTOP: topbar (~36px) + navbar expandida (~56px) ≈ 92px */
+@media (min-width: 992px) {
+  #heroCarousel,
+  #heroCarousel .carousel-inner,
+  #heroCarousel .carousel-item {
+    height: calc(100vh - 88px);
+  }
+}
+
+/* a imagem ocupa todo o slide */
+#heroCarousel img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Normal: branco */
+#menu .nav-link {
+  color: #ffffff !important;
+  transition: color 0.3s ease;
+}
+
+/* Hover: dourado */
+#menu .nav-link:hover {
+  color: #d3a625 !important;
+}
+
+/* Ativo: dourado */
+#menu .nav-link.active {
+  color: #d3a625 !important;
 }
