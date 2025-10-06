@@ -1,8 +1,15 @@
+# --- Eclipse workspace files
+
+.metadata/
+.settings/
+.classpath
+.project
+
+
 # =====================================
 # JAVA
 # =====================================
 *.class
-*.jar
 *.war
 *.ear
 
