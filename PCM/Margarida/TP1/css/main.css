@@ -28,13 +28,14 @@
   --azulado: #292966;
 }
 
+
 .bar1,
 .bar2,
 .bar3 {
   width: 23px;
   height: 2px;
   margin: 5px;
-  background: #2a9134;
+  background: #ffffff;
   transition: all 0.5s ease;
 }
 
@@ -100,7 +101,7 @@ body {
   border-left: 0 solid transparent;
   border-right: 100px solid transparent;
   flex-shrink: 0;
-  margin-left:-0.75%;
+  margin-left: -0.75%;
 }
 .trapezio-esquerda i {
   position: absolute;
@@ -110,3 +111,5 @@ body {
   font-size: 5rem;
   color: var(--azulado);
 }
+.w-15 { width: 15% !important; }
+.w-70 { width: 70% !important; }
