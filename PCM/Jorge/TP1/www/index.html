@@ -34,32 +34,29 @@
   </head>
 
   <body>
-    <header>
-      <!-- TOP BAR -->
-      <div
-        class="d-flex align-items-center px-3 py-1 bg-black text-gold d"
-        id="nav-socials"
-      >
-        <div class="d-flex gap-3">
-          <a href="#" class="text-gold"><i class="bi bi-instagram"></i></a>
-          <a href="#" class="text-gold"><i class="bi bi-facebook"></i></a>
-          <a href="#" class="text-gold"><i class="bi bi-twitter-x"></i></a>
-          <a href="#" class="text-gold"><i class="bi bi-linkedin"></i></a>
-        </div>
-        <span class="ms-auto small fst-italic">All Rights Reserved</span>
+    <!-- TOP BAR -->
+    <div
+      class="container-fluid bg-black text-gold py-1 px-3 d-flex justify-content-between align-items-center"
+    >
+      <div class="d-flex gap-3">
+        <a href="#" class="text-gold"><i class="bi bi-instagram"></i></a>
+        <a href="#" class="text-gold"><i class="bi bi-facebook"></i></a>
+        <a href="#" class="text-gold"><i class="bi bi-twitter-x"></i></a>
+        <a href="#" class="text-gold"><i class="bi bi-linkedin"></i></a>
       </div>
-    </header>
+      <span class="small fst-italic">All Rights Reserved</span>
+    </div>
 
     <!-- NAVBAR -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-red-dark">
       <div class="container-fluid">
         <!-- Brand em caixa -->
-        <a
+        <span
           class="navbar-brand border border-gold rounded px-2 py-1 fw-semibold fst-italic text-yellow"
-          href="#"
+          id="nav-brand"
         >
           Jorge Gonçalves
-        </a>
+        </span>
 
         <button
           class="navbar-toggler"
@@ -109,7 +106,11 @@
         </div>
       </div>
     </nav>
-    <div id="heroCarousel" class="carousel slide h-100" data-bs-ride="carousel">
+    <div
+      id="heroCarousel"
+      class="carousel slide fixed-carousel-height"
+      data-bs-ride="carousel"
+    >
       <!-- Indicadores (bolinhas) -->
       <div class="carousel-indicators">
         <button
@@ -135,11 +136,11 @@
       </div>
 
       <!-- Slides -->
-      <div class="carousel-inner">
+      <div class="carousel-inner h-100">
         <div class="carousel-item active h-100" data-bs-interval="4000">
           <img
             src="../img/hogwarts1.webp"
-            class="d-block w-100 object-fit-cover"
+            class="d-block w-100 h-100 carousel-img-fixed"
             alt="Slide 1"
           />
           <div class="carousel-caption d-none d-md-block">
@@ -147,11 +148,10 @@
             <p>Um texto de exemplo aqui.</p>
           </div>
         </div>
-
-        <div class="carousel-item" data-bs-interval="4000">
+        <div class="carousel-item h-100" data-bs-interval="4000">
           <img
             src="../img/hogwarts2.webp"
-            class="d-block w-100 object-fit-cover"
+            class="d-block w-100 h-100 carousel-img-fixed"
             alt="Slide 2"
           />
           <div class="carousel-caption d-none d-md-block">
@@ -159,11 +159,10 @@
             <p>Outro texto de exemplo.</p>
           </div>
         </div>
-
-        <div class="carousel-item" data-bs-interval="4000">
+        <div class="carousel-item h-100" data-bs-interval="4000">
           <img
             src="../img/hogwarts3.webp"
-            class="d-block w-100 object-fit-cover"
+            class="d-block w-100 h-100 carousel-img-fixed"
             alt="Slide 3"
           />
           <div class="carousel-caption d-none d-md-block">
@@ -193,6 +192,42 @@
         <span class="visually-hidden">Seguinte</span>
       </button>
     </div>
+    <!-- FOOTER Contact Me -->
+    <footer class="bg-red-dark text-white py-4 mt-0">
+      <div class="container">
+        <h4 class="mb-3">Contact Me</h4>
+        <form class="row g-3">
+          <div class="col-md-6">
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Your Name"
+              required
+            />
+          </div>
+          <div class="col-md-6">
+            <input
+              type="email"
+              class="form-control"
+              placeholder="Your Email"
+              required
+            />
+          </div>
+          <div class="col-12">
+            <textarea
+              class="form-control"
+              rows="3"
+              placeholder="Your Message"
+              required
+            ></textarea>
+          </div>
+          <div class="col-12">
+            <button type="submit" class="btn btn-gold text-black">Send</button>
+          </div>
+        </form>
+      </div>
+    </footer>
+
     <!-- Optional JavaScript -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <!-- Script custom -->

@@ -1,3 +1,16 @@
+/* Carousel altura fixa e imagens sempre do mesmo tamanho */
+.fixed-carousel-height {
+  height: 500px;
+}
+.fixed-carousel-height .carousel-inner,
+.fixed-carousel-height .carousel-item {
+  height: 100%;
+}
+.carousel-img-fixed {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
 body {
   font-family: "Ubuntu", sans-serif;
   margin: 0;
@@ -63,40 +76,9 @@ body {
 #nav-socials a:hover {
   color: #ffffff; /* fica branco no hover */
 }
-/*
-#heroCarousel,
-#heroCarousel .carousel-inner,
-#heroCarousel .carousel-item {
-  height: calc(100vh - 88px);
-}
 
-.carousel-item img {
-  object-fit: cover;
-  display: block;
-}
-*/
-/* MOBILE: topbar (~32px) + navbar com botão (~64px) ≈ 96px */
-#heroCarousel,
-#heroCarousel .carousel-inner,
-#heroCarousel .carousel-item {
-  height: calc(100vh - 85px);
-}
-
-/* DESKTOP: topbar (~36px) + navbar expandida (~56px) ≈ 92px */
-@media (min-width: 992px) {
-  #heroCarousel,
-  #heroCarousel .carousel-inner,
-  #heroCarousel .carousel-item {
-    height: calc(100vh - 88px);
-  }
-}
-
-/* a imagem ocupa todo o slide */
-#heroCarousel img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
+nav.navbar {
+  position: static;
 }
 
 /* Normal: branco */
