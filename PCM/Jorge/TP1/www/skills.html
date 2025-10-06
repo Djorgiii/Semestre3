@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Pagina Inicial</title>
+    <title>My Skills</title>
     <!-- Required meta tags -->
     <meta charset="utf-8" />
     <meta
@@ -38,13 +38,13 @@
     <div
       class="container-fluid bg-black text-gold py-1 px-3 d-flex justify-content-between align-items-center"
     >
-      <div class="d-flex gap-3">
+  <div class="d-flex gap-3" id="nav-socials">
         <a href="#" class="text-gold"><i class="bi bi-instagram"></i></a>
         <a href="#" class="text-gold"><i class="bi bi-facebook"></i></a>
         <a href="#" class="text-gold"><i class="bi bi-twitter-x"></i></a>
         <a href="#" class="text-gold"><i class="bi bi-linkedin"></i></a>
       </div>
-      <span class="small fst-italic">All Rights Reserved</span>
+      <span class="small fst-italic">All Rights Reserved ©</span>
     </div>
 
     <!-- NAVBAR -->
@@ -55,6 +55,7 @@
           class="navbar-brand border border-gold rounded px-2 py-1 fw-semibold fst-italic text-yellow"
           id="nav-brand"
         >
+          <img width="32" height="32" src="https://img.icons8.com/color/48/hogwarts-legacy-gryffindor.png" alt="hogwarts-legacy-gryffindor" class="me-2 align-middle"/>
           Jorge Gonçalves
         </span>
 
@@ -72,13 +73,13 @@
             <li class="nav-item">
               <!-- link ativo -->
               <a
-                class="nav-link bg-gold text-black rounded px-3 py-1 me-3"
+                class="nav-link text-white rounded me-3"
                 href="index.html"
                 >Home</a
               >
             </li>
             <li class="nav-item">
-              <a class="nav-link text-white me-3" href="skills.html">Skills</a>
+              <a class="nav-link bg-gold rounded text-black px-3 py-1 me-3" href="skills.html">Skills</a>
             </li>
             <li class="nav-item">
               <a class="nav-link text-white me-3" href="#">About</a>
@@ -106,135 +107,54 @@
         </div>
       </div>
     </nav>
-    <div
-      id="heroCarousel"
-      class="carousel slide fixed-carousel-height"
-      data-bs-ride="carousel"
-    >
-      <!-- Indicadores (bolinhas) -->
-      <div class="carousel-indicators">
-        <button
-          type="button"
-          data-bs-target="#heroCarousel"
-          data-bs-slide-to="0"
-          class="active"
-          aria-current="true"
-          aria-label="Slide 1"
-        ></button>
-        <button
-          type="button"
-          data-bs-target="#heroCarousel"
-          data-bs-slide-to="1"
-          aria-label="Slide 2"
-        ></button>
-        <button
-          type="button"
-          data-bs-target="#heroCarousel"
-          data-bs-slide-to="2"
-          aria-label="Slide 3"
-        ></button>
-      </div>
+    <!-- FIM NAVBAR -->
 
-      <!-- Slides -->
-      <div class="carousel-inner h-100">
-        <div class="carousel-item active h-100" data-bs-interval="4000">
-          <img
-            src="../img/hogwarts1.webp"
-            class="d-block w-100 h-100 carousel-img-fixed"
-            alt="Slide 1"
-          />
-          <div class="carousel-caption d-none d-md-block">
-            <h5>Primeiro slide</h5>
-            <p>Um texto de exemplo aqui.</p>
-          </div>
-        </div>
-        <div class="carousel-item h-100" data-bs-interval="4000">
-          <img
-            src="../img/hogwarts2.webp"
-            class="d-block w-100 h-100 carousel-img-fixed"
-            alt="Slide 2"
-          />
-          <div class="carousel-caption d-none d-md-block">
-            <h5>Segundo slide</h5>
-            <p>Outro texto de exemplo.</p>
-          </div>
-        </div>
-        <div class="carousel-item h-100" data-bs-interval="4000">
-          <img
-            src="../img/hogwarts3.webp"
-            class="d-block w-100 h-100 carousel-img-fixed"
-            alt="Slide 3"
-          />
-          <div class="carousel-caption d-none d-md-block">
-            <h5>Terceiro slide</h5>
-            <p>Mais conteúdo.</p>
-          </div>
-        </div>
-      </div>
 
-      <!-- Controles -->
-      <button
-        class="carousel-control-prev"
-        type="button"
-        data-bs-target="#heroCarousel"
-        data-bs-slide="prev"
-      >
-        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Anterior</span>
-      </button>
-      <button
-        class="carousel-control-next"
-        type="button"
-        data-bs-target="#heroCarousel"
-        data-bs-slide="next"
-      >
-        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Seguinte</span>
-      </button>
-    </div>
-    <!-- FOOTER Contact Me -->
-    <footer class="bg-red-dark text-white py-4 mt-0">
+    <!-- SKILLS SECTION BONITA -->
+    <section class="skills-section py-5">
       <div class="container">
-        <h4 class="mb-3">Contact Me</h4>
-        <form
-          class="row g-3"
-          action="mailto:A52345@alunos.isel.pt"
-          method="POST"
-          enctype="text/plain"
-        >
-          <div class="col-md-6">
-            <input
-              type="text"
-              class="form-control"
-              name="Name"
-              placeholder="Your Name"
-              required
-            />
+        <h2 class="text-center fw-bold mb-1 text-white">MY SKILLS</h2>
+        <h5 class="text-center fst-italic mb-4 text-gold">Multimedia And Machine Learning</h5>
+        <div class="row g-4 justify-content-center">
+          <div class="col-12 col-md-6 col-lg-6">
+            <div class="skill-card text-center p-4 h-100">
+              <div class="icon-box mb-3 mx-auto">
+                <i class="bi bi-filetype-html"></i>
+              </div>
+              <h5 class="fw-bold text-gold">WEB</h5>
+              <p class="small text-white-50">HTML, CSS, JavaScript, Angular, Bootstrap, Node.js, Ionic.</p>
+            </div>
           </div>
-          <div class="col-md-6">
-            <input
-              type="email"
-              class="form-control"
-              name="Email"
-              placeholder="Your Email"
-              required
-            />
+          <div class="col-12 col-md-6 col-lg-6">
+            <div class="skill-card text-center p-4 h-100">
+              <div class="icon-box mb-3 mx-auto">
+                <i class="bi bi-phone"></i>
+              </div>
+              <h5 class="fw-bold text-gold">MOBILE</h5>
+              <p class="small text-white-50">Mobile apps, native & hybrid frameworks, multiplatform design.</p>
+            </div>
           </div>
-          <div class="col-12">
-            <textarea
-              class="form-control"
-              name="Message"
-              rows="3"
-              placeholder="Your Message"
-              required
-            ></textarea>
+          <div class="col-12 col-md-6 col-lg-6">
+            <div class="skill-card text-center p-4 h-100">
+              <div class="icon-box mb-3 mx-auto">
+                <i class="bi bi-image"></i>
+              </div>
+              <h5 class="fw-bold text-gold">MULTIMEDIA</h5>
+              <p class="small text-white-50">Audio, image, video editing, 3D computation, authoring.</p>
+            </div>
           </div>
-          <div class="col-12">
-            <button type="submit" class="btn btn-gold text-black">Send</button>
+          <div class="col-12 col-md-6 col-lg-6">
+            <div class="skill-card text-center p-4 h-100">
+              <div class="icon-box mb-3 mx-auto">
+                <i class="bi bi-cpu"></i>
+              </div>
+              <h5 class="fw-bold text-gold">MACHINE LEARNING</h5>
+              <p class="small text-white-50">Machine Learning, Deep Learning, multimedia retrieval.</p>
+            </div>
           </div>
-        </form>
+        </div>
       </div>
-    </footer>
+    </section>
 
     <!-- Optional JavaScript -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
