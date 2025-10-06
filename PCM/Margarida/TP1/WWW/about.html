@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
   <head>
     <title>About me!</title>
     <!-- Required meta tags -->
@@ -33,35 +32,7 @@
     <!-- Main CSS -->
     <link rel="stylesheet" href="../css/main.css" />
   </head>
-  <body>
-    <div
-        class="p-3 mb-2 bg-roxoacinzentado text-white d-flex align-items-center"
-      >
-        <a
-          class="navbar-brand me-3"
-          href="https://facebook.com/"
-        >
-          <i class="bi bi-facebook fs-3"></i>
-        </a>
-        <a class="navbar-brand me-3" href="https://x.com/">
-          <i class="bi bi-twitter-x fs-3"></i>
-        </a>
-        <a class="navbar-brand me-3" href="https://www.instagram.com/">
-          <i class="bi bi-instagram fs-3"></i>
-        </a>
-        <a class="navbar-brand me-3" href="https://pt.linkedin.com/">
-          <i class="bi bi-linkedin fs-3"></i>
-        </a>
-        <a class="navbar-brand me-3" href="https://github.com/msca0431">
-          <i class="bi bi-github fs-3"></i>
-        </a>
-        <i class="bi bi-moon-stars fs-10 me-3"></i>
-        <span class="ms-auto fs-5"
-          ><i class="bi bi-star"></i> All Rights Reserved
-          <i class="bi bi-moon"></i
-        ></span>
-    </div>
-
+  <body class="d-flex flex-column min-vh-100 font-monospace">
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
       <!-- a primeira border é para chamar a broda, a segunda border-n é para definir a grossura
         a border-azulado é para definir a cor e rounded é para arredondar os cantos e px-2 é o espaçamento do texto à borda-->
@@ -84,17 +55,21 @@
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav">
           <li class="nav-item active">
-            <a class="nav-link text-azulado me-3 ms-2" href="http://127.0.0.1:5500/TP1/WWW/index.html"
+            <a
+              class="nav-link text-azulado me-3 ms-2"
+              href="http://127.0.0.1:5500/WWW/index.html"
               >Home</a
             >
           </li>
           <li class="nav-item">
-            <a class="nav-link text-azulado me-3 ms-2" href="http://127.0.0.1:5500/TP1/WWW/skills.html">Skills</a>
+            <a
+              class="nav-link text-azulado me-3 ms-2"
+              href="http://127.0.0.1:5500/WWW/skills.html"
+              >Skills</a
+            >
           </li>
           <li class="nav-item">
-            <a
-              class="nav-link text-roxoacinzentado me-3 ms-2 disabled"
-              href="#"
+            <a class="nav-link text-roxoacinzentado me-3 ms-2 disabled" href="#"
               >About <span class="sr-only">(current)</span></a
             >
           </li>
@@ -117,7 +92,9 @@
             </ul>
           </li>
           <li class="nav-item">
-            <a class="nav-link text-azulado me-3 ms-2" href="#">Contact Me!</a>
+            <a class="nav-link text-azulado me-3 ms-2" href="#footer-contact"
+              >Contact Me!</a
+            >
           </li>
         </ul>
       </div>
@@ -128,8 +105,55 @@
           <h1 class="text-azulado">
             A little about me! <i class="bi bi-emoji-sunglasses"></i>
           </h1>
-          <p class="lead">I'm learning html!</p>
+          <font size="4"class="text-azulado">I'm learning html!</font>
         </div>
+      </div>
+    </div>
+    <!-- parte de cima do footer-->
+    <div class="footer-top bg-roxoacinzentado text-white mt-auto">
+      <div
+        class="p-3 mb-2 bg-roxoacinzentado text-white d-flex align-items-center justify-content-center"
+      >
+        <a class="navbar-brand me-3" href="https://facebook.com/">
+          <i class="bi bi-facebook fs-3"></i>
+        </a>
+        <a class="navbar-brand me-3" href="https://x.com/">
+          <i class="bi bi-twitter-x fs-3"></i>
+        </a>
+        <a class="navbar-brand me-3" href="https://www.instagram.com/">
+          <i class="bi bi-instagram fs-3"></i>
+        </a>
+        <a class="navbar-brand me-3" href="https://pt.linkedin.com/">
+          <i class="bi bi-linkedin fs-3"></i>
+        </a>
+        <a class="navbar-brand me-3" href="https://github.com/msca0431">
+          <i class="bi bi-github fs-3"></i>
+        </a>
+      </div>
+    </div>
+    <hr class="my-0" />
+    <!-- parte de baixo do footer-->
+    <div
+      id="footer-contact"
+      class="footer-center bg-roxoacinzentado text-white py-5"
+    >
+      <div class="container text-center">
+        <h3>Contact Me</h3>
+        <p>If you liked my work please send me a message at:</p>
+        <p class="mb-2">
+          <a
+            href="mailto: A52146@alunos.isel.pt"
+            class="text-white text-decoration-underline"
+            >A52146@alunos.isel.pt</a
+          >
+        </p>
+      </div>
+      <div class="text-center mt-2">
+        <span class="fs-5">
+          <i class="bi bi-star"></i>
+          All Rights Reserved
+          <i class="bi bi-moon"></i>
+        </span>
       </div>
     </div>
 

@@ -33,34 +33,7 @@
     <link rel="stylesheet" href="../css/main.css" />
   </head>
 
-  <body>
-    <!-- Barra de cima -->
-    <div
-      class="p-3 mb-2 bg-roxoacinzentado text-white d-flex align-items-center"
-    >
-      <a class="navbar-brand me-3" href="https://facebook.com/">
-        <i class="bi bi-facebook fs-3"></i>
-      </a>
-      <a class="navbar-brand me-3" href="https://x.com/">
-        <i class="bi bi-twitter-x fs-3"></i>
-      </a>
-      <a class="navbar-brand me-3" href="https://www.instagram.com/">
-        <i class="bi bi-instagram fs-3"></i>
-      </a>
-      <a class="navbar-brand me-3" href="https://pt.linkedin.com/">
-        <i class="bi bi-linkedin fs-3"></i>
-      </a>
-      <a class="navbar-brand me-3" href="https://github.com/msca0431">
-        <i class="bi bi-github fs-3"></i>
-      </a>
-      <i class="bi bi-moon-stars fs-10 me-3"></i>
-      <!-- coloquei um espaço a mais no fim da estrela para ficar bem formatado no mobile-->
-      <span class="ms-auto fs-5"
-        ><i class="bi bi-star"></i> All Rights Reserved
-        <i class="bi bi-moon"></i
-      ></span>
-    </div>
-
+  <body class="d-flex flex-column min-vh-100 font-monospace">
     <!-- Barra de nav -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
       <!-- a primeira border é para chamar a broda, a segunda border-n é para definir a grossura
@@ -91,14 +64,14 @@
           <li class="nav-item">
             <a
               class="nav-link text-azulado me-3 ms-2"
-              href="http://127.0.0.1:5500/TP1/WWW/skills.html"
+              href="http://127.0.0.1:5500/WWW/skills.html"
               >Skills</a
             >
           </li>
           <li class="nav-item">
             <a
               class="nav-link text-azulado me-3 ms-2"
-              href="http://127.0.0.1:5500/TP1/WWW/about.html"
+              href="http://127.0.0.1:5500/WWW/about.html"
               >About</a
             >
           </li>
@@ -121,13 +94,15 @@
             </ul>
           </li>
           <li class="nav-item">
-            <a class="nav-link text-azulado me-3 ms-2" href="#">Contact Me!</a>
+            <a class="nav-link text-azulado me-3 ms-2" href="#footer-contact"
+              >Contact Me!</a
+            >
           </li>
         </ul>
       </div>
     </nav>
 
-    <!-- inicio do site cenas escritas e isso-->
+    <!-- inicio do site cenas escritas e isso
     <div class="container-fluid">
       <div class="row">
         <div class="col-md-12 text-center my-5">
@@ -138,6 +113,8 @@
         </div>
       </div>
     </div>
+    -->
+
     <!--codigo do carrosel das imagens-->
     <div
       id="carouselExampleIndicators"
@@ -149,14 +126,14 @@
           type="button"
           data-bs-target="#carouselExampleIndicators"
           data-bs-slide-to="0"
-          class="active"
-          aria-current="true"
           aria-label="Slide 1"
         ></button>
         <button
           type="button"
           data-bs-target="#carouselExampleIndicators"
           data-bs-slide-to="1"
+          class="active"
+          aria-current="true"
           aria-label="Slide 2"
         ></button>
         <button
@@ -168,40 +145,43 @@
       </div>
 
       <div class="carousel-inner">
-        <div class="carousel-item active" data-bs-interval="4000">
+        <div class="carousel-item" data-bs-interval="4000">
           <img
-            src="../img/projects-tea-2.jpeg"
+            src="../img/Periwinkle_Plant.webp"
             class="img-fluid w-100"
-            alt="Matcha time :D"
+            alt="Flores periwinkle de perto"
           />
-          <div class="carousel-caption d-none d-md-block">
-            <h5>Matcha</h5>
-            <p>hmmm... love it!</p>
+          <div class="carousel-caption d-block top-50 translate-center">
+            <h1>As you can see...</h1>
+            <p>My favourite pallet is bluish purple (Periwinkle)</p>
           </div>
         </div>
-        <div class="carousel-item">
+        <div class="carousel-item active">
           <div class="d-flex justify-content-center align-items-center">
             <img
-              src="../img/img3s.jpg"
-              class="img-fluid h-100"
-              alt="Jogo vintage(?)"
+              src="../img/pngtree-periwinkle-blue-business-annual-background-board-image_1504642.jpg"
+              class="img-fluid w-100"
+              alt="Imagem basica de fundo"
             />
-            <div class="carousel-caption d-none d-md-block">
-              <h5>THe Game</h5>
-              <p>You lose! :P</p>
+            <div class="carousel-caption d-block top-50 translate-center">
+              <h1 class="text-periwinkle">
+                Welcome to my online portfolio!
+                <i class="bi bi-emoji-smile"></i>
+              </h1>
+              <p class="lead">Take a look at what I've been cooking...</p>
             </div>
           </div>
         </div>
         <div class="carousel-item">
           <div class="d-flex justify-content-center align-items-center">
             <img
-              src="../img/projects-coffee-3.jpeg"
-              class="img-fluid h-100"
-              alt="Bom dia! ou noite "
+              src="../img/Periwinkle_Plants.webp"
+              class="img-fluid w-100"
+              alt="flores com arvore de fundo"
             />
-            <div class="carousel-caption d-none d-md-block">
-              <h5>Chá, cafe ou laranjada?</h5>
-              <p>Uma brisa sff!</p>
+            <div class="carousel-caption d-block top-50 translate-center">
+              <h1>I'm a student learning html!</h1>
+              <p>Currently at ISEL in LEIM</p>
             </div>
           </div>
         </div>
@@ -224,6 +204,53 @@
         <span class="carousel-control-next-icon" aria-hidden="true"></span>
         <span class="sr-only">Next</span>
       </a>
+    </div>
+    <!-- parte de cima do footer-->
+    <div class="footer-top bg-roxoacinzentado text-white mt-auto">
+      <div
+        class="p-3 mb-2 bg-roxoacinzentado text-white d-flex align-items-center justify-content-center"
+      >
+        <a class="navbar-brand me-3" href="https://facebook.com/">
+          <i class="bi bi-facebook fs-3"></i>
+        </a>
+        <a class="navbar-brand me-3" href="https://x.com/">
+          <i class="bi bi-twitter-x fs-3"></i>
+        </a>
+        <a class="navbar-brand me-3" href="https://www.instagram.com/">
+          <i class="bi bi-instagram fs-3"></i>
+        </a>
+        <a class="navbar-brand me-3" href="https://pt.linkedin.com/">
+          <i class="bi bi-linkedin fs-3"></i>
+        </a>
+        <a class="navbar-brand me-3" href="https://github.com/msca0431">
+          <i class="bi bi-github fs-3"></i>
+        </a>
+      </div>
+    </div>
+    <hr class="my-0" />
+    <!-- parte de baixo do footer-->
+    <div
+      id="footer-contact"
+      class="footer-center bg-roxoacinzentado text-white py-3"
+    >
+      <div class="container text-center">
+        <h3>Contact Me</h3>
+        <p>If you liked my work please send me a message at:</p>
+        <p class="mb-2">
+          <a
+            href="mailto: A52146@alunos.isel.pt"
+            class="text-white text-decoration-underline"
+            >A52146@alunos.isel.pt</a
+          >
+        </p>
+      </div>
+      <div class="text-center mt-2">
+        <span class="fs-5">
+          <i class="bi bi-star"></i>
+          All Rights Reserved
+          <i class="bi bi-moon"></i>
+        </span>
+      </div>
     </div>
 
     <!-- Optional JavaScript -->
