@@ -1,3 +1,19 @@
+/* Remover hover da navbar-brand */
+.navbar-brand {
+  pointer-events: none;
+}
+/* Botão dourado para o formulário de contato */
+.btn-gold {
+  background-color: #d3a625;
+  color: #000 !important;
+  border: none;
+  transition: background 0.2s;
+}
+.btn-gold:hover,
+.btn-gold:focus {
+  background-color: #bfa12a;
+  color: #fff !important;
+}
 /* Carousel altura fixa e imagens sempre do mesmo tamanho */
 .fixed-carousel-height {
   height: 500px;
@@ -79,20 +95,4 @@ body {
 
 nav.navbar {
   position: static;
-}
-
-/* Normal: branco */
-#menu .nav-link {
-  color: #ffffff !important;
-  transition: color 0.3s ease;
-}
-
-/* Hover: dourado */
-#menu .nav-link:hover {
-  color: #d3a625 !important;
-}
-
-/* Ativo: dourado */
-#menu .nav-link.active {
-  color: #d3a625 !important;
 }
