@@ -48,7 +48,7 @@
     </div>
 
     <!-- NAVBAR -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-red-dark">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-red-dark sticky-top">
       <div class="container-fluid">
         <!-- Brand em caixa -->
         <span
@@ -77,11 +77,17 @@
         <div class="collapse navbar-collapse justify-content-center" id="menu">
           <ul class="navbar-nav">
             <li class="nav-item">
-              <a class="nav-link text-white rounded me-3" href="index.html">Home</a>
+              <a class="nav-link text-white rounded me-3" href="index.html"
+                >Home</a
+              >
             </li>
             <li class="nav-item">
-              <a class="nav-link active bg-gold rounded text-black px-3 py-1 me-3" aria-current="page" href="skills.html">Skills</a>
-            </li>
+              <a
+                class="nav-link active bg-gold rounded text-black px-3 py-1 me-3"
+                aria-current="page"
+                href="skills.html"
+                >Skills</a
+              >
             </li>
             <li class="nav-item">
               <a class="nav-link text-white me-3" href="about.html">About</a>
@@ -103,7 +109,9 @@
               </ul>
             </li>
             <li class="nav-item">
-              <a class="nav-link text-white me-3" href="#">Contact Me</a>
+              <a class="nav-link text-white me-3" href="#contact-me"
+                >Contact Me</a
+              >
             </li>
           </ul>
         </div>
@@ -168,6 +176,49 @@
         </div>
       </section>
     </main>
+    <!-- FOOTER Contact Me -->
+    <footer id="contact-me" class="bg-red-dark text-white py-4 mt-0">
+      <div class="container">
+        <h4 class="mb-3">Contact Me</h4>
+        <form
+          class="row g-3"
+          action="mailto:A52345@alunos.isel.pt"
+          method="POST"
+          enctype="text/plain"
+        >
+          <div class="col-md-6">
+            <input
+              type="text"
+              class="form-control"
+              name="Name"
+              placeholder="Your Name"
+              required
+            />
+          </div>
+          <div class="col-md-6">
+            <input
+              type="email"
+              class="form-control"
+              name="Email"
+              placeholder="Your Email"
+              required
+            />
+          </div>
+          <div class="col-12">
+            <textarea
+              class="form-control"
+              name="Message"
+              rows="3"
+              placeholder="Your Message"
+              required
+            ></textarea>
+          </div>
+          <div class="col-12">
+            <button type="submit" class="btn btn-gold text-black">Send</button>
+          </div>
+        </form>
+      </div>
+    </footer>
 
     <!-- Optional JavaScript -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>

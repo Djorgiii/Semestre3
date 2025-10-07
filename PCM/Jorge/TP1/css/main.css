@@ -1,3 +1,45 @@
+/* Imagem de fundo da secção About */
+.about-bg-img {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: blur(8px);
+  opacity: 0.4;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* Container acima da imagem */
+.about-container {
+  z-index: 1;
+  position: relative;
+}
+
+/* Ícone About */
+.about-icon {
+  font-size: 2rem;
+}
+
+/* Barra de progresso personalizada */
+.progress-lg {
+  height: 1.5rem;
+}
+.w-70 {
+  width: 70% !important;
+}
+.w-50 {
+  width: 50% !important;
+}
+.w-100 {
+  width: 100% !important;
+}
+.w-30 {
+  width: 30% !important;
+}
 /* Hover branco para ícones das redes sociais na top nav */
 #nav-socials a:hover {
   color: #fff !important;
@@ -76,7 +118,7 @@ body {
 }
 /* Carousel altura fixa e imagens sempre do mesmo tamanho */
 .fixed-carousel-height {
-  height: 500px;
+  height: 650px;
 }
 .fixed-carousel-height .carousel-inner,
 .fixed-carousel-height .carousel-item {
@@ -157,8 +199,4 @@ body {
 
 #nav-socials a:hover {
   color: #ffffff; /* fica branco no hover */
-}
-
-nav.navbar {
-  position: static;
 }
