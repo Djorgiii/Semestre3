@@ -20,6 +20,11 @@
   color: var(--roxoescuro) !important;
   transition: color 0.2s;
 }
+
+.nav-link.active,
+.nav-link.show {
+  color: var(--roxoacinzentado) !important;
+}
 /* paleta de cores para o meu portefolio */
 :root {
   --periwinkle: #ccccff;
