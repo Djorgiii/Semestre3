@@ -200,3 +200,15 @@ body {
 #nav-socials a:hover {
   color: #ffffff; /* fica branco no hover */
 }
+.aspect-16-9 {
+  aspect-ratio: 16/9;
+}
+.project-card-link .card {
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s;
+}
+
+.project-card-link:hover .card {
+  transform: translateY(-6px) scale(1.02);
+  box-shadow: 0 12px 32px 0 #d3a62555;
+  border-color: #d3a625 !important;
+}
