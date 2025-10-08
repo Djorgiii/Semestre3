@@ -1,3 +1,105 @@
+/* Imagem de fundo da secção About */
+.about-bg-img {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: blur(8px);
+  opacity: 0.4;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* Container acima da imagem */
+.about-container {
+  z-index: 1;
+  position: relative;
+}
+
+/* Ícone About */
+.about-icon {
+  font-size: 2rem;
+}
+
+/* Barra de progresso personalizada */
+.progress-lg {
+  height: 1.5rem;
+}
+.w-70 {
+  width: 70% !important;
+}
+.w-50 {
+  width: 50% !important;
+}
+.w-100 {
+  width: 100% !important;
+}
+.w-30 {
+  width: 30% !important;
+}
+/* Hover branco para ícones das redes sociais na top nav */
+#nav-socials a:hover {
+  color: #fff !important;
+}
+/* Skills Section Custom Styles */
+body {
+  background: linear-gradient(135deg, #740001 60%, #ae0001 100%) !important;
+}
+.skill-card {
+  background: rgba(0, 0, 0, 0.85);
+  border-radius: 1.2rem;
+  box-shadow: 0 6px 24px 0 rgba(0, 0, 0, 0.25);
+  transition: transform 0.2s, box-shadow 0.2s;
+  border: 2px solid #d3a62522;
+}
+.skill-card:hover {
+  transform: translateY(-8px) scale(1.04);
+  box-shadow: 0 12px 32px 0 #d3a62555;
+  border-color: #d3a625;
+}
+.icon-box {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #d3a625 60%, #fffbe6 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.5rem;
+  color: #740001;
+  box-shadow: 0 2px 8px 0 #0002;
+}
+/* Skills Section Custom Styles */
+.skills-section {
+  background: linear-gradient(135deg, #740001 60%, #ae0001 100%);
+}
+.skill-card {
+  background: rgba(0, 0, 0, 0.85);
+  border-radius: 1.2rem;
+  box-shadow: 0 6px 24px 0 rgba(0, 0, 0, 0.25);
+  transition: transform 0.2s, box-shadow 0.2s;
+  border: 2px solid #d3a62522;
+}
+.skill-card:hover {
+  transform: translateY(-8px) scale(1.04);
+  box-shadow: 0 12px 32px 0 #d3a62555;
+  border-color: #d3a625;
+}
+.icon-box {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #d3a625 60%, #fffbe6 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.5rem;
+  color: #740001;
+  box-shadow: 0 2px 8px 0 #0002;
+}
 /* Remover hover da navbar-brand */
 .navbar-brand {
   pointer-events: none;
@@ -16,7 +118,7 @@
 }
 /* Carousel altura fixa e imagens sempre do mesmo tamanho */
 .fixed-carousel-height {
-  height: 500px;
+  height: 650px;
 }
 .fixed-carousel-height .carousel-inner,
 .fixed-carousel-height .carousel-item {
@@ -30,6 +132,12 @@
 body {
   font-family: "Ubuntu", sans-serif;
   margin: 0;
+}
+
+html,
+body {
+  height: 100%;
+  background: #740001; /* ou a cor de fundo do teu tema */
 }
 
 /* BACKGROUND COLORS */
@@ -91,8 +199,4 @@ body {
 
 #nav-socials a:hover {
   color: #ffffff; /* fica branco no hover */
-}
-
-nav.navbar {
-  position: static;
 }

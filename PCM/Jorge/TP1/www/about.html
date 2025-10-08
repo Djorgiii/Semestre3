@@ -83,14 +83,18 @@
             </li>
             <li class="nav-item">
               <a
-                class="nav-link active bg-gold rounded text-black px-3 py-1 me-3"
+                class="nav-link text-white me-3"
                 aria-current="page"
                 href="skills.html"
                 >Skills</a
               >
             </li>
             <li class="nav-item">
-              <a class="nav-link text-white me-3" href="about.html">About</a>
+              <a
+                class="nav-link active bg-gold text-black rounded px-3 py-1 me-3"
+                href="about.html"
+                >About</a
+              >
             </li>
             <li class="nav-item dropdown">
               <a
@@ -119,59 +123,115 @@
     </nav>
     <!-- FIM NAVBAR -->
 
-    <!-- SKILLS SECTION BONITA -->
+    <!-- ABOUT ME SECTION -->
     <main>
-      <section class="skills-section py-5">
-        <div class="container">
-          <h2 class="text-center fw-bold mb-1 text-white">MY SKILLS</h2>
-          <h5 class="text-center fst-italic mb-4 text-gold">
-            Multimedia And Machine Learning
-          </h5>
-          <div class="row g-4 justify-content-center">
-            <article class="col-12 col-md-6 col-lg-6">
-              <div class="skill-card text-center p-4 h-100">
-                <div class="icon-box mb-3 mx-auto">
-                  <i class="bi bi-filetype-html"></i>
+      <section class="py-5 bg-black position-relative overflow-hidden">
+        <img
+          src="../img/fundoAboutME.webp"
+          alt="Background"
+          class="about-bg-img"
+        />
+        <div class="container position-relative about-container">
+          <div class="row align-items-center justify-content-center">
+            <div class="col-lg-6 mb-4 mb-lg-0">
+              <div class="p-4 rounded border border-gold bg-red-dark">
+                <h2 class="text-center fw-bold text-gold mb-2">ABOUT ME</h2>
+                <h5 class="text-center text-gold mb-4">
+                  Teaching, Researching and Engineering
+                </h5>
+                <div class="mb-4 text-center">
+                  <i class="bi bi-bar-chart-line text-gold about-icon"></i>
                 </div>
-                <h5 class="fw-bold text-gold">WEB</h5>
-                <p class="small text-white-50">
-                  HTML, CSS, JavaScript, Angular, Bootstrap, Node.js, Ionic.
+                <div class="mb-3">
+                  <div
+                    class="d-flex justify-content-between text-gold small mb-1"
+                  >
+                    <span>WEB</span><span>70%</span>
+                  </div>
+                  <div class="progress bg-black progress-lg">
+                    <div
+                      class="progress-bar bg-gold progress-bar-striped progress-bar-animated w-70"
+                      role="progressbar"
+                      aria-valuenow="70"
+                      aria-valuemin="0"
+                      aria-valuemax="100"
+                    >
+                      70%
+                    </div>
+                  </div>
+                </div>
+                <div class="mb-3">
+                  <div
+                    class="d-flex justify-content-between text-gold small mb-1"
+                  >
+                    <span>MOBILE</span><span>50%</span>
+                  </div>
+                  <div class="progress bg-black progress-lg">
+                    <div
+                      class="progress-bar bg-gold progress-bar-striped progress-bar-animated w-50"
+                      role="progressbar"
+                      aria-valuenow="50"
+                      aria-valuemin="0"
+                      aria-valuemax="100"
+                    >
+                      50%
+                    </div>
+                  </div>
+                </div>
+                <div class="mb-3">
+                  <div
+                    class="d-flex justify-content-between text-gold small mb-1"
+                  >
+                    <span>MULTIMEDIA</span><span>100%</span>
+                  </div>
+                  <div class="progress bg-black progress-lg">
+                    <div
+                      class="progress-bar bg-gold progress-bar-striped progress-bar-animated w-100"
+                      role="progressbar"
+                      aria-valuenow="100"
+                      aria-valuemin="0"
+                      aria-valuemax="100"
+                    >
+                      100%
+                    </div>
+                  </div>
+                </div>
+                <div class="mb-3">
+                  <div
+                    class="d-flex justify-content-between text-gold small mb-1"
+                  >
+                    <span>MACHINE LEARNING</span><span>30%</span>
+                  </div>
+                  <div class="progress bg-black progress-lg">
+                    <div
+                      class="progress-bar bg-gold progress-bar-striped progress-bar-animated w-30"
+                      role="progressbar"
+                      aria-valuenow="30"
+                      aria-valuemin="0"
+                      aria-valuemax="100"
+                    >
+                      30%
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-6 d-flex flex-column align-items-center">
+              <div class="mb-4">
+                <h3 class="fw-bold text-gold text-center">
+                  ALWAYS LEARNING AND PUSHING BOUNDARIES
+                </h3>
+                <p class="text-white-50 text-center">
+                  See my detailed resume to understand my boundaries
                 </p>
               </div>
-            </article>
-            <article class="col-12 col-md-6 col-lg-6">
-              <div class="skill-card text-center p-4 h-100">
-                <div class="icon-box mb-3 mx-auto">
-                  <i class="bi bi-phone"></i>
-                </div>
-                <h5 class="fw-bold text-gold">MOBILE</h5>
-                <p class="small text-white-50">
-                  Mobile apps, native & hybrid frameworks, multiplatform design.
-                </p>
-              </div>
-            </article>
-            <article class="col-12 col-md-6 col-lg-6">
-              <div class="skill-card text-center p-4 h-100">
-                <div class="icon-box mb-3 mx-auto">
-                  <i class="bi bi-image"></i>
-                </div>
-                <h5 class="fw-bold text-gold">MULTIMEDIA</h5>
-                <p class="small text-white-50">
-                  Audio, image, video editing, 3D computation, authoring.
-                </p>
-              </div>
-            </article>
-            <article class="col-12 col-md-6 col-lg-6">
-              <div class="skill-card text-center p-4 h-100">
-                <div class="icon-box mb-3 mx-auto">
-                  <i class="bi bi-cpu"></i>
-                </div>
-                <h5 class="fw-bold text-gold">MACHINE LEARNING</h5>
-                <p class="small text-white-50">
-                  Machine Learning, Deep Learning, multimedia retrieval.
-                </p>
-              </div>
-            </article>
+              <a
+                href="../docs/CV.pdf"
+                class="btn btn-gold text-black px-4 py-2 shadow"
+                target="_blank"
+                >DOWNLOAD RESUME</a
+              >
+            </div>
           </div>
         </div>
       </section>
