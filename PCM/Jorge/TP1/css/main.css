@@ -1,3 +1,16 @@
+/* Centralizar legendas do carousel verticalmente */
+.carousel-caption-center {
+  top: 0 !important;
+  bottom: 0 !important;
+  left: 0;
+  right: 0;
+  height: 100%;
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding-bottom: 0;
+}
 /* Tamanho máximo para imagem do projeto modelação */
 .project-img {
   max-width: 420px;
@@ -37,12 +50,6 @@
   pointer-events: none;
 }
 
-/* Container acima da imagem */
-.about-container {
-  z-index: 1;
-  position: relative;
-}
-
 /* Ícone About */
 .about-icon {
   font-size: 2rem;
@@ -52,14 +59,14 @@
 .progress-lg {
   height: 1.5rem;
 }
-.w-70 {
-  width: 70% !important;
+.w-90 {
+  width: 90% !important;
+}
+.w-75 {
+  width: 75% !important;
 }
 .w-50 {
   width: 50% !important;
-}
-.w-100 {
-  width: 100% !important;
 }
 .w-30 {
   width: 30% !important;
@@ -68,17 +75,7 @@
 #nav-socials a:hover {
   color: #fff !important;
 }
-/* Skills Section Custom Styles */
-body {
-  background: linear-gradient(135deg, #740001 60%, #ae0001 100%) !important;
-}
-.skill-card {
-  background: rgba(0, 0, 0, 0.85);
-  border-radius: 1.2rem;
-  box-shadow: 0 6px 24px 0 rgba(0, 0, 0, 0.25);
-  transition: transform 0.2s, box-shadow 0.2s;
-  border: 2px solid #d3a62522;
-}
+
 .skill-card:hover {
   transform: translateY(-8px) scale(1.04);
   box-shadow: 0 12px 32px 0 #d3a62555;
@@ -96,10 +93,6 @@ body {
   color: #740001;
   box-shadow: 0 2px 8px 0 #0002;
 }
-/* Skills Section Custom Styles */
-.skills-section {
-  background: linear-gradient(135deg, #740001 60%, #ae0001 100%);
-}
 .skill-card {
   background: rgba(0, 0, 0, 0.85);
   border-radius: 1.2rem;
@@ -112,18 +105,7 @@ body {
   box-shadow: 0 12px 32px 0 #d3a62555;
   border-color: #d3a625;
 }
-.icon-box {
-  width: 64px;
-  height: 64px;
-  border-radius: 50%;
-  background: linear-gradient(135deg, #d3a625 60%, #fffbe6 100%);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 2.5rem;
-  color: #740001;
-  box-shadow: 0 2px 8px 0 #0002;
-}
+
 /* Remover hover da navbar-brand */
 .navbar-brand {
   pointer-events: none;
@@ -131,9 +113,7 @@ body {
 /* Botão dourado para o formulário de contato */
 .btn-gold {
   background-color: #d3a625;
-  color: #000 !important;
   border: none;
-  transition: background 0.2s;
 }
 .btn-gold:hover,
 .btn-gold:focus {
@@ -229,7 +209,7 @@ body {
 }
 
 .project-card-link .card {
-  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s;
+  transition: transform 0.25s ease, border-color 0.25s;
 }
 
 .project-card-link:hover .card {
