@@ -89,9 +89,20 @@
               <span class="sr-only">(current)</span></a
             >
             <ul class="dropdown-menu" aria-labelledby="projectsDropdown">
-              <li><a class="dropdown-item" href="#">Projeto 1</a></li>
-              <li><a class="dropdown-item" href="#">Projeto 2</a></li>
-              <li><a class="dropdown-item" href="#">Projeto 3</a></li>
+              <li>
+                <a class="dropdown-item" href="#videoMAE">PyGame Project </a>
+              </li>
+              <li>
+                <a class="dropdown-item" href="#carouselMAV"
+                  >Blender Project
+                </a>
+              </li>
+              <li>
+                <a class="dropdown-item" href="#carouselDV">Design Project </a>
+              </li>
+              <li>
+                <a class="dropdown-item" href="#cpuCF">Hardware Project </a>
+              </li>
             </ul>
           </li>
           <li class="nav-item">
@@ -122,57 +133,132 @@
     </div>
 
     <!-- inicio das cartas com as imagens dos projetos-->
-    <div class="row row-cols-1 row-cols-md-2 g-4">
-      <div class="col">
+    <div class="row row-cols-1 row-cols-md-2 g-4 ms-3 mb-4">
+      <div id="videoMAE" class="card">
+        <video controls muted>
+          <source src="../video/Video_movimento_A52146.mp4" type="video/mp4" />
+          Seu navegador não suporta vídeo.
+        </video>
+        <div class="card-body">
+          <h5 class="card-title">Project PyGame</h5>
+          <p class="card-text">
+            This was a project made in MAE class, using python and mathematic
+            calculations. I choose a Madeira rally track for the car to run by.
+          </p>
+        </div>
+      </div>
+
+      <!-- carrosel de mav-->
+      <div class="col-md-4">
         <div class="card">
-          <img src="../img/img2.jpg" class="card-img-top" alt="..." />
+          <div id="carouselMAV" class="carousel slide">
+            <div class="carousel-inner">
+              <div class="carousel-item active card-img-top">
+                <img
+                  src="../img/cara.jpg"
+                  class="d-block w-100"
+                  alt="cara do blender"
+                />
+              </div>
+              <div class="carousel-item card-img-top">
+                <img
+                  src="../img/allears.jpg"
+                  class="d-block w-100"
+                  alt="ourelhas"
+                />
+              </div>
+            </div>
+            <button
+              class="carousel-control-prev"
+              type="button"
+              data-bs-target="#carouselMAV"
+              data-bs-slide="prev"
+            >
+              <span class="carousel-control-prev-icon"></span>
+            </button>
+            <button
+              class="carousel-control-next"
+              type="button"
+              data-bs-target="#carouselMAV"
+              data-bs-slide="next"
+            >
+              <span class="carousel-control-next-icon"></span>
+            </button>
+          </div>
           <div class="card-body">
-            <h5 class="card-title">Card title</h5>
+            <h5 class="card-title">Blender Character</h5>
             <p class="card-text">
-              This is a longer card with supporting text below as a natural
-              lead-in to additional content. This content is a little bit
-              longer.
+              This project was for MAV class, we molded form the beginning a
+              character on Blender. This project made me learn a new tool and
+              was very fun to experiment with.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row row-cols-1 row-cols-md-2 g-4 ms-3 mb-3">
+      <!-- carrosel de dv-->
+      <div class="col-md-4">
+        <div class="card">
+          <div id="carouselDV" class="carousel slide">
+            <div class="carousel-inner">
+              <div class="carousel-item active card-img-top">
+                <img
+                  src="../img/logoPreto.png"
+                  class="d-block w-100"
+                  alt="cara do blender"
+                />
+              </div>
+              <div class="carousel-item card-img-top">
+                <img
+                  src="../img/rascunho1.jpg"
+                  class="d-block w-100"
+                  alt="ourelhas"
+                />
+              </div>
+            </div>
+            <button
+              class="carousel-control-prev"
+              type="button"
+              data-bs-target="#carouselDV"
+              data-bs-slide="prev"
+            >
+              <span class="carousel-control-prev-icon"></span>
+            </button>
+            <button
+              class="carousel-control-next"
+              type="button"
+              data-bs-target="#carouselDV"
+              data-bs-slide="next"
+            >
+              <span class="carousel-control-next-icon"></span>
+            </button>
+          </div>
+          <div class="card-body">
+            <h5 class="card-title">Visual Design Project</h5>
+            <p class="card-text">
+              This project was for DV class, I needed to create a technology
+              startup on a area we wanted, and from there develop a logo for it.
+              I choose a euroasian black bird for my mascot.
             </p>
           </div>
         </div>
       </div>
 
-      <div class="col">
-        <div class="card">
-          <img src="../img/img1.jpg" class="card-img-top" alt="..." />
+      <div class="col-md-4">
+        <div id="cpuCF" class="card card-img-top">
+          <img
+            src="../img/MealyJKFINAL.drawio.png"
+            class="card-img-top"
+            alt="diagrama de memoria jk"
+          />
           <div class="card-body">
-            <h5 class="card-title">Card title</h5>
+            <h5 class="card-title">Hardware Project</h5>
             <p class="card-text">
-              This is a longer card with supporting text below as a natural
-              lead-in to additional content. This content is a little bit
-              longer.
-            </p>
-          </div>
-        </div>
-      </div>
-
-      <div class="col">
-        <div class="card">
-          <img src="../img/img4.jpg" class="card-img-top" alt="..." />
-          <div class="card-body">
-            <h5 class="card-title">Card title</h5>
-            <p class="card-text">
-              This is a longer card with supporting text below as a natural
-              lead-in to additional content.
-            </p>
-          </div>
-        </div>
-      </div>
-
-      <div class="col">
-        <div class="card">
-          <img src="../img/img3.jpg" class="card-img-top" alt="..." />
-          <div class="card-body">
-            <h5 class="card-title">Card title</h5>
-            <p class="card-text">
-              This is a longer card with supporting text below as a natural
-              lead-in to additional content. This content is a little bit
-              longer.
+              This is a snap of a project develop with my coleages in CF class,
+              we drew and implemented in Arduino a simulator of a J-K memorie
+              slot, from the logic implemention to the big scheme of a full
+              running CPU.
             </p>
           </div>
         </div>
