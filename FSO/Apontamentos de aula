@@ -110,3 +110,109 @@ consumidor vai ser o primeiro a inicializar
  
 
 criar classe base tarefa( que deriva da classe thread do java) e depois outras duas que derivam dessa, tarefaPing e tarefaPong;
+
+public class Monitor{
+	public Monitor(){
+
+	}
+
+	synchornized void metodo1(){
+
+	}
+	synchornized void metodo2(){
+
+	}
+}
+
+flag lock - é posta no synchonited para verificar se o metodo esta a ser usado por outra thread
+se estiver a ser usado por outra thread a flag lock esta a true e a thread que quer usar o metodo fica bloqueada ate a flag lock ficar a false
+
+monitor m = new monitor();
+m.metodo1(); // se o metodo1 estiver a ser usado por outra thread a thread que quer usar o metodo1 fica bloqueada ate o metodo1 ficar livre
+toma posse da flag lock, o mesmo objeto 
+m.metodo2(); 
+não ocnsegue executar o metodo 2 porque o metodo1 esta a ser usado por outra thread, so se for sychonized é que não deixa passar, se não deixa passar
+no mesmo espaço dá para sincronizar duas tarefas diferentes 
+existencia da flag lock - sincronized - para ter acesso ao objeto 
+
+6.8. java sychronization 
+
+public class Application {
+	private Tarefa1 t1;
+	private Tarefa2 t2;
+	
+	private Semaphore lock;
+	
+	oublic Application() {
+		lock = new Semaphore(1);
+		
+		t1 = new Tarefa1(lock);
+		t2 = new Tarefa2(lock);
+		
+		t1.start();
+		new Thread(t2).start();
+	}
+	public vpid static void main(String[] args) {
+		new Application();
+	}
+}
+
+tarefa1
+public class Tarefa1 extends Thread {
+	private Object lock;
+
+	public Tarefa1(Object 0) {
+		lock = 0;
+	}
+	
+	public void dormirRandom(int time) {
+		try {
+			Thread.sleep((long) (Math.random()*time));
+		} catch (InterruptedException e) {e.printStackTrace();
+		}
+	}
+	public void run() {
+		while(true) {
+			synchornized(lock){ //é obrgatorio fazer o lock, nova versão do metodo run da classe thread 
+
+				System.out.print("222222222222222222222222222")
+
+				dormirRandom(1000);
+
+				System.out.print("222222222222222222222222222")
+
+				dormirRandom(1000);
+			}
+			
+			dormirRandom(1000);
+		}
+	} 
+}
+
+synchornized - é uma palavra reservada do java que serve para sincronizar o acesso a um objeto
+wait() - bloqueia a thread que chamou o metodo e liberta o lock do objeto
+notify() - envia uma notificação para o monitor, que uma tarefa que estaja desbloquiada pode desbloquear, 
+se houver varias pela via do notify desbloquia uma 
+notifyAll() - desbloqueia todas as tarefas que estejam bloqueadas pelo monitor 
+
+public class Monitor(){
+	private boolean ocupado;
+
+	public Monitor(boolean b){
+		ocupado = b;
+	}
+
+	public synchronized void monWait() { // wait() e notify() e notifyAll() so podem ser usados em metodos sincronizados
+		while(ocupado) {
+			try {
+				wait(); // bloqueia a thread que chamou o metodo e liberta o lock do objeto
+			} catch (InterruptedException e) {e.printStackTrace();}
+		}
+		ocupado = true;
+	}
+	public synchronized void monSignal() {
+		ocupado = false;
+		notify(); // envia uma notificação para o monitor, que uma tarefa que estaja desbloquiada pode desbloquear uma tarefa para que ela consiga entrar no recurso
+	}
+}
+
