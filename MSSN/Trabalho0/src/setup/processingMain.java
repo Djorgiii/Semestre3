@@ -1,6 +1,7 @@
 package setup;
 import apps.HelloFaceApp1;
 import apps.VolkswagenLogo;
+import JogoDaVida.JogoDaVidaApp;
 import processing.core.PApplet;
 
 public class processingMain extends PApplet {
@@ -10,7 +11,7 @@ public class processingMain extends PApplet {
 	
 	public static void main(String[] args) {
 		
-		app= new VolkswagenLogo();
+		app= new JogoDaVidaApp();
 		PApplet.main(processingMain.class.getName());
 		
 	}
