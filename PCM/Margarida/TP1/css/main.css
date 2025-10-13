@@ -20,6 +20,11 @@
   color: var(--roxoescuro) !important;
   transition: color 0.2s;
 }
+
+.nav-link.active,
+.nav-link.show {
+  color: var(--roxoacinzentado) !important;
+}
 /* paleta de cores para o meu portefolio */
 :root {
   --periwinkle: #ccccff;
@@ -113,3 +118,12 @@ body {
 }
 .w-15 { width: 15% !important; }
 .w-70 { width: 70% !important; }
+
+.card-img-top {
+  height: 500px;         /* ajuste a altura conforme desejar */
+  object-fit: cover;     /* corta e centraliza a imagem/vídeo */
+  width: 100%;
+}
+.card video.card-img-top {
+  background: #222;      /* cor de fundo para vídeos menores */
+}
