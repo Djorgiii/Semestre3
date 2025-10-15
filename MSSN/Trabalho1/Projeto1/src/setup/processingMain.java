@@ -16,9 +16,9 @@ public class processingMain extends PApplet {
 	
 	@Override
 	public void settings() {
-		
-		size(800,600);
-	
+		// Tabuleiro maior para ver ramificações maiores
+		size(1600,1200);
+
 	}
 	
 	@Override

@@ -39,18 +39,15 @@ public class Walker {
 		return false;
 	}
 	public void setState(PApplet p, State state, int stoppedIndex) {
-		this.state = state;
-		this.stoppedIndex = stoppedIndex;
-		if(state == State.STOPPED) {
-			// Gradient from blue to red based on stoppedIndex
-			this.color = p.color(lerp(15, 255, stoppedIndex/100.0f), 50, lerp(150, 0, stoppedIndex/100.0f));
-		} else {
-			// Moving particles are green
-			this.color = p.color(0, 255, 0);
-		}
-	}
-	private float lerp(float a, float b, float t) {
-		return a + (b - a) * t;
+	    this.state = state;
+	    this.stoppedIndex = stoppedIndex;
+	    if(state == State.STOPPED) {
+	        // Cor forte para partículas paradas
+	        this.color = p.color(255, 0, 0); // vermelho forte
+	    } else {
+	        // Moving particles are green
+	        this.color = p.color(0, 255, 0);
+	    }
 	}
 	public void wander(PApplet p) {
 		if(this.state == State.STOPPED) return;
