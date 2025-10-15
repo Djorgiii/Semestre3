@@ -23,7 +23,7 @@ public class processingMain extends PApplet {
 	
 	@Override
 	public void setup() {
-		
+		frameRate(60); // FPS mais alto para fluidez
 		app.setup(this);
 		lastUpdateTime = millis();
 		

@@ -8,8 +8,8 @@ import java.util.List;
 
 public class DLA implements setup.iProcessing {
 	private int NUM_WALKERS = 1000;
-	private int NUM_STEPS_PER_FRAME = 100;
-	private  List<Walker> walkers;	
+	private int NUM_STEPS_PER_FRAME = 300;
+	private  List<Walker> walkers;
 	private int stoppedCount = 2;
 
 	@Override
