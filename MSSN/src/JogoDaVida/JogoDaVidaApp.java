@@ -6,7 +6,7 @@ import setup.iProcessing;
 public class JogoDaVidaApp implements iProcessing {
     private CellularAutomata automata;
 
-    private int cellSize = 12;     // pixels por célula
+    private int cellSize = 8;     // pixels por célula (tabuleiro maior)
     private boolean running = false;
 
     // 👉 NÃO precisa de main() aqui. O launcher da disciplina arranca isto.
@@ -30,14 +30,7 @@ public class JogoDaVidaApp implements iProcessing {
 
         if (running) automata.update();
 
-        parent.noStroke();
-        for (int r = 0; r < automata.getRows(); r++) {
-            for (int c = 0; c < automata.getCols(); c++) {
-                if (automata.isAlive(r, c)) parent.fill(60, 200, 120); // viva
-                else                         parent.fill(60,  40,  70); // morta
-                parent.rect(c * cellSize, r * cellSize, cellSize - 1, cellSize - 1);
-            }
-        }
+        automata.display();
 
         parent.fill(230);
         parent.textSize(14);
@@ -77,8 +70,13 @@ public class JogoDaVidaApp implements iProcessing {
     // ---------- utilitários ----------
     private void randomFill(PApplet parent, float p) {
         for (int r = 0; r < automata.getRows(); r++)
-            for (int c = 0; c < automata.getCols(); c++)
-                automata.setAlive(r, c, parent.random(1) < p);
+            for (int c = 0; c < automata.getCols(); c++) {
+                boolean alive = parent.random(1) < p;
+                automata.setAlive(r, c, alive);
+                if (alive) {
+                    automata.getCellGrid(r, c).setColor(automata.getRandomColor());
+                }
+            }
     }
 
     private void clearAll() {
