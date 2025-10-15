@@ -32,6 +32,7 @@ public class GUI extends JFrame {
     private JTextField textFieldRaio;
     private JTextField textFieldAngulo;
     private JTextField textFieldRobot;
+    private BufferCircular bufferCircular;
     
     private void myPrint(String s) {
 		textAreaConsola.append(s + "\n");
@@ -42,6 +43,7 @@ public class GUI extends JFrame {
      */
     public GUI() {
         bd = new BaseDados();
+        bufferCircular = new BufferCircular();
 
         EventQueue.invokeLater(new Runnable() {
             public void run() {
@@ -244,7 +246,21 @@ public class GUI extends JFrame {
                     JRadioButton rdbtnMovimentosAleatrios = new JRadioButton("Movimentos Aleatórios");
                     rdbtnMovimentosAleatrios.addActionListener(new ActionListener() {
                     	public void actionPerformed(ActionEvent e) {
-                    		
+                    		int numMovimentos = (int) spinner.getValue();
+                            if (!bd.isRobotAberto()) {
+                                myPrint("Abra o robot antes de executar movimentos aleatórios.");
+                                return;
+                            }
+                            // Pass bufferCircular and a Tarefa (can be null or a new Tarefa if needed)
+                            ComandosAleatorios comandos = new ComandosAleatorios(bufferCircular, null);
+                            // Optionally, set parameters in comandos if needed
+                            for (int i = 0; i < numMovimentos; i++) {
+                                // Call execucao() to generate random commands
+                                comandos.execucao();
+                                myPrint("Movimento aleatório " + (i+1) + " gerado.");
+                            }
+                            bd.getRobot().Parar(false);
+                            myPrint("Sequência de movimentos aleatórios concluída.");
                     	}
                     });
                     rdbtnMovimentosAleatrios.setFont(new Font("Tahoma", Font.PLAIN, 18));

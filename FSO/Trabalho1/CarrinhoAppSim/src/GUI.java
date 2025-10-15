@@ -1,5 +1,5 @@
+import java.awt.Color;
 import java.awt.EventQueue;
-import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
@@ -14,12 +14,16 @@ import javax.swing.JTextArea;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JScrollPane;
-import java.awt.Color;
+import java.awt.Font;
+import javax.swing.JSpinner;
+import javax.swing.SpinnerNumberModel;
 
 public class GUI extends JFrame {
 
     private static final long serialVersionUID = 1L;
     private JPanel contentPane;
+
+    private BaseDados bd;
     private JButton btnFrente;
     private JRadioButton rdbtnOnOff;
     private JTextField textFieldDistancia;
@@ -28,8 +32,7 @@ public class GUI extends JFrame {
     private JTextField textFieldRaio;
     private JTextField textFieldAngulo;
     private JTextField textFieldRobot;
-    
-    private BaseDados bd;
+    private BufferCircular bufferCircular;
     
     private void myPrint(String s) {
 		textAreaConsola.append(s + "\n");
@@ -38,10 +41,10 @@ public class GUI extends JFrame {
     /**
      * Create the frame.
      */
-    public GUI(App app) {
-        
-    	bd = app.getBd();
-    	
+    public GUI() {
+        bd = new BaseDados();
+        bufferCircular = new BufferCircular();
+
         EventQueue.invokeLater(new Runnable() {
             public void run() {
                 try { 
@@ -71,8 +74,7 @@ public class GUI extends JFrame {
                         public void actionPerformed(ActionEvent arg0) {
                             bd.getRobot().Reta(bd.getDistancia());
                             bd.getRobot().Parar(false);
-                            myPrint("Fez uma reta de "
-                                    + bd.getDistancia() + " cm.");
+                            myPrint("Fez uma reta de " + bd.getDistancia() + " cm.");	
                         }
                     });
                     btnFrente.setBounds(242, 84, 105, 37);
@@ -103,7 +105,8 @@ public class GUI extends JFrame {
                     contentPane.add(lblDistancia);
                     
                     textFieldDistancia = new JTextField();
-                    textFieldDistancia.setFont(new Font("Tahoma", Font.PLAIN, 12));
+                    textFieldDistancia.setText("33");
+                    textFieldDistancia.setFont(new Font("Tahoma", Font.PLAIN, 16));
                     textFieldDistancia.addActionListener(new ActionListener() {
                     	public void actionPerformed(ActionEvent arg0) {
                     		bd.setDistancia(Integer.parseInt(textFieldDistancia.getText()));
@@ -129,13 +132,14 @@ public class GUI extends JFrame {
                     contentPane.add(lblRaio);
                     
                     textFieldRaio = new JTextField();
+                    textFieldRaio.setText("20");
                     textFieldRaio.addActionListener(new ActionListener() {
                     	public void actionPerformed(ActionEvent e) {
                     		bd.setRaio(Integer.parseInt(textFieldRaio.getText()));
                     		myPrint("O Raio foi alterado para " + bd.getRaio() + " cm.");
                     	}
                     });
-                    textFieldRaio.setFont(new Font("Tahoma", Font.PLAIN, 12));
+                    textFieldRaio.setFont(new Font("Tahoma", Font.PLAIN, 16));
                     textFieldRaio.setBounds(50, 10, 34, 19);
                     contentPane.add(textFieldRaio);
                     textFieldRaio.setColumns(10);
@@ -146,13 +150,14 @@ public class GUI extends JFrame {
                     contentPane.add(lblAngulo);
                     
                     textFieldAngulo = new JTextField();
+                    textFieldAngulo.setText("90");
                     textFieldAngulo.addActionListener(new ActionListener() {
                     	public void actionPerformed(ActionEvent e) {
                     		bd.setAngulo(Integer.parseInt(textFieldAngulo.getText()));
                     		myPrint("O Ângulo foi alterado para " + bd.getAngulo() + " graus.");
                     	}
                     });
-                    textFieldAngulo.setFont(new Font("Tahoma", Font.PLAIN, 12));
+                    textFieldAngulo.setFont(new Font("Tahoma", Font.PLAIN, 16));
                     textFieldAngulo.setColumns(10);
                     textFieldAngulo.setBounds(159, 10, 34, 19);
                     contentPane.add(textFieldAngulo);
@@ -163,19 +168,21 @@ public class GUI extends JFrame {
                     contentPane.add(lblRobot);
                     
                     textFieldRobot = new JTextField();
+                    textFieldRobot.setEditable(false);
+                    textFieldRobot.setText("EV2");
                     textFieldRobot.setFont(new Font("Tahoma", Font.PLAIN, 12));
                     textFieldRobot.setColumns(10);
                     textFieldRobot.setBounds(527, 9, 34, 19);
                     contentPane.add(textFieldRobot);
                     
                     JButton btnParar = new JButton("PARAR");
+                    btnParar.setBackground(new Color(255, 0, 0));
                     btnParar.addActionListener(new ActionListener() {
                     	public void actionPerformed(ActionEvent arg0) {
-                    		bd.getRobot().Parar(false);
+                    		bd.getRobot().Parar(true);
                     		myPrint("O Robot parou!");
                     	}
                     });
-                    btnParar.setBackground(new Color(255, 0, 0));
                     btnParar.setFont(new Font("Tahoma", Font.PLAIN, 16));
                     btnParar.setBounds(242, 119, 105, 37);
                     contentPane.add(btnParar);
@@ -212,7 +219,7 @@ public class GUI extends JFrame {
                     	public void actionPerformed(ActionEvent e) {
                     		bd.getRobot().Reta(bd.getDistancia() * -1);
                             bd.getRobot().Parar(false);
-                            myPrint("Fez uma reta para trás de " + bd.getDistancia() + " cm.");	
+                            myPrint("Fez uma reta de " + bd.getDistancia() + " cm.");	
                     	}
                     });
                     btnTras.setFont(new Font("Tahoma", Font.PLAIN, 16));
@@ -223,6 +230,42 @@ public class GUI extends JFrame {
                     lblConsola.setFont(new Font("Tahoma", Font.PLAIN, 18));
                     lblConsola.setBounds(17, 218, 67, 18);
                     contentPane.add(lblConsola);
+                    
+                    JLabel lblNmero = new JLabel("Número");
+                    lblNmero.setFont(new Font("Tahoma", Font.PLAIN, 18));
+                    lblNmero.setBounds(252, 201, 70, 18);
+                    contentPane.add(lblNmero);
+                    
+                    JSpinner spinner = new JSpinner();
+                    spinner.setModel(new SpinnerNumberModel(5, 1, 16, 1));
+                    spinner.setFont(new Font("Tahoma", Font.PLAIN, 18));
+                    spinner.setBounds(327, 199, 45, 21);
+                    
+                    contentPane.add(spinner);
+                    
+                    JRadioButton rdbtnMovimentosAleatrios = new JRadioButton("Movimentos Aleatórios");
+                    rdbtnMovimentosAleatrios.addActionListener(new ActionListener() {
+                    	public void actionPerformed(ActionEvent e) {
+                    		new Thread(() -> {
+                    			try {
+                    				if (!bd.isRobotAberto()) {
+                    					myPrint("Abra o robot antes de executar movimentos aleatórios.");
+                    					return;
+                    				}
+                    				ComandosAleatorios comandos = new ComandosAleatorios(bufferCircular, null, s -> myPrint(s));
+                    				comandos.execucao();
+                    				bd.getRobot().Parar(false);
+                    				myPrint("Sequência de 5 movimentos aleatórios concluída.");
+                    			} catch (Exception ex) {
+                    				myPrint("Erro: " + ex.getMessage());
+                    				ex.printStackTrace();
+                    			}
+                    		}).start();
+                    	}
+                    });
+                    rdbtnMovimentosAleatrios.setFont(new Font("Tahoma", Font.PLAIN, 18));
+                    rdbtnMovimentosAleatrios.setBounds(378, 200, 221, 21);
+                    contentPane.add(rdbtnMovimentosAleatrios);
 
                     setVisible(true);
                 } catch (Exception e) {
