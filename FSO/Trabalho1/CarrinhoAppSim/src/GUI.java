@@ -34,7 +34,7 @@ public class GUI extends JFrame {
     private JTextField textFieldRobot;
     private BufferCircular bufferCircular;
     
-    private void myPrint(String s) {
+    public void myPrint(String s) {
 		textAreaConsola.append(s + "\n");
 	}
 
@@ -246,21 +246,23 @@ public class GUI extends JFrame {
                     JRadioButton rdbtnMovimentosAleatrios = new JRadioButton("Movimentos Aleatórios");
                     rdbtnMovimentosAleatrios.addActionListener(new ActionListener() {
                     	public void actionPerformed(ActionEvent e) {
-                    		new Thread(() -> {
-                    			try {
-                    				if (!bd.isRobotAberto()) {
-                    					myPrint("Abra o robot antes de executar movimentos aleatórios.");
-                    					return;
+                    		if (rdbtnMovimentosAleatrios.isSelected()) {
+                    			new Thread(() -> {
+                    				try {
+                    					if (!bd.isRobotAberto()) {
+                    						myPrint("Abra o robot antes de executar movimentos aleatórios.");
+                    						return;
+                    					}
+                    					ComandosAleatorios comandos = new ComandosAleatorios(bufferCircular, null);
+                    					comandos.execucao();
+                    					bd.getRobot().Parar(false);
+                    					myPrint("Sequência de 5 movimentos aleatórios concluída.");
+                    				} catch (Exception ex) {
+                    					myPrint("Erro: " + ex.getMessage());
+                    					ex.printStackTrace();
                     				}
-                    				ComandosAleatorios comandos = new ComandosAleatorios(bufferCircular, null, s -> myPrint(s));
-                    				comandos.execucao();
-                    				bd.getRobot().Parar(false);
-                    				myPrint("Sequência de 5 movimentos aleatórios concluída.");
-                    			} catch (Exception ex) {
-                    				myPrint("Erro: " + ex.getMessage());
-                    				ex.printStackTrace();
-                    			}
-                    		}).start();
+                    			}).start();
+                    		}
                     	}
                     });
                     rdbtnMovimentosAleatrios.setFont(new Font("Tahoma", Font.PLAIN, 18));
@@ -281,5 +283,9 @@ public class GUI extends JFrame {
 
     public void setBd(BaseDados bd) {
         this.bd = bd;
+    }
+
+    public BufferCircular getBufferCircular() {
+        return bufferCircular;
     }
 }
