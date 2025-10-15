@@ -1,56 +1,155 @@
 package JogoDaVida;
+import processing.core.PApplet;
+
 
 public class CellularAutomata {
-    private Cell[][] grid;
-    private int rows, cols;
+    protected int nrows, ncols;
+    protected int w, h;
+    protected Cell[][] cells;
+    protected int radius; // raio da vizinhança
+    protected boolean moore; // considera os vizinhos nas diagonais da celula
+    //se for true considera os vizinhos nas diagonais
+    protected int numberOfStates;
+    protected int[] colors;
+    protected PApplet p;
 
-    public CellularAutomata(int rows, int cols) {
-        this.rows = rows;
-        this.cols = cols;
-        grid = new Cell[rows][cols];
-        for (int i = 0; i < rows; i++)
-            for (int j = 0; j < cols; j++)
-                grid[i][j] = new Cell(false);
+    public CellularAutomata(PApplet p, int nrows, int ncols, int radius, boolean moore, int numberOfStates) {
+        this.p = p;
+        this.nrows = nrows;
+        this.ncols = ncols;
+        this.radius = radius;
+        this.moore = moore;
+        this.numberOfStates = numberOfStates;
+        w = p.width/ncols;
+        h = p.height/nrows;
+        cells = new Cell[nrows][ncols];
+        createGrid();
+        colors = new int[numberOfStates];
+        setRandomStateColors();
     }
-
-    public void setAlive(int x, int y, boolean alive) {
-        grid[x][y].setAlive(alive);
-    }
-
-    public boolean isAlive(int x, int y) {
-        return grid[x][y].isAlive();
-    }
-
-    private int countAliveNeighbors(int x, int y) {
-        int count = 0;
-        for (int dx = -1; dx <= 1; dx++) {
-            for (int dy = -1; dy <= 1; dy++) {
-                if (dx == 0 && dy == 0) continue;
-                int nx = x + dx, ny = y + dy;
-                if (nx >= 0 && nx < rows && ny >= 0 && ny < cols && grid[nx][ny].isAlive())
-                    count++;
+    protected void createGrid() {
+        for(int i=0; i<nrows; i++) {
+            for(int j=0; j<ncols; j++) {
+                cells[i][j] = new Cell(this, i, j);
             }
         }
-        return count;
+        if (moore) setNeighbours(); // todos os vizinhos
+        //else setNeighbours4(); // apenas os vizinhos em cruz (von neumann)
     }
-
-    public void update() {
-        Cell[][] next = new Cell[rows][cols];
-        for (int i = 0; i < rows; i++) {
-            for (int j = 0; j < cols; j++) {
-                int aliveNeighbors = countAliveNeighbors(i, j);
-                boolean nextAlive = false;
-                if (grid[i][j].isAlive()) {
-                    nextAlive = (aliveNeighbors == 2 || aliveNeighbors == 3);
-                } else {
-                    nextAlive = (aliveNeighbors == 3);
+    public Cell getCellGrid(int row, int col) {
+        return cells[row][col];
+    }
+    protected void setNeighbours() { //serve para criar um array com os vizinhos
+        for(int i=0; i<nrows; i++) {
+            for(int j=0; j<ncols; j++) {
+                Cell[] neigh = new Cell[(int)Math.pow((2*radius+1),2)];// considera a propria celula como vizinha
+                int n = 0;
+                for(int ii=-radius; ii<=radius; ii++) {
+                    for(int jj=-radius; jj<=radius; jj++) {
+                        //if (ii==0 &&jj==0) continue; // não considera a celula central
+                        int row = (i + ii + nrows) % nrows; // wrap around
+                        int col = (j + jj + ncols) % ncols; // wrap around
+                        neigh[n++] = cells[row][col];
+                    }
                 }
-                next[i][j] = new Cell(nextAlive);
+                cells[i][j].setNeighbours(neigh);
             }
         }
-        grid = next;
+    }
+    /* acabar de passar
+     * este codigo todo ta nos vidios do prof do moodle
+    protected void setNeighbours4() {
+        int numberOfNeighbours = 2*(radius*radius+radius)+1;//serve para criar um array com os vizinhos
+        for(int i=0; i<nrows; i++) {
+            for(int j=0; j<ncols; j++) {
+                Cell[] neigh = new Cell[(int)Math.pow(2*radius+1),b:2];// considera a propria celula como vizinha
+                int n = 0;
+                for(int ii=-radius; ii<=radius; ii++) {
+                    for(int jj=-radius; jj<=radius; jj++) {
+                        //if (ii==0 &&jj==0) continue; // não considera a celula central
+                        int row = (i + ii + nrows) % nrows; // wrap around
+                        int col = (j + jj + ncols) % ncols; // wrap around
+                        neigh[n++] = cells[row][col];
+                    }
+                }
+                cells[i][j].setNeighbours(neigh);
+            }
+        }
+    }
+    */
+    public void reset() {
+        for(int i=0; i<nrows; i++) {
+            for(int j=0; j<ncols; j++) {
+                cells[i][j].setState(0);
+            }
+        }
+    }
+    public void setRandomStateColors() {
+        for(int i=0; i<numberOfStates; i++) {
+            colors[i] = p.color(p.random(255), p.random(255), p.random(255));
+        }
+    }
+    public void setStateColors(int[] colors) {
+        this.colors = colors;
+    }
+    public int[] getStateColors() {
+        return colors;
+    }
+    public int getCellWidth() {
+        return w;
+    }
+    public int getCellHeight() {
+        return h;
+    }
+    public int getNumberOfStates() {
+        return numberOfStates;
+    }
+    public Cell getCell(int x, int y) {// x e y coordenadas em pixels
+        //objetivo e retornar qual e a celula em que clicares
+        int row = y/h;
+        int col = x/w;
+        //se o numero de linhas ou colunas for maior que o numero de linhas ou colunas
+        // entao devolve a celula mais proxima
+        // ex se clicares fora da janela
+        if(row>= nrows) row = nrows-1;
+        if(col>= ncols) col = ncols-1;
+
+        return cells[row][col];
     }
 
-    public int getRows() { return rows; }
-    public int getCols() { return cols; }
+    public void setRandomStates() {
+        for(int i=0; i<nrows; i++) {
+            for(int j=0; j<ncols; j++) {
+                cells[i][j].setState((int)p.random(numberOfStates));
+            }
+        }
+    }
+    public void display() {
+        for(int i=0; i<nrows; i++) {
+            for(int j=0; j<ncols; j++) {
+                cells[i][j].display(p);
+            }
+        }
+    }
+    // Atualiza todas as células segundo a regra do Jogo da Vida
+    public void update() {
+        // 1º: calcula próximo estado para todas
+        for (int r = 0; r < nrows; r++)
+            for (int c = 0; c < ncols; c++)
+                cells[r][c].computeNextState();
+        // 2º: aplica próximo estado
+        for (int r = 0; r < nrows; r++)
+            for (int c = 0; c < ncols; c++)
+                cells[r][c].applyNextState();
+    }
+
+    // Métodos utilitários para o App
+    public boolean isAlive(int r, int c) {
+        return cells[r][c].isAlive();
+    }
+    public void setAlive(int r, int c, boolean alive) {
+        cells[r][c].setAlive(alive);
+    }
+    public int getRows() { return nrows; }
+    public int getCols() { return ncols; }
 }
