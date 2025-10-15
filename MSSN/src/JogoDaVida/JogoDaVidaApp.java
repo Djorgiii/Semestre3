@@ -20,7 +20,7 @@ public class JogoDaVidaApp implements iProcessing {
         int rows = parent.height / cellSize;
         int cols = parent.width  / cellSize;
 
-        automata = new CellularAutomata(rows, cols);
+        automata = new CellularAutomata(parent, rows, cols, 1, true, 2);
         randomFill(parent, 0.25f); // começa com 25% vivas
     }
 
