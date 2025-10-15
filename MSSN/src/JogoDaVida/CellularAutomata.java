@@ -152,4 +152,51 @@ public class CellularAutomata {
     }
     public int getRows() { return nrows; }
     public int getCols() { return ncols; }
+
+    // Devolve cor tipo arco-íris conforme número de vizinhos vivos
+    public int getAliveNeighboursColor(int n) {
+        // HSV: matiz varia de 0 a 255 conforme n (0 a 8 vizinhos)
+        float hue = (n / 8.0f) * 255.0f; // 0 a 255
+        float sat = 200;
+        float bri = 255;
+        p.colorMode(PApplet.HSB, 255);
+        int color = p.color(hue, sat, bri);
+        p.colorMode(PApplet.RGB, 255); // volta ao modo padrão
+        return color;
+    }
+
+    // Devolve uma cor RGB aleatória
+    public int getRandomColor() {
+        return p.color((int)p.random(255), (int)p.random(255), (int)p.random(255));
+    }
+    // Returns the most prevalent color among live neighbors of a cell
+    public int getDominantNeighbourColor(Cell cell) {
+        java.util.HashMap<Integer, Integer> colorCount = new java.util.HashMap<>();
+        int maxCount = 0;
+        int chosenColor = getRandomColor(); // fallback if no live neighbors
+        if (cell.neighbours != null) {
+            for (Cell neigh : cell.neighbours) {
+                if (neigh != cell && neigh.isAlive()) {
+                    int c = neigh.getColor();
+                    int count = colorCount.getOrDefault(c, 0) + 1;
+                    colorCount.put(c, count);
+                    if (count > maxCount) {
+                        maxCount = count;
+                        chosenColor = c;
+                    }
+                }
+            }
+        }
+        // In case of tie, pick any of the tied colors
+        if (maxCount > 0) {
+            java.util.ArrayList<Integer> tiedColors = new java.util.ArrayList<>();
+            for (java.util.Map.Entry<Integer, Integer> entry : colorCount.entrySet()) {
+                if (entry.getValue() == maxCount) tiedColors.add(entry.getKey());
+            }
+            if (!tiedColors.isEmpty()) {
+                chosenColor = tiedColors.get((int)(p.random(tiedColors.size())));
+            }
+        }
+        return chosenColor;
+    }
 }

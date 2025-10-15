@@ -9,6 +9,7 @@ public class Cell {
     protected Cell[] neighbours;
     protected int w,h;
     private int nextState;
+    private int color;
 
     public Cell(CellularAutomata ca, int row, int col) {
         this.ca = ca;
@@ -38,18 +39,14 @@ public class Cell {
         return new PVector(x,y);
     }
     public void display(PApplet p) {
-        //metodo para desenhar a celula
-        // push matrix guarda a matriz da tranformação das coordenadas
-        //push style guarda o estilo de desenho
         p.pushStyle();
-        p.fill(ca.getStateColors()[state]);
+        if (isAlive()) {
+            p.fill(color);
+        } else {
+            p.fill(60, 40, 70); // cor padrão para morta
+        }
         p.rect(col*w, row*h, w, h);
-        //em vez de retangulos podemos usar elipsees pa desenhar
-        //descomentas as linhas a baixo e comentas a linha 45
-        //p.ellipseMode(PConstants.CORNER);
-        //p.ellipse(col*w,row*h,w,h);
         p.popStyle();
-
     }
     // Conta vizinhos vivos (exclui a própria célula)
     public int countAliveNeighbours() {
@@ -74,10 +71,25 @@ public class Cell {
 
     // Aplica o próximo estado
     public void applyNextState() {
+        if (state == 0 && nextState == 1) {
+            // Nasce: herda cor dominante dos vizinhos vivos
+            color = ca.getDominantNeighbourColor(this);
+        }
         state = nextState;
     }
 
     // Métodos utilitários para o App
-    public boolean isAlive() { return state == 1; }
-    public void setAlive(boolean alive) { state = alive ? 1 : 0; }
+    public boolean isAlive() {
+        return state == 1;
+    }
+    public void setAlive(boolean alive) {
+        state = alive ? 1 : 0;
+    }
+    public int getColor() {
+        return color;
+    }
+
+    public void setColor(int color) {
+        this.color = color;
+    }
 }
