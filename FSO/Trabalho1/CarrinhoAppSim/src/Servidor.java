@@ -1,11 +1,15 @@
+import java.util.function.Consumer;
+
 public class Servidor extends Thread{
 	private BufferCircular buffercircular;
-	private RobotLegoEV3 asdrubal;
+	private RobotLegoEV3Sim asdrubal;
+	private Consumer<String> printCallback;
 	
 	
-	public Servidor(BufferCircular buffercircular, RobotLegoEV3 asdrubal) {
+	public Servidor(BufferCircular buffercircular, RobotLegoEV3Sim asdrubal, Consumer<String> printCallback) {
 	    this.buffercircular = buffercircular;
 	    this.asdrubal = asdrubal;
+	    this.printCallback = printCallback;
 	}
 	
 	public void Reta(int distancia) {
@@ -29,17 +33,18 @@ public class Servidor extends Thread{
 	    while (true) {
 	        Comando comando = buffercircular.removerElemento();
 	        if (comando != null) {
+	            if (printCallback != null) printCallback.accept("Consumido: " + comando.toString());
 	            switch (comando.getTipo()) {
-	                case "reta":
+	                case "RETA":
 	                    Reta(comando.getArg1());
 	                    break;
-	                case "curvarDireita":
+	                case "CURVARDIREITA":
 	                    CurvarDireita(comando.getArg1(), comando.getArg2());
 	                    break;
-	                case "curvarEsquerda":
+	                case "CURVARESQUERDA":
 	                    CurvarEsquerda(comando.getArg1(), comando.getArg2());
 	                    break;
-	                case "parar":
+	                case "PARAR":
 	                    Parar(true);
 	                    break;
 	                default:
@@ -48,5 +53,10 @@ public class Servidor extends Thread{
 	            }
 	        }
 	    }
+	}
+	
+	@Override
+	public void run() {
+	    execucao();
 	}
 }

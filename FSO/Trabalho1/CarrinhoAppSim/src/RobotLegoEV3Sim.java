@@ -1,9 +1,8 @@
-
 public class RobotLegoEV3Sim {
 	String nome;
 	
 	public RobotLegoEV3Sim(String nome) {
-		nome = null;
+		this.nome = nome;
 	}
 	
 	public boolean OpenEV3(String nomeRobot) {

@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DLA implements setup.iProcessing {
-	private int NUM_WALKERS = 500;
+	private int NUM_WALKERS = 1000;
 	private int NUM_STEPS_PER_FRAME = 80;
 	private  List<Walker> walkers;
 	private int stoppedCount = 2;

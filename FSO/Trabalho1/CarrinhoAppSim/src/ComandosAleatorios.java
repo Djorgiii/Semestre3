@@ -1,13 +1,10 @@
-import java.util.function.Consumer;
 
 public class ComandosAleatorios extends Tarefa {
 	private BufferCircular buffercircular;
-	private Consumer<String> printCallback;
 	
-	public ComandosAleatorios(BufferCircular buffercircular, Tarefa t, Consumer<String> printCallback) {
+	public ComandosAleatorios(BufferCircular buffercircular, Tarefa t) {
 		super(t);
 		this.buffercircular = buffercircular;
-		this.printCallback = printCallback;
 	}
 	
 	public void execucao() {
@@ -26,7 +23,6 @@ public class ComandosAleatorios extends Tarefa {
 	            comando = new Comando(tipo, angulo, raio);
 	        }
 	        buffercircular.inserirElemento(comando);
-	        if (printCallback != null) printCallback.accept(comando.toString());
 	        dormir(); // Simula tempo de produção
 	    }
 	}

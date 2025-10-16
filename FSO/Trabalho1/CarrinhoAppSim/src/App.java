@@ -18,6 +18,10 @@ public class App {
 
     public static void main(String[] args) {
         App app = new App();
+        // Start the Servidor thread to consume commands
+        RobotLegoEV3Sim robot = new RobotLegoEV3Sim("EV2");
+        Servidor servidor = new Servidor(app.gui.getBufferCircular(), robot, s -> app.gui.myPrint(s));
+        servidor.start();
         app.run();
     }
 }
