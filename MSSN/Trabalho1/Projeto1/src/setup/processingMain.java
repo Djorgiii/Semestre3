@@ -1,5 +1,6 @@
 package setup;
 import DLA.DLA;
+import JogoDaVida.JogoDaVidaApp;
 import processing.core.PApplet;
 
 public class processingMain extends PApplet {
