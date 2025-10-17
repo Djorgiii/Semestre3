@@ -1,14 +1,13 @@
-import java.util.concurrent.Semaphore;
+
 
 public abstract class tarefa extends Thread{
 	private final byte BLOQUEADO = 0;
 	private final byte EXECUCAO = 1;
 	private final byte IDLE = 2;
-	
-	private Monitor mon;
+	private byte state;
+	private Monitor monitor;
 	protected tarefa proxima;
 	
-	private byte estado;
 	
 	public tarefa(tarefa t) {
 		state=BLOQUEADO;
@@ -21,16 +20,17 @@ public abstract class tarefa extends Thread{
 
 	public void desbloquear() {
 		state = EXECUCAO;
-		monitor.monSignal();
+		monitor.release();
 	}
 	
 	public void bloquear() {
 		state = BLOQUEADO;
-		monitor.monWait();
+		monitor.acquire();
+	}
 		
 		
 	private void esperaTrabalho() {
-		monitor.monWait()
+		monitor.acquire();
 		}
 	
 	public abstract void execucao();

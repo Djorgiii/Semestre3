@@ -1,23 +1,31 @@
-import java.util.concurrent.Semaphore;
 
-public class Monitor(){
+
+public class Monitor{
 	
-	private boolean ocupado;
-
-	public Monitor(boolean b){
-		ocupado = b;
+	private boolean resursoOcupado;
+	
+	public Monitor(boolean b) {
+		resursoOcupado = b;
 	}
-
-	public synchronized void monWait() { // wait() e notify() e notifyAll() so podem ser usados em metodos sincronizados
-		while(ocupado) {
-			try {
-				wait(); // bloqueia a thread que chamou o metodo e liberta o lock do objeto
-			} catch (InterruptedException e) {e.printStackTrace();}
+	
+	public  synchronized void acquire() {
+		while (resursoOcupado) {
+				try {
+				wait();
+				} catch (InterruptedException e ) {}
+				
 		}
-		ocupado = true;
+		resursoOcupado = true;
+	
 	}
-	public synchronized void monSignal() {
-		ocupado = false;
-		notify(); // envia uma notificação para o monitor, que uma tarefa que estaja desbloquiada pode desbloquear uma tarefa para que ela consiga entrar no recurso
+		
+	public synchronized void release() {
+		
+		notify();
+		resursoOcupado = false;
+	
 	}
+	
+	
+	
 }
