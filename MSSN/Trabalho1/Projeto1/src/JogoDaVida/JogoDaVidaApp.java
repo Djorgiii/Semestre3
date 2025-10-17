@@ -9,9 +9,6 @@ public class JogoDaVidaApp implements iProcessing {
     private int cellSize = 8;     // pixels por célula (tabuleiro maior)
     private boolean running = false;
 
-    // 👉 NÃO precisa de main() aqui. O launcher da disciplina arranca isto.
-    // 👉 Também não precisa de settings() sem parent; o tamanho define-se no launcher.
-
     @Override
     public void setup(PApplet parent) {
         // a janela já deve estar criada pelo teu "processingMain"
