@@ -42,7 +42,7 @@ public class CellularAutomata {
     protected void setNeighbours() { //serve para criar um array com os vizinhos
         for(int i=0; i<nrows; i++) {
             for(int j=0; j<ncols; j++) {
-                Cell[] neigh = new Cell[(int)Math.pow((2*radius+1),2)];// considera a propria celula como vizinha
+                Cell[] neigh = new Cell[(int)Math.pow((2*radius+1),2)-1];// considera a propria celula como vizinha
                 int n = 0;
                 for(int ii=-radius; ii<=radius; ii++) {
                     for(int jj=-radius; jj<=radius; jj++) {
