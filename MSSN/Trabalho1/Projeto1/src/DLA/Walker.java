@@ -39,22 +39,22 @@ public class Walker {
 		return false;
 	}
 	public void setState(PApplet p, State state, int stoppedIndex) {
-	    this.state = state;
-	    this.stoppedIndex = stoppedIndex;
-	    if(state == State.STOPPED) {
-	        // Cor forte para partículas paradas
-	        this.color = p.color(255, 0, 0); // vermelho forte
-	    } else {
-	        // Moving particles are green
-	        this.color = p.color(0, 255, 0);
-	    }
+		this.state = state;
+		this.stoppedIndex = stoppedIndex;
+		if(state == State.STOPPED) {
+			// Cor forte para partículas paradas
+			this.color = p.color(255, 0, 0); // vermelho forte
+		} else {
+			// Moving particles are green
+			this.color = p.color(0, 255, 0);
+		}
 	}
 	public void wander(PApplet p) {
 		if(this.state == State.STOPPED) return;
 		PVector step = PVector.random2D();
 		pos.add(step.mult(2));
 	}
-	
+
 	public void display(PApplet p) {
 		p.noStroke();
 		p.fill(this.color);
@@ -62,6 +62,6 @@ public class Walker {
 		
 	}
 	public State getState() {
-	    return state;
+		return state;
 	}
 }
