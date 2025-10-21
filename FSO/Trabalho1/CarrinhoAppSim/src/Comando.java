@@ -34,13 +34,13 @@ public class Comando {
 	@Override
 	public String toString() {
 	    switch (tipo) {
-	        case "PARAR":
+	        case "parar":
 	            return "PARAR";
-	        case "RETA":
+	        case "reta":
 	            return "RETA(" + arg1 + ")";
-	        case "CURVARDIREITA":
+	        case "curvardireita":
 	            return "CURVADIREITA(" + arg1 + ", " + arg2 + ")";
-	        case "CURVARESQUERDA":
+	        case "curvaresquerda":
 	            return "CURVARESQUERDA(" + arg1 + ", " + arg2 + ")";
 	        default:
 	            return tipo + "(" + arg1 + ", " + arg2 + ")";
