@@ -134,19 +134,81 @@ class Blackjack {
    * Executes the dealer's move by adding a card to the dealer's array.
    * @returns {Object} - The game state after the dealer's move.
    */
-  dealerMove() {}
+  dealerMove() {
+    if (this.state.gameEnded) return this.state;
 
-  //TODO: Implement this method
+    this.dealerTurn = true;
+    if (this.deck.length === 0) {
+      this.deck = this.shuffle(this.newDeck());
+    }
+    this.dealerCards.push(this.deck.pop());
+    this.dealerTurn = false;
+
+    return this.getGameState();
+  }
+
   /**
    * Executes the player's move by adding a card to the player's array.
    * @returns {Object} - The game state after the player's move.
    */
-  playerMove() {}
+  playerMove() {
+    if (this.state.gameEnded) return this.state;
 
-  //TODO: Implement this method
+    if (this.deck.length === 0) {
+      this.deck = this.shuffle(this.newDeck());
+    }
+    this.playerCards.push(this.deck.pop());
+
+    return this.getGameState();
+  }
+
   /**
    * Checks the game state based on the dealer's and player's cards.
    * @returns {Object} - The updated game state.
    */
-  getGameState() {}
+  getGameState() {
+    const playerTotal = this.getCardsValue(this.playerCards);
+    const dealerTotal = this.getCardsValue(this.dealerCards);
+
+    // reset flags
+    this.state.playerWon = false;
+    this.state.dealerWon = false;
+    this.state.playerBusted = false;
+    this.state.dealerBusted = false;
+    this.state.gameEnded = false;
+
+    // Condições imediatas do jogador
+    if (playerTotal === Blackjack.MAX_POINTS) {
+      this.state.playerWon = true;
+      this.state.gameEnded = true;
+      return this.state;
+    }
+    if (playerTotal > Blackjack.MAX_POINTS) {
+      this.state.playerBusted = true;
+      this.state.dealerWon = true;
+      this.state.gameEnded = true;
+      return this.state;
+    }
+
+    // Dealer rebenta
+    if (dealerTotal > Blackjack.MAX_POINTS) {
+      this.state.dealerBusted = true;
+      this.state.playerWon = true;
+      this.state.gameEnded = true;
+      return this.state;
+    }
+
+    // Quando o dealer atinge o limiar (>= 21), pode encerrar o jogo
+    if (dealerTotal >= Blackjack.DEALER_MAX_TURN_POINTS) {
+      if (dealerTotal > playerTotal) {
+        this.state.dealerWon = true;
+        this.state.gameEnded = true;
+      } else if (dealerTotal === playerTotal) {
+        // Empate: termina o jogo sem vencedor
+        this.state.gameEnded = true;
+      }
+    }
+
+    return this.state;
+  }
 }
