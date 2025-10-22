@@ -258,6 +258,7 @@ public class GUI extends JFrame {
                                 // Call execucao() to generate random commands
                                 comandos.execucao();
                                 myPrint("Movimento aleatório " + (i+1) + " gerado.");
+                                
                             }
                             bd.getRobot().Parar(false);
                             myPrint("Sequência de movimentos aleatórios concluída.");

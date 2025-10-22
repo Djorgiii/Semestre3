@@ -1,23 +1,23 @@
-public class Servidor extends Thread{
+public class Servidor extends Tarefa{
 	private BufferCircular buffercircular;
 	private RobotLegoEV3 asdrubal;
 	
-	
-	public Servidor(BufferCircular buffercircular, RobotLegoEV3 asdrubal) {
-	    this.buffercircular = buffercircular;
-	    this.asdrubal = asdrubal;
+	public Servidor(BufferCircular buffercircular, RobotLegoEV3 asdrubal, Tarefa proxima) {
+		super(proxima);
+		this.buffercircular = buffercircular;
+		this.asdrubal = asdrubal;
 	}
 	
 	public void Reta(int distancia) {
 		asdrubal.Reta(distancia);
 	}
 	
-	public void CurvarDireita(int distancia, int raio) {
-		asdrubal.CurvarDireita(distancia, raio);
+	public void CurvarDireita(int angulo, int raio) {
+		asdrubal.CurvarDireita(angulo, raio);
 	}
 	
-	public void CurvarEsquerda(int distancia, int raio) {
-		asdrubal.CurvarEsquerda(distancia, raio);
+	public void CurvarEsquerda(int angulo, int raio) {
+		asdrubal.CurvarEsquerda(angulo, raio);
 	}
 	
 	public void Parar(boolean b) {
@@ -30,16 +30,16 @@ public class Servidor extends Thread{
 	        Comando comando = buffercircular.removerElemento();
 	        if (comando != null) {
 	            switch (comando.getTipo()) {
-	                case "reta":
+	                case "RETA":
 	                    Reta(comando.getArg1());
 	                    break;
-	                case "curvarDireita":
+	                case "CURVARDIREITA":
 	                    CurvarDireita(comando.getArg1(), comando.getArg2());
 	                    break;
-	                case "curvarEsquerda":
+	                case "CURVARESQUERDA":
 	                    CurvarEsquerda(comando.getArg1(), comando.getArg2());
 	                    break;
-	                case "parar":
+	                case "PARAR":
 	                    Parar(true);
 	                    break;
 	                default:
