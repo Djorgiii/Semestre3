@@ -15,19 +15,19 @@ public class Servidor extends Thread{
 	}
 	
 	public void Reta(int distancia) {
-		asdrubal.Reta(distancia);
+		buffercircular.inserirElemento(new Comando("RETA", distancia, 0));
 	}
 	
 	public void CurvarDireita(int distancia, int raio) {
-		asdrubal.CurvarDireita(distancia, raio);
+		buffercircular.inserirElemento(new Comando("CURVARDIREITA", distancia, raio));
 	}
 	
 	public void CurvarEsquerda(int distancia, int raio) {
-		asdrubal.CurvarEsquerda(distancia, raio);
+		buffercircular.inserirElemento(new Comando("CURVARESQUERDA", distancia, raio));
 	}
 	
 	public void Parar(boolean b) {
-		asdrubal.Parar(b);
+		buffercircular.inserirElemento(new Comando("PARAR", b));
 	}
 	
 	public void resetContadorAleatorios() {
@@ -44,23 +44,22 @@ public class Servidor extends Thread{
 	            String tipo = comando.getTipo().toUpperCase();
 	            switch (tipo) {
 	                case "RETA":
-	                    Reta(comando.getArg1());
+	                    asdrubal.Reta(comando.getArg1());
 	                    contadorAleatorios++;
 	                    break;
 	                case "CURVARDIREITA":
-	                    CurvarDireita(comando.getArg1(), comando.getArg2());
+	                    asdrubal.CurvarDireita(comando.getArg1(), comando.getArg2());
 	                    contadorAleatorios++;
 	                    break;
 	                case "CURVARESQUERDA":
-	                    CurvarEsquerda(comando.getArg1(), comando.getArg2());
+	                    asdrubal.CurvarEsquerda(comando.getArg1(), comando.getArg2());
 	                    contadorAleatorios++;
 	                    break;
 	                case "PARAR":
-	                    Parar(true);
+	                    asdrubal.Parar(true);
 	                    contadorAleatorios++;
 	                    break;
 	                default:
-	                    // Comando desconhecido
 	                    break;
 	            }
 	            if (contadorAleatorios == TOTAL_ALEATORIOS) {

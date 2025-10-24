@@ -15,7 +15,7 @@ public class RobotLegoEV3Sim {
 		System.out.println("Robot " + nome + " disconnected");
 	}
 	
-	// Constantes para simulação
+
 	private static final double VELOCIDADE_CM_POR_MS = 0.02; // 20 cm/s = 0.02 cm/ms
 	private static final int TEMPO_COMUNICACAO_MS = 100;
 
