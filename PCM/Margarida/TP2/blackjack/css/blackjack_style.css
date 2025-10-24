@@ -1,5 +1,12 @@
 
 body {
-  background-color: #001C69;
+  background-color: #FFFFFF;
 }
+:root{
+  --azul: #001C69;
+}
+.bg-azul {
+  background-color: var(--azul) !important;
+}
+/* azul escuro #001C69*/
 

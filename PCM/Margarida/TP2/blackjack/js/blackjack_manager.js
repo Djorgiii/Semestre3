@@ -34,33 +34,38 @@ function finalizeButtons() {
 /**
  * Clears the page to start a new game.
  */
-function clearPage() {}
+function clearPage() {
+  const dealerEl = document.getElementById("dealer");
+  const playerEl = document.getElementById("player");
+  const debugEl = document.getElementById("debug");
+  if (dealerEl) dealerEl.innerHTML = "";
+  if (playerEl) playerEl.innerHTML = "";
+  if (debugEl) debugEl.textContent = "";
+}
 
 /**
  * Starts a new game of Blackjack.
  */
 function newGame() {
+  clearPage();
+
+  const statusEl = document.getElementById("game_status");
+  if (statusEl) statusEl.textContent = "";
+
   game = new Blackjack();
 
-  // Duas cartas ao dealer, uma ao player; 2ª do dealer fica oculta na UI
   game.dealerMove();
   game.playerMove();
   game.dealerMove();
 
-  // Bind de botões (se existirem)
-  const btnPlayer = el("player-new-card");
-  const btnDealer = el("dealer-new-card");
-  const btnFinish = el("dealer-finish");
-  const btnNew = el("new-game");
-
-  if (btnPlayer) btnPlayer.onclick = () => playerNewCard();
-  if (btnDealer) btnDealer.onclick = () => dealerNewCard();
-  if (btnFinish) btnFinish.onclick = () => dealerFinish();
-  if (btnNew) btnNew.onclick = () => newGame();
+  // ligar botões existentes
+  document.getElementById("card").onclick = () => playerNewCard();
+  document.getElementById("stand").onclick = () => dealerFinish();
+  document.getElementById("new_game").onclick = () => newGame();
 
   updateDealer();
   updatePlayer();
-  finalizeButtons();
+  buttonsInitialization(); // habilita Card/Stand para começar
 }
 
 //TODO: Implement this method.
@@ -68,7 +73,20 @@ function newGame() {
  * Calculates and displays the final score of the game.
  * @param {Object} state - The current state of the game.
  */
-function finalScore(state) {}
+function finalScore(state) {
+  let msg = "";
+  if (
+    state.playerWon &&
+    game.getCardsValue(game.getPlayerCards()) === Blackjack.MAX_POINTS
+  )
+    msg = "BlackJack! You Won :D";
+  else if (state.playerWon) msg = "You Won! :D";
+  else if (state.dealerWon) msg = "Dealer Won :(";
+  else if (state.playerBusted) msg = "You Lose :(";
+  else if (state.dealerBusted) msg = "You Won! :D";
+  else msg = "Tie! O.o";
+  document.getElementById("game_status").textContent = msg;
+}
 
 /**
  * Updates the dealer's state in the game.
@@ -76,51 +94,56 @@ function finalScore(state) {}
  */
 function updateDealer(state) {
   if (!game) return;
-  const state = game.getGameState();
-  const dealerEl = el("dealer");
+  const st = game.getGameState();
+  const dealerEl = document.getElementById("dealer");
   if (!dealerEl) return;
 
+  dealerEl.innerHTML = "";
   const cards = game.getDealerCards();
 
-  // Esconde a 2ª carta do dealer enquanto o jogo não acabou e ainda não é a vez do dealer
-  let shown = cards.map((c, i) =>
-    state.gameEnded || game.dealerTurn || i !== 1 ? formatCard(c) : "?"
-  );
+  let hasHidden = false;
+  cards.forEach((c, i) => {
+    const hide = !(st.gameEnded || game.dealerTurn) && i === 1;
+    if (hide) {
+      hasHidden = true;
+      const img = document.createElement("img");
+      img.src = "img/png/card_back.png";
+      img.alt = "?";
+      img.style.height = "60px";
+      img.className = "mx-1";
+      dealerEl.appendChild(img);
+    } else {
+      printCard(dealerEl, c, false);
+    }
+  });
 
-  let line = `Dealer: ${shown.join(" ")}`;
-
-  if (state.gameEnded) {
-    if (state.dealerBusted) line += " — Dealer rebentou";
-    else if (state.dealerWon) line += " — Dealer ganhou";
-    else if (state.playerWon) line += " — Jogador ganhou";
-    else line += " — Empate";
+  // soma ao lado das cartas do dealer
+  if (hasHidden) {
+    dealerEl.innerHTML += " (= ?)";
+  } else {
+    dealerEl.innerHTML += ` (=${game.getCardsValue(cards)})`;
   }
-  dealerEl.textContent = line;
-  finalizeButtons();
+  if (st.gameEnded) finalizeButtons();
 }
 
 /**
  * Updates the player's state in the game.
  * @param {Object} state - The current state of the game.
  */
-function updatePlayer(state) {
+function updatePlayer() {
   if (!game) return;
-  const state = game.getGameState();
-  const playerEl = el("player");
+  const st = game.getGameState();
+  const playerEl = document.getElementById("player");
   if (!playerEl) return;
 
-  const cards = game.getPlayerCards();
-  let line = `Player: ${cardsToString(cards)} (=${game.getCardsValue(cards)})`;
+  playerEl.innerHTML = " ";
+  game.getPlayerCards().forEach((c) => printCard(playerEl, c, false));
+  playerEl.innerHTML += ` (=${game.getCardsValue(game.getPlayerCards())})`;
 
-  if (state.gameEnded) {
-    if (state.playerBusted) line += " — Rebentou";
-    else if (state.playerWon) line += " — Ganhou";
-    else if (state.dealerWon) line += " — Perdeu";
-    else line += " — Empate";
+  if (st.gameEnded) {
+    finalScore(st);
+    finalizeButtons();
   }
-
-  playerEl.textContent = line;
-  finalizeButtons();
 }
 
 /**
@@ -140,9 +163,12 @@ function dealerNewCard() {
  */
 function playerNewCard() {
   if (!game) return null;
-  const state = game.playerMove();
+  const st = game.playerMove();
   updatePlayer();
-  return state;
+  if (st.gameEnded) {
+    updateDealer();
+  }
+  return st;
 }
 
 //TODO: Implement this method.
@@ -151,18 +177,15 @@ function playerNewCard() {
  */
 function dealerFinish() {
   if (!game) return null;
-
-  //passa a vez ao dealer e joga ate terminar
   game.setDealerTurn(true);
-  let state = game.getGameState();
-  while (!state.gameEnded) {
+  let st = game.getGameState();
+  while (!st.gameEnded) {
     updateDealer();
-    state = game.dealerMove();
+    st = game.dealerMove();
   }
   updateDealer();
   updatePlayer();
-  finalizeButtons();
-  return state;
+  return st;
 }
 
 //TODO: Implement this method.
@@ -172,4 +195,33 @@ function dealerFinish() {
  * @param {Card} card - The card to be displayed.
  * @param {boolean} [replace=false] - Indicates whether to replace the existing image.
  */
-function printCard(element, card, replace = false) {}
+function printCard(element, card, replace = false) {
+  if (!element || !card) return;
+  if (replace) element.innerHTML = "";
+
+  const v = card.value;
+  const val =
+    v === 1
+      ? "ace"
+      : v === 11
+      ? "jack"
+      : v === 12
+      ? "queen"
+      : v === 13
+      ? "king"
+      : String(v);
+  const suitName = ["clubs", "diamonds", "hearts", "spades"][card.suit];
+
+  // relativo ao HTML blackjack_oop.html
+  const src = `img/png/${val}_of_${suitName}.png`;
+
+  const img = document.createElement("img");
+  img.src = src;
+  img.alt = `${val} of ${suitName}`;
+  img.style.height = "60px";
+  img.className = "mx-1";
+  img.onerror = function () {
+    this.replaceWith(document.createTextNode(`${val} of ${suitName}`));
+  };
+  element.appendChild(img);
+}

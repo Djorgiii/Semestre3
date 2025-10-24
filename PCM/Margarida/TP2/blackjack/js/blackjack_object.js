@@ -189,23 +189,23 @@ class Blackjack {
       this.state.gameEnded = true;
       return this.state;
     }
-
-    // Dealer rebenta
-    if (dealerTotal > Blackjack.MAX_POINTS) {
-      this.state.dealerBusted = true;
-      this.state.playerWon = true;
-      this.state.gameEnded = true;
-      return this.state;
-    }
-
-    // Quando o dealer atinge o limiar (>= 21), pode encerrar o jogo
-    if (dealerTotal >= Blackjack.DEALER_MAX_TURN_POINTS) {
-      if (dealerTotal > playerTotal) {
-        this.state.dealerWon = true;
+    if (this.dealerTurn) {
+      // Dealer rebenta
+      if (dealerTotal > Blackjack.MAX_POINTS) {
+        this.state.dealerBusted = true;
+        this.state.playerWon = true;
         this.state.gameEnded = true;
-      } else if (dealerTotal === playerTotal) {
-        // Empate: termina o jogo sem vencedor
-        this.state.gameEnded = true;
+        return this.state;
+      }
+      // Quando o dealer atinge o limiar (>= 21), pode encerrar o jogo
+      if (dealerTotal >= Blackjack.DEALER_MAX_TURN_POINTS) {
+        if (dealerTotal > playerTotal) {
+          this.state.dealerWon = true;
+          this.state.gameEnded = true;
+        } else if (dealerTotal === playerTotal) {
+          // Empate: termina o jogo sem vencedor
+          this.state.gameEnded = true;
+        }
       }
     }
 
