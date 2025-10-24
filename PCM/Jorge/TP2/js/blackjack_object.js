@@ -36,12 +36,27 @@ class Blackjack {
    * @returns {Card[]} - An array of cards.
    */
   newDeck() {
-    // Values 1..13 for each suit: 1 (Ace), 11 (Jack), 12 (Queen), 13 (King)
-    const suits = ["clubs", "diamonds", "hearts", "spades"];
+    const suits = ["spades", "hearts", "diamonds", "clubs"];
+    const values = [
+      "ace",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8",
+      "9",
+      "10",
+      "jack",
+      "queen",
+      "king",
+    ];
     const deck = [];
     for (const suit of suits) {
-      for (let value = 1; value <= 13; value++) {
-        deck.push({ suit, value });
+      for (const value of values) {
+        // Use the same naming convention as the image files: e.g. 'ace_of_spades'
+        deck.push(`${value}_of_${suit}`);
       }
     }
     return deck;
@@ -54,18 +69,15 @@ class Blackjack {
    * @returns {Card[]} - The shuffled deck.
    */
   shuffle(deck) {
-    // Create an array of indices 1..52, then randomly pick and remove
+    // Create array of indices
     const indices = [];
-    for (let i = 1; i <= 52; i++) indices.push(i);
+    for (let i = 0; i < deck.length; i++) indices.push(i);
 
     const shuffled = [];
-    for (let i = 0; i < 52; i++) {
-      const idxPos = Math.floor(Math.random() * indices.length); // sorteio do índice
-      const index = indices[idxPos];
-      // index is 1..52 -> convert to zero-based to fetch card
-      shuffled.push(deck[index - 1]);
-      // remove chosen index
-      indices.splice(idxPos, 1);
+    while (indices.length > 0) {
+      const r = Math.floor(Math.random() * indices.length);
+      const idx = indices.splice(r, 1)[0];
+      shuffled.push(deck[idx]);
     }
     return shuffled;
   }
@@ -101,23 +113,27 @@ class Blackjack {
    * @returns {number} - The total value of the cards.
    */
   getCardsValue(cards) {
-    // Count aces as 11 first; downgrade to 1 if we bust over MAX_POINTS
     let total = 0;
     let aces = 0;
     for (const c of cards) {
-      if (!c) continue;
-      if (c.value === 1) {
+      // card names are like 'ace_of_spades' or '10_of_hearts'
+      const parts = c.split("_of_");
+      const v = parts[0];
+      if (v === "ace") {
         aces += 1;
-        total += 11; // initially count Ace as 11
-      } else if (c.value >= 11 && c.value <= 13) {
-        total += 10; // J, Q, K
+        total += 11; // count as 11 for now
+      } else if (v === "jack" || v === "queen" || v === "king") {
+        total += 10;
       } else {
-        total += c.value; // 2..10
+        // numeric value
+        const n = parseInt(v, 10);
+        total += isNaN(n) ? 0 : n;
       }
     }
-    // Adjust aces from 11 to 1 as needed
+
+    // Reduce aces from 11 to 1 as needed until under MAX_POINTS
     while (total > Blackjack.MAX_POINTS && aces > 0) {
-      total -= 10; // convert one Ace from 11 to 1
+      total -= 10; // convert one ace from 11 to 1
       aces -= 1;
     }
     return total;
@@ -129,12 +145,17 @@ class Blackjack {
    * @returns {Object} - The game state after the dealer's move.
    */
   dealerMove() {
-    if (this.deck.length === 0) {
-      // If the deck is empty, recreate and shuffle a new one (defensive)
-      this.deck = this.shuffle(this.newDeck());
+    // Dealer draws only if there are cards and dealer hasn't busted and it's the dealer's turn
+    const dValue = this.getCardsValue(this.dealerCards);
+    if (
+      this.deck.length > 0 &&
+      !this.state.gameEnded &&
+      this.dealerTurn &&
+      dValue < Blackjack.DEALER_MAX_TURN_POINTS
+    ) {
+      const card = this.deck.pop();
+      this.dealerCards.push(card);
     }
-    const card = this.deck.pop();
-    this.dealerCards.push(card);
     return this.getGameState();
   }
 
@@ -144,11 +165,10 @@ class Blackjack {
    * @returns {Object} - The game state after the player's move.
    */
   playerMove() {
-    if (this.deck.length === 0) {
-      this.deck = this.shuffle(this.newDeck());
+    if (this.deck.length > 0 && !this.state.gameEnded && !this.dealerTurn) {
+      const card = this.deck.pop();
+      this.playerCards.push(card);
     }
-    const card = this.deck.pop();
-    this.playerCards.push(card);
     return this.getGameState();
   }
 
@@ -158,56 +178,58 @@ class Blackjack {
    * @returns {Object} - The updated game state.
    */
   getGameState() {
-    const dealerPoints = this.getCardsValue(this.dealerCards);
-    const playerPoints = this.getCardsValue(this.playerCards);
-
-    // Reset state
+    // Reset state flags (preserve dealerTurn)
     this.state.gameEnded = false;
     this.state.playerWon = false;
     this.state.dealerWon = false;
     this.state.playerBusted = false;
     this.state.dealerBusted = false;
 
-    // Busts
-    if (playerPoints > Blackjack.MAX_POINTS) {
+    const pValue = this.getCardsValue(this.playerCards);
+    const dValue = this.getCardsValue(this.dealerCards);
+
+    // Check immediate busts
+    if (pValue > Blackjack.MAX_POINTS) {
       this.state.playerBusted = true;
-      this.state.dealerWon = true;
       this.state.gameEnded = true;
+      this.state.dealerWon = true;
       return this.state;
     }
-    if (dealerPoints > Blackjack.MAX_POINTS) {
+    if (dValue > Blackjack.MAX_POINTS) {
       this.state.dealerBusted = true;
-      this.state.playerWon = true;
       this.state.gameEnded = true;
+      this.state.playerWon = true;
       return this.state;
     }
 
-    // Exact target (25)
-    if (playerPoints === Blackjack.MAX_POINTS) {
-      this.state.playerWon = true;
+    // If player reached max points -> player wins immediately
+    if (pValue === Blackjack.MAX_POINTS) {
       this.state.gameEnded = true;
+      this.state.playerWon = true;
       return this.state;
     }
-    if (dealerPoints === Blackjack.MAX_POINTS) {
+    if (dValue === Blackjack.MAX_POINTS) {
+      this.state.gameEnded = true;
       this.state.dealerWon = true;
-      this.state.gameEnded = true;
       return this.state;
     }
 
-    // If it's dealer's turn to finish the round, end when dealer reaches stand threshold
-    if (this.dealerTurn && dealerPoints >= Blackjack.DEALER_MAX_TURN_POINTS) {
-      const diffDealer = Blackjack.MAX_POINTS - dealerPoints;
-      const diffPlayer = Blackjack.MAX_POINTS - playerPoints;
-      if (diffPlayer < diffDealer) {
-        this.state.playerWon = true;
-      } else if (diffDealer < diffPlayer) {
-        this.state.dealerWon = true;
-      } else {
-        // tie: no winner set; game still ends
+    // If dealer's turn and dealer has reached or exceeded the dealer threshold, decide winner
+    if (this.dealerTurn) {
+      // If dealer already has enough points to stand, compare with player
+      if (dValue >= Blackjack.DEALER_MAX_TURN_POINTS) {
+        this.state.gameEnded = true;
+        // Dealer wins ties
+        if (dValue >= pValue) {
+          this.state.dealerWon = true;
+        } else {
+          this.state.playerWon = true;
+        }
+        return this.state;
       }
-      this.state.gameEnded = true;
     }
 
+    // No one has won yet
     return this.state;
   }
 }
