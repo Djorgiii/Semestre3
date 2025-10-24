@@ -1,25 +1,63 @@
 // Blackjack OOP
 
 let game = null; // Stores the current instance of the game
+let prevDealerCount = 0;
+let prevPlayerCount = 0;
 
-// debug utilities removed
+function delay(ms) {
+  return new Promise((res) => setTimeout(res, ms));
+}
+
+/**
+ * Function to debug and display the state of the game object.
+ * @param {Object} obj - The object to be debugged.
+ */
+function debug(obj) {
+  document.getElementById("debug").innerHTML = JSON.stringify(obj); // Displays the state of the object as JSON
+}
 
 /**
  * Initializes the game buttons.
  */
 function buttonsInitialization() {
-  document.getElementById("card").disabled = false; // Enables the button to draw a card
-  document.getElementById("stand").disabled = false; // Enables the button to stand
-  document.getElementById("new_game").disabled = true; // Disables the button for a new game
+  const cardBtn = document.getElementById("card");
+  const standBtn = document.getElementById("stand");
+  const newBtn = document.getElementById("new_game");
+  if (cardBtn) {
+    cardBtn.disabled = false; // Enables the button to draw a card
+    cardBtn.innerText = "Carta";
+  }
+  if (standBtn) {
+    standBtn.disabled = false; // Enables the button to stand
+    standBtn.innerText = "Parar";
+  }
+  if (newBtn) newBtn.disabled = true; // Disables the button for a new game
 }
 
 /**
  * Finalizes the buttons after the game ends.
  */
 function finalizeButtons() {
-  document.getElementById("card").disabled = true; // Disables the button to draw a card
-  document.getElementById("stand").disabled = true; // Disables the button to stand
-  document.getElementById("new_game").disabled = false; // Enables the button for a new game
+  //TODO: Reveal the dealer's hidden card if you hid it like you were supposed to.
+
+  const cardBtn = document.getElementById("card");
+  const standBtn = document.getElementById("stand");
+  const newBtn = document.getElementById("new_game");
+  if (cardBtn) cardBtn.disabled = true;
+  if (standBtn) standBtn.disabled = true;
+  if (newBtn) newBtn.disabled = false;
+}
+
+/**
+ * Returns a probable image path for a card name. Prefers PNG under img/png, falls back to svg.
+ * @param {string} card - card name like 'ace_of_spades'
+ */
+function getCardImagePath(card) {
+  // Try png first
+  const png = `img/png/${card}.png`;
+  const svg = `img/svg/${card}.svg`;
+  // We'll return png path; browser will load if available. If not, svg fallback used by trying both when creating element.
+  return { png, svg };
 }
 
 //TODO: Implement this method.
@@ -27,9 +65,21 @@ function finalizeButtons() {
  * Clears the page to start a new game.
  */
 function clearPage() {
-  document.getElementById("dealer").innerHTML = "";
-  document.getElementById("player").innerHTML = "";
-  document.getElementById("game_status").innerHTML = "";
+  // Clear displayed dealer/player sections and status/debug
+  const dealerEl = document.getElementById("dealer");
+  const playerEl = document.getElementById("player");
+  const statusEl = document.getElementById("game_status");
+  const debugEl = document.getElementById("debug");
+  const playerScoreEl = document.getElementById("player_score");
+  if (dealerEl) dealerEl.innerHTML = "";
+  if (playerEl) playerEl.innerHTML = "";
+  if (statusEl) statusEl.innerHTML = "";
+  if (debugEl) debugEl.innerHTML = "";
+  if (playerScoreEl) playerScoreEl.textContent = "0";
+  const dealerScoreEl = document.getElementById("dealer_score");
+  if (dealerScoreEl) dealerScoreEl.textContent = "?";
+  prevDealerCount = 0;
+  prevPlayerCount = 0;
 }
 
 //TODO: Complete this method.
@@ -38,20 +88,32 @@ function clearPage() {
  */
 function newGame() {
   game = new Blackjack(); // Creates a new instance of the Blackjack game
-  // debug removed
+  debug(game); // Displays the current state of the game for debugging
 
+  // Clear UI
   clearPage();
 
-  // Initial deals: dealer, player, dealer (second dealer card hidden)
-  let state = game.dealerMove();
+  // Initial draws: dealer two cards, player one card
+  // Dealer first card
+  if (game.deck.length > 0) {
+    const c1 = game.deck.pop();
+    game.dealerCards.push(c1);
+  }
+  // Dealer second card (hidden)
+  if (game.deck.length > 0) {
+    const c2 = game.deck.pop();
+    game.dealerCards.push(c2);
+  }
+  // Player one card
+  if (game.deck.length > 0) {
+    const p1 = game.deck.pop();
+    game.playerCards.push(p1);
+  }
+
+  // Update UI
+  const state = game.getGameState();
   updateDealer(state);
-
-  state = game.playerMove();
   updatePlayer(state);
-
-  state = game.dealerMove();
-  updateDealer(state); // Will render with hidden second card
-
   buttonsInitialization();
 }
 
@@ -61,17 +123,15 @@ function newGame() {
  * @param {Object} state - The current state of the game.
  */
 function finalScore(state) {
-  if (!game) return;
-  const dealerPts = game.getCardsValue(game.getDealerCards());
-  const playerPts = game.getCardsValue(game.getPlayerCards());
-
-  if (state.playerBusted) msg += "Player rebentou. Dealer ganhou.";
-  else if (state.dealerBusted) msg += "Dealer rebentou. Player ganhou!";
-  else if (state.playerWon && !state.dealerWon) msg += "Player ganhou!";
-  else if (state.dealerWon && !state.playerWon) msg += "Dealer ganhou!";
-  else msg += "Empate!";
-
-  document.getElementById("game_status").innerText = msg;
+  const pValue = game.getCardsValue(game.playerCards);
+  const dValue = game.getCardsValue(game.dealerCards);
+  let msg = `Jogador: ${pValue} - Dealer: ${dValue}`;
+  if (state.playerWon) msg += " - Jogador GANHOU!";
+  if (state.dealerWon) msg += " - Dealer GANHOU!";
+  if (state.playerBusted) msg += " - Jogador ESTOUROU!";
+  if (state.dealerBusted) msg += " - Dealer ESTOUROU!";
+  const el = document.getElementById("game_status");
+  if (el) el.innerText = msg;
 }
 
 //TODO: Implement this method.
@@ -80,44 +140,52 @@ function finalScore(state) {
  * @param {Object} state - The current state of the game.
  */
 function updateDealer(state) {
-  if (!game) return;
   const el = document.getElementById("dealer");
-  const cards = game.getDealerCards();
-  // Clear element and render images
+  if (!el) return;
   el.innerHTML = "";
-  // Compute visible score (hide 2nd card while it's face down)
-  let visibleCards = cards;
-  if (state && !state.gameEnded && cards.length >= 2 && !game.dealerTurn) {
-    visibleCards = [cards[0]];
-    if (cards.length > 2) {
-      visibleCards = visibleCards.concat(cards.slice(2));
-    }
-  }
-  const dealerScore = game.getCardsValue(visibleCards);
-  const dealerTitle = document.getElementById("dealer_title");
-  if (dealerTitle) dealerTitle.textContent = `Dealer (${dealerScore})`;
-
+  const cards = game.getDealerCards();
   for (let i = 0; i < cards.length; i++) {
-    const card = cards[i];
-    if (state && !state.gameEnded && i === 1 && !game.dealerTurn) {
-      // Hide second card as back image
-      printCardBack(el);
+    if (i === 1 && !game.dealerTurn && !state.gameEnded) {
+      // show card back image
+      const img = document.createElement("img");
+      img.src = "img/png/card_back.png";
+      img.alt = "carta escondida";
+      el.appendChild(img);
     } else {
-      printCard(el, card);
+      printCard(el, cards[i]);
+      // animate only new appended card (last) when hand grows
+      if (i === cards.length - 1 && cards.length > prevDealerCount) {
+        const last = el.lastElementChild;
+        if (last) last.classList.add("card-enter");
+      }
+      // add a subtle reveal for second card when dealerTurn starts
+      if (i === 1 && game.dealerTurn && !state.gameEnded) {
+        const last = el.lastElementChild;
+        if (last) last.classList.add("card-reveal");
+      }
     }
   }
 
-  if (state && state.gameEnded) {
-    const res = document.createElement("div");
-    if (state.dealerWon) res.textContent = "— Dealer ganhou!";
-    else if (state.playerWon) res.textContent = "— Dealer perdeu!";
-    else res.textContent = "— Empate!";
-    res.style.marginTop = "8px";
-    el.appendChild(res);
+  // Update dealer score badge: hidden ('?') until dealer turn or game ended
+  const dealerScoreEl = document.getElementById("dealer_score");
+  if (dealerScoreEl) {
+    if (game.dealerTurn || state.gameEnded) {
+      dealerScoreEl.textContent = String(game.getCardsValue(cards));
+    } else {
+      dealerScoreEl.textContent = "?";
+    }
+  }
+
+  if (state.gameEnded) {
+    const span = document.createElement("span");
+    span.style.marginLeft = "8px";
+    if (state.dealerWon) span.innerText = " - Dealer GANHOU";
+    if (state.playerWon) span.innerText = " - Dealer PERDEU";
+    el.appendChild(span);
+    // Only finalize buttons when the game ends
     finalizeButtons();
   }
-
-  // debug removed
+  prevDealerCount = cards.length;
 }
 
 //TODO: Implement this method.
@@ -126,28 +194,34 @@ function updateDealer(state) {
  * @param {Object} state - The current state of the game.
  */
 function updatePlayer(state) {
-  if (!game) return;
   const el = document.getElementById("player");
-  const cards = game.getPlayerCards();
-  // Clear and render images
+  if (!el) return;
   el.innerHTML = "";
-  const playerScore = game.getCardsValue(cards);
-  const playerTitle = document.getElementById("player_title");
-  if (playerTitle) playerTitle.textContent = `Player (${playerScore})`;
-
-  for (const card of cards) {
-    printCard(el, card);
+  const cards = game.getPlayerCards();
+  // Update live score badge
+  const scoreEl = document.getElementById("player_score");
+  if (scoreEl) {
+    const val = game.getCardsValue(cards);
+    scoreEl.textContent = String(val);
+  }
+  for (let i = 0; i < cards.length; i++) {
+    const c = cards[i];
+    printCard(el, c);
+    if (i === cards.length - 1 && cards.length > prevPlayerCount) {
+      const last = el.lastElementChild;
+      if (last) last.classList.add("card-enter");
+    }
   }
 
-  if (state && state.gameEnded) {
-    const res = document.createElement("div");
-    if (state.playerWon) res.textContent = "— Ganhou!";
-    else if (state.dealerWon) res.textContent = "— Perdeu!";
-    else res.textContent = "— Empate!";
-    res.style.marginTop = "8px";
-    el.appendChild(res);
+  if (state.gameEnded) {
+    const span = document.createElement("span");
+    span.style.marginLeft = "8px";
+    if (state.playerWon) span.innerText = " - Jogador GANHOU";
+    if (state.dealerWon) span.innerText = " - Jogador PERDEU";
+    el.appendChild(span);
     finalizeButtons();
   }
+  prevPlayerCount = cards.length;
 }
 
 //TODO: Implement this method.
@@ -156,14 +230,9 @@ function updatePlayer(state) {
  * @returns {Object} - The game state after the dealer's move.
  */
 function dealerNewCard() {
-  if (!game) return null;
   const state = game.dealerMove();
   updateDealer(state);
-  if (state.gameEnded) {
-    // Ensure player view also updated and show final score
-    updatePlayer(state);
-    finalScore(state);
-  }
+  debug(game);
   return state;
 }
 
@@ -173,9 +242,9 @@ function dealerNewCard() {
  * @returns {Object} - The game state after the player's move.
  */
 function playerNewCard() {
-  if (!game) return null;
   const state = game.playerMove();
   updatePlayer(state);
+  debug(game);
   if (state.gameEnded) {
     updateDealer(state);
     finalScore(state);
@@ -187,18 +256,27 @@ function playerNewCard() {
 /**
  * Finishes the dealer's turn.
  */
-function dealerFinish() {
-  if (!game) return;
-  // Declare dealer's turn and evaluate current state
-  let state = game.getGameState();
+async function dealerFinish() {
+  // Disable player actions during dealer turn
+  const cardBtn = document.getElementById("card");
+  const standBtn = document.getElementById("stand");
+  if (cardBtn) cardBtn.disabled = true;
+  if (standBtn) standBtn.disabled = true;
+
   game.setDealerTurn(true);
+  let state = game.getGameState();
+  updateDealer(state); // this reveals the second card (with reveal anim)
 
+  // small pause before dealer starts drawing
+  await delay(450);
+
+  // Dealer draws until game ends with animation delays
   while (!state.gameEnded) {
-    updateDealer(state);
-    state = game.dealerMove();
+    state = dealerNewCard();
+    // brief delay between cards
+    await delay(550);
+    if (!state) break;
   }
-
-  // Final updates when the game ends
   updateDealer(state);
   updatePlayer(state);
   finalScore(state);
@@ -212,58 +290,17 @@ function dealerFinish() {
  * @param {boolean} [replace=false] - Indicates whether to replace the existing image.
  */
 function printCard(element, card, replace = false) {
-  if (replace) {
-    element.innerHTML = "";
-  }
-  if (!card) return;
+  if (!element) return;
+  if (replace) element.innerHTML = "";
+
+  const { png, svg } = getCardImagePath(card);
   const img = document.createElement("img");
-  const name = valueToName(card.value);
-  img.alt = `${name} of ${card.suit}`;
-  img.src = `img/png/${name}_of_${card.suit}.png`;
-  img.classList.add('card', 'img-fluid', 'me-2');
-  img.tabIndex = 0; // make focusable for keyboard users
+  img.src = png; // prefer png; if missing the browser may failover to 404 — svg can be used as fallback by trying both
+  img.alt = card;
+  // On error, try svg fallback
+  img.onerror = function () {
+    this.onerror = null;
+    this.src = svg;
+  };
   element.appendChild(img);
-
-  // Stagger reveal based on current number of .card elements in this container
-  const cardsInContainer = Array.from(element.querySelectorAll('.card')).length;
-  const delay = Math.min(400, (cardsInContainer - 1) * 120);
-  // Allow the browser to register the insert, then add visible class
-  setTimeout(() => img.classList.add('card--visible'), 20 + delay);
-}
-
-function printCardBack(element) {
-  const img = document.createElement('img');
-  img.alt = 'Card back';
-  img.src = `img/png/card_back.png`;
-  img.classList.add('card', 'card-back', 'img-fluid', 'me-2');
-  img.tabIndex = 0;
-  element.appendChild(img);
-  const cardsInContainer = Array.from(element.querySelectorAll('.card')).length;
-  const delay = Math.min(400, (cardsInContainer - 1) * 120);
-  setTimeout(() => img.classList.add('card--visible'), 20 + delay);
-}
-
-// Helpers
-function valueToName(value) {
-  if (value === 1) return "ace";
-  if (value >= 2 && value <= 10) return String(value);
-  if (value === 11) return "jack";
-  if (value === 12) return "queen";
-  return "king";
-}
-
-function toCardString(card) {
-  const suitMap = { clubs: "♣", diamonds: "♦", hearts: "♥", spades: "♠" };
-  const val = card.value;
-  const v =
-    val === 1
-      ? "A"
-      : val === 11
-      ? "J"
-      : val === 12
-      ? "Q"
-      : val === 13
-      ? "K"
-      : String(val);
-  return `${v}${suitMap[card.suit]}`;
 }
