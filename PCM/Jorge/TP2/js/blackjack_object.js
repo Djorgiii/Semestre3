@@ -53,7 +53,7 @@ class Blackjack {
     const deck = [];
     for (const naipe of naipes) {
       for (const valor of valores) {
-        // Use the same naming convention as the image files: e.g. 'ace_of_spades'
+        // Exemplo: 'ace_of_spades'
         deck.push(`${valor}_of_${naipe}`);
       }
     }
