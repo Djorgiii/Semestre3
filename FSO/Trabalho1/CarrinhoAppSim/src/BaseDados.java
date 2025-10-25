@@ -1,4 +1,3 @@
-
 public class BaseDados {
     private boolean terminar;
     private RobotLegoEV3Sim robot;
@@ -6,6 +5,7 @@ public class BaseDados {
     private int distancia;
     private int raio;
     private int angulo;
+    private Servidor servidor;
 
     public int getRaio() {
 		return raio;
@@ -47,6 +47,14 @@ public class BaseDados {
 
     public RobotLegoEV3Sim getRobot() {
         return robot;
+    }
+
+    public Servidor getServidor() {
+        return servidor;
+    }
+
+    public void setServidor(Servidor servidor) {
+        this.servidor = servidor;
     }
 
     public boolean isTerminar() {

@@ -34,7 +34,6 @@ public class GUI extends JFrame {
     private JTextField textFieldRobot;
     private BufferCircular bufferCircular;
     private ComandosAleatorios comandosAleatorios;
-    private Servidor servidor;
     
     public void myPrint(String s) {
 		textAreaConsola.append(s + "\n");
@@ -254,7 +253,8 @@ public class GUI extends JFrame {
                                     return;
                                 }
                                 if (comandosAleatorios == null) {
-                                    comandosAleatorios = new ComandosAleatorios(bufferCircular, servidor);
+                                    // Pass the GUI reference so the task must go through GUI -> BaseDados -> Servidor
+                                    comandosAleatorios = new ComandosAleatorios(GUI.this);
                                     comandosAleatorios.start();
                                 }
                                 comandosAleatorios.desbloquear();
@@ -273,19 +273,26 @@ public class GUI extends JFrame {
         });
     }
 
-    public BaseDados getBd() {
-        return bd;
+    // Allow clients (like ComandosAleatorios) to insert commands via the GUI
+    public void inserirComandoNoBuffer(Comando c) {
+        if (bufferCircular != null) {
+            bufferCircular.inserirElemento(c);
+        }
     }
+    
+     public BaseDados getBd() {
+         return bd;
+     }
 
-    public void setBd(BaseDados bd) {
-        this.bd = bd;
-    }
+     public void setBd(BaseDados bd) {
+         this.bd = bd;
+     }
 
-    public BufferCircular getBufferCircular() {
-        return bufferCircular;
-    }
+     public BufferCircular getBufferCircular() {
+         return bufferCircular;
+     }
 
-    public void setServidor(Servidor servidor) {
-        this.servidor = servidor;
-    }
-}
+     public void setServidor(Servidor servidor) {
+         this.bd.setServidor(servidor);
+     }
+ }
