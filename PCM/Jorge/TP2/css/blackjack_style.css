@@ -1,116 +1,68 @@
-/* Typography */
-body {
-  font-family: "Inter", system-ui, -apple-system, Segoe UI, Roboto, Arial,
-    sans-serif;
-}
+/* Blackjack custom styles - Bootstrap optimized */
 
-h1,
-h2,
-#game .badge {
-  font-family: "Play", "Inter", sans-serif;
-}
-
-header.container {
-  margin-top: 16px;
-  margin-bottom: 8px;
-}
-
-/* Table felt look */
+/* Mesa de jogo (feltro) */
 .table-felt {
   background: radial-gradient(circle at 50% 20%, #2f8f2f, #1e5f1e);
-  border-radius: 16px;
-  padding: 24px 32px; /* extra horizontal padding so cards don't touch edges */
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4) inset,
-    0 6px 18px rgba(0, 0, 0, 0.2);
-  overflow: visible; /* allow hover/fanning to escape bounds without clipping */
+  border-radius: 1rem;
+  padding: 2rem;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.4) inset, 0 6px 18px rgba(0,0,0,0.2);
 }
 
-/* Hands containers */
+/* Mão de cartas */
 .hand {
   min-height: 120px;
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 0.5rem;
   flex-wrap: nowrap;
-  overflow: visible; /* don't clip transformed cards */
-  padding: 6px 12px; /* safe inset so the first card doesn't get cut */
+  overflow: visible;
+  padding: 0.5rem 1rem;
 }
 
-/* Card image presentation */
 .hand img {
-  width: clamp(68px, 12vw, 96px); /* responsive size */
+  width: clamp(68px, 12vw, 96px);
   height: auto;
-  border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.35);
   transform-origin: bottom center;
   transition: transform 120ms ease, filter 120ms ease;
 }
 
-/* Slight fan-out effect */
 .hand img:not(:first-child) {
-  margin-left: -52px; /* overlap for fanned look */
+  margin-left: -3.2rem;
   position: relative;
 }
 
-/* Hover pop */
 .hand img:hover {
   transform: translateY(-6px) rotate(-1deg) scale(1.03);
   filter: brightness(1.05);
-  z-index: 3; /* ensure hovered card draws on top */
+  z-index: 3;
 }
 
-/* Entry animation for newly dealt cards */
 .card-enter {
   animation: cardEnter 300ms ease-out forwards;
 }
-
 @keyframes cardEnter {
-  0% {
-    opacity: 0;
-    transform: translateY(-12px) scale(0.96) rotate(-2deg);
-  }
-  60% {
-    opacity: 1;
-    transform: translateY(0px) scale(1.02) rotate(0deg);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0) scale(1) rotate(0);
-  }
+  0% { opacity: 0; transform: translateY(-12px) scale(0.96) rotate(-2deg); }
+  60% { opacity: 1; transform: translateY(0px) scale(1.02) rotate(0deg); }
+  100% { opacity: 1; transform: translateY(0) scale(1) rotate(0); }
 }
 
-/* Reveal animation for dealer's second card */
 .card-reveal {
   animation: cardReveal 350ms ease-out forwards;
 }
-
 @keyframes cardReveal {
-  0% {
-    filter: brightness(0.85);
-    transform: translateY(-8px) scale(0.98);
-  }
-  100% {
-    filter: brightness(1);
-    transform: translateY(0) scale(1);
-  }
+  0% { filter: brightness(0.85); transform: translateY(-8px) scale(0.98); }
+  100% { filter: brightness(1); transform: translateY(0) scale(1); }
 }
 
-/* Space buttons nicely */
-#game button {
-  margin-right: 6px;
-}
+/* Espaçamento dos botões - agora usa Bootstrap classes, mas mantemos um pequeno ajuste extra */
+#game button { margin-right: 0.5rem; }
 
-/* Titles spacing */
-#game h2 {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  margin-top: 16px;
-}
+/* Títulos - usa Bootstrap, mas mantemos gap para ícone */
+#game h2 { display: flex; align-items: center; gap: 0.5rem; margin-top: 1rem; }
 
-/* Dealer/Player row spacing for smaller screens */
+/* Responsividade para títulos */
 @media (max-width: 576px) {
-  #game h2 {
-    font-size: 1.1rem;
-  }
+  #game h2 { font-size: 1.1rem; }
 }

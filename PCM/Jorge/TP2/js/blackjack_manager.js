@@ -1,23 +1,19 @@
-// Blackjack OOP
+// Blackjack (gestão da UI)
+// Este ficheiro liga a lógica do jogo (classe Blackjack) à interface HTML.
+// Contém funções para inicializar o ecrã, atualizar cartas/pontos e gerir botões.
 
-let game = null; // Stores the current instance of the game
-let prevDealerCount = 0;
-let prevPlayerCount = 0;
+let game = null; // Instância atual do jogo
+let prevDealerCount = 0; // Contador anterior de cartas do dealer (para animações)
+let prevPlayerCount = 0; // Contador anterior de cartas do jogador (para animações)
 
+// Pausa assíncrona usada para animações (retorna uma Promise)
 function delay(ms) {
   return new Promise((res) => setTimeout(res, ms));
 }
 
 /**
- * Function to debug and display the state of the game object.
- * @param {Object} obj - The object to be debugged.
- */
-function debug(obj) {
-  document.getElementById("debug").innerHTML = JSON.stringify(obj); // Displays the state of the object as JSON
-}
-
-/**
- * Initializes the game buttons.
+ * Inicializa os botões do jogo (Carta, Parar, Novo Jogo).
+ * Habilita/desabilita conforme o estado inicial de uma ronda.
  */
 function buttonsInitialization() {
   const cardBtn = document.getElementById("card");
@@ -35,10 +31,11 @@ function buttonsInitialization() {
 }
 
 /**
- * Finalizes the buttons after the game ends.
+ * Atualiza o estado dos botões quando a ronda termina.
+ * Desativa as ações do jogador e ativa o botão de "Novo Jogo".
  */
 function finalizeButtons() {
-  //TODO: Reveal the dealer's hidden card if you hid it like you were supposed to.
+  // Nota: se escondeste a 2ª carta do dealer, aqui podes revelar essa carta.
 
   const cardBtn = document.getElementById("card");
   const standBtn = document.getElementById("stand");
@@ -49,32 +46,28 @@ function finalizeButtons() {
 }
 
 /**
- * Returns a probable image path for a card name. Prefers PNG under img/png, falls back to svg.
- * @param {string} card - card name like 'ace_of_spades'
+ * Obtém os caminhos prováveis para as imagens de uma carta.
+ * Preferimos PNG em "img/png" e fornecemos SVG como fallback em "img/svg".
+ * @param {string} card - nome da carta, ex: 'ace_of_spades'
  */
 function getCardImagePath(card) {
-  // Try png first
   const png = `img/png/${card}.png`;
   const svg = `img/svg/${card}.svg`;
-  // We'll return png path; browser will load if available. If not, svg fallback used by trying both when creating element.
   return { png, svg };
 }
 
-//TODO: Implement this method.
 /**
- * Clears the page to start a new game.
+ * Limpa a interface para começar uma nova ronda.
+ * Remove cartas, reseta badges de pontos e limpa mensagens.
  */
 function clearPage() {
-  // Clear displayed dealer/player sections and status/debug
   const dealerEl = document.getElementById("dealer");
   const playerEl = document.getElementById("player");
   const statusEl = document.getElementById("game_status");
-  const debugEl = document.getElementById("debug");
   const playerScoreEl = document.getElementById("player_score");
   if (dealerEl) dealerEl.innerHTML = "";
   if (playerEl) playerEl.innerHTML = "";
   if (statusEl) statusEl.innerHTML = "";
-  if (debugEl) debugEl.innerHTML = "";
   if (playerScoreEl) playerScoreEl.textContent = "0";
   const dealerScoreEl = document.getElementById("dealer_score");
   if (dealerScoreEl) dealerScoreEl.textContent = "?";
@@ -82,13 +75,8 @@ function clearPage() {
   prevPlayerCount = 0;
 }
 
-//TODO: Complete this method.
-/**
- * Starts a new game of Blackjack.
- */
 function newGame() {
   game = new Blackjack(); // Creates a new instance of the Blackjack game
-  debug(game); // Displays the current state of the game for debugging
 
   // Clear UI
   clearPage();
@@ -126,6 +114,7 @@ function finalScore(state) {
   const pValue = game.getCardsValue(game.playerCards);
   const dValue = game.getCardsValue(game.dealerCards);
   let msg = `Jogador: ${pValue} - Dealer: ${dValue}`;
+  if (state.draw) msg += " - Empate!";
   if (state.playerWon) msg += " - Jogador GANHOU!";
   if (state.dealerWon) msg += " - Dealer GANHOU!";
   if (state.playerBusted) msg += " - Jogador ESTOUROU!";
@@ -224,33 +213,23 @@ function updatePlayer(state) {
   prevPlayerCount = cards.length;
 }
 
-//TODO: Implement this method.
-/**
- * Causes the dealer to draw a new card.
- * @returns {Object} - The game state after the dealer's move.
- */
 function dealerNewCard() {
   const state = game.dealerMove();
   updateDealer(state);
-  debug(game);
   return state;
 }
 
-//TODO: Implement this method.
-/**
- * Causes the player to draw a new card.
- * @returns {Object} - The game state after the player's move.
- */
+
 function playerNewCard() {
   const state = game.playerMove();
   updatePlayer(state);
-  debug(game);
   if (state.gameEnded) {
     updateDealer(state);
     finalScore(state);
   }
   return state;
 }
+
 
 //TODO: Implement this method.
 /**
