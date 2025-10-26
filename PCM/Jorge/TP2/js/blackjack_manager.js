@@ -1,20 +1,15 @@
-// Blackjack (gestão da UI)
-// Este ficheiro liga a lógica do jogo (classe Blackjack) à interface HTML.
-// Contém funções para inicializar o ecrã, atualizar cartas/pontos e gerir botões.
+// UI controller: liga a classe Blackjack à interface HTML
 
 let game = null; // Instância atual do jogo
 let prevDealerCount = 0; // Contador anterior de cartas do dealer (para animações)
 let prevPlayerCount = 0; // Contador anterior de cartas do jogador (para animações)
 
-// Pausa assíncrona usada para animações (retorna uma Promise)
+// Pausa usada em animações
 function delay(ms) {
   return new Promise((res) => setTimeout(res, ms));
 }
 
-/**
- * Inicializa os botões do jogo (Carta, Parar, Novo Jogo).
- * Habilita/desabilita conforme o estado inicial de uma ronda.
- */
+// Inicializa estados dos botões (Carta, Parar, Novo Jogo)
 function buttonsInitialization() {
   const cardBtn = document.getElementById("card");
   const standBtn = document.getElementById("stand");
@@ -30,12 +25,8 @@ function buttonsInitialization() {
   if (newBtn) newBtn.disabled = true; // Disables the button for a new game
 }
 
-/**
- * Atualiza o estado dos botões quando a ronda termina.
- * Desativa as ações do jogador e ativa o botão de "Novo Jogo".
- */
+// Atualiza botões ao terminar a ronda
 function finalizeButtons() {
-  // Revelar a segunda carta do dealer, se estiver escondida
 
   const cardBtn = document.getElementById("card");
   const standBtn = document.getElementById("stand");
@@ -45,20 +36,14 @@ function finalizeButtons() {
   if (newBtn) newBtn.disabled = false;
 }
 
-/**
- * Obtém os caminhos prováveis para as imagens de uma carta.
- * Coloquei preferência para PNG em "img/png" e fornecemos SVG como fallback em "img/svg" ex: 'ace_of_spades'.
- */
+// Retorna caminhos (PNG e SVG) para a imagem da carta
 function getCardImagePath(card) {
   const png = `img/png/${card}.png`;
   const svg = `img/svg/${card}.svg`;
   return { png, svg };
 }
 
-/**
- * Limpa a interface para começar uma nova ronda.
- * Remove cartas, reseta badges de pontos e limpa mensagens.
- */
+// Limpa a UI para iniciar nova ronda
 function clearPage() {
   const dealerEl = document.getElementById("dealer");
   const playerEl = document.getElementById("player");
@@ -80,21 +65,26 @@ function newGame() {
   // Clear UI
   clearPage();
 
-  // Distribui cartas iniciais: dealer duas cartas, jogador uma carta
-  // Primeira carta do dealer
-  if (game.deck.length > 0) {
-    const c1 = game.deck.pop();
-    game.dealerCards.push(c1);
-  }
-  // Segunda carta do dealer (escondida)
-  if (game.deck.length > 0) {
-    const c2 = game.deck.pop();
-    game.dealerCards.push(c2);
-  }
-  // Primeira carta do jogador
+  // Inicia jogo e distribui cartas: jogador, dealer, jogador, dealer
+  // A 2ª carta do dealer fica escondida
   if (game.deck.length > 0) {
     const p1 = game.deck.pop();
     game.playerCards.push(p1);
+  }
+  // 1ª carta dealer
+  if (game.deck.length > 0) {
+    const d1 = game.deck.pop();
+    game.dealerCards.push(d1);
+  }
+  // 2ª carta jogador
+  if (game.deck.length > 0) {
+    const p2 = game.deck.pop();
+    game.playerCards.push(p2);
+  }
+  // 2ª carta dealer (escondida)
+  if (game.deck.length > 0) {
+    const d2 = game.deck.pop();
+    game.dealerCards.push(d2);
   }
 
   // Update UI
@@ -104,7 +94,7 @@ function newGame() {
   buttonsInitialization();
 }
 
-// Calcula e mostra o score final do jogo
+// Mostra o score final e mensagem de resultado
 function finalScore(state) {
   const pValue = game.getCardsValue(game.playerCards);
   const dValue = game.getCardsValue(game.dealerCards);
@@ -118,7 +108,7 @@ function finalScore(state) {
   if (el) el.innerText = msg;
 }
 
-// Atualiza o estado do dealer no jogo.
+// Atualiza a área do dealer na UI
 function updateDealer(state) {
   const el = document.getElementById("dealer");
   if (!el) return;
@@ -146,7 +136,7 @@ function updateDealer(state) {
     }
   }
 
-  // Esconde o score do dealer com um '?' até ser a vez do dealer ou o jogo acabar
+  // Mostra '?' até ser a vez do dealer ou o jogo terminar
   const dealerScoreEl = document.getElementById("dealer_score");
   if (dealerScoreEl) {
     if (game.dealerTurn || state.gameEnded) {
@@ -168,7 +158,7 @@ function updateDealer(state) {
   prevDealerCount = cards.length;
 }
 
-// Atualiza o estado do jogador no jogo.
+// Atualiza a área do jogador na UI
 function updatePlayer(state) {
   const el = document.getElementById("player");
   if (!el) return;
@@ -200,6 +190,7 @@ function updatePlayer(state) {
   prevPlayerCount = cards.length;
 }
 
+// Pede nova carta para o dealer e atualiza UI
 function dealerNewCard() {
   const state = game.dealerMove();
   updateDealer(state);
@@ -210,14 +201,7 @@ function dealerNewCard() {
 function playerNewCard() {
   const state = game.playerMove();
   updatePlayer(state);
-  // Se o jogador atingiu exatamente o máximo (ex.: 25), damos ao dealer a
-  // oportunidade automática de jogar a sua vez para tentar igualar/ganhar.
-  if (state.playerReachedMax) {
-    // inicia a vez do dealer que, ao terminar, chamará finalScore
-    dealerFinish();
-    return state;
-  }
-
+  // Se o jogo terminou, revela a carta do dealer e mostra o resultado
   if (state.gameEnded) {
     updateDealer(state);
     finalScore(state);
@@ -226,7 +210,7 @@ function playerNewCard() {
 }
 
 
-// Acaba a vez do dealer.
+// Executa a vez completa do dealer (tira cartas até terminar)
 async function dealerFinish() {
   // Desativa ações do jogador durante a vez do dealer
   const cardBtn = document.getElementById("card");
@@ -238,10 +222,10 @@ async function dealerFinish() {
   let state = game.getGameState();
   updateDealer(state); // Revela a carta escondida do dealer
 
-  // Pausa pequena antes do dealer começar a tirar cartas
+  // Pequena pausa antes do dealer tirar cartas
   await delay(450);
 
-  // O dealer tira cartas até o jogo acabar
+  // Dealer tira cartas até o estado indicar fim
   while (!state.gameEnded) {
     state = dealerNewCard();
     // Delay entre cartas para notar animação
@@ -253,7 +237,7 @@ async function dealerFinish() {
   finalScore(state);
 }
 
-// Imprime a carta na interface gráfica.
+// Renderiza imagem da carta na UI
 function printCard(element, card, replace = false) {
   if (!element) return;
   if (replace) element.innerHTML = "";
