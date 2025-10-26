@@ -1,6 +1,5 @@
-/* Blackjack custom styles - Bootstrap optimized */
 
-/* Mesa de jogo (feltro) */
+/* Mesa de jogo  */
 .table-felt {
   background: radial-gradient(circle at 50% 20%, #2f8f2f, #1e5f1e);
   border-radius: 1rem;
@@ -59,7 +58,7 @@
 /* Espaçamento dos botões - agora usa Bootstrap classes, mas mantemos um pequeno ajuste extra */
 #game button { margin-right: 0.5rem; }
 
-/* Títulos - usa Bootstrap, mas mantemos gap para ícone */
+/* Títulos - Gap para ícone */
 #game h2 { display: flex; align-items: center; gap: 0.5rem; margin-top: 1rem; }
 
 /* Responsividade para títulos */
