@@ -5,7 +5,7 @@ class Blackjack {
   // Limite a partir do qual o dealer pára de tirar cartas (regra da casa)
   static DEALER_MAX_TURN_POINTS = 21;
 
-  /** Inicializa instância e baralho embaralhado. */
+  /** Inicializa instância e baralho baralhado. */
   constructor() {
     this.dealerCards = []; // Cartas do dealer
     this.playerCards = []; // Cartas do jogador
@@ -81,7 +81,7 @@ class Blackjack {
 
   // Define a vez do dealer (true) ou do jogador (false)
   setDealerTurn(val) {
-    this.dealerTurn = val; // Update the dealer's turn status
+    this.dealerTurn = val;
   }
   // Calcula pontos de uma mão; ases valem 1 ou 11 conforme necessário
   getCardsValue(cards) {

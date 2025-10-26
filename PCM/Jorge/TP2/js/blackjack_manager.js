@@ -123,12 +123,12 @@ function updateDealer(state) {
       el.appendChild(img);
     } else {
       printCard(el, cards[i]);
-      // animate only new appended card (last) when hand grows
+      // Animação de entrada para a última carta adicionada
       if (i === cards.length - 1 && cards.length > prevDealerCount) {
         const last = el.lastElementChild;
         if (last) last.classList.add("card-enter");
       }
-      // add a subtle reveal for second card when dealerTurn starts
+      // Adiciona uma animação sutil de revelação para a segunda carta quando for a vez do dealer
       if (i === 1 && game.dealerTurn && !state.gameEnded) {
         const last = el.lastElementChild;
         if (last) last.classList.add("card-reveal");
