@@ -18,6 +18,10 @@ public class App {
 
     public static void main(String[] args) {
         App app = new App();
+        Servidor servidor = new Servidor(app.gui.getBufferCircular(), app.gui.getBd().getRobot(), app.gui.getBd());
+        app.gui.setServidor(servidor);
+        servidor.start();
+        servidor.desbloquear();
         app.run();
     }
 }
