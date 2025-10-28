@@ -33,6 +33,10 @@ public class Servidor extends Thread{
 	public void resetContadorAleatorios() {
         contadorAleatorios = 0;
     }
+	
+	public BufferCircular getBufferCircular() {
+	    return buffercircular;
+	}
 
 	
 	public void execucao() {
@@ -56,7 +60,7 @@ public class Servidor extends Thread{
 	                    contadorAleatorios++;
 	                    break;
 	                case "PARAR":
-	                    asdrubal.Parar(true);
+	                    asdrubal.Parar(false);
 	                    contadorAleatorios++;
 	                    break;
 	                default:

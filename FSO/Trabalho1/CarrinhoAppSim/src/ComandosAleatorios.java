@@ -9,7 +9,9 @@ public class ComandosAleatorios extends Tarefa {
     public void execucao() {
         if (gui != null && gui.getBd() != null && gui.getBd().getServidor() != null) {
             gui.getBd().getServidor().resetContadorAleatorios();
+            gui.getBd().getServidor().getBufferCircular().clear();
         }
+        
         String[] tipos = {"PARAR", "RETA", "CURVARDIREITA", "CURVARESQUERDA"};
         for (int i = 0; i < 5; i++) {
             String tipo = tipos[(int)(Math.random() * tipos.length)];
