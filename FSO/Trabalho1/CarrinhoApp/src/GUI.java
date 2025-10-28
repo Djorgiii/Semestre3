@@ -33,8 +33,9 @@ public class GUI extends JFrame {
     private JTextField textFieldAngulo;
     private JTextField textFieldRobot;
     private BufferCircular bufferCircular;
+    private ComandosAleatorios comandosAleatorios;
     
-    private void myPrint(String s) {
+    public void myPrint(String s) {
 		textAreaConsola.append(s + "\n");
 	}
 
@@ -245,24 +246,20 @@ public class GUI extends JFrame {
                     
                     JRadioButton rdbtnMovimentosAleatrios = new JRadioButton("Movimentos Aleatórios");
                     rdbtnMovimentosAleatrios.addActionListener(new ActionListener() {
-                    	public void actionPerformed(ActionEvent e) {
-                    		int numMovimentos = (int) spinner.getValue();
-                            if (!bd.isRobotAberto()) {
-                                myPrint("Abra o robot antes de executar movimentos aleatórios.");
-                                return;
+                        public void actionPerformed(ActionEvent e) {
+                            if (rdbtnMovimentosAleatrios.isSelected()) {
+                                if (!bd.isRobotAberto()) {
+                                    myPrint("Abra o robot antes de executar movimentos aleatórios.");
+                                    return;
+                                }
+                                if (comandosAleatorios == null) {
+                                    // Pass the GUI reference so the task must go through GUI -> BaseDados -> Servidor
+                                    comandosAleatorios = new ComandosAleatorios(GUI.this);
+                                    comandosAleatorios.start();
+                                }
+                                comandosAleatorios.desbloquear();
                             }
-                            // Pass bufferCircular and a Tarefa (can be null or a new Tarefa if needed)
-                            ComandosAleatorios comandos = new ComandosAleatorios(bufferCircular, null);
-                            // Optionally, set parameters in comandos if needed
-                            for (int i = 0; i < numMovimentos; i++) {
-                                // Call execucao() to generate random commands
-                                comandos.execucao();
-                                myPrint("Movimento aleatório " + (i+1) + " gerado.");
-                                
-                            }
-                            bd.getRobot().Parar(false);
-                            myPrint("Sequência de movimentos aleatórios concluída.");
-                    	}
+                        }
                     });
                     rdbtnMovimentosAleatrios.setFont(new Font("Tahoma", Font.PLAIN, 18));
                     rdbtnMovimentosAleatrios.setBounds(378, 200, 221, 21);
@@ -276,11 +273,26 @@ public class GUI extends JFrame {
         });
     }
 
-    public BaseDados getBd() {
-        return bd;
+    // Allow clients (like ComandosAleatorios) to insert commands via the GUI
+    public void inserirComandoNoBuffer(Comando c) {
+        if (bufferCircular != null) {
+            bufferCircular.inserirElemento(c);
+        }
     }
+    
+     public BaseDados getBd() {
+         return bd;
+     }
 
-    public void setBd(BaseDados bd) {
-        this.bd = bd;
-    }
-}
+     public void setBd(BaseDados bd) {
+         this.bd = bd;
+     }
+
+     public BufferCircular getBufferCircular() {
+         return bufferCircular;
+     }
+
+     public void setServidor(Servidor servidor) {
+         this.bd.setServidor(servidor);
+     }
+ }

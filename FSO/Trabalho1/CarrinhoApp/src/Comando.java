@@ -1,4 +1,3 @@
-
 public class Comando {
 	private String tipo;
 	private int arg1;
@@ -32,4 +31,19 @@ public class Comando {
 		return b;
 	}
 	
+	@Override
+	public String toString() {
+	    switch (tipo) {
+	        case "parar":
+	            return "PARAR";
+	        case "reta":
+	            return "RETA(" + arg1 + ")";
+	        case "curvardireita":
+	            return "CURVADIREITA(" + arg1 + ", " + arg2 + ")";
+	        case "curvaresquerda":
+	            return "CURVARESQUERDA(" + arg1 + ", " + arg2 + ")";
+	        default:
+	            return tipo + "(" + arg1 + ", " + arg2 + ")";
+	    }
+	}
 }
