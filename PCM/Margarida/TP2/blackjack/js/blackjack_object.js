@@ -136,13 +136,10 @@ class Blackjack {
    */
   dealerMove() {
     if (this.state.gameEnded) return this.state;
-
-    this.dealerTurn = true;
     if (this.deck.length === 0) {
       this.deck = this.shuffle(this.newDeck());
     }
     this.dealerCards.push(this.deck.pop());
-    this.dealerTurn = false;
 
     return this.getGameState();
   }
@@ -161,6 +158,9 @@ class Blackjack {
 
     return this.getGameState();
   }
+  setDealerTurn(v) {
+    this.dealerTurn = v;
+  } // ajuda o controller a passar a vez
 
   /**
    * Checks the game state based on the dealer's and player's cards.
