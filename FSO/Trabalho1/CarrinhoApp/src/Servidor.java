@@ -1,52 +1,77 @@
-public class Servidor extends Tarefa{
+import java.util.function.Consumer;
+
+public class Servidor extends Thread{
 	private BufferCircular buffercircular;
 	private RobotLegoEV3 asdrubal;
+	private Consumer<String> printCallback;
+	private int contadorAleatorios = 0;
+    private static final int TOTAL_ALEATORIOS = 5;
 	
-	public Servidor(BufferCircular buffercircular, RobotLegoEV3 asdrubal, Tarefa proxima) {
-		super(proxima);
-		this.buffercircular = buffercircular;
-		this.asdrubal = asdrubal;
+	
+	public Servidor(BufferCircular buffercircular, RobotLegoEV3 asdrubal, Consumer<String> printCallback) {
+	    this.buffercircular = buffercircular;
+	    this.asdrubal = asdrubal;
+	    this.printCallback = printCallback;
 	}
 	
 	public void Reta(int distancia) {
-		asdrubal.Reta(distancia);
+		buffercircular.inserirElemento(new Comando("RETA", distancia, 0));
 	}
 	
-	public void CurvarDireita(int angulo, int raio) {
-		asdrubal.CurvarDireita(angulo, raio);
+	public void CurvarDireita(int distancia, int raio) {
+		buffercircular.inserirElemento(new Comando("CURVARDIREITA", distancia, raio));
 	}
 	
-	public void CurvarEsquerda(int angulo, int raio) {
-		asdrubal.CurvarEsquerda(angulo, raio);
+	public void CurvarEsquerda(int distancia, int raio) {
+		buffercircular.inserirElemento(new Comando("CURVARESQUERDA", distancia, raio));
 	}
 	
 	public void Parar(boolean b) {
-		asdrubal.Parar(b);
+		buffercircular.inserirElemento(new Comando("PARAR", b));
 	}
+	
+	public void resetContadorAleatorios() {
+        contadorAleatorios = 0;
+    }
 
 	
 	public void execucao() {
 	    while (true) {
 	        Comando comando = buffercircular.removerElemento();
+	        int pos = buffercircular.getLastRemovedIndex();
 	        if (comando != null) {
-	            switch (comando.getTipo()) {
+	            if (printCallback != null) printCallback.accept(pos+1 + " - " + comando.toString());
+	            String tipo = comando.getTipo().toUpperCase();
+	            switch (tipo) {
 	                case "RETA":
-	                    Reta(comando.getArg1());
+	                    asdrubal.Reta(comando.getArg1());
+	                    contadorAleatorios++;
 	                    break;
 	                case "CURVARDIREITA":
-	                    CurvarDireita(comando.getArg1(), comando.getArg2());
+	                    asdrubal.CurvarDireita(comando.getArg1(), comando.getArg2());
+	                    contadorAleatorios++;
 	                    break;
 	                case "CURVARESQUERDA":
-	                    CurvarEsquerda(comando.getArg1(), comando.getArg2());
+	                    asdrubal.CurvarEsquerda(comando.getArg1(), comando.getArg2());
+	                    contadorAleatorios++;
 	                    break;
 	                case "PARAR":
-	                    Parar(true);
+	                    asdrubal.Parar(true);
+	                    contadorAleatorios++;
 	                    break;
 	                default:
-	                    // Comando desconhecido
 	                    break;
+	            }
+	            if (contadorAleatorios == TOTAL_ALEATORIOS) {
+	                if (printCallback != null) printCallback.accept("Sequência de 5 movimentos aleatórios concluída.");
+	                contadorAleatorios = 0;
 	            }
 	        }
 	    }
+	}
+	
+	@Override
+	public void run() {
+	    execucao();
 	}
 }

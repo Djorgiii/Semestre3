@@ -1,39 +1,30 @@
-
 public class BaseDados {
     private boolean terminar;
     private RobotLegoEV3 robot;
     private boolean robotAberto;
     private int distancia;
-    private int angulo;
     private int raio;
-    private int numAleatorio;
+    private int angulo;
+    private Servidor servidor;
 
-    public int getDistancia() {
-		return distancia;
+    public int getRaio() {
+		return raio;
+	}
+
+	public void setRaio(int raio) {
+		this.raio = raio;
 	}
 
 	public int getAngulo() {
 		return angulo;
-	}
-	
-	public int getNumAleatorio() {
-		return numAleatorio;
-	}
-
-	public void setNumAleatorio(int numAleatorio) {
-		this.numAleatorio = numAleatorio;
 	}
 
 	public void setAngulo(int angulo) {
 		this.angulo = angulo;
 	}
 
-	public int getRaio() {
-		return raio;
-	}
-
-	public void setRaio(int raio) {
-		this.raio = raio;
+	public int getDistancia() {
+		return distancia;
 	}
 
 	public void setDistancia(int distancia) {
@@ -56,6 +47,14 @@ public class BaseDados {
 
     public RobotLegoEV3 getRobot() {
         return robot;
+    }
+
+    public Servidor getServidor() {
+        return servidor;
+    }
+
+    public void setServidor(Servidor servidor) {
+        this.servidor = servidor;
     }
 
     public boolean isTerminar() {
