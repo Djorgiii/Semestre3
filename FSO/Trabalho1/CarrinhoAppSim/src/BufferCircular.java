@@ -19,6 +19,35 @@ public class BufferCircular {
 		 acessoElemento= new Semaphore(1);
 	}
 	
+	public void clear() {
+	    // trava o acesso aos índices e ao array
+	    acessoElemento.acquireUninterruptibly();
+	    try {
+	        // 1) Zera "ocupados" (não há items no buffer)
+	        elementosOcupados.drainPermits();
+
+	        // 2) Limpa as posições para evitar referências antigas (opcional mas recomendado)
+	        for (int i = 0; i < dimensaoBuffer; i++) {
+	            bufferCircular[i] = null;
+	        }
+
+	        // 3) Alinha índices: buffer vazio => put == get
+	        putBuffer = getBuffer;
+
+	        // 4) Garante "livres" == capacidade total
+	        int livres = elementosLivres.availablePermits();
+	        int faltaLibertar = dimensaoBuffer - livres;
+	        if (faltaLibertar > 0) {
+	            elementosLivres.release(faltaLibertar);
+	        }
+	        // (se por alguma razão livres > capacidade, não fazemos nada —
+	        // mas isso indicaria uso incorreto do semáforo noutro lado)
+	    } finally {
+	        acessoElemento.release();
+	    }
+	}
+
+	
 	public void inserirElemento(Comando s){
 		try {
 		 elementosLivres.acquire();
