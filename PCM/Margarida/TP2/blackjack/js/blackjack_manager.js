@@ -177,7 +177,8 @@ function playerNewCard() {
  */
 function dealerFinish() {
   if (!game) return null;
-  game.setDealerTurn(true);
+  if (typeof game.setDealerTurn === "function") game.setDealerTurn(true);
+  else game.dealerTurn = true;
   let st = game.getGameState();
   while (!st.gameEnded) {
     updateDealer();
@@ -185,6 +186,7 @@ function dealerFinish() {
   }
   updateDealer();
   updatePlayer();
+  finalizeButtons();
   return st;
 }
 
