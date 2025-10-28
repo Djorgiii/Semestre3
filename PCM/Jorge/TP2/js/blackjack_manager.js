@@ -1,24 +1,15 @@
-// Blackjack OOP
+// UI controller: liga a classe Blackjack à interface HTML
 
-let game = null; // Stores the current instance of the game
-let prevDealerCount = 0;
-let prevPlayerCount = 0;
+let game = null; // Instância atual do jogo
+let prevDealerCount = 0; // Contador anterior de cartas do dealer (para animações)
+let prevPlayerCount = 0; // Contador anterior de cartas do jogador (para animações)
 
+// Pausa usada em animações
 function delay(ms) {
   return new Promise((res) => setTimeout(res, ms));
 }
 
-/**
- * Function to debug and display the state of the game object.
- * @param {Object} obj - The object to be debugged.
- */
-function debug(obj) {
-  document.getElementById("debug").innerHTML = JSON.stringify(obj); // Displays the state of the object as JSON
-}
-
-/**
- * Initializes the game buttons.
- */
+// Inicializa estados dos botões (Carta, Parar, Novo Jogo)
 function buttonsInitialization() {
   const cardBtn = document.getElementById("card");
   const standBtn = document.getElementById("stand");
@@ -34,11 +25,8 @@ function buttonsInitialization() {
   if (newBtn) newBtn.disabled = true; // Disables the button for a new game
 }
 
-/**
- * Finalizes the buttons after the game ends.
- */
+// Atualiza botões ao terminar a ronda
 function finalizeButtons() {
-  //TODO: Reveal the dealer's hidden card if you hid it like you were supposed to.
 
   const cardBtn = document.getElementById("card");
   const standBtn = document.getElementById("stand");
@@ -48,33 +36,22 @@ function finalizeButtons() {
   if (newBtn) newBtn.disabled = false;
 }
 
-/**
- * Returns a probable image path for a card name. Prefers PNG under img/png, falls back to svg.
- * @param {string} card - card name like 'ace_of_spades'
- */
+// Retorna caminhos (PNG e SVG) para a imagem da carta
 function getCardImagePath(card) {
-  // Try png first
   const png = `img/png/${card}.png`;
   const svg = `img/svg/${card}.svg`;
-  // We'll return png path; browser will load if available. If not, svg fallback used by trying both when creating element.
   return { png, svg };
 }
 
-//TODO: Implement this method.
-/**
- * Clears the page to start a new game.
- */
+// Limpa a UI para iniciar nova ronda
 function clearPage() {
-  // Clear displayed dealer/player sections and status/debug
   const dealerEl = document.getElementById("dealer");
   const playerEl = document.getElementById("player");
   const statusEl = document.getElementById("game_status");
-  const debugEl = document.getElementById("debug");
   const playerScoreEl = document.getElementById("player_score");
   if (dealerEl) dealerEl.innerHTML = "";
   if (playerEl) playerEl.innerHTML = "";
   if (statusEl) statusEl.innerHTML = "";
-  if (debugEl) debugEl.innerHTML = "";
   if (playerScoreEl) playerScoreEl.textContent = "0";
   const dealerScoreEl = document.getElementById("dealer_score");
   if (dealerScoreEl) dealerScoreEl.textContent = "?";
@@ -82,32 +59,32 @@ function clearPage() {
   prevPlayerCount = 0;
 }
 
-//TODO: Complete this method.
-/**
- * Starts a new game of Blackjack.
- */
 function newGame() {
-  game = new Blackjack(); // Creates a new instance of the Blackjack game
-  debug(game); // Displays the current state of the game for debugging
+  game = new Blackjack(); // Cria uma nova instância do jogo
 
   // Clear UI
   clearPage();
 
-  // Initial draws: dealer two cards, player one card
-  // Dealer first card
-  if (game.deck.length > 0) {
-    const c1 = game.deck.pop();
-    game.dealerCards.push(c1);
-  }
-  // Dealer second card (hidden)
-  if (game.deck.length > 0) {
-    const c2 = game.deck.pop();
-    game.dealerCards.push(c2);
-  }
-  // Player one card
+  // Inicia jogo e distribui cartas: jogador, dealer, jogador, dealer
+  // A 2ª carta do dealer fica escondida
   if (game.deck.length > 0) {
     const p1 = game.deck.pop();
     game.playerCards.push(p1);
+  }
+  // 1ª carta dealer
+  if (game.deck.length > 0) {
+    const d1 = game.deck.pop();
+    game.dealerCards.push(d1);
+  }
+  // 2ª carta jogador
+  if (game.deck.length > 0) {
+    const p2 = game.deck.pop();
+    game.playerCards.push(p2);
+  }
+  // 2ª carta dealer (escondida)
+  if (game.deck.length > 0) {
+    const d2 = game.deck.pop();
+    game.dealerCards.push(d2);
   }
 
   // Update UI
@@ -117,15 +94,12 @@ function newGame() {
   buttonsInitialization();
 }
 
-//TODO: Implement this method.
-/**
- * Calculates and displays the final score of the game.
- * @param {Object} state - The current state of the game.
- */
+// Mostra o score final e mensagem de resultado
 function finalScore(state) {
   const pValue = game.getCardsValue(game.playerCards);
   const dValue = game.getCardsValue(game.dealerCards);
   let msg = `Jogador: ${pValue} - Dealer: ${dValue}`;
+  if (state.draw) msg += " - Empate!";
   if (state.playerWon) msg += " - Jogador GANHOU!";
   if (state.dealerWon) msg += " - Dealer GANHOU!";
   if (state.playerBusted) msg += " - Jogador ESTOUROU!";
@@ -134,11 +108,7 @@ function finalScore(state) {
   if (el) el.innerText = msg;
 }
 
-//TODO: Implement this method.
-/**
- * Updates the dealer's state in the game.
- * @param {Object} state - The current state of the game.
- */
+// Atualiza a área do dealer na UI
 function updateDealer(state) {
   const el = document.getElementById("dealer");
   if (!el) return;
@@ -146,19 +116,19 @@ function updateDealer(state) {
   const cards = game.getDealerCards();
   for (let i = 0; i < cards.length; i++) {
     if (i === 1 && !game.dealerTurn && !state.gameEnded) {
-      // show card back image
+      // Mostra a carta virada para baixo se for a segunda carta do dealer e não for a vez do dealer
       const img = document.createElement("img");
       img.src = "img/png/card_back.png";
       img.alt = "carta escondida";
       el.appendChild(img);
     } else {
       printCard(el, cards[i]);
-      // animate only new appended card (last) when hand grows
+      // Animação de entrada para a última carta adicionada
       if (i === cards.length - 1 && cards.length > prevDealerCount) {
         const last = el.lastElementChild;
         if (last) last.classList.add("card-enter");
       }
-      // add a subtle reveal for second card when dealerTurn starts
+      // Adiciona uma animação sutil de revelação para a segunda carta quando for a vez do dealer
       if (i === 1 && game.dealerTurn && !state.gameEnded) {
         const last = el.lastElementChild;
         if (last) last.classList.add("card-reveal");
@@ -166,7 +136,7 @@ function updateDealer(state) {
     }
   }
 
-  // Update dealer score badge: hidden ('?') until dealer turn or game ended
+  // Mostra '?' até ser a vez do dealer ou o jogo terminar
   const dealerScoreEl = document.getElementById("dealer_score");
   if (dealerScoreEl) {
     if (game.dealerTurn || state.gameEnded) {
@@ -182,23 +152,19 @@ function updateDealer(state) {
     if (state.dealerWon) span.innerText = " - Dealer GANHOU";
     if (state.playerWon) span.innerText = " - Dealer PERDEU";
     el.appendChild(span);
-    // Only finalize buttons when the game ends
+    // Apenas finaliza os botões quando o jogo termina
     finalizeButtons();
   }
   prevDealerCount = cards.length;
 }
 
-//TODO: Implement this method.
-/**
- * Updates the player's state in the game.
- * @param {Object} state - The current state of the game.
- */
+// Atualiza a área do jogador na UI
 function updatePlayer(state) {
   const el = document.getElementById("player");
   if (!el) return;
   el.innerHTML = "";
   const cards = game.getPlayerCards();
-  // Update live score badge
+  // Atualiza o score do jogador ao vivo
   const scoreEl = document.getElementById("player_score");
   if (scoreEl) {
     const val = game.getCardsValue(cards);
@@ -224,27 +190,18 @@ function updatePlayer(state) {
   prevPlayerCount = cards.length;
 }
 
-//TODO: Implement this method.
-/**
- * Causes the dealer to draw a new card.
- * @returns {Object} - The game state after the dealer's move.
- */
+// Pede nova carta para o dealer e atualiza UI
 function dealerNewCard() {
   const state = game.dealerMove();
   updateDealer(state);
-  debug(game);
   return state;
 }
 
-//TODO: Implement this method.
-/**
- * Causes the player to draw a new card.
- * @returns {Object} - The game state after the player's move.
- */
+
 function playerNewCard() {
   const state = game.playerMove();
   updatePlayer(state);
-  debug(game);
+  // Se o jogo terminou, revela a carta do dealer e mostra o resultado
   if (state.gameEnded) {
     updateDealer(state);
     finalScore(state);
@@ -252,12 +209,10 @@ function playerNewCard() {
   return state;
 }
 
-//TODO: Implement this method.
-/**
- * Finishes the dealer's turn.
- */
+
+// Executa a vez completa do dealer (tira cartas até terminar)
 async function dealerFinish() {
-  // Disable player actions during dealer turn
+  // Desativa ações do jogador durante a vez do dealer
   const cardBtn = document.getElementById("card");
   const standBtn = document.getElementById("stand");
   if (cardBtn) cardBtn.disabled = true;
@@ -265,15 +220,15 @@ async function dealerFinish() {
 
   game.setDealerTurn(true);
   let state = game.getGameState();
-  updateDealer(state); // this reveals the second card (with reveal anim)
+  updateDealer(state); // Revela a carta escondida do dealer
 
-  // small pause before dealer starts drawing
+  // Pequena pausa antes do dealer tirar cartas
   await delay(450);
 
-  // Dealer draws until game ends with animation delays
+  // Dealer tira cartas até o estado indicar fim
   while (!state.gameEnded) {
     state = dealerNewCard();
-    // brief delay between cards
+    // Delay entre cartas para notar animação
     await delay(550);
     if (!state) break;
   }
@@ -282,22 +237,16 @@ async function dealerFinish() {
   finalScore(state);
 }
 
-//TODO: Implement this method.
-/**
- * Prints the card in the graphical interface.
- * @param {HTMLElement} element - The element where the card will be displayed.
- * @param {Card} card - The card to be displayed.
- * @param {boolean} [replace=false] - Indicates whether to replace the existing image.
- */
+// Renderiza imagem da carta na UI
 function printCard(element, card, replace = false) {
   if (!element) return;
   if (replace) element.innerHTML = "";
 
   const { png, svg } = getCardImagePath(card);
   const img = document.createElement("img");
-  img.src = png; // prefer png; if missing the browser may failover to 404 — svg can be used as fallback by trying both
+  img.src = png; // Preferência por PNG
   img.alt = card;
-  // On error, try svg fallback
+  // SVG como fallback
   img.onerror = function () {
     this.onerror = null;
     this.src = svg;
