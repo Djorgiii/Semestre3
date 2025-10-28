@@ -18,6 +18,10 @@ public class App {
 
     public static void main(String[] args) {
         App app = new App();
+        RobotLegoEV3 robot = new RobotLegoEV3();
+        Servidor servidor = new Servidor(app.gui.getBufferCircular(), robot, s -> app.gui.myPrint(s));
+        app.gui.setServidor(servidor);
+        servidor.start();
         app.run();
     }
 }
