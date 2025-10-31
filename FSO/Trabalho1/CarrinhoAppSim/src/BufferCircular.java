@@ -53,13 +53,13 @@ public class BufferCircular {
 		 elementosLivres.acquire();
 		 acessoElemento.acquire();
 		 bufferCircular[putBuffer]= new Comando(s.getTipo(), s.getArg1(), s.getArg2());
-		 System.out.println("Inserido no buffer[" + putBuffer + "]: " + s);
+		 //System.out.println("Inserido no buffer[" + putBuffer + "]: " + s);
 		 // Estado do buffer após inserção
-		 System.out.print("Estado do buffer após inserção: ");
-		 for (int i = 0; i < dimensaoBuffer; i++) {
-			 System.out.print(bufferCircular[i] + " | ");
-		 }
-		 System.out.println();
+		 //System.out.print("Estado do buffer após inserção: ");
+		 //for (int i = 0; i < dimensaoBuffer; i++) {
+		//	 System.out.print(bufferCircular[i] + " | ");
+		 //}
+		 //System.out.println();
 		 putBuffer= ++putBuffer % dimensaoBuffer;
 		 acessoElemento.release();
 		} catch (InterruptedException e) {}
@@ -75,13 +75,12 @@ public class BufferCircular {
 			lastRemovedIndex = getBuffer;
 			s =  bufferCircular[getBuffer];
 			bufferCircular[getBuffer] = null;
-			System.out.println("Removido do buffer[" + getBuffer + "]: " + s);
+			//System.out.println("Removido do buffer[" + getBuffer + "]: " + s);
 			// Estado do buffer após remoção
-			System.out.print("Estado do buffer após remoção: ");
-			for (int i = 0; i < dimensaoBuffer; i++) {
-				System.out.print(bufferCircular[i] + " | ");
-			}
-			System.out.println();
+			//System.out.print("Estado do buffer após remoção: ");
+			//for (int i = 0; i < dimensaoBuffer; i++) {
+			//}
+			//System.out.println();
 			getBuffer= ++getBuffer % dimensaoBuffer;
 			acessoElemento.release();
 			elementosLivres.release();
