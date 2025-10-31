@@ -34,11 +34,32 @@ public class GUI extends JFrame {
     private JTextField textFieldRobot;
     private BufferCircular bufferCircular;
     private ComandosAleatorios comandosAleatorios;
+    private TarefaComandosManuais tarefaManuais;
+    private Comando comandoPendente;
     
     public void myPrint(String s) {
 		textAreaConsola.append(s + "\n");
 	}
 
+    public void setTarefas(TarefaComandosManuais tManuais, ComandosAleatorios tAleatorios) {
+        this.tarefaManuais = tManuais;
+        this.comandosAleatorios = tAleatorios;
+    }
+
+    public void pedirComandoManual(Comando c) {
+        this.comandoPendente = c;
+        if (tarefaManuais != null) {
+            tarefaManuais.desbloquear();
+        }
+    }
+
+    public Comando obterComandoManual() {
+        Comando tmp = comandoPendente;
+        comandoPendente = null;
+        return tmp;
+    }
+
+    
     /**
      * Create the frame.
      */
@@ -73,8 +94,8 @@ public class GUI extends JFrame {
                     btnFrente.setFont(new Font("Tahoma", Font.PLAIN, 16));
                     btnFrente.addActionListener(new ActionListener() {
                         public void actionPerformed(ActionEvent arg0) {
-                            
-                        	bd.getServidor().getBufferCircular().inserirElemento(new Comando("FRENTE", bd.getDistancia(), 0));
+                        	pedirComandoManual(new Comando("RETA", bd.getDistancia(), 0));
+                        	//bd.getServidor().getBufferCircular().inserirElemento(new Comando("FRENTE", bd.getDistancia(), 0));
                         	//bd.getRobot().Reta(bd.getDistancia());
                             //bd.getRobot().Parar(false);
                             myPrint("Fez uma reta de " + bd.getDistancia() + " cm.");	
@@ -182,7 +203,8 @@ public class GUI extends JFrame {
                     btnParar.setBackground(new Color(255, 0, 0));
                     btnParar.addActionListener(new ActionListener() {
                     	public void actionPerformed(ActionEvent arg0) {
-                    		bd.getRobot().Parar(true);
+                    		pedirComandoManual(new Comando("PARAR", false));
+                    		//bd.getRobot().Parar(true);
                     		myPrint("O Robot parou!");
                     	}
                     });
@@ -194,9 +216,11 @@ public class GUI extends JFrame {
                     btnDireita.setBackground(new Color(0, 128, 255));
                     btnDireita.addActionListener(new ActionListener() {
                     	public void actionPerformed(ActionEvent e) {
-                    		bd.getServidor().getBufferCircular().inserirElemento(new Comando("CURVARDIREITA", bd.getRaio(), bd.getAngulo()));
+                    		pedirComandoManual(new Comando("CURVARDIREITA", bd.getRaio(), bd.getAngulo()));
+                    		pedirComandoManual(new Comando("PARAR", false));
+                    		//bd.getServidor().getBufferCircular().inserirElemento(new Comando("CURVARDIREITA", bd.getRaio(), bd.getAngulo()));
                     		//bd.getRobot().CurvarDireita(bd.getRaio(), bd.getAngulo());
-                    		bd.getServidor().getBufferCircular().inserirElemento(new Comando("PARAR", false));
+                    		//bd.getServidor().getBufferCircular().inserirElemento(new Comando("PARAR", false));
                     		//bd.getRobot().Parar(false);
                     		myPrint("Fez uma curva à direita com um angulo de " + bd.getAngulo()+ "º e com " +  bd.getRaio() + " de raio.");
                     	}
@@ -209,9 +233,11 @@ public class GUI extends JFrame {
                     btnEsquerda.setBackground(new Color(255, 128, 255));
                     btnEsquerda.addActionListener(new ActionListener() {
                     	public void actionPerformed(ActionEvent e) {
-                    		bd.getServidor().getBufferCircular().inserirElemento(new Comando("CURVARESQUERDA", bd.getRaio(), bd.getAngulo()));
+                    		pedirComandoManual(new Comando("CURVARESQUERDA", bd.getRaio(), bd.getAngulo()));
+                    		pedirComandoManual(new Comando("PARAR", false));
+                    		//bd.getServidor().getBufferCircular().inserirElemento(new Comando("CURVARESQUERDA", bd.getRaio(), bd.getAngulo()));
                     		//bd.getRobot().CurvarEsquerda(bd.getRaio(), bd.getAngulo());
-                    		bd.getServidor().getBufferCircular().inserirElemento(new Comando("PARAR", false));
+                    		//bd.getServidor().getBufferCircular().inserirElemento(new Comando("PARAR", false));
                     		//bd.getRobot().Parar(false);
                     		myPrint("Fez uma curva à esquerda com um angulo de " + bd.getAngulo()+ "º e com " +  bd.getRaio() + " de raio.");
                     	}
@@ -224,8 +250,10 @@ public class GUI extends JFrame {
                     btnTras.setBackground(new Color(255, 128, 128));
                     btnTras.addActionListener(new ActionListener() {
                     	public void actionPerformed(ActionEvent e) {
-                    		bd.getRobot().Reta(bd.getDistancia() * -1);
-                            bd.getRobot().Parar(false);
+                    		pedirComandoManual(new Comando("RETA", -bd.getDistancia(), 0));
+                    		pedirComandoManual(new Comando("PARAR", false));
+                    		//bd.getRobot().Reta(bd.getDistancia() * -1);
+                            //bd.getRobot().Parar(false);
                             myPrint("Fez uma reta de " + bd.getDistancia() + " cm.");	
                     	}
                     });
@@ -258,12 +286,10 @@ public class GUI extends JFrame {
                                     myPrint("Abra o robot antes de executar movimentos aleatórios.");
                                     return;
                                 }
-                                if (comandosAleatorios == null) {
+                                if (comandosAleatorios != null) {
                                     // Pass the GUI reference so the task must go through GUI -> BaseDados -> Servidor
-                                    comandosAleatorios = new ComandosAleatorios(GUI.this, null);
-                                    comandosAleatorios.start();
+                                    comandosAleatorios.desbloquear();
                                 }
-                                comandosAleatorios.desbloquear();
                             }
                         }
                     });
