@@ -120,7 +120,6 @@ class Blackjack {
         total += value;
       }
     }
-
     // Promove ases de 1 para 11 quando não ultrapassa 21
     while (aces > 0 && total + 10 <= Blackjack.MAX_POINTS) {
       total += 10;
@@ -158,9 +157,7 @@ class Blackjack {
 
     return this.getGameState();
   }
-  setDealerTurn(v) {
-    this.dealerTurn = v;
-  } // ajuda o controller a passar a vez
+  
 
   /**
    * Checks the game state based on the dealer's and player's cards.
