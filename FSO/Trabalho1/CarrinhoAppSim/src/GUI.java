@@ -73,8 +73,10 @@ public class GUI extends JFrame {
                     btnFrente.setFont(new Font("Tahoma", Font.PLAIN, 16));
                     btnFrente.addActionListener(new ActionListener() {
                         public void actionPerformed(ActionEvent arg0) {
-                            bd.getRobot().Reta(bd.getDistancia());
-                            bd.getRobot().Parar(false);
+                            
+                        	bd.getServidor().getBufferCircular().inserirElemento(new Comando("FRENTE", bd.getDistancia(), 0));
+                        	//bd.getRobot().Reta(bd.getDistancia());
+                            //bd.getRobot().Parar(false);
                             myPrint("Fez uma reta de " + bd.getDistancia() + " cm.");	
                         }
                     });
@@ -192,8 +194,10 @@ public class GUI extends JFrame {
                     btnDireita.setBackground(new Color(0, 128, 255));
                     btnDireita.addActionListener(new ActionListener() {
                     	public void actionPerformed(ActionEvent e) {
-                    		bd.getRobot().CurvarDireita(bd.getRaio(), bd.getAngulo());
-                    		bd.getRobot().Parar(false);
+                    		bd.getServidor().getBufferCircular().inserirElemento(new Comando("CURVARDIREITA", bd.getRaio(), bd.getAngulo()));
+                    		//bd.getRobot().CurvarDireita(bd.getRaio(), bd.getAngulo());
+                    		bd.getServidor().getBufferCircular().inserirElemento(new Comando("PARAR", false));
+                    		//bd.getRobot().Parar(false);
                     		myPrint("Fez uma curva à direita com um angulo de " + bd.getAngulo()+ "º e com " +  bd.getRaio() + " de raio.");
                     	}
                     });
@@ -205,8 +209,10 @@ public class GUI extends JFrame {
                     btnEsquerda.setBackground(new Color(255, 128, 255));
                     btnEsquerda.addActionListener(new ActionListener() {
                     	public void actionPerformed(ActionEvent e) {
-                    		bd.getRobot().CurvarEsquerda(bd.getRaio(), bd.getAngulo());
-                    		bd.getRobot().Parar(false);
+                    		bd.getServidor().getBufferCircular().inserirElemento(new Comando("CURVARESQUERDA", bd.getRaio(), bd.getAngulo()));
+                    		//bd.getRobot().CurvarEsquerda(bd.getRaio(), bd.getAngulo());
+                    		bd.getServidor().getBufferCircular().inserirElemento(new Comando("PARAR", false));
+                    		//bd.getRobot().Parar(false);
                     		myPrint("Fez uma curva à esquerda com um angulo de " + bd.getAngulo()+ "º e com " +  bd.getRaio() + " de raio.");
                     	}
                     });
@@ -254,7 +260,7 @@ public class GUI extends JFrame {
                                 }
                                 if (comandosAleatorios == null) {
                                     // Pass the GUI reference so the task must go through GUI -> BaseDados -> Servidor
-                                    comandosAleatorios = new ComandosAleatorios(GUI.this);
+                                    comandosAleatorios = new ComandosAleatorios(GUI.this, null);
                                     comandosAleatorios.start();
                                 }
                                 comandosAleatorios.desbloquear();

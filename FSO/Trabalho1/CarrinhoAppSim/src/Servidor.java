@@ -1,6 +1,6 @@
 import java.util.function.Consumer;
 
-public class Servidor extends Thread{
+public class Servidor extends Tarefa{
 	private BufferCircular buffercircular;
 	private RobotLegoEV3Sim asdrubal;
 	private Consumer<String> printCallback;
@@ -9,7 +9,8 @@ public class Servidor extends Thread{
 	
 	
 	public Servidor(BufferCircular buffercircular, RobotLegoEV3Sim asdrubal, Consumer<String> printCallback) {
-	    this.buffercircular = buffercircular;
+	    super(null);
+		this.buffercircular = buffercircular;
 	    this.asdrubal = asdrubal;
 	    this.printCallback = printCallback;
 	}

@@ -1,8 +1,8 @@
 public class ComandosAleatorios extends Tarefa {
     private GUI gui;
 
-    public ComandosAleatorios(GUI gui) {
-        super(null);
+    public ComandosAleatorios(GUI gui, Tarefa proxima) {
+        super(proxima);
         this.gui = gui;
     }
 
