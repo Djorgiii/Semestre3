@@ -7,6 +7,11 @@ public class ComandosAleatorios extends Tarefa {
     }
 
     public void execucao() {
+    	
+    	if (proxima != null) {
+			proxima.bloquear();
+		}
+    	
         if (gui != null && gui.getBd() != null && gui.getBd().getServidor() != null) {
             gui.getBd().getServidor().resetContadorAleatorios();
             gui.getBd().getServidor().getBufferCircular().clear();
@@ -30,6 +35,10 @@ public class ComandosAleatorios extends Tarefa {
             if (gui != null) gui.inserirComandoNoBuffer(comando);
             dormir();
         }
+        if (proxima != null) {
+            proxima.desbloquear();
+        }
+        
         bloquear();
     }
 
