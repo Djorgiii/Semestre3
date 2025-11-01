@@ -22,6 +22,7 @@ public class App {
         Servidor servidor = new Servidor(app.gui.getBufferCircular(), robot, s -> app.gui.myPrint(s));
         app.gui.setServidor(servidor);
         servidor.start();
+        
 
         // 1) criar tarefa dos manuais (GUI → buffer)
         TarefaComandosManuais tManuais = new TarefaComandosManuais(app.gui, null);

@@ -1,3 +1,5 @@
+import java.util.concurrent.Semaphore;
+
 public class BaseDados {
     private boolean terminar;
     private RobotLegoEV3Sim robot;
@@ -6,8 +8,23 @@ public class BaseDados {
     private int raio;
     private int angulo;
     private Servidor servidor;
+    private volatile boolean aleatoriosOn;
+    private final Semaphore produtorMux = new Semaphore(1, true);
+    
+    
+    public Semaphore getProdutorMux() {
+        return produtorMux;
+    }
+    
+    public boolean isAleatoriosOn() {
+		return aleatoriosOn;
+	}
 
-    public int getRaio() {
+	public void setAleatoriosOn(boolean aleatoriosOn) {
+		this.aleatoriosOn = aleatoriosOn;
+	}
+
+	public int getRaio() {
 		return raio;
 	}
 

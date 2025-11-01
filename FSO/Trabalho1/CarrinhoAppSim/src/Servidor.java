@@ -43,9 +43,14 @@ public class Servidor extends Tarefa{
 	public void execucao() {
 	    while (true) {
 	        Comando comando = buffercircular.removerElemento();
+	        boolean isManual = comando.isManual();
 	        int pos = buffercircular.getLastRemovedIndex();
 	        if (comando != null) {
-	            if (printCallback != null) printCallback.accept(pos+1 + " - " + comando.toString());
+	            if (isManual) {
+	                if (printCallback != null) printCallback.accept("Comando manual recebido: " + comando.toString());
+	            } else {
+	            	printCallback.accept(pos+1 + " - " + comando.toString());
+	            }
 	            String tipo = comando.getTipo().toUpperCase();
 	            switch (tipo) {
 	                case "RETA":
@@ -66,6 +71,9 @@ public class Servidor extends Tarefa{
 	                    break;
 	                default:
 	                    break;
+	            }
+	            if (!tipo.equals("PARAR")) {
+	            	asdrubal.Parar(false);
 	            }
 	            if (contadorAleatorios == TOTAL_ALEATORIOS) {
 	                if (printCallback != null) printCallback.accept("Sequência de 5 movimentos aleatórios concluída.");
