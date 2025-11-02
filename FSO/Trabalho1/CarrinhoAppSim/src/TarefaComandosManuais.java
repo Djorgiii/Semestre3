@@ -13,12 +13,14 @@ public class TarefaComandosManuais extends Tarefa {
         Comando c = gui.obterComandoManual();
 
         if (c != null) {
-            gui.inserirComandoNoBuffer(c);
-        }
-
-        // Quando termina, deixa os aleatórios correrem
-        if (proxima != null) {
-            proxima.desbloquear();
+            java.util.concurrent.Semaphore mux = gui.getBd().getProdutorMux();
+            mux.acquireUninterruptibly();
+            try {
+                gui.inserirComandoNoBuffer(c);
+            } finally {
+                mux.release();
+            }
+            if (proxima != null) proxima.desbloquear();
         }
 
         // Volta a dormir até haver outro clique

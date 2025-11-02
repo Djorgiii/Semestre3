@@ -1,7 +1,7 @@
 import java.util.concurrent.Semaphore;
 
 public class BufferCircular {
-	final int dimensaoBuffer= 5;
+	final int dimensaoBuffer= 16;
 	Comando[] bufferCircular;
 	int putBuffer, getBuffer;
 	// o semáforo elementosLivres indica se há posições livres para inserir Strings
@@ -18,6 +18,20 @@ public class BufferCircular {
 		 elementosOcupados= new Semaphore(0);
 		 acessoElemento= new Semaphore(1);
 	}
+	/*
+	public synchronized void debugPrint() {
+	    System.out.print("[BUFFER] put=" + putBuffer + 
+	                     " get=" + getBuffer +
+	                     " | ");
+
+	    for (int i = 0; i < dimensaoBuffer; i++) {
+	        if (bufferCircular[i] == null) System.out.print("[ - ] ");
+	        else System.out.print("[" + bufferCircular[i].getTipo() + "] ");
+	    }
+	    System.out.println();
+	}
+	*/
+	
 	
 	public void clear() {
 	    // trava o acesso aos índices e ao array
@@ -32,7 +46,9 @@ public class BufferCircular {
 	        }
 
 	        // 3) Alinha índices: buffer vazio => put == get
-	        putBuffer = getBuffer;
+	        putBuffer = 0;
+	        getBuffer = 0;
+	        lastRemovedIndex = -1;
 
 	        // 4) Garante "livres" == capacidade total
 	        int livres = elementosLivres.availablePermits();
@@ -64,6 +80,7 @@ public class BufferCircular {
 		 acessoElemento.release();
 		} catch (InterruptedException e) {}
 		 elementosOcupados.release();
+		 //debugPrint(); 
 		}
 	
 		public Comando removerElemento() {
@@ -84,6 +101,7 @@ public class BufferCircular {
 			getBuffer= ++getBuffer % dimensaoBuffer;
 			acessoElemento.release();
 			elementosLivres.release();
+			//debugPrint(); 
 			return s;
 		}
 

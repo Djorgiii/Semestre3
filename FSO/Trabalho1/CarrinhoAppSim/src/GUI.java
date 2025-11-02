@@ -95,10 +95,10 @@ public class GUI extends JFrame {
                     btnFrente.addActionListener(new ActionListener() {
                         public void actionPerformed(ActionEvent arg0) {
                         	pedirComandoManual(new Comando("RETA", bd.getDistancia(), 0));
+                        	pedirComandoManual(new Comando("PARAR", false));
                         	//bd.getServidor().getBufferCircular().inserirElemento(new Comando("FRENTE", bd.getDistancia(), 0));
                         	//bd.getRobot().Reta(bd.getDistancia());
-                            //bd.getRobot().Parar(false);
-                            myPrint("Fez uma reta de " + bd.getDistancia() + " cm.");	
+                            //bd.getRobot().Parar(false);	
                         }
                     });
                     btnFrente.setBounds(242, 84, 105, 37);
@@ -205,7 +205,7 @@ public class GUI extends JFrame {
                     	public void actionPerformed(ActionEvent arg0) {
                     		pedirComandoManual(new Comando("PARAR", false));
                     		//bd.getRobot().Parar(true);
-                    		myPrint("O Robot parou!");
+                    		//myPrint("O Robot parou!");
                     	}
                     });
                     btnParar.setFont(new Font("Tahoma", Font.PLAIN, 16));
@@ -222,7 +222,7 @@ public class GUI extends JFrame {
                     		//bd.getRobot().CurvarDireita(bd.getRaio(), bd.getAngulo());
                     		//bd.getServidor().getBufferCircular().inserirElemento(new Comando("PARAR", false));
                     		//bd.getRobot().Parar(false);
-                    		myPrint("Fez uma curva à direita com um angulo de " + bd.getAngulo()+ "º e com " +  bd.getRaio() + " de raio.");
+                    		//myPrint("Fez uma curva à direita com um angulo de " + bd.getAngulo()+ "º e com " +  bd.getRaio() + " de raio.");
                     	}
                     });
                     btnDireita.setFont(new Font("Tahoma", Font.PLAIN, 16));
@@ -239,7 +239,7 @@ public class GUI extends JFrame {
                     		//bd.getRobot().CurvarEsquerda(bd.getRaio(), bd.getAngulo());
                     		//bd.getServidor().getBufferCircular().inserirElemento(new Comando("PARAR", false));
                     		//bd.getRobot().Parar(false);
-                    		myPrint("Fez uma curva à esquerda com um angulo de " + bd.getAngulo()+ "º e com " +  bd.getRaio() + " de raio.");
+                    		//myPrint("Fez uma curva à esquerda com um angulo de " + bd.getAngulo()+ "º e com " +  bd.getRaio() + " de raio.");
                     	}
                     });
                     btnEsquerda.setFont(new Font("Tahoma", Font.PLAIN, 16));
@@ -251,10 +251,10 @@ public class GUI extends JFrame {
                     btnTras.addActionListener(new ActionListener() {
                     	public void actionPerformed(ActionEvent e) {
                     		pedirComandoManual(new Comando("RETA", -bd.getDistancia(), 0));
-                    		pedirComandoManual(new Comando("PARAR", false));
+                    		//pedirComandoManual(new Comando("PARAR", false));
                     		//bd.getRobot().Reta(bd.getDistancia() * -1);
                             //bd.getRobot().Parar(false);
-                            myPrint("Fez uma reta de " + bd.getDistancia() + " cm.");	
+                            //myPrint("Fez uma reta de " + bd.getDistancia() + " cm.");	
                     	}
                     });
                     btnTras.setFont(new Font("Tahoma", Font.PLAIN, 16));
@@ -286,10 +286,17 @@ public class GUI extends JFrame {
                                     myPrint("Abra o robot antes de executar movimentos aleatórios.");
                                     return;
                                 }
+                                bd.setAleatoriosOn(true);
                                 if (comandosAleatorios != null) {
                                     // Pass the GUI reference so the task must go through GUI -> BaseDados -> Servidor
                                     comandosAleatorios.desbloquear();
                                 }
+                            }
+                            else {
+                            	bd.setAleatoriosOn(false);
+                            	if (bufferCircular != null) {
+									bufferCircular.clear();
+								}
                             }
                         }
                     });
