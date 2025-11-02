@@ -1,0 +1,69 @@
+Tens vários comb-filters em paralelo.
+Cada comb cria um padrão “denteado” no tempo (impulsos espaçados pelo atraso). Quando somas 3, ficas com interferências → nalguns pontos somam, noutros cancelam → fica “granulado”.
+
+Os ganhos α estão relativamente altos.
+Se usares 0.7, 0.65, 0.58, o sinal demora a morrer → parece “lata” / “tubo”.
+α alto = decaimento longo + mais realimentação = mais metálico.
+
+Os atrasos (Dc) são múltiplos parecidos (1200, 1500, 1800).
+Isto faz com que muitos impulsos cheguem em tempos “quase alinhados” → dá aquela cor “resonant” / “ringy”.
+
+Os all-pass não tiram a metalicidade, só espalham a fase.
+O all-pass não “suaviza” o som por si. Só baralha as fases. Se o que lhe entra já é denteado, ele só o espalha.
+
+Estás a ouvir a resposta ao impulso.
+Atenção a isto: ouvir a resposta ao impulso de um reverb nunca é bonito. O que é suposto soar bem é um áudio real passado pelo reverb, não o impulso. O impulso serve para veres o decaimento.
+
+Há 4 truques clássicos (dá para fazer já aí):
+
+(a) Baixar um bocadinho os α dos combs
+comb_params = [
+    (0.6, 1200),
+    (0.55, 1570),
+    (0.5, 1913),
+]
+
+
+Ganhos mais baixos → morre mais rápido → menos “pinga-pinga”.
+
+Mudei também os Dc para não serem tão parecidos (isso ajuda muito!).
+
+(b) Não usar atrasos tão “redondos”
+
+Evita 1200, 1500, 1800. Usa números primos entre si ou pelo menos não múltiplos:
+
+1137
+
+1493
+
+1729
+
+1999
+Assim as repetições não se alinham tanto → soa menos metálico.
+
+(c) Meter um pequeno damping (filtro passa-baixo) dentro do comb
+
+O reverb de sala real perde agudos ao longo do tempo. O nosso não.
+Se não puseres damping, fica “tlim-tlim-tlim”.
+
+Podemos pôr um LPF simples dentro do comb — mas isso já é 1 passo acima do enunciado. Se quiseres, faço.
+
+(d) Em vez de ouvir o impulso, passa um áudio
+
+Passa um sine sweep, um pedaço de voz ou ruído rosa através do sistema — soa MUITO mais natural do que ouvir o próprio impulso.
+
+
+ np.polyadd e np.convolve são operações sobre vetores de coeficientes de polinómios:
+
+        - np.polyadd(p, q): soma dois polinómios representados pelos seus coeficientes (alinha/completa com zeros quando têm comprimentos diferentes). Ex.: np.polyadd([1,2], [3,4]) -> [4,6] (1x+2 + 3x+4 = 4x+6).
+
+        - np.convolve(p, q): corresponde à multiplicação de polinómios (a convolução dos coeficientes). Ex.: np.convolve([1,2], [3,4]) -> [3,10,8] porque (x+2)*(3x+4)=3x^2+10x+8.
+
+        No teu código, a linha
+        B = np.polyadd(np.convolve(B, a), np.convolve(b, A))
+        faz exatamente a operação necessária para somar duas respostas em paralelo: se tens H1 = B/A e H2 = b/a, então
+        H1+H2 = (B·a + b·A) / (A·a),
+        onde "·" é multiplicação de polinómios (feito com np.convolve) e a soma dos numeradores é feita com np.polyadd. Em seguida A = np.convolve(A, a) calcula o denominador comum A·a.
+
+
+
