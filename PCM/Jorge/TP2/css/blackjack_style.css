@@ -55,7 +55,6 @@
   100% { filter: brightness(1); transform: translateY(0) scale(1); }
 }
 
-/* Espaçamento dos botões - agora usa Bootstrap classes, mas mantemos um pequeno ajuste extra */
 #game button { margin-right: 0.5rem; }
 
 /* Títulos - Gap para ícone */

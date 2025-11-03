@@ -1,15 +1,12 @@
-// UI controller: liga a classe Blackjack à interface HTML
-
-let game = null; // Instância atual do jogo
-let prevDealerCount = 0; // Contador anterior de cartas do dealer (para animações)
-let prevPlayerCount = 0; // Contador anterior de cartas do jogador (para animações)
+let game = null;
+let prevDealerCount = 0;
+let prevPlayerCount = 0;
 
 // Pausa usada em animações
 function delay(ms) {
   return new Promise((res) => setTimeout(res, ms));
 }
 
-// Inicializa estados dos botões (Carta, Parar, Novo Jogo)
 function buttonsInitialization() {
   const cardBtn = document.getElementById("card");
   const standBtn = document.getElementById("stand");
@@ -27,7 +24,6 @@ function buttonsInitialization() {
 
 // Atualiza botões ao terminar a ronda
 function finalizeButtons() {
-
   const cardBtn = document.getElementById("card");
   const standBtn = document.getElementById("stand");
   const newBtn = document.getElementById("new_game");
@@ -116,19 +112,16 @@ function updateDealer(state) {
   const cards = game.getDealerCards();
   for (let i = 0; i < cards.length; i++) {
     if (i === 1 && !game.dealerTurn && !state.gameEnded) {
-      // Mostra a carta virada para baixo se for a segunda carta do dealer e não for a vez do dealer
       const img = document.createElement("img");
       img.src = "img/png/card_back.png";
       img.alt = "carta escondida";
       el.appendChild(img);
     } else {
       printCard(el, cards[i]);
-      // Animação de entrada para a última carta adicionada
       if (i === cards.length - 1 && cards.length > prevDealerCount) {
         const last = el.lastElementChild;
         if (last) last.classList.add("card-enter");
       }
-      // Adiciona uma animação sutil de revelação para a segunda carta quando for a vez do dealer
       if (i === 1 && game.dealerTurn && !state.gameEnded) {
         const last = el.lastElementChild;
         if (last) last.classList.add("card-reveal");
@@ -136,7 +129,6 @@ function updateDealer(state) {
     }
   }
 
-  // Mostra '?' até ser a vez do dealer ou o jogo terminar
   const dealerScoreEl = document.getElementById("dealer_score");
   if (dealerScoreEl) {
     if (game.dealerTurn || state.gameEnded) {
@@ -152,7 +144,6 @@ function updateDealer(state) {
     if (state.dealerWon) span.innerText = " - Dealer GANHOU";
     if (state.playerWon) span.innerText = " - Dealer PERDEU";
     el.appendChild(span);
-    // Apenas finaliza os botões quando o jogo termina
     finalizeButtons();
   }
   prevDealerCount = cards.length;
@@ -164,7 +155,6 @@ function updatePlayer(state) {
   if (!el) return;
   el.innerHTML = "";
   const cards = game.getPlayerCards();
-  // Atualiza o score do jogador ao vivo
   const scoreEl = document.getElementById("player_score");
   if (scoreEl) {
     const val = game.getCardsValue(cards);
@@ -197,7 +187,6 @@ function dealerNewCard() {
   return state;
 }
 
-
 function playerNewCard() {
   const state = game.playerMove();
   updatePlayer(state);
@@ -209,10 +198,7 @@ function playerNewCard() {
   return state;
 }
 
-
-// Executa a vez completa do dealer (tira cartas até terminar)
 async function dealerFinish() {
-  // Desativa ações do jogador durante a vez do dealer
   const cardBtn = document.getElementById("card");
   const standBtn = document.getElementById("stand");
   if (cardBtn) cardBtn.disabled = true;
@@ -222,7 +208,6 @@ async function dealerFinish() {
   let state = game.getGameState();
   updateDealer(state); // Revela a carta escondida do dealer
 
-  // Pequena pausa antes do dealer tirar cartas
   await delay(450);
 
   // Dealer tira cartas até o estado indicar fim
