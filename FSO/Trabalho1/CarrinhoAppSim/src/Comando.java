@@ -48,4 +48,9 @@ public class Comando {
 	            return tipo + "(" + arg1 + ", " + arg2 + ")";
 	    }
 	}
+
+	public void setManual(boolean c) {
+		this.manual = c;
+		
+	}
 }

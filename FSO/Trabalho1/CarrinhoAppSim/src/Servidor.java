@@ -55,19 +55,19 @@ public class Servidor extends Tarefa{
 	            switch (tipo) {
 	                case "RETA":
 	                    asdrubal.Reta(comando.getArg1());
-	                    contadorAleatorios++;
+	                    if (!isManual) contadorAleatorios++;
 	                    break;
 	                case "CURVARDIREITA":
 	                    asdrubal.CurvarDireita(comando.getArg1(), comando.getArg2());
-	                    contadorAleatorios++;
+	                    if (!isManual) contadorAleatorios++;
 	                    break;
 	                case "CURVARESQUERDA":
 	                    asdrubal.CurvarEsquerda(comando.getArg1(), comando.getArg2());
-	                    contadorAleatorios++;
+	                    if (!isManual) contadorAleatorios++;
 	                    break;
 	                case "PARAR":
 	                    asdrubal.Parar(false);
-	                    contadorAleatorios++;
+	                    if (!isManual) contadorAleatorios++;
 	                    break;
 	                default:
 	                    break;

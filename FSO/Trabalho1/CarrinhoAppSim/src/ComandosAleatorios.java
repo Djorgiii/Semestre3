@@ -7,41 +7,66 @@ public class ComandosAleatorios extends Tarefa {
     }
 
     public void execucao() {
-    	
-        if (gui != null && gui.getBd() != null && gui.getBd().getServidor() != null) {
-            gui.getBd().getServidor().resetContadorAleatorios();
-            gui.getBd().getServidor().getBufferCircular().clear();
+        // Garantias mínimas
+        if (gui == null || gui.getBd() == null || gui.getBd().getServidor() == null) {
+            bloquear();
+            return;
         }
-        
+
         String[] tipos = {"PARAR", "RETA", "CURVARDIREITA", "CURVARESQUERDA"};
-        
-        java.util.concurrent.Semaphore mux = gui.getBd().getProdutorMux();
-        mux.acquireUninterruptibly();
-        try {
-	        while (gui.getBd().isRobotAberto() && gui != null && gui.getBd() != null && gui.getBd().isAleatoriosOn()) {
-	            String tipo = tipos[(int)(Math.random() * tipos.length)];
-	            Comando comando;
-	            if (tipo.equals("PARAR")) {
-	                comando = new Comando(tipo, false);
-	            } else if (tipo.equals("RETA")) {
-	                int distancia = 10 + (int)(Math.random() * 41);
-	                comando = new Comando(tipo, distancia, 0);
-	            } else {
-	                int raio = 10 + (int)(Math.random() * 21);
-	                int angulo = 20 + (int)(Math.random() * 71);
-	                comando = new Comando(tipo, angulo, raio);
-	            }
-	            // Insert the command via the GUI so it goes through GUI -> BaseDados -> Servidor
-	            if (gui != null) gui.inserirComandoNoBuffer(comando);
-	            dormir();
-	        }
-        } finally {
-			mux.release();
+
+        // Enquanto o robot estiver aberto e a flag "aleatórios" ligada,
+        // produz lotes de 5 comandos de cada vez.
+        while (gui.getBd().isRobotAberto() && gui.getBd().isAleatoriosOn()) {
+            // (opcional) Reinicia contador de lote no servidor
+            //gui.getBd().getServidor().resetContadorAleatorios();
+
+            java.util.concurrent.Semaphore mux = gui.getBd().getProdutorMux();
+            mux.acquireUninterruptibly();
+            try {
+                for (int i = 0; i < 5; i++) {
+                    if (!gui.getBd().isRobotAberto() || !gui.getBd().isAleatoriosOn()) break;
+
+                    String tipo = tipos[(int)(Math.random() * tipos.length)];
+                    Comando comando;
+                    if (tipo.equals("PARAR")) {
+                        comando = new Comando(tipo, false);
+                    } else if (tipo.equals("RETA")) {
+                        int distancia = 10 + (int)(Math.random() * 41); // 10..50
+                        comando = new Comando(tipo, distancia, 0);
+                    } else { // curvas
+                        int raio = 10 + (int)(Math.random() * 21);      // 10..30
+                        int angulo = 20 + (int)(Math.random() * 71);    // 20..90
+                        comando = new Comando(tipo, angulo, raio);
+                    }
+
+                    gui.getBufferCircular().inserirElemento(comando);
+                    dormir(); // pequeno intervalo entre comandos
+                }
+            } finally {
+                mux.release();
+            }
+         // ENTRE LOTES: inserir manuais pendentes, se houver
+            Comando pend;
+            if ((pend = gui.obterComandoManual()) != null) {
+                java.util.concurrent.Semaphore mux2 = gui.getBd().getProdutorMux();
+                mux2.acquireUninterruptibly();
+                try {
+                    do {
+                        gui.getBufferCircular().inserirElemento(pend);
+                        if (gui != null) gui.myPrint("[GUI] Comando manual inserido entre lotes: " + pend.getTipo());
+                        pend = gui.obterComandoManual();   // tenta apanhar mais um pendente
+                    } while (pend != null);
+                } finally {
+                    mux2.release();
+                }
+            }
+
+            // Pequena pausa entre lotes para não saturar CPU
+            dormir();
         }
-        if (proxima != null) {
-            proxima.desbloquear();
-        }
-        
+
+        // Quando desligares aleatórios ou fechares o robot, a tarefa bloqueia.
         bloquear();
     }
 
