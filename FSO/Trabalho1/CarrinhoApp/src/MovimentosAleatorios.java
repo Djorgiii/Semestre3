@@ -28,16 +28,16 @@ public class MovimentosAleatorios extends Tarefa {
                     if (!gui.getBd().isRobotAberto() || !gui.getBd().isAleatoriosOn()) break;
 
                     String tipo = tipos[(int)(Math.random() * tipos.length)];
-                    Comando comando;
+                    Movimento comando;
                     if (tipo.equals("PARAR")) {
-                        comando = new Comando(tipo, false);
+                        comando = new Movimento(tipo, false);
                     } else if (tipo.equals("RETA")) {
                         int distancia = 10 + (int)(Math.random() * 41); // 10..50
-                        comando = new Comando(tipo, distancia, 0);
+                        comando = new Movimento(tipo, distancia, 0);
                     } else { // curvas
                         int raio = 10 + (int)(Math.random() * 21);      // 10..30
                         int angulo = 20 + (int)(Math.random() * 71);    // 20..90
-                        comando = new Comando(tipo, raio, angulo);
+                        comando = new Movimento(tipo, raio, angulo);
                     }
 
                     gui.getBufferCircular().inserirElemento(comando);
@@ -47,7 +47,7 @@ public class MovimentosAleatorios extends Tarefa {
                 mux.release();
             }
          // ENTRE LOTES: inserir manuais pendentes, se houver
-            Comando pend;
+            Movimento pend;
             if ((pend = gui.obterComandoManual()) != null) {
                 java.util.concurrent.Semaphore mux2 = gui.getBd().getProdutorMux();
                 mux2.acquireUninterruptibly();
