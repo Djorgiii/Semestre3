@@ -33,15 +33,15 @@ public class GUI extends JFrame {
     private JTextField textFieldAngulo;
     private JTextField textFieldRobot;
     private BufferCircular bufferCircular;
-    private ComandosAleatorios comandosAleatorios;
+    private MovimentosAleatorios movimentosAleatorios;
     private Comando comandoPendente;
     
     public void myPrint(String s) {
 		textAreaConsola.append(s + "\n");
 	}
 
-    public void setTarefas(ComandosAleatorios tAleatorios) {
-        this.comandosAleatorios = tAleatorios;
+    public void setTarefas(MovimentosAleatorios tAleatorios) {
+        this.movimentosAleatorios = tAleatorios;
     }
 
     public void pedirComandoManual(Comando c) {
@@ -299,9 +299,9 @@ public class GUI extends JFrame {
                                     return;
                                 }
                                 bd.setAleatoriosOn(true);
-                                if (comandosAleatorios != null) {
+                                if (movimentosAleatorios != null) {
                                     // Pass the GUI reference so the task must go through GUI -> BaseDados -> Servidor
-                                    comandosAleatorios.desbloquear();
+                                    movimentosAleatorios.desbloquear();
                                 }
                             }
                             else {
