@@ -1,7 +1,7 @@
-public class ComandosAleatorios extends Tarefa {
+public class MovimentosAleatorios extends Tarefa {
     private GUI gui;
 
-    public ComandosAleatorios(GUI gui, Tarefa proxima) {
+    public MovimentosAleatorios(GUI gui, Tarefa proxima) {
         super(proxima);
         this.gui = gui;
     }
@@ -37,7 +37,7 @@ public class ComandosAleatorios extends Tarefa {
                     } else { // curvas
                         int raio = 10 + (int)(Math.random() * 21);      // 10..30
                         int angulo = 20 + (int)(Math.random() * 71);    // 20..90
-                        comando = new Comando(tipo, angulo, raio);
+                        comando = new Comando(tipo, raio, angulo);
                     }
 
                     gui.getBufferCircular().inserirElemento(comando);
