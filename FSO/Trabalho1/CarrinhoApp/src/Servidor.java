@@ -19,19 +19,19 @@ public class Servidor extends Tarefa{
 	}
 	
 	public void Reta(int distancia) {
-		buffercircular.inserirElemento(new Comando("RETA", distancia, 0));
+		buffercircular.inserirElemento(new Movimento("RETA", distancia, 0));
 	}
 	
 	public void CurvarDireita(int raio, int angulo) {
-		buffercircular.inserirElemento(new Comando("CURVARDIREITA", raio, angulo));
+		buffercircular.inserirElemento(new Movimento("CURVARDIREITA", raio, angulo));
 	}
 	
 	public void CurvarEsquerda(int raio, int angulo) {
-		buffercircular.inserirElemento(new Comando("CURVARESQUERDA", raio, angulo));
+		buffercircular.inserirElemento(new Movimento("CURVARESQUERDA", raio, angulo));
 	}
 	
 	public void Parar(boolean b) {
-		buffercircular.inserirElemento(new Comando("PARAR", b));
+		buffercircular.inserirElemento(new Movimento("PARAR", b));
 	}
 	
 	public void resetContadorAleatorios() {
@@ -45,7 +45,7 @@ public class Servidor extends Tarefa{
 	
 	public void execucao() {
 	    while (true) {
-	        Comando comando = buffercircular.removerElemento();
+	        Movimento comando = buffercircular.removerElemento();
 	        boolean isManual = comando.isManual();
 	        int pos = buffercircular.getLastRemovedIndex();
 	        if (comando != null) {
