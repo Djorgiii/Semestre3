@@ -35,14 +35,11 @@ public abstract class Tarefa extends Thread{
 		} catch (InterruptedException e) {e.printStackTrace();}
 	}
 	public abstract void execucao();
-	public void dormir(long ms) {
-	    try { Thread.sleep(ms); } 
-	    catch (InterruptedException e) { e.printStackTrace(); }
-	}
 	public void dormir() {
-	    try {
-	        Thread.sleep((long)(Math.random() * 1000)); // pausa entre 0 e 1s
-	    } catch (InterruptedException e) { e.printStackTrace(); }
+		try {
+			Thread.sleep((long) (Math.random()*1000));
+		}catch(InterruptedException e) {e.printStackTrace();}	
+			
 	}
 	
 	public void run() {
