@@ -68,7 +68,8 @@ public class BufferCircular {
 		try {
 		 elementosLivres.acquire();
 		 acessoElemento.acquire();
-		 bufferCircular[putBuffer]= new Comando(s.getTipo(), s.getArg1(), s.getArg2());
+		 Comando c = new Comando(s.getTipo(), s.getArg1(), s.getArg2());
+		 if (s.isManual()) c.setManual(true);
 		 //System.out.println("Inserido no buffer[" + putBuffer + "]: " + s);
 		 // Estado do buffer após inserção
 		 //System.out.print("Estado do buffer após inserção: ");
@@ -76,6 +77,7 @@ public class BufferCircular {
 		//	 System.out.print(bufferCircular[i] + " | ");
 		 //}
 		 //System.out.println();
+		 bufferCircular[putBuffer]= c;
 		 putBuffer= ++putBuffer % dimensaoBuffer;
 		 acessoElemento.release();
 		} catch (InterruptedException e) {}

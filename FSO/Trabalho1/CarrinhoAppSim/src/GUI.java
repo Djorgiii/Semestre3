@@ -34,26 +34,38 @@ public class GUI extends JFrame {
     private JTextField textFieldRobot;
     private BufferCircular bufferCircular;
     private ComandosAleatorios comandosAleatorios;
-    private TarefaComandosManuais tarefaManuais;
     private Comando comandoPendente;
     
     public void myPrint(String s) {
 		textAreaConsola.append(s + "\n");
 	}
 
-    public void setTarefas(TarefaComandosManuais tManuais, ComandosAleatorios tAleatorios) {
-        this.tarefaManuais = tManuais;
+    public void setTarefas(ComandosAleatorios tAleatorios) {
         this.comandosAleatorios = tAleatorios;
     }
 
     public void pedirComandoManual(Comando c) {
-        this.comandoPendente = c;
-        if (tarefaManuais != null) {
-            tarefaManuais.desbloquear();
-        }
+    	if (c == null) {
+    		return;
+    	}
+    	
+    	java.util.concurrent.Semaphore mux = bd.getProdutorMux();
+		if (mux.tryAcquire()) {
+			try {
+				bufferCircular.inserirElemento(c);
+			}finally {
+				mux.release();
+			}
+		}
+		else {
+			synchronized (this) {
+				this.comandoPendente = c;
+			}
+			myPrint("[GUI] Comando manual guardado como pendente: " + c.getTipo());
+		}
     }
 
-    public Comando obterComandoManual() {
+    public synchronized Comando obterComandoManual() {
         Comando tmp = comandoPendente;
         comandoPendente = null;
         return tmp;
@@ -314,8 +326,18 @@ public class GUI extends JFrame {
 
     // Allow clients (like ComandosAleatorios) to insert commands via the GUI
     public void inserirComandoNoBuffer(Comando c) {
-        if (bufferCircular != null) {
-            bufferCircular.inserirElemento(c);
+    	
+    	java.util.concurrent.Semaphore mux = bd.getProdutorMux();
+        if (mux.tryAcquire()) {
+        	try {
+        		bufferCircular.inserirElemento(c);
+        	}finally {
+        		mux.release();
+        	}
+        }
+        else {
+			// Could not acquire semaphore, store command as pending
+			this.comandoPendente = c;
         }
     }
     
