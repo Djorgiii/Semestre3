@@ -3,6 +3,7 @@ public class Comando {
 	private int arg1;
 	private int arg2;
 	private boolean b;
+	private boolean manual;
 	
 	public Comando(String tipo, int arg1, int arg2) {
 		this.tipo = tipo;
@@ -30,6 +31,7 @@ public class Comando {
 	public boolean isB() {
 		return b;
 	}
+	public boolean isManual() { return manual; }
 	
 	@Override
 	public String toString() {
@@ -45,5 +47,10 @@ public class Comando {
 	        default:
 	            return tipo + "(" + arg1 + ", " + arg2 + ")";
 	    }
+	}
+
+	public void setManual(boolean c) {
+		this.manual = c;
+		
 	}
 }

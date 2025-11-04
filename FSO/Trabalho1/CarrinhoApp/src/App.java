@@ -18,10 +18,16 @@ public class App {
 
     public static void main(String[] args) {
         App app = new App();
-        Servidor servidor = new Servidor(app.gui.getBufferCircular(), app.gui.getBd().getRobot(), app.gui.getBd());
+        Servidor servidor = new Servidor(app.gui.getBufferCircular(), app.gui.getBd().getRobot(), s -> app.gui.myPrint(s));
         app.gui.setServidor(servidor);
         servidor.start();
-        servidor.desbloquear();
+        
+        
+        ComandosAleatorios tAleatorios = new ComandosAleatorios(app.gui, null);
+        tAleatorios.start();
+
+        app.gui.setTarefas(tAleatorios)
+;
         app.run();
     }
 }

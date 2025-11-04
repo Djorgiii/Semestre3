@@ -1,14 +1,30 @@
+import java.util.concurrent.Semaphore;
+
 public class BaseDados {
     private boolean terminar;
     private RobotLegoEV3 robot;
-    private GUI gui;
     private boolean robotAberto;
     private int distancia;
     private int raio;
     private int angulo;
     private Servidor servidor;
+    private volatile boolean aleatoriosOn;
+    private final Semaphore produtorMux = new Semaphore(1, true);
+    
+    
+    public Semaphore getProdutorMux() {
+        return produtorMux;
+    }
+    
+    public boolean isAleatoriosOn() {
+		return aleatoriosOn;
+	}
 
-    public int getRaio() {
+	public void setAleatoriosOn(boolean aleatoriosOn) {
+		this.aleatoriosOn = aleatoriosOn;
+	}
+
+	public int getRaio() {
 		return raio;
 	}
 
@@ -39,13 +55,7 @@ public class BaseDados {
     public void setRobotAberto(boolean robotAberto) {
         this.robotAberto = robotAberto;
     }
-    public void setGui(GUI gui) {
-        this.gui = gui;
-    }
-    public void myPrint(String s) {
-        if (gui != null)
-            gui.myPrint(s); // passa o texto para a GUI
-    }
+
     public BaseDados() {
         robot = new RobotLegoEV3();
         terminar = false;
