@@ -48,14 +48,14 @@ public class MovimentosAleatorios extends Tarefa {
             }
          // ENTRE LOTES: inserir manuais pendentes, se houver
             Movimento pend;
-            if ((pend = gui.obterComandoManual()) != null) {
+            if ((pend = gui.obterMovimentoManual()) != null) {
                 java.util.concurrent.Semaphore mux2 = gui.getBd().getProdutorMux();
                 mux2.acquireUninterruptibly();
                 try {
                     do {
                         gui.getBufferCircular().inserirElemento(pend);
                         if (gui != null) gui.myPrint("[GUI] Comando manual inserido entre lotes: " + pend.getTipo());
-                        pend = gui.obterComandoManual();   // tenta apanhar mais um pendente
+                        pend = gui.obterMovimentoManual();   // tenta apanhar mais um pendente
                     } while (pend != null);
                 } finally {
                     mux2.release();
