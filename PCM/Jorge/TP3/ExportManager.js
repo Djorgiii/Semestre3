@@ -1,36 +1,28 @@
-// Gestão de Exportação
 class ExportManager {
-  constructor(visualizationEngine) {
-    this.visualizationEngine = visualizationEngine;
+  constructor(visualizationEngine){ 
+    this.visualizationEngine = visualizationEngine; 
   }
 
-  exportAsPNG() {
-    // TODO: exportar como PNG
-    console.log("Exportando como PNG...");
-
-    try {
-      const canvas = this.visualizationEngine.canvas;
-      const link = document.createElement("a");
-      link.download = `audio-visualization-${new Date().getTime()}.png`;
-      link.href = canvas.toDataURL("image/png");
-      link.click();
-    } catch (error) {
-      console.error("Erro ao exportar PNG:", error);
+  _export(type="image/png", quality=0.92){
+    const canvas = this.visualizationEngine.canvas;
+    let dataURL;
+    if (type==="image/jpeg"){
+      const w=canvas.width,h=canvas.height, tmp=document.createElement("canvas"), t=tmp.getContext("2d");
+      tmp.width=w; tmp.height=h; t.fillStyle="#fff"; t.fillRect(0,0,w,h); t.drawImage(canvas,0,0);
+      dataURL = tmp.toDataURL("image/jpeg", quality);
+    } else {
+      dataURL = canvas.toDataURL(type, quality);
     }
+    const a=document.createElement("a");
+    const ts = new Date().toISOString().replace(/[:.]/g,"-");
+    a.download = `audio-visualization-${ts}.${type==="image/jpeg"?"jpg":"png"}`;
+    a.href = dataURL; a.click();
   }
 
-  exportAsJPEG(quality = 0.9) {
-    // TODO: exportar como JPEG
-    console.log(`Exportando como JPEG com qualidade ${quality}...`);
-
-    try {
-      const canvas = this.visualizationEngine.canvas;
-      const link = document.createElement("a");
-      link.download = `audio-visualization-${new Date().getTime()}.jpg`;
-      link.href = canvas.toDataURL("image/jpeg", quality);
-      link.click();
-    } catch (error) {
-      console.error("Erro ao exportar JPEG:", error);
-    }
+  exportAsPNG(){ 
+    this._export("image/png"); 
+  }
+  exportAsJPEG(q=0.9){ 
+    this._export("image/jpeg", q); 
   }
 }

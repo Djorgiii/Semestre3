@@ -1,55 +1,89 @@
 // Classe principal da aplicação
 class App {
   constructor() {
+    // 1) Instanciar módulos (Inicialização)
     this.audioProcessor = new AudioProcessor();
     this.visualizationEngine = new VisualizationEngine("audioCanvas");
     this.uiManager = new UIManager(this);
     this.exportManager = new ExportManager(this.visualizationEngine);
 
-    // Inicialização
+    // ligar audioProcessor às visualizações (importante para “dados reais”)
+    this.visualizationEngine.setAudioProcessor(this.audioProcessor);
+
     this.init();
   }
 
   init() {
-    // TODO: inicializar a aplicação
+    // App pronta → aguardar ação do utilizador
+    this.uiManager.updateAudioInfo({ status: "Parado", level: 0 });
+    this.uiManager.setButtonStates(false);
     console.log("App inicializada");
   }
 
-  startMicrophone() {
-    // TODO: iniciar captura do microfone
-    console.log("Iniciando microfone...");
+  // --- Fluxo: Captura de Microfone ---
+  async startMicrophone() {
+    try {
+      this.uiManager.setButtonStates(true);             // Disable Start, Enable Stop
+      await this.audioProcessor.startMicrophone();      // AudioProcessor.startMic
+      this.visualizationEngine.start();                 // Iniciar Loop de Atualização
+      this.uiManager.updateAudioInfo({ status: "Microfone", level: 0 });
+    } catch (e) {
+      this.uiManager.showError("Falha no microfone: " + (e?.message || e));
+      this.uiManager.setButtonStates(false);            // Re-enable Start
+    }
   }
 
-  loadAudioFile(file) {
-    // TODO: carregar ficheiro de áudio
-    console.log("Carregando ficheiro de áudio...");
+  // --- Fluxo: Carregamento de Ficheiro ---
+  async loadAudioFile(file) {
+    try {
+      this.uiManager.setButtonStates(true);
+      // podes escolher "element" (simples) ou "buffer" (com decodeAudioData)
+      await this.audioProcessor.loadAudioFile(file, "element");
+      this.visualizationEngine.start();
+      this.uiManager.updateAudioInfo({ status: `Ficheiro: ${file.name}`, level: 0 });
+    } catch (e) {
+      this.uiManager.showError("Erro no ficheiro: " + (e?.message || e));
+      this.uiManager.setButtonStates(false);
+    }
   }
 
+  // --- Parar Áudio ---
   stopAudio() {
-    // TODO: parar áudio
-    console.log("Parando áudio...");
+    this.visualizationEngine.stop();
+    this.audioProcessor.stop();
+    this.uiManager.updateAudioInfo({ status: "Parado", level: 0 });
+    this.uiManager.setButtonStates(false);
   }
 
+  // --- Mudança de Visualização ---
   setVisualization(type) {
-    // TODO: definir tipo de visualização
-    console.log(`Definindo visualização: ${type}`);
+    const ok = this.visualizationEngine.setVisualization(type);
+    if (!ok) {
+      this.uiManager.showError(`Visualização "${type}" indisponível`);
+      return;
+    }
+    // Atualizar painel de propriedades (diagramas: “Atualizar Properties Panel”)
+    if (typeof this.uiManager.updatePropertiesPanel === "function") {
+      this.uiManager.updatePropertiesPanel();
+    }
+    // Reiniciar animation loop (diagramas)
+    this.visualizationEngine.start();
   }
 
+  // --- Export ---
   exportFrame() {
-    // TODO: exportar frame atual
-    console.log("Exportando frame...");
+    this.exportManager.exportAsPNG();
   }
 
-  destroy() {
-    // TODO: limpar recursos
-    console.log("Destruindo aplicação...");
+  // --- Tratamento centralizado de erros (diagrama “Tratamento de Erros”)
+  handleError(origin, error) {
+    console.error(`[${origin}]`, error);
+    this.uiManager.showError(`${origin}: ${error?.message || error}`);
+    if (origin === "AudioProcessor") this.stopAudio();
   }
 }
 
-// Inicialização da aplicação quando o DOM estiver carregado
+// Inicialização
 document.addEventListener("DOMContentLoaded", () => {
-  const app = new App();
-
-  // Expor app globalmente para debugging (remover em produção)
-  window.app = app;
+  window.app = new App();
 });

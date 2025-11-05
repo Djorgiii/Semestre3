@@ -1,42 +1,24 @@
 class WaveformVisualization extends AudioVisualization {
-  constructor(canvas, audioProcessor) {
+  constructor(canvas, audioProcessor){
     super(canvas, audioProcessor);
     this.name = "Forma de Onda";
-    // Inicializar propriedades específicas
+    this.properties = { ...this.properties, thickness:2, scale:1.0, fadeTrail:0, color:"#e8f0ff" };
   }
+  draw(){
+    this.update();
+    const w=this.canvas.clientWidth, h=this.canvas.clientHeight;
+    const f=Math.max(0,Math.min(0.2,this.properties.fadeTrail||0));
+    if (f>0){ this.ctx.fillStyle=`rgba(234,242,255,${f})`; this.ctx.fillRect(0,0,w,h); } else { this.clearCanvas(); }
+    if (this.properties.showGrid) this.drawGrid();
 
-  draw() {
-    // TODO: desenhar forma de onda
-    this.clearCanvas();
+    const { time } = this.normalizeData();
+    if (!time?.length) return;
 
-    // Implementação básica para teste
-    const data = this.audioProcessor
-      ? this.audioProcessor.getWaveformData()
-      : this.testData;
-    const sliceWidth = this.canvas.width / data.length;
-
-    this.ctx.beginPath();
-    this.ctx.moveTo(0, this.canvas.height / 2);
-
-    for (let i = 0; i < data.length; i++) {
-      const v = data[i] / 128.0;
-      const y = (v * this.canvas.height) / 2;
-      const x = i * sliceWidth;
-
-      if (i === 0) {
-        this.ctx.moveTo(x, y);
-      } else {
-        this.ctx.lineTo(x, y);
-      }
-    }
-
-    this.ctx.strokeStyle = "#4cc9f0";
-    this.ctx.lineWidth = 2;
-    this.ctx.stroke();
-  }
-
-  getProperties() {
-    // TODO: obter propriedades específicas
-    return super.getProperties();
+    const ctx=this.ctx, mid=h/2, slice=w/time.length, scale=Math.max(0,Math.min(1,this.properties.scale||1));
+    ctx.beginPath(); ctx.lineWidth=Math.max(1,this.properties.thickness|0); ctx.strokeStyle=this.properties.color;
+    for (let i=0;i<time.length;i++){
+      const v=(time[i]-128)/128, y=mid + v*(h/2-10)*scale, x=i*slice;
+      if (i===0) ctx.moveTo(x,y); else ctx.lineTo(x,y);
+    } ctx.stroke();
   }
 }
