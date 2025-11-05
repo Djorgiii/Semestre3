@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Visualização de Áudio</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="app">
+        <header>
+            <h1>Sistema de Visualização de Áudio</h1>
+        </header>
+        
+        <main>
+            <section id="controls">
+                <div class="control-group">
+                    <h3>Controlos de Áudio</h3>
+                    <button id="startMic" class="btn-primary">Iniciar Microfone</button>
+                    <button id="stopAudio" class="btn-secondary" disabled>Parar Áudio</button>
+                    <input type="file" id="audioFile" accept="audio/*">
+                </div>
+                
+                <div class="control-group">
+                    <h3>Visualização</h3>
+                    <select id="visualizationType">
+                        <option value="spectrum">Espectro de Frequências</option>
+                        <option value="waveform">Forma de Onda</option>
+                        <option value="particles">Partículas</option>
+                    </select>
+                </div>
+                
+                <div class="control-group">
+                    <h3>Exportação</h3>
+                    <button id="exportPNG" class="btn-primary">Exportar PNG</button>
+                    <button id="exportJPEG" class="btn-primary">Exportar JPEG</button>
+                </div>
+            </section>
+            
+            <section id="visualization-area">
+                <canvas id="audioCanvas"></canvas>
+                <div id="audioInfo">
+                    <p id="audioStatus">Áudio: Parado</p>
+                    <p id="audioLevel">Nível: 0%</p>
+                </div>
+            </section>
+            
+            <section id="properties-panel">
+                <h3>Propriedades da Visualização</h3>
+                <div id="properties-container">
+                    <!-- Propriedades dinâmicas serão inseridas aqui -->
+                </div>
+            </section>
+        </main>
+        
+        <div id="errorModal" class="modal hidden">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <h3>Erro</h3>
+                <p id="errorMessage"></p>
+            </div>
+        </div>
+    </div>
+    
+    <script src="app.js"></script>
+</body>
+</html>
