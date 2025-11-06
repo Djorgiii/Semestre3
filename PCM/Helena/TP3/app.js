@@ -1,66 +1,250 @@
-import AudioProcessor from './core/AudioProcessor.js';
-import VisualizationEngine from './core/VisualizationEngine.js';
-import ExportManager from './core/ExportManager.js';
+// Classe principal da aplicação
+//
 
-import WaveformVisualization from './visualizations/WaveformVisualization.js';
+class App {
+  constructor() {
+    // constructor da App: passa o processor ao motor
+    this.audioProcessor = new AudioProcessor();
+    this.visualizationEngine = new VisualizationEngine(
+      "audioCanvas",
+      this.audioProcessor
+    );
+    this.uiManager = new UIManager(this);
+    this.exportManager = new ExportManager(this.visualizationEngine);
 
-const $ = (sel) => document.querySelector(sel);
+    // Inicialização
+    this.init();
+  }
 
-const canvas = $('#viz');
-const btnStart = $('#btnStart');
-const btnStop = $('#btnStop');
-const gain = $('#gain');
-const vizSelect = $('#vizSelect');
-const btnSnap = $('#btnSnap');
-const sr = $('#sr');
+  init() {
+    // escolher visualização inicial e arrancar animação
+    const sel = document.getElementById("visualizationType");
+    this.visualizationEngine.setVisualization(sel.value);
+    this.visualizationEngine.start();
 
-const processor = new AudioProcessor({ fftSize: 2048 });
-const engine = new VisualizationEngine(canvas, {
-  waveform: WaveformVisualization,
-});
+    // manter canvas responsivo
+    window.addEventListener("resize", () => this.visualizationEngine.resize());
+    this.uiManager.updateAudioInfo({ status: "Parado", level: 0 });
+  }
+  async startMicrophone() {
+    try {
+      await this.audioProcessor.startMicrophone();
+      this.uiManager.setButtonStates(true);
+      this.uiManager.updateAudioInfo({ status: "Microfone" });
+    } catch (e) {
+      this.uiManager.showError("Não foi possível aceder ao microfone.");
+    }
+  }
 
-function updateButtons(running) {
-  btnStart.disabled = running;
-  btnStop.disabled = !running;
+  async loadAudioFile(file) {
+    try {
+      await this.audioProcessor.loadAudioFile(file);
+      this.uiManager.updateAudioInfo({
+        status: "Ficheiro de áudio carregado",
+        level: this.audioProcessor.calculateAudioLevel(),
+      });
+    } catch (e) {
+      this.uiManager.showError(
+        "Não foi possível carregar o ficheiro de áudio."
+      );
+    }
+  }
+
+    stopAudio() {
+    this.audioProcessor.stop();
+
+    const fileInput = document.getElementById('audioFile');
+    if (fileInput) fileInput.value = '';
+
+    this.uiManager.setButtonStates(false);
+    this.uiManager.updateAudioInfo({ status: 'Parado', level: 0 });
+    }
+
+  setVisualization(type) {
+    if (this.visualizationEngine.setVisualization(type)) {
+      this.uiManager.updatePropertiesPanel();
+    }
+  }
+
+  exportFrame() {
+    // TODO: exportar frame atual
+    console.log("Exportando frame...");
+  }
+
+  destroy() {
+    this.visualizationEngine.stop();
+    this.audioProcessor.stop();
+  }
 }
 
-async function start() {
-  await processor.start();
-  sr.textContent = processor.getSampleRate().toFixed(0);
-  engine.mount(vizSelect.value, processor);
-  updateButtons(true);
+// Gestão de UI
+class UIManager {
+  constructor(app) {
+    this.app = app;
+    this.visualizationEngine = app.visualizationEngine;
+    this.audioProcessor = app.audioProcessor;
+
+    // Inicializar interface
+    this.setupEventListeners();
+  }
+
+  updatePropertiesPanel() {
+    // TODO: atualizar painel de propriedades
+    console.log("Atualizando painel de propriedades...");
+  }
+
+  updateAudioInfo(info, isError = false) {
+    // TODO: atualizar informações de áudio
+    const audioStatus = document.getElementById("audioStatus");
+    const audioLevel = document.getElementById("audioLevel");
+
+    if (isError) {
+      audioStatus.textContent = `Erro: ${info}`;
+      audioStatus.style.color = "#f72585";
+    } else {
+      audioStatus.textContent = `Áudio: ${info.status || "Ativo"}`;
+      audioStatus.style.color = "#e6e6e6";
+      audioLevel.textContent = `Nível: ${info.level || 0}%`;
+    }
+  }
+
+  setButtonStates(playing) {
+    // TODO: atualizar estados dos botões
+    const startMicBtn = document.getElementById("startMic");
+    const stopAudioBtn = document.getElementById("stopAudio");
+
+    startMicBtn.disabled = playing;
+    stopAudioBtn.disabled = !playing;
+  }
+
+  showError(message) {
+    // TODO: mostrar mensagem de erro
+    const errorModal = document.getElementById("errorModal");
+    const errorMessage = document.getElementById("errorMessage");
+
+    errorMessage.textContent = message;
+    errorModal.classList.remove("hidden");
+
+    // Fechar modal ao clicar no X
+    document.querySelector(".close").onclick = () => {
+      errorModal.classList.add("hidden");
+    };
+
+    // Fechar modal ao clicar fora
+    window.onclick = (event) => {
+      if (event.target === errorModal) {
+        errorModal.classList.add("hidden");
+      }
+    };
+  }
+
+  setupEventListeners() {
+    // TODO: configurar event listeners
+    document.getElementById("startMic").addEventListener("click", () => {
+      this.app.startMicrophone();
+    });
+
+    document.getElementById("stopAudio").addEventListener("click", () => {
+      this.app.stopAudio();
+    });
+
+    document.getElementById("audioFile").addEventListener("change", (e) => {
+      if (e.target.files.length > 0) {
+        this.app.loadAudioFile(e.target.files[0]);
+      }
+    });
+
+    document
+      .getElementById("visualizationType")
+      .addEventListener("change", (e) => {
+        this.app.setVisualization(e.target.value);
+      });
+
+    document.getElementById("exportPNG").addEventListener("click", () => {
+      this.app.exportManager.exportAsPNG();
+    });
+
+    document.getElementById("exportJPEG").addEventListener("click", () => {
+      this.app.exportManager.exportAsJPEG(0.9);
+    });
+  }
+
+  setupAudioLevels() {
+    // TODO: configurar monitorização de níveis de áudio
+  }
+
+  createPropertyControl(property, value, min, max, step) {
+    // TODO: criar controlo de propriedade
+    const container = document.createElement("div");
+    container.className = "property-control";
+
+    const label = document.createElement("label");
+    label.textContent = property;
+    label.htmlFor = `prop-${property}`;
+
+    const input = document.createElement("input");
+    input.type = "range";
+    input.id = `prop-${property}`;
+    input.min = min;
+    input.max = max;
+    input.step = step;
+    input.value = value;
+
+    input.addEventListener("input", (e) => {
+      this.visualizationEngine.updateVisualizationProperty(
+        property,
+        parseFloat(e.target.value)
+      );
+    });
+
+    container.appendChild(label);
+    container.appendChild(input);
+
+    return container;
+  }
 }
 
-async function stop() {
-  engine.unmount();
-  await processor.stop();
-  sr.textContent = '—';
-  updateButtons(false);
+// Gestão de Exportação
+class ExportManager {
+  constructor(visualizationEngine) {
+    this.visualizationEngine = visualizationEngine;
+  }
+
+  exportAsPNG() {
+    // TODO: exportar como PNG
+    console.log("Exportando como PNG...");
+
+    try {
+      const canvas = this.visualizationEngine.canvas;
+      const link = document.createElement("a");
+      link.download = `audio-visualization-${new Date().getTime()}.png`;
+      link.href = canvas.toDataURL("image/png");
+      link.click();
+    } catch (error) {
+      console.error("Erro ao exportar PNG:", error);
+    }
+  }
+
+  exportAsJPEG(quality = 0.9) {
+    // TODO: exportar como JPEG
+    console.log(`Exportando como JPEG com qualidade ${quality}...`);
+
+    try {
+      const canvas = this.visualizationEngine.canvas;
+      const link = document.createElement("a");
+      link.download = `audio-visualization-${new Date().getTime()}.jpg`;
+      link.href = canvas.toDataURL("image/jpeg", quality);
+      link.click();
+    } catch (error) {
+      console.error("Erro ao exportar JPEG:", error);
+    }
+  }
 }
 
-btnStart.addEventListener('click', () => start().catch(console.error));
-btnStop.addEventListener('click', () => stop().catch(console.error));
-gain.addEventListener('input', (e) => processor.setGain(parseFloat(e.target.value)));
-vizSelect.addEventListener('change', () => {
-  if (processor.ctx) engine.mount(vizSelect.value, processor);
-});
+// Inicialização da aplicação quando o DOM estiver carregado
+document.addEventListener("DOMContentLoaded", () => {
+  const app = new App();
 
-btnSnap.addEventListener('click', () => {
-  ExportManager.exportCanvasPNG(canvas, `snapshot-${vizSelect.value}.png`);
-});
-
-// Ajuste inicial do canvas ao layout
-const resizeCanvasToFill = () => {
-  const parent = canvas.parentElement;
-  canvas.style.width = '100%';
-  canvas.style.height = '100%';
-  // o método resize da visualização vai ajustar o buffer
-};
-window.addEventListener('resize', resizeCanvasToFill);
-resizeCanvasToFill();
-
-// Boa prática: parar áudio ao sair
-window.addEventListener('beforeunload', () => {
-  engine.dispose();
-  processor.stop();
+  // Expor app globalmente para debugging (remover em produção)
+  window.app = app;
 });
