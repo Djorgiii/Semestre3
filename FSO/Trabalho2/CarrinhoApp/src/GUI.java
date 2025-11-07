@@ -33,18 +33,18 @@ public class GUI extends JFrame {
     private JTextField textFieldAngulo;
     private JTextField textFieldRobot;
     private BufferCircular bufferCircular;
-    private ComandosAleatorios comandosAleatorios;
-    private Comando comandoPendente;
+    private MovimentosAleatorios movimentosAleatorios;
+    private Movimento movimentoPendente;
     
     public void myPrint(String s) {
 		textAreaConsola.append(s + "\n");
 	}
 
-    public void setTarefas(ComandosAleatorios tAleatorios) {
-        this.comandosAleatorios = tAleatorios;
+    public void setTarefas(MovimentosAleatorios tAleatorios) {
+        this.movimentosAleatorios = tAleatorios;
     }
 
-    public void pedirComandoManual(Comando c) {
+    public void pedirMovimentoManual(Movimento c) {
     	if (c == null) {
     		return;
     	}
@@ -59,15 +59,15 @@ public class GUI extends JFrame {
 		}
 		else {
 			synchronized (this) {
-				this.comandoPendente = c;
+				this.movimentoPendente = c;
 			}
 			myPrint("[GUI] Comando manual guardado como pendente: " + c.getTipo());
 		}
     }
 
-    public synchronized Comando obterComandoManual() {
-        Comando tmp = comandoPendente;
-        comandoPendente = null;
+    public synchronized Movimento obterMovimentoManual() {
+        Movimento tmp = movimentoPendente;
+        movimentoPendente = null;
         return tmp;
     }
 
@@ -106,10 +106,7 @@ public class GUI extends JFrame {
                     btnFrente.setFont(new Font("Tahoma", Font.PLAIN, 16));
                     btnFrente.addActionListener(new ActionListener() {
                         public void actionPerformed(ActionEvent arg0) {
-                        	pedirComandoManual(new Comando("RETA", bd.getDistancia(), 0));
-                        	//pedirComandoManual(new Comando("PARAR", false));
-                        	//bd.getServidor().getBufferCircular().inserirElemento(new Comando("FRENTE", bd.getDistancia(), 0));
-                        	//bd.getRobot().Reta(bd.getDistancia());
+                        	pedirMovimentoManual(new Movimento("RETA", bd.getDistancia(), 0));
                             bd.getRobot().Parar(false);	
                         }
                     });
@@ -215,9 +212,7 @@ public class GUI extends JFrame {
                     btnParar.setBackground(new Color(255, 0, 0));
                     btnParar.addActionListener(new ActionListener() {
                     	public void actionPerformed(ActionEvent arg0) {
-                    		pedirComandoManual(new Comando("PARAR", false));
-                    		//bd.getRobot().Parar(true);
-                    		//myPrint("O Robot parou!");
+                    		pedirMovimentoManual(new Movimento("PARAR", false));
                     	}
                     });
                     btnParar.setFont(new Font("Tahoma", Font.PLAIN, 16));
@@ -228,13 +223,8 @@ public class GUI extends JFrame {
                     btnDireita.setBackground(new Color(0, 128, 255));
                     btnDireita.addActionListener(new ActionListener() {
                     	public void actionPerformed(ActionEvent e) {
-                    		pedirComandoManual(new Comando("CURVARDIREITA", bd.getRaio(), bd.getAngulo()));
-                    		//pedirComandoManual(new Comando("PARAR", false));
-                    		//bd.getServidor().getBufferCircular().inserirElemento(new Comando("CURVARDIREITA", bd.getRaio(), bd.getAngulo()));
-                    		//bd.getRobot().CurvarDireita(bd.getRaio(), bd.getAngulo());
-                    		//bd.getServidor().getBufferCircular().inserirElemento(new Comando("PARAR", false));
+                    		pedirMovimentoManual(new Movimento("CURVARDIREITA", bd.getRaio(), bd.getAngulo()));
                     		bd.getRobot().Parar(false);
-                    		//myPrint("Fez uma curva à direita com um angulo de " + bd.getAngulo()+ "º e com " +  bd.getRaio() + " de raio.");
                     	}
                     });
                     btnDireita.setFont(new Font("Tahoma", Font.PLAIN, 16));
@@ -245,13 +235,8 @@ public class GUI extends JFrame {
                     btnEsquerda.setBackground(new Color(255, 128, 255));
                     btnEsquerda.addActionListener(new ActionListener() {
                     	public void actionPerformed(ActionEvent e) {
-                    		pedirComandoManual(new Comando("CURVARESQUERDA", bd.getRaio(), bd.getAngulo()));
-                    		//pedirComandoManual(new Comando("PARAR", false));
-                    		//bd.getServidor().getBufferCircular().inserirElemento(new Comando("CURVARESQUERDA", bd.getRaio(), bd.getAngulo()));
-                    		//bd.getRobot().CurvarEsquerda(bd.getRaio(), bd.getAngulo());
-                    		//bd.getServidor().getBufferCircular().inserirElemento(new Comando("PARAR", false));
-                    		//bd.getRobot().Parar(false);
-                    		//myPrint("Fez uma curva à esquerda com um angulo de " + bd.getAngulo()+ "º e com " +  bd.getRaio() + " de raio.");
+                    		pedirMovimentoManual(new Movimento("CURVARESQUERDA", bd.getRaio(), bd.getAngulo()));
+                    		bd.getRobot().Parar(false);
                     	}
                     });
                     btnEsquerda.setFont(new Font("Tahoma", Font.PLAIN, 16));
@@ -262,11 +247,8 @@ public class GUI extends JFrame {
                     btnTras.setBackground(new Color(255, 128, 128));
                     btnTras.addActionListener(new ActionListener() {
                     	public void actionPerformed(ActionEvent e) {
-                    		pedirComandoManual(new Comando("RETA", -bd.getDistancia(), 0));
-                    		//pedirComandoManual(new Comando("PARAR", false));
-                    		//bd.getRobot().Reta(bd.getDistancia() * -1);
-                            //bd.getRobot().Parar(false);
-                            //myPrint("Fez uma reta de " + bd.getDistancia() + " cm.");	
+                    		pedirMovimentoManual(new Movimento("RETA", -bd.getDistancia(), 0));
+                            bd.getRobot().Parar(false);
                     	}
                     });
                     btnTras.setFont(new Font("Tahoma", Font.PLAIN, 16));
@@ -299,9 +281,9 @@ public class GUI extends JFrame {
                                     return;
                                 }
                                 bd.setAleatoriosOn(true);
-                                if (comandosAleatorios != null) {
+                                if (movimentosAleatorios != null) {
                                     // Pass the GUI reference so the task must go through GUI -> BaseDados -> Servidor
-                                    comandosAleatorios.desbloquear();
+                                    movimentosAleatorios.desbloquear();
                                 }
                             }
                             else {
@@ -325,7 +307,7 @@ public class GUI extends JFrame {
     }
 
     // Allow clients (like ComandosAleatorios) to insert commands via the GUI
-    public void inserirComandoNoBuffer(Comando c) {
+    public void inserirComandoNoBuffer(Movimento c) {
     	
     	java.util.concurrent.Semaphore mux = bd.getProdutorMux();
         if (mux.tryAcquire()) {
@@ -337,7 +319,7 @@ public class GUI extends JFrame {
         }
         else {
 			// Could not acquire semaphore, store command as pending
-			this.comandoPendente = c;
+			this.movimentoPendente = c;
         }
     }
     

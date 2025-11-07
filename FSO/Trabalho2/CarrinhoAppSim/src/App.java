@@ -26,7 +26,7 @@ public class App {
         servidor.start();
 
         // Tarefa dos aleatórios (lote de 5). Já não há "próxima" (manuais).
-        ComandosAleatorios tAleatorios = new ComandosAleatorios(app.gui, null);
+        MovimentosAleatorios tAleatorios = new MovimentosAleatorios(app.gui, null);
         tAleatorios.start();
 
         // Dizer à GUI quem é a única tarefa (aleatórios)

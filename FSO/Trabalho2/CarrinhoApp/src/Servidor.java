@@ -7,6 +7,9 @@ public class Servidor extends Tarefa{
 	private int contadorAleatorios = 0;
     private static final int TOTAL_ALEATORIOS = 5;
 	
+    private static final double VELOCIDADE_CM_POR_MS = 0.02; // 20 cm/s = 0.02 cm/ms
+    private static final int TEMPO_COMUNICACAO_MS = 100;
+
 	
 	public Servidor(BufferCircular buffercircular, RobotLegoEV3 asdrubal, Consumer<String> printCallback) {
 	    super(null);
@@ -16,19 +19,19 @@ public class Servidor extends Tarefa{
 	}
 	
 	public void Reta(int distancia) {
-		buffercircular.inserirElemento(new Comando("RETA", distancia, 0));
+		buffercircular.inserirElemento(new Movimento("RETA", distancia, 0));
 	}
 	
-	public void CurvarDireita(int distancia, int raio) {
-		buffercircular.inserirElemento(new Comando("CURVARDIREITA", distancia, raio));
+	public void CurvarDireita(int raio, int angulo) {
+		buffercircular.inserirElemento(new Movimento("CURVARDIREITA", raio, angulo));
 	}
 	
-	public void CurvarEsquerda(int distancia, int raio) {
-		buffercircular.inserirElemento(new Comando("CURVARESQUERDA", distancia, raio));
+	public void CurvarEsquerda(int raio, int angulo) {
+		buffercircular.inserirElemento(new Movimento("CURVARESQUERDA", raio, angulo));
 	}
 	
 	public void Parar(boolean b) {
-		buffercircular.inserirElemento(new Comando("PARAR", b));
+		buffercircular.inserirElemento(new Movimento("PARAR", b));
 	}
 	
 	public void resetContadorAleatorios() {
@@ -42,7 +45,7 @@ public class Servidor extends Tarefa{
 	
 	public void execucao() {
 	    while (true) {
-	        Comando comando = buffercircular.removerElemento();
+	        Movimento comando = buffercircular.removerElemento();
 	        boolean isManual = comando.isManual();
 	        int pos = buffercircular.getLastRemovedIndex();
 	        if (comando != null) {
@@ -52,28 +55,47 @@ public class Servidor extends Tarefa{
 	            	printCallback.accept(pos+1 + " - " + comando.toString());
 	            }
 	            String tipo = comando.getTipo().toUpperCase();
+	            
+                int tempoExecucao = 0;
+
 	            switch (tipo) {
 	                case "RETA":
+                        tempoExecucao = (int) (Math.abs(comando.getArg1()) / VELOCIDADE_CM_POR_MS) + TEMPO_COMUNICACAO_MS;
 	                    asdrubal.Reta(comando.getArg1());
 	                    if (!isManual) contadorAleatorios++;
 	                    break;
 	                case "CURVARDIREITA":
+                        double anguloRadDir = comando.getArg2() * Math.PI / 180.0;
+                        tempoExecucao = (int) ((comando.getArg1() * anguloRadDir) / VELOCIDADE_CM_POR_MS) + TEMPO_COMUNICACAO_MS;
 	                    asdrubal.CurvarDireita(comando.getArg1(), comando.getArg2());
 	                    if (!isManual) contadorAleatorios++;
 	                    break;
 	                case "CURVARESQUERDA":
+	                	double anguloRadEsq = comando.getArg2() * Math.PI / 180.0;
+                        tempoExecucao = (int) ((comando.getArg1() * anguloRadEsq) / VELOCIDADE_CM_POR_MS) + TEMPO_COMUNICACAO_MS;
 	                    asdrubal.CurvarEsquerda(comando.getArg1(), comando.getArg2());
 	                    if (!isManual) contadorAleatorios++;
 	                    break;
 	                case "PARAR":
+                        tempoExecucao = TEMPO_COMUNICACAO_MS;
 	                    asdrubal.Parar(false);
 	                    if (!isManual) contadorAleatorios++;
 	                    break;
 	                default:
 	                    break;
 	            }
+	            
+                // ⏱️ aplicar o tempo de execução calculado
+                try {
+                    Thread.sleep(tempoExecucao);
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                }
+	            
 	            if (!tipo.equals("PARAR")) {
 	            	asdrubal.Parar(false);
+                    try { Thread.sleep(TEMPO_COMUNICACAO_MS); } 
+                    catch (InterruptedException e) { Thread.currentThread().interrupt(); }
 	            }
 	            if (contadorAleatorios == TOTAL_ALEATORIOS) {
 	                if (printCallback != null) printCallback.accept("Sequência de 5 movimentos aleatórios concluída.");

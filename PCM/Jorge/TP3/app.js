@@ -14,23 +14,20 @@ class App {
   }
 
   init() {
-    // App pronta → aguardar ação do utilizador
+    // escolher a visualização inicial a partir do <select> (ou 'spectrum')
+    const initial =
+      document.getElementById("visualizationType")?.value || "spectrum";
+
+    // aplica na engine (isto também faz resize da viz)
+    this.visualizationEngine.setVisualization(initial);
+
+    // preencher o painel de propriedades já no arranque
+    this.uiManager.updatePropertiesPanel();
+
+    // estado inicial
     this.uiManager.updateAudioInfo({ status: "Parado", level: 0 });
     this.uiManager.setButtonStates(false);
     console.log("App inicializada");
-  }
-
-  // --- Fluxo: Captura de Microfone ---
-  async startMicrophone() {
-    try {
-      this.uiManager.setButtonStates(true);             // Disable Start, Enable Stop
-      await this.audioProcessor.startMicrophone();      // AudioProcessor.startMic
-      this.visualizationEngine.start();                 // Iniciar Loop de Atualização
-      this.uiManager.updateAudioInfo({ status: "Microfone", level: 0 });
-    } catch (e) {
-      this.uiManager.showError("Falha no microfone: " + (e?.message || e));
-      this.uiManager.setButtonStates(false);            // Re-enable Start
-    }
   }
 
   // --- Fluxo: Carregamento de Ficheiro ---
@@ -40,7 +37,10 @@ class App {
       // podes escolher "element" (simples) ou "buffer" (com decodeAudioData)
       await this.audioProcessor.loadAudioFile(file, "element");
       this.visualizationEngine.start();
-      this.uiManager.updateAudioInfo({ status: `Ficheiro: ${file.name}`, level: 0 });
+      this.uiManager.updateAudioInfo({
+        status: `Ficheiro: ${file.name}`,
+        level: 0,
+      });
     } catch (e) {
       this.uiManager.showError("Erro no ficheiro: " + (e?.message || e));
       this.uiManager.setButtonStates(false);

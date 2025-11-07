@@ -16,19 +16,19 @@ public class Servidor extends Tarefa{
 	}
 	
 	public void Reta(int distancia) {
-		buffercircular.inserirElemento(new Comando("RETA", distancia, 0));
+		buffercircular.inserirElemento(new Movimento("RETA", distancia, 0));
 	}
 	
 	public void CurvarDireita(int distancia, int raio) {
-		buffercircular.inserirElemento(new Comando("CURVARDIREITA", distancia, raio));
+		buffercircular.inserirElemento(new Movimento("CURVARDIREITA", distancia, raio));
 	}
 	
 	public void CurvarEsquerda(int distancia, int raio) {
-		buffercircular.inserirElemento(new Comando("CURVARESQUERDA", distancia, raio));
+		buffercircular.inserirElemento(new Movimento("CURVARESQUERDA", distancia, raio));
 	}
 	
 	public void Parar(boolean b) {
-		buffercircular.inserirElemento(new Comando("PARAR", b));
+		buffercircular.inserirElemento(new Movimento("PARAR", b));
 	}
 	
 	public void resetContadorAleatorios() {
@@ -42,27 +42,27 @@ public class Servidor extends Tarefa{
 	
 	public void execucao() {
 	    while (true) {
-	        Comando comando = buffercircular.removerElemento();
-	        boolean isManual = comando.isManual();
+	        Movimento movimento = buffercircular.removerElemento();
+	        boolean isManual = movimento.isManual();
 	        int pos = buffercircular.getLastRemovedIndex();
-	        if (comando != null) {
+	        if (movimento != null) {
 	            if (isManual) {
-	                if (printCallback != null) printCallback.accept("Comando manual recebido: " + comando.toString());
+	                if (printCallback != null) printCallback.accept("Comando manual recebido: " + movimento.toString());
 	            } else {
-	            	printCallback.accept(pos+1 + " - " + comando.toString());
+	            	printCallback.accept(pos+1 + " - " + movimento.toString());
 	            }
-	            String tipo = comando.getTipo().toUpperCase();
+	            String tipo = movimento.getTipo().toUpperCase();
 	            switch (tipo) {
 	                case "RETA":
-	                    asdrubal.Reta(comando.getArg1());
+	                    asdrubal.Reta(movimento.getArg1());
 	                    if (!isManual) contadorAleatorios++;
 	                    break;
 	                case "CURVARDIREITA":
-	                    asdrubal.CurvarDireita(comando.getArg1(), comando.getArg2());
+	                    asdrubal.CurvarDireita(movimento.getArg1(), movimento.getArg2());
 	                    if (!isManual) contadorAleatorios++;
 	                    break;
 	                case "CURVARESQUERDA":
-	                    asdrubal.CurvarEsquerda(comando.getArg1(), comando.getArg2());
+	                    asdrubal.CurvarEsquerda(movimento.getArg1(), movimento.getArg2());
 	                    if (!isManual) contadorAleatorios++;
 	                    break;
 	                case "PARAR":
