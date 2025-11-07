@@ -35,6 +35,8 @@ public class GUI extends JFrame {
     private BufferCircular bufferCircular;
     private MovimentosAleatorios movimentosAleatorios;
     private Movimento movimentoPendente;
+    private EvitarObstaculo tObstaculo;
+
     
     public void myPrint(String s) {
 		textAreaConsola.append(s + "\n");
@@ -314,6 +316,22 @@ public class GUI extends JFrame {
                     rdbtnMovimentosAleatrios.setFont(new Font("Tahoma", Font.PLAIN, 18));
                     rdbtnMovimentosAleatrios.setBounds(378, 200, 221, 21);
                     contentPane.add(rdbtnMovimentosAleatrios);
+                    
+                    JButton btnObstaculo = new JButton("Obstáculo");
+                    btnObstaculo.addActionListener(new ActionListener() {
+                    	public void actionPerformed(ActionEvent e) {
+                    		 if (!bd.isRobotAberto()) {
+                    	            myPrint("Abra o robot antes de executar EvitarObstaculo.");
+                    	            return;
+                    	        }
+                    	        if (tObstaculo != null) {
+                    	            myPrint("[GUI] EvitarObstaculo acionado.");
+                    	            tObstaculo.desbloquear();
+                    	        }
+                    	}
+                    });
+                    btnObstaculo.setBounds(17, 178, 84, 20);
+                    contentPane.add(btnObstaculo);
 
                     setVisible(true);
                 } catch (Exception e) {
@@ -355,4 +373,9 @@ public class GUI extends JFrame {
      public void setServidor(Servidor servidor) {
          this.bd.setServidor(servidor);
      }
+
+	 public void setTarefaObstaculo(EvitarObstaculo tObstaculo) {
+		this.tObstaculo = tObstaculo;
+		
+	 }
  }

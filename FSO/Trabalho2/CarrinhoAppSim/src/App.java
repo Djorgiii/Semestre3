@@ -21,7 +21,7 @@ public class App {
         App app = new App();
 
         RobotLegoEV3Sim robot = new RobotLegoEV3Sim("EV2");
-        Servidor servidor = new Servidor(app.gui.getBufferCircular(), robot, s -> app.gui.myPrint(s));
+        Servidor servidor = new Servidor(app.gui.getBufferCircular(), robot, app.gui.getBd(),s -> app.gui.myPrint(s));
         app.gui.setServidor(servidor);
         servidor.start();
 
@@ -32,6 +32,9 @@ public class App {
         // Dizer à GUI quem é a única tarefa (aleatórios)
         app.gui.setTarefas(tAleatorios);
 
+        EvitarObstaculo tObstaculo = new EvitarObstaculo(tAleatorios, robot, app.gui);
+        tObstaculo.start();
+        app.gui.setTarefaObstaculo(tObstaculo);
         // Entrar no ciclo normal
         app.run();
     }
