@@ -2,7 +2,7 @@ import java.util.concurrent.Semaphore;
 
 public class BufferCircular {
 	final int dimensaoBuffer= 16;
-	Comando[] bufferCircular;
+	Movimento[] bufferCircular;
 	int putBuffer, getBuffer;
 	// o semáforo elementosLivres indica se há posições livres para inserir Strings
 	// o semáforo acessoElemento garante exclusão mútua no acesso a um elemento
@@ -11,7 +11,7 @@ public class BufferCircular {
 	private int lastRemovedIndex = -1;
 
 	public BufferCircular(){
-		 bufferCircular= new Comando[dimensaoBuffer];
+		 bufferCircular= new Movimento[dimensaoBuffer];
 		 putBuffer= 0;
 		 getBuffer= 0;
 		 elementosLivres= new Semaphore(dimensaoBuffer);
@@ -64,11 +64,11 @@ public class BufferCircular {
 	}
 
 	
-	public void inserirElemento(Comando s){
+	public void inserirElemento(Movimento s){
 		try {
 		 elementosLivres.acquire();
 		 acessoElemento.acquire();
-		 Comando c = new Comando(s.getTipo(), s.getArg1(), s.getArg2());
+		 Movimento c = new Movimento(s.getTipo(), s.getArg1(), s.getArg2());
 		 if (s.isManual()) c.setManual(true);
 		 //System.out.println("Inserido no buffer[" + putBuffer + "]: " + s);
 		 // Estado do buffer após inserção
@@ -85,8 +85,8 @@ public class BufferCircular {
 		 //debugPrint(); 
 		}
 	
-		public Comando removerElemento() {
-			Comando s= null;
+		public Movimento removerElemento() {
+			Movimento s= null;
 			try {
 				elementosOcupados.acquire();
 				acessoElemento.acquire();
