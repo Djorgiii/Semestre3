@@ -1,5 +1,6 @@
 package setup;
 import DLA.DLA;
+import physics.FallingBodyApp;
 import JogoDaVida.JogoDaVidaApp;
 import processing.core.PApplet;
 import apps.TestApp;
@@ -11,7 +12,7 @@ public class processingMain extends PApplet {
 	
 	public static void main(String[] args) {
 		
-		app= new TestApp();
+		app= new FallingBodyApp();
 		PApplet.main(processingMain.class.getName());
 		
 	}
