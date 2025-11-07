@@ -37,20 +37,19 @@ class App {
   }
 
   async loadAudioFile(file) {
-    try {
-      await this.audioProcessor.loadAudioFile(file);
-      this.uiManager.updateAudioInfo({
-        status: "Ficheiro de áudio carregado",
-        level: this.audioProcessor.calculateAudioLevel(),
-      });
-    } catch (e) {
-      this.uiManager.showError(
-        "Não foi possível carregar o ficheiro de áudio."
-      );
-    }
+  try {
+    await this.audioProcessor.loadAudioFile(file);   // já está a tocar
+    this.uiManager.setButtonStates(true);            // <— ATIVAR STOP
+    this.uiManager.updateAudioInfo({
+      status: `Ficheiro: ${file.name}`,
+      level: Math.round((this.audioProcessor.calculateAudioLevel() || 0) * 100),
+    });
+  } catch (e) {
+    this.uiManager.showError("Não foi possível carregar o ficheiro de áudio.");
   }
+}
 
-    stopAudio() {
+  stopAudio() {
     this.audioProcessor.stop();
 
     const fileInput = document.getElementById('audioFile');
