@@ -23,7 +23,7 @@ public class App {
         servidor.start();
         
         
-        ComandosAleatorios tAleatorios = new ComandosAleatorios(app.gui, null);
+        MovimentosAleatorios tAleatorios = new MovimentosAleatorios(app.gui, null);
         tAleatorios.start();
 
         app.gui.setTarefas(tAleatorios)

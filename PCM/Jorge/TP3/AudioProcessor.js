@@ -33,13 +33,6 @@ class AudioProcessor {
       this.analyserNode.smoothingTimeConstant = Math.max(0, Math.min(0.95, v));
   }
 
-  // conecta a fonte tanto ao analyser quanto ao monitor
-  _connectSource(node) {
-    this.sourceNode = node;
-    node.connect(this.analyserNode);
-    node.connect(this.monitorGain); // 🔊 ouvir
-  }
-
   // --- Start Microphone (diagrama Captura de Microfone) ---
   async startMicrophone() {
     this._ensureCtx();
@@ -55,7 +48,7 @@ class AudioProcessor {
         channelCount: 1,
       },
     });
-    const node = this.audioContext.createMediaElementSource(this.mediaStream);
+    const node = this.audioContext.createMediaStreamSource(this.mediaStream);
     node.connect(this.analyserNode);
     this.sourceNode = node;
   }
