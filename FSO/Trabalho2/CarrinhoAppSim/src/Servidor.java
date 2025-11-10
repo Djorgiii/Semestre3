@@ -3,15 +3,17 @@ import java.util.function.Consumer;
 public class Servidor extends Tarefa{
 	private BufferCircular buffercircular;
 	private RobotLegoEV3Sim asdrubal;
+	private final BaseDados bd;
 	private Consumer<String> printCallback;
 	private int contadorAleatorios = 0;
     private static final int TOTAL_ALEATORIOS = 5;
 	
 	
-	public Servidor(BufferCircular buffercircular, RobotLegoEV3Sim asdrubal, Consumer<String> printCallback) {
+	public Servidor(BufferCircular buffercircular, RobotLegoEV3Sim asdrubal, BaseDados bd, Consumer<String> printCallback) {
 	    super(null);
 		this.buffercircular = buffercircular;
 	    this.asdrubal = asdrubal;
+	    this.bd = bd;
 	    this.printCallback = printCallback;
 	}
 	
@@ -42,6 +44,14 @@ public class Servidor extends Tarefa{
 	
 	public void execucao() {
 	    while (true) {
+	    	
+	    	if(bd != null && bd.isPausaServidor()) {
+	    		if (printCallback != null) printCallback.accept("[Servidor] em pausa.");
+	            bd.getPausaSem().acquireUninterruptibly(); // aguarda retoma
+	            if (printCallback != null) printCallback.accept("[Servidor] retomado.");
+	            continue;
+	    	}
+	    	
 	        Movimento movimento = buffercircular.removerElemento();
 	        boolean isManual = movimento.isManual();
 	        int pos = buffercircular.getLastRemovedIndex();

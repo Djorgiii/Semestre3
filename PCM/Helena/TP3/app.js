@@ -37,20 +37,19 @@ class App {
   }
 
   async loadAudioFile(file) {
-    try {
-      await this.audioProcessor.loadAudioFile(file);
-      this.uiManager.updateAudioInfo({
-        status: "Ficheiro de áudio carregado",
-        level: this.audioProcessor.calculateAudioLevel(),
-      });
-    } catch (e) {
-      this.uiManager.showError(
-        "Não foi possível carregar o ficheiro de áudio."
-      );
-    }
+  try {
+    await this.audioProcessor.loadAudioFile(file);   // já está a tocar
+    this.uiManager.setButtonStates(true);            // <— ATIVAR STOP
+    this.uiManager.updateAudioInfo({
+      status: `Ficheiro: ${file.name}`,
+      level: Math.round((this.audioProcessor.calculateAudioLevel() || 0) * 100),
+    });
+  } catch (e) {
+    this.uiManager.showError("Não foi possível carregar o ficheiro de áudio.");
   }
+}
 
-    stopAudio() {
+  stopAudio() {
     this.audioProcessor.stop();
 
     const fileInput = document.getElementById('audioFile');
@@ -139,6 +138,29 @@ class UIManager {
   }
 
   setupEventListeners() {
+
+    // Sensibilidade (0..1)
+    const sensSlider = document.getElementById("sensitivity");
+    const sensVal = document.getElementById("sensitivity-value");
+    if (sensSlider) {
+      sensSlider.addEventListener("input", (e) => {
+        const v = parseFloat(e.target.value);
+        if (sensVal) sensVal.textContent = v.toFixed(2);
+        this.visualizationEngine.updateVisualizationProperty('sensitivity', v);
+      });
+    }
+
+    // Intensidade (0.5..2) – passa para a visualização ativa
+    const intSlider = document.getElementById("intensity");
+    const intVal = document.getElementById("intensity-value");
+    if (intSlider) {
+      intSlider.addEventListener("input", (e) => {
+        const v = parseFloat(e.target.value);
+        if (intVal) intVal.textContent = v.toFixed(2);
+        this.visualizationEngine.updateVisualizationProperty('intensity', v);
+      });
+    }
+
     // TODO: configurar event listeners
     document.getElementById("startMic").addEventListener("click", () => {
       this.app.startMicrophone();
