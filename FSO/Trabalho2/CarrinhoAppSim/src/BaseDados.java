@@ -11,7 +11,7 @@ public class BaseDados {
     private volatile boolean aleatoriosOn;
     private final Semaphore produtorMux = new Semaphore(1, true);
     private volatile boolean pausaServidor;
-    private final Semaphore pausaSem = new java.util.concurrent.Semaphore(0, true);
+    private final Semaphore pausaSem = new Semaphore(0, true);
 
     
     

@@ -126,6 +126,7 @@ public class GUI extends JFrame {
                             if (bd.isRobotAberto()) {
                                 bd.getRobot().CloseEV3();
                                 bd.setRobotAberto(false);
+                                bd.setAleatoriosOn(false);
                             } else {
                                 bd.setRobotAberto(bd.getRobot().OpenEV3("EV2"));
                             }
