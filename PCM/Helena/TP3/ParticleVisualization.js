@@ -5,6 +5,7 @@ class ParticleVisualization extends AudioVisualization {
     this.properties = { ...this.properties, count: 70, linkDistance: 110, linkAlpha: 0.5, colorBase: 210, dynamicColor: 1 };
     this.particles = [];
     this._init();
+    
   }
   getProperties() { return { ...this.properties }; }
   updateProperty(k, v) { if (k in this.properties) { this.properties[k] = v; if (k === 'count') this._init(); } }

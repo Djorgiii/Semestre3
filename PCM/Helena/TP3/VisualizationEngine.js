@@ -29,8 +29,21 @@ class VisualizationEngine {
   stop() { this.instance?.stop(); }
   resize() { this.instance?.resize(); }
 
-  getVisualizationProperties() { return this.instance?.getProperties?.() ?? {}; }
-  updateVisualizationProperty(prop, val) { this.instance?.updateProperty?.(prop, val); }
+  getVisualizationProperties() {
+  const vis = this.instance;
+  const props = vis?.getProperties ? vis.getProperties() : {};
+  const sens = (this.processor && this.processor._smooth != null) ? (1 - this.processor._smooth) : 0.2;
+  return { ...props, sensitivity: sens }; // junta sensibilidade global
+}
+
+updateVisualizationProperty(prop, val) {
+  if (prop === 'sensitivity' && this.processor && this.processor.setSmoothing) {
+    this.processor.setSmoothing(val); // 0..1
+    return;
+  }
+  // resto vai para a visualização atual
+  if (this.instance && this.instance.updateProperty) this.instance.updateProperty(prop, val);
+}
 
   dispose() {
     window.removeEventListener("resize", this._onResize);
