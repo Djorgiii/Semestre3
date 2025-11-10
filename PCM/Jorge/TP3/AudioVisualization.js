@@ -23,7 +23,7 @@ class AudioVisualization {
     this.frameCount++;
   }
 
-  draw(){ throw new Error("draw() deve ser implementado"); }
+  draw(){ throw new Error("draw() deve ser implementado nas subclasses"); }
 
   resize(w,h){ this._applyDPR(w,h); }
   getProperties(){ return { ...this.properties }; }
