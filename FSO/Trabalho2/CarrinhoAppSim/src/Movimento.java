@@ -1,17 +1,17 @@
-public class Comando {
+public class Movimento {
 	private String tipo;
 	private int arg1;
 	private int arg2;
 	private boolean b;
 	private boolean manual;
 	
-	public Comando(String tipo, int arg1, int arg2) {
+	public Movimento(String tipo, int arg1, int arg2) {
 		this.tipo = tipo;
 		this.arg1 = arg1;
 		this.arg2 = arg2;
 	}
 	
-	public Comando(String tipo, boolean b) {
+	public Movimento(String tipo, boolean b) {
 		this.tipo = tipo;
 		this.b = b;
 	}
