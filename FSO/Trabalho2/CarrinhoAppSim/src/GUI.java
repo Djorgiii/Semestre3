@@ -37,7 +37,6 @@ public class GUI extends JFrame {
     private Movimento movimentoPendente;
     private EvitarObstaculo tObstaculo;
 
-    
     public void myPrint(String s) {
 		textAreaConsola.append(s + "\n");
 	}
