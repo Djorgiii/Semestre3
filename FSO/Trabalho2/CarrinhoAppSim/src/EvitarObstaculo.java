@@ -1,3 +1,5 @@
+import java.util.Random;
+
 public class EvitarObstaculo extends Tarefa {
 
     private final RobotLegoEV3Sim robot;
@@ -24,8 +26,15 @@ public class EvitarObstaculo extends Tarefa {
         System.out.println("EvitarObstaculo: Evasão iniciada.");
         robot.Reta(-20);
         gui.myPrint("RETA(-20,0)");
-        robot.CurvarDireita(20, 15);
-        gui.myPrint("CURVARDIREITA(20,15)");
+        Random rnd = new Random();
+        boolean direita = rnd.nextBoolean();
+        if (direita) {
+			robot.CurvarDireita(0, 90);
+			gui.myPrint("CURVARDIREITA(0,90)");
+		} else {
+			robot.CurvarEsquerda(0, 90);
+			gui.myPrint("CURVARESQUERDA(0,90)");
+		}
         robot.Parar(false);
         gui.myPrint("PARAR(false)");
         System.out.println("EvitarObstaculo: Evasão concluída.");
