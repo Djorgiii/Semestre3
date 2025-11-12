@@ -20,8 +20,7 @@ public class App {
     public static void main(String[] args) {
         App app = new App();
 
-        RobotLegoEV3 robot = new RobotLegoEV3("EV2");
-        Servidor servidor = new Servidor(app.gui.getBufferCircular(), robot, app.gui.getBd(),s -> app.gui.myPrint(s));
+        Servidor servidor = new Servidor(app.gui.getBufferCircular(), app.gui.getBd().getRobot(), app.gui.getBd(),s -> app.gui.myPrint(s));
         app.gui.setServidor(servidor);
         servidor.start();
 
@@ -32,7 +31,7 @@ public class App {
         // Dizer à GUI quem é a única tarefa (aleatórios)
         app.gui.setTarefas(tAleatorios);
 
-        EvitarObstaculo tObstaculo = new EvitarObstaculo(tAleatorios, robot, app.gui);
+        EvitarObstaculo tObstaculo = new EvitarObstaculo(tAleatorios, app.gui.getBd().getRobot(), app.gui);
         tObstaculo.start();
         app.gui.setTarefaObstaculo(tObstaculo);
         // Entrar no ciclo normal

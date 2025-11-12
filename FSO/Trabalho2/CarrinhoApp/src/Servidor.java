@@ -2,14 +2,14 @@ import java.util.function.Consumer;
 
 public class Servidor extends Tarefa{
 	private BufferCircular buffercircular;
-	private RobotLegoEV3Sim asdrubal;
+	private RobotLegoEV3 asdrubal;
 	private final BaseDados bd;
 	private Consumer<String> printCallback;
 	private int contadorAleatorios = 0;
     private static final int TOTAL_ALEATORIOS = 5;
 	
 	
-	public Servidor(BufferCircular buffercircular, RobotLegoEV3Sim asdrubal, BaseDados bd, Consumer<String> printCallback) {
+	public Servidor(BufferCircular buffercircular, RobotLegoEV3 asdrubal, BaseDados bd, Consumer<String> printCallback) {
 	    super(null);
 		this.buffercircular = buffercircular;
 	    this.asdrubal = asdrubal;

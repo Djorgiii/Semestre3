@@ -72,7 +72,7 @@ public class BaseDados {
     }
 
     public BaseDados() {
-        robot = new RobotLegoEV3Sim("Asdrubal");
+        robot = new RobotLegoEV3();
         terminar = false;
         robotAberto = false;
     }
