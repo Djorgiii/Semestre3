@@ -2,50 +2,64 @@ import java.util.Random;
 
 public class EvitarObstaculo extends Tarefa {
 
-    private final RobotLegoEV3Sim robot;
-    private GUI gui;
+    private final RobotLegoEV3 robot;
+    private final GUI gui;
+    private final Random rnd = new Random();
+    private final int sensorToquePort = 1; // Sensor de toque ligado à porta 1
 
-    public EvitarObstaculo(Tarefa proxima, RobotLegoEV3Sim robot, GUI gui) {
-        super(proxima);           // proxima deve ser tAleatorios (ver App)
+    public EvitarObstaculo(Tarefa proxima, RobotLegoEV3 robot, GUI gui) {
+        super(proxima);  // normalmente 'proxima' = tAleatorios
         this.robot = robot;
         this.gui = gui;
     }
 
     @Override
     public void execucao() {
-        // 1) parar imediatamente o movimento em curso
-        robot.Parar(true);
+        // Esta tarefa fica em loop, verificando constantemente o sensor
+        while (gui.getBd().isRobotAberto()) {
 
-        // 2) pausar servidor (não consumir mais do buffer)
-        gui.getBd().setPausaServidor(true);
+            // Lê o sensor de toque
+            int toque = robot.SensorToque(sensorToquePort);
 
-        // 3) travar produção aleatória
-        gui.getBd().setAleatoriosOn(false);
+            // Quando detecta toque, executa a manobra
+            if (toque == 1) {
+                gui.myPrint("[EVITAR] Obstáculo detectado no sensor! Iniciando evasão...");
 
-        // 4) manobra de evasão
-        System.out.println("EvitarObstaculo: Evasão iniciada.");
-        robot.Reta(-20);
-        gui.myPrint("RETA(-20,0)");
-        Random rnd = new Random();
-        boolean direita = rnd.nextBoolean();
-        if (direita) {
-			robot.CurvarDireita(0, 90);
-			gui.myPrint("CURVARDIREITA(0,90)");
-		} else {
-			robot.CurvarEsquerda(0, 90);
-			gui.myPrint("CURVARESQUERDA(0,90)");
-		}
-        robot.Parar(false);
-        gui.myPrint("PARAR(false)");
-        System.out.println("EvitarObstaculo: Evasão concluída.");
+                // 1) Parar tudo imediatamente
+                gui.getBd().setPausaServidor(true);
+                gui.getBd().setAleatoriosOn(false);
+                gui.myPrint("[EVITAR] PARAR(true)");
+                robot.Parar(true);
 
-        // 5) RETOMAR automaticamente
-        gui.getBd().setPausaServidor(false);
-        gui.getBd().getPausaSem().release();         // acorda Servidor
-        gui.getBd().setAleatoriosOn(true);           // reativa produção
-        if (proxima != null) proxima.desbloquear();  // acorda tAleatorios
+                // 2) Evasão com logs
+                gui.myPrint("[EVITAR] RETA(-20, 0)");
+                robot.Reta(-20);
 
-        // 6) volta a dormir até novo clique
+                boolean direita = rnd.nextBoolean();
+                if (direita) {
+                    gui.myPrint("[EVITAR] CURVARDIREITA(20, 90)");
+                    robot.CurvarDireita(20, 90);
+                } else {
+                    gui.myPrint("[EVITAR] CURVARESQUERDA(20, 90)");
+                    robot.CurvarEsquerda(20, 90);
+                }
+
+                gui.myPrint("[EVITAR] PARAR(false)");
+                robot.Parar(false);
+
+                gui.myPrint("[EVITAR] Evasão concluída");
+
+                // 3) Retomar o funcionamento normal
+                gui.getBd().setAleatoriosOn(true);
+                if (proxima != null) proxima.desbloquear(); // reativa aleatórios
+                gui.getBd().setPausaServidor(false);
+                gui.getBd().getPausaSem().release();        // acorda o Servidor
+            }
+
+        	dormir();
+        }
+
+        // Se o robot for fechado, a tarefa bloqueia até ser reativada
         bloquear();
     }
 }
