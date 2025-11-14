@@ -2,21 +2,24 @@ import java.util.Random;
 
 public class EvitarObstaculo extends Tarefa {
 
-    private final RobotLegoEV3 robot;
+    //private final RobotLegoEV3 robot;
     private final GUI gui;
     private final Random rnd = new Random();
-    private final int sensorToquePort = 1; // Sensor de toque ligado à porta 1
-
-    public EvitarObstaculo(Tarefa proxima, RobotLegoEV3 robot, GUI gui) {
+    private final int sensorToquePort = RobotLegoEV3.S_1; // Porta do sensor de toque
+    
+    public EvitarObstaculo(Tarefa proxima, GUI gui) {
         super(proxima);  // normalmente 'proxima' = tAleatorios
-        this.robot = robot;
+        //this.robot = robot;
         this.gui = gui;
     }
-
+    
     @Override
     public void execucao() {
         // Esta tarefa fica em loop, verificando constantemente o sensor
         while (gui.getBd().isRobotAberto()) {
+        	boolean aleatoriosAntes = gui.getBd().isAleatoriosOn();
+
+        	RobotLegoEV3 robot = gui.getBd().getRobot();
 
             // Lê o sensor de toque
             int toque = robot.SensorToque(sensorToquePort);
@@ -50,13 +53,17 @@ public class EvitarObstaculo extends Tarefa {
                 gui.myPrint("[EVITAR] Evasão concluída");
 
                 // 3) Retomar o funcionamento normal
-                gui.getBd().setAleatoriosOn(true);
-                if (proxima != null) proxima.desbloquear(); // reativa aleatórios
+                if (aleatoriosAntes) {
+                    gui.getBd().setAleatoriosOn(true);
+                    if (proxima != null) proxima.desbloquear();
+                } else {
+                    gui.getBd().setAleatoriosOn(false);
+                }
                 gui.getBd().setPausaServidor(false);
-                gui.getBd().getPausaSem().release();        // acorda o Servidor
+                gui.getBd().getPausaSem().release();
             }
 
-        	dormir();
+        	//dormir();
         }
 
         // Se o robot for fechado, a tarefa bloqueia até ser reativada
