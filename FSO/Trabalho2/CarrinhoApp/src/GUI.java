@@ -37,6 +37,7 @@ public class GUI extends JFrame {
     private Movimento movimentoPendente;
     private EvitarObstaculo tObstaculo;
     
+    
     public void myPrint(String s) {
 		textAreaConsola.append(s + "\n");
 	}
@@ -124,6 +125,8 @@ public class GUI extends JFrame {
                                 bd.setRobotAberto(false);
                             } else {
                                 bd.setRobotAberto(bd.getRobot().OpenEV3("EV2"));
+                                tObstaculo.desbloquear();
+                                
                             }
                             rdbtnOnOff.setSelected(bd.isRobotAberto());
                             myPrint("O Robot foi " + (bd.isRobotAberto()? "aberto": "fechado" +"."));

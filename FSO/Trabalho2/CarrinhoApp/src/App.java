@@ -31,7 +31,7 @@ public class App {
         // Dizer à GUI quem é a única tarefa (aleatórios)
         app.gui.setTarefas(tAleatorios);
 
-        EvitarObstaculo tObstaculo = new EvitarObstaculo(tAleatorios, app.gui.getBd().getRobot(), app.gui);
+        EvitarObstaculo tObstaculo = new EvitarObstaculo(tAleatorios, app.gui);
         tObstaculo.start();
         app.gui.setTarefaObstaculo(tObstaculo);
         // Entrar no ciclo normal
