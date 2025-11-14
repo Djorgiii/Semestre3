@@ -48,7 +48,7 @@ public class MovimentosAleatorios extends Tarefa {
             }
          // ENTRE LOTES: inserir manuais pendentes, se houver
             Movimento pend;
-            if ((pend = gui.obterComandoManual()) != null) {
+            if ((pend = gui.obterMovimentoManual()) != null) {
                 java.util.concurrent.Semaphore mux2 = gui.getBd().getProdutorMux();
                 mux2.acquireUninterruptibly();
                 try {
