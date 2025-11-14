@@ -30,6 +30,28 @@ class App {
     console.log("App inicializada");
   }
 
+  // --- Microfone ---
+  async startMicrophone() {
+    try {
+      this.uiManager.setButtonStates(true);
+
+      // chamar o AudioProcessor para iniciar o mic
+      await this.audioProcessor.startMicrophone();
+
+      // arrancar o loop de visualização
+      this.visualizationEngine.start();
+
+      // atualizar info de áudio no UI
+      this.uiManager.updateAudioInfo({
+        status: "Microfone",
+        level: 0,
+      });
+    } catch (e) {
+      this.handleError("AudioProcessor", e);
+      this.uiManager.setButtonStates(false);
+    }
+  }
+
   // --- Fluxo: Carregamento de Ficheiro ---
   async loadAudioFile(file) {
     try {

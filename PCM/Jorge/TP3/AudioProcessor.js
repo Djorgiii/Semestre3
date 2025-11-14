@@ -159,10 +159,18 @@ class AudioProcessor {
   }
 
   getLevel() {
-    const arr = this.getFrequencyData();
-    if (!arr) return 0;
-    let s = 0;
-    for (let i = 0; i < arr.length; i++) s += arr[i];
-    return s / (arr.length * 255); // 0..1
+    const arr = this.getWaveformData();
+    if (!arr || arr.length === 0) return 0;
+
+    let sum = 0;
+    for (let i = 0; i < arr.length; i++) {
+      const v = (arr[i] - 128) / 128; // converte 0..255 → -1..1
+      sum += v * v;
+    }
+
+    const rms = Math.sqrt(sum / arr.length); // 0..1
+
+    // Escala perceptual (mais realista)
+    return Math.min(1, rms * 1.4);
   }
 }
