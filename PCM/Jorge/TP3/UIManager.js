@@ -41,56 +41,138 @@ class UIManager {
     const msg   = document.getElementById("errorMessage");
     const close = document.querySelector(".close");
     if (!modal || !msg || !close) return alert(message);
-    msg.textContent = message; modal.classList.remove("hidden");
+    msg.textContent = message;
+    modal.classList.remove("hidden");
     close.onclick = () => modal.classList.add("hidden");
-    const onWin = (e)=>{ if (e.target===modal){ modal.classList.add("hidden"); window.removeEventListener("click", onWin);} };
+    const onWin = (e)=>{
+      if (e.target===modal){
+        modal.classList.add("hidden");
+        window.removeEventListener("click", onWin);
+      }
+    };
     window.addEventListener("click", onWin);
   }
 
   setupEventListeners(){
     this.$btnMic?.addEventListener("click", () => this.app.startMicrophone());
     this.$btnStop?.addEventListener("click", () => this.app.stopAudio());
-    this.$file?.addEventListener("change", e => { const f=e.target.files?.[0]; if (f) this.app.loadAudioFile(f); });
-    this.$sel?.addEventListener("change", e => this.app.setVisualization(e.target.value));
-    this.$png?.addEventListener("click", () => this.app.exportManager.exportAsPNG());
-    this.$jpg?.addEventListener("click", () => this.app.exportManager.exportAsJPEG(0.9));
+    this.$file?.addEventListener("change", e => {
+      const f = e.target.files?.[0];
+      if (f) this.app.loadAudioFile(f);
+    });
+    this.$sel?.addEventListener("change", e =>
+      this.app.setVisualization(e.target.value)
+    );
+    this.$png?.addEventListener("click", () =>
+      this.app.exportManager.exportAsPNG()
+    );
+    this.$jpg?.addEventListener("click", () =>
+      this.app.exportManager.exportAsJPEG(0.9)
+    );
   }
 
   setupAudioLevels(){
     const loop = () => {
       const lvl01 = this.app.audioProcessor?.getLevel?.() || 0;
-      this.updateAudioInfo({ status: "Ativo", level: Math.round(lvl01*100) }, false);
+      this.updateAudioInfo(
+        { status: "Ativo", level: Math.round(lvl01 * 100) },
+        false
+      );
       requestAnimationFrame(loop);
     };
     requestAnimationFrame(loop);
   }
 
-  // painel de propriedades (se precisares na semana 2)
-  updatePropertiesPanel(){
-    const eng = this.app.visualizationEngine;
+  updatePropertiesPanel() {
+    const eng   = this.app.visualizationEngine;
     const props = eng.getVisualizationProperties();
     if (!this.$props) return;
+
     this.$props.innerHTML = "";
-    for (const [k,v] of Object.entries(props)){
-      if (typeof v === "boolean"){
-        const row=document.createElement("div"); const label=document.createElement("label"); const input=document.createElement("input");
-        row.className="property-control"; input.type="checkbox"; input.checked=v; label.textContent=k;
-        input.oninput = e => eng.updateVisualizationProperty(k, !!e.target.checked);
-        row.append(label,input); this.$props.append(row);
-      } else if (typeof v === "number"){
-        const row=document.createElement("div"); row.className="property-control";
-        const label=document.createElement("label"); label.textContent=k;
-        const input=document.createElement("input"); input.type="range";
-        // heurísticas simples
-        const meta = (()=>{
-          if (k==="smoothing") return {min:0,max:0.95,step:0.01};
-          if (k==="amount") return {min:1,max:512,step:1};
-          if (k==="barSpacing") return {min:0,max:6,step:1};
-          return {min:0,max:Math.max(v*2||1,1),step:0.01};
+
+    for (const [k, v] of Object.entries(props)) {
+      const row   = document.createElement("div");
+      row.className = "property-control";
+
+      const label = document.createElement("label");
+      label.textContent = k;
+
+      // boolean → checkbox
+      if (typeof v === "boolean") {
+        const input = document.createElement("input");
+        input.type   = "checkbox";
+        input.checked = v;
+        input.oninput = e =>
+          eng.updateVisualizationProperty(k, !!e.target.checked);
+
+        row.append(label, input);
+        this.$props.append(row);
+        continue;
+      }
+
+      // number → slider
+      if (typeof v === "number") {
+        const input = document.createElement("input");
+        input.type = "range";
+
+        const meta = (() => {
+          if (k === "smoothing")  return { min: 0,   max: 0.95, step: 0.01 };
+          if (k === "amount")     return { min: 1,   max: 512,  step: 1 };
+          if (k === "barSpacing") return { min: 0,   max: 6,    step: 1 };
+          if (k === "fadeTrail")  return { min: 0,   max: 0.2,  step: 0.005 };
+          if (k.toLowerCase().includes("boost"))
+                                  return { min: 0,   max: 5,    step: 0.1 };
+          return { min: 0, max: Math.max(v * 2 || 1, 1), step: 0.01 };
         })();
-        input.min=meta.min; input.max=meta.max; input.step=meta.step; input.value=v;
-        input.oninput = e => eng.updateVisualizationProperty(k, parseFloat(e.target.value));
-        row.append(label,input); this.$props.append(row);
+
+        input.min   = meta.min;
+        input.max   = meta.max;
+        input.step  = meta.step;
+        input.value = v;
+
+        input.oninput = e =>
+          eng.updateVisualizationProperty(k, parseFloat(e.target.value));
+
+        row.append(label, input);
+        this.$props.append(row);
+        continue;
+      }
+
+      // string → color picker (se for cor)
+      if (typeof v === "string") {
+        const input = document.createElement("input");
+
+        if (v.startsWith("#") || /^rgb\(/i.test(v) || /^hsl\(/i.test(v)) {
+          input.type = "color";
+
+          try {
+            const fake = document.createElement("div");
+            fake.style.color = v;
+            document.body.appendChild(fake);
+            const rgb = getComputedStyle(fake).color;
+            document.body.removeChild(fake);
+
+            const matched = rgb.match(/\d+/g);
+            if (matched) {
+              const [r, g, b] = matched.map(Number);
+              input.value =
+                "#" +
+                ((1 << 24) | (r << 16) | (g << 8) | b).toString(16).slice(1);
+            }
+          } catch {
+            input.value = v;
+          }
+        } else {
+          input.type  = "text";
+          input.value = v;
+        }
+
+        input.oninput = e =>
+          eng.updateVisualizationProperty(k, e.target.value);
+
+        row.append(label, input);
+        this.$props.append(row);
+        continue;
       }
     }
   }

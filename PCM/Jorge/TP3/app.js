@@ -1,62 +1,46 @@
 // Classe principal da aplicação
 class App {
   constructor() {
-    // 1) Instanciar módulos (Inicialização)
-    this.audioProcessor = new AudioProcessor();
+    this.audioProcessor     = new AudioProcessor();
     this.visualizationEngine = new VisualizationEngine("audioCanvas");
-    this.uiManager = new UIManager(this);
-    this.exportManager = new ExportManager(this.visualizationEngine);
+    this.uiManager          = new UIManager(this);
+    this.exportManager      = new ExportManager(this.visualizationEngine);
 
-    // ligar audioProcessor às visualizações (importante para “dados reais”)
+    // ligar audioProcessor às visualizações
     this.visualizationEngine.setAudioProcessor(this.audioProcessor);
 
     this.init();
   }
 
   init() {
-    // escolher a visualização inicial a partir do <select> (ou 'spectrum')
     const initial =
       document.getElementById("visualizationType")?.value || "spectrum";
 
-    // aplica na engine (isto também faz resize da viz)
     this.visualizationEngine.setVisualization(initial);
-
-    // preencher o painel de propriedades já no arranque
     this.uiManager.updatePropertiesPanel();
-
-    // estado inicial
     this.uiManager.updateAudioInfo({ status: "Parado", level: 0 });
     this.uiManager.setButtonStates(false);
+
     console.log("App inicializada");
   }
 
-  // --- Microfone ---
+  // Microfone
   async startMicrophone() {
     try {
       this.uiManager.setButtonStates(true);
-
-      // chamar o AudioProcessor para iniciar o mic
       await this.audioProcessor.startMicrophone();
-
-      // arrancar o loop de visualização
       this.visualizationEngine.start();
-
-      // atualizar info de áudio no UI
-      this.uiManager.updateAudioInfo({
-        status: "Microfone",
-        level: 0,
-      });
+      this.uiManager.updateAudioInfo({ status: "Microfone", level: 0 });
     } catch (e) {
       this.handleError("AudioProcessor", e);
       this.uiManager.setButtonStates(false);
     }
   }
 
-  // --- Fluxo: Carregamento de Ficheiro ---
+  // Carregamento de ficheiro
   async loadAudioFile(file) {
     try {
       this.uiManager.setButtonStates(true);
-      // podes escolher "element" (simples) ou "buffer" (com decodeAudioData)
       await this.audioProcessor.loadAudioFile(file, "element");
       this.visualizationEngine.start();
       this.uiManager.updateAudioInfo({
@@ -69,7 +53,7 @@ class App {
     }
   }
 
-  // --- Parar Áudio ---
+  // Parar áudio
   stopAudio() {
     this.visualizationEngine.stop();
     this.audioProcessor.stop();
@@ -77,27 +61,23 @@ class App {
     this.uiManager.setButtonStates(false);
   }
 
-  // --- Mudança de Visualização ---
+  // Mudança de visualização
   setVisualization(type) {
     const ok = this.visualizationEngine.setVisualization(type);
     if (!ok) {
       this.uiManager.showError(`Visualização "${type}" indisponível`);
       return;
     }
-    // Atualizar painel de propriedades (diagramas: “Atualizar Properties Panel”)
-    if (typeof this.uiManager.updatePropertiesPanel === "function") {
-      this.uiManager.updatePropertiesPanel();
-    }
-    // Reiniciar animation loop (diagramas)
+    this.uiManager.updatePropertiesPanel?.();
     this.visualizationEngine.start();
   }
 
-  // --- Export ---
+  // Export
   exportFrame() {
     this.exportManager.exportAsPNG();
   }
 
-  // --- Tratamento centralizado de erros (diagrama “Tratamento de Erros”)
+  // Tratamento de erros
   handleError(origin, error) {
     console.error(`[${origin}]`, error);
     this.uiManager.showError(`${origin}: ${error?.message || error}`);
