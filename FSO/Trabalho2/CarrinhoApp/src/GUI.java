@@ -35,6 +35,7 @@ public class GUI extends JFrame {
     private BufferCircular bufferCircular;
     private MovimentosAleatorios movimentosAleatorios;
     private Movimento movimentoPendente;
+    private EvitarObstaculo tObstaculo;
     
     public void myPrint(String s) {
 		textAreaConsola.append(s + "\n");
@@ -338,4 +339,8 @@ public class GUI extends JFrame {
      public void setServidor(Servidor servidor) {
          this.bd.setServidor(servidor);
      }
+     public void setTarefaObstaculo(EvitarObstaculo tObstaculo) {
+ 		this.tObstaculo = tObstaculo;
+ 		
+ 	 }
  }

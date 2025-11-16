@@ -1,30 +1,51 @@
-public class EvitarObstaculo extends Tarefa{
+import java.util.Random;
 
-		private RobotLegoEV3Sim robot;
-	
-	public EvitarObstaculo(Tarefa t, RobotLegoEV3Sim robot) {
-		super(t);
-		this.robot = robot;
-	}
-	
-	public void execucao() {
-		// Lógica para evitar obstáculos
-		System.out.println("EvitarObstaculo: Verificando sensores...");
-		if (robot.getSensorUltrassonico().getDistancia() < 20) {
-			System.out.println("EvitarObstaculo: Obstáculo detectado! Executando manobra de evasão.");
-			robot.Parar(true);
-			robot.Reta(-10); // Recuar
-			robot.CurvarDireita(20, 15); // Curvar para a direita
-			robot.Reta(30); // Avançar
-			robot.Parar(false);
+public class EvitarObstaculo extends Tarefa {
+
+    private final RobotLegoEV3Sim robot;
+    private GUI gui;
+
+    public EvitarObstaculo(Tarefa proxima, RobotLegoEV3Sim robot, GUI gui) {
+        super(proxima);           // proxima deve ser tAleatorios (ver App)
+        this.robot = robot;
+        this.gui = gui;
+    }
+
+    @Override
+    public void execucao() {
+        // 1) parar imediatamente o movimento em curso
+        robot.Parar(true);
+
+        // 2) pausar servidor (não consumir mais do buffer)
+        gui.getBd().setPausaServidor(true);
+
+        // 3) travar produção aleatória
+        gui.getBd().setAleatoriosOn(false);
+
+        // 4) manobra de evasão
+        System.out.println("EvitarObstaculo: Evasão iniciada.");
+        robot.Reta(-20);
+        gui.myPrint("RETA(-20,0)");
+        Random rnd = new Random();
+        boolean direita = rnd.nextBoolean();
+        if (direita) {
+			robot.CurvarDireita(0, 90);
+			gui.myPrint("CURVARDIREITA(0,90)");
 		} else {
-			System.out.println("EvitarObstaculo: Caminho livre.");
+			robot.CurvarEsquerda(0, 90);
+			gui.myPrint("CURVARESQUERDA(0,90)");
 		}
-		
-		// Após a execução, passar o controle para a próxima tarefa
-		if (proxima != null) {
-			proxima.desbloquear();
-			this.bloquear();
-		}
-	}
+        robot.Parar(false);
+        gui.myPrint("PARAR(false)");
+        System.out.println("EvitarObstaculo: Evasão concluída.");
+
+        // 5) RETOMAR automaticamente
+        gui.getBd().setPausaServidor(false);
+        gui.getBd().getPausaSem().release();         // acorda Servidor
+        gui.getBd().setAleatoriosOn(true);           // reativa produção
+        if (proxima != null) proxima.desbloquear();  // acorda tAleatorios
+
+        // 6) volta a dormir até novo clique
+        bloquear();
+    }
 }

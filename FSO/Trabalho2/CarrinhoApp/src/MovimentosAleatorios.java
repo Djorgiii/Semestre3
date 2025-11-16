@@ -37,7 +37,7 @@ public class MovimentosAleatorios extends Tarefa {
                     } else { // curvas
                         int raio = 10 + (int)(Math.random() * 21);      // 10..30
                         int angulo = 20 + (int)(Math.random() * 71);    // 20..90
-                        comando = new Movimento(tipo, raio, angulo);
+                        comando = new Movimento(tipo, angulo, raio);
                     }
 
                     gui.getBufferCircular().inserirElemento(comando);
@@ -62,7 +62,6 @@ public class MovimentosAleatorios extends Tarefa {
                 }
             }
 
-            // Pequena pausa entre lotes para não saturar CPU
             dormir();
         }
 

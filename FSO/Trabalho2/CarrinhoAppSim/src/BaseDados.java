@@ -10,6 +10,9 @@ public class BaseDados {
     private Servidor servidor;
     private volatile boolean aleatoriosOn;
     private final Semaphore produtorMux = new Semaphore(1, true);
+    private volatile boolean pausaServidor;
+    private final Semaphore pausaSem = new Semaphore(0, true);
+
     
     
     public Semaphore getProdutorMux() {
@@ -19,6 +22,18 @@ public class BaseDados {
     public boolean isAleatoriosOn() {
 		return aleatoriosOn;
 	}
+    
+    public boolean isPausaServidor() {
+    	return pausaServidor; 
+    	}
+    
+    public void setPausaServidor(boolean pausaServidor) { 
+    	this.pausaServidor = pausaServidor; 
+    	}
+
+    public Semaphore getPausaSem() { 
+    	return pausaSem; 
+    	}
 
 	public void setAleatoriosOn(boolean aleatoriosOn) {
 		this.aleatoriosOn = aleatoriosOn;
