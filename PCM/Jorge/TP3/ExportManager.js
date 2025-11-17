@@ -1,39 +1,46 @@
 class ExportManager {
-  constructor(visualizationEngine){
-    this.visualizationEngine = visualizationEngine;
+
+  constructor(visualizationEngine) {
+    this.engine = visualizationEngine;
   }
 
-  _export(type = "image/png", quality = 0.92){
-    const canvas = this.visualizationEngine.canvas;
-    let dataURL;
+  _exportImage(format = "image/png", quality = 0.92) {
+    const canvas = this.engine.canvas;
+    let finalDataURL;
 
-    if (type === "image/jpeg"){
-      const w   = canvas.width;
-      const h   = canvas.height;
-      const tmp = document.createElement("canvas");
-      const t   = tmp.getContext("2d");
-      tmp.width  = w;
-      tmp.height = h;
-      t.fillStyle = "#fff";
-      t.fillRect(0, 0, w, h);
-      t.drawImage(canvas, 0, 0);
-      dataURL = tmp.toDataURL("image/jpeg", quality);
+    if (format === "image/jpeg") {
+      const width  = canvas.width;
+      const height = canvas.height;
+
+      const tempCanvas = document.createElement("canvas");
+      const tempCtx    = tempCanvas.getContext("2d");
+
+      tempCanvas.width  = width;
+      tempCanvas.height = height;
+
+      tempCtx.fillStyle = "#ffffff"; 
+      tempCtx.fillRect(0, 0, width, height);
+      tempCtx.drawImage(canvas, 0, 0);
+
+      finalDataURL = tempCanvas.toDataURL("image/jpeg", quality);
+
     } else {
-      dataURL = canvas.toDataURL(type, quality);
+      finalDataURL = canvas.toDataURL(format, quality);
     }
 
-    const a  = document.createElement("a");
-    const ts = new Date().toISOString().replace(/[:.]/g, "-");
-    a.download = `audioVisualization.${type === "image/jpeg" ? "jpg" : "png"}`;
-    a.href     = dataURL;
-    a.click();
+    const link = document.createElement("a");
+    const timestamp = new Date().toISOString().replace(/[:.]/g, "-");
+
+    link.download = `audio-visualizer-${timestamp}.${format === "image/jpeg" ? "jpg" : "png"}`;
+    link.href = finalDataURL;
+    link.click();
   }
 
-  exportAsPNG(){
-    this._export("image/png");
+  exportAsPNG() {
+    this._exportImage("image/png");
   }
 
-  exportAsJPEG(q = 0.9){
-    this._export("image/jpeg", q);
+  exportAsJPEG(quality = 0.9) {
+    this._exportImage("image/jpeg", quality);
   }
 }

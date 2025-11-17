@@ -5,9 +5,9 @@ class SpectrumVisualization extends AudioVisualization {
 
     this.properties = {
       ...this.properties,
-      barSpacing:   1,
-      useGradient:  true,
-      color:        "#4aa3ff",
+      barSpacing: 1,
+      useGradient: true,
+      color: "#4aa3ff",
       dynamicColor: true,
     };
   }
@@ -15,54 +15,73 @@ class SpectrumVisualization extends AudioVisualization {
   draw() {
     this.update();
     this.clearCanvas();
-    if (this.properties.showGrid) this.drawGrid();
 
-    const { freq, amount, level } = this.normalizeData();
-    if (!freq?.length) return;
+    if (this.properties.showGrid) {
+      this.drawGrid();
+    }
+
+    const { freq: frequencyData, amount, level } = this.normalizeData();
+    if (!frequencyData?.length) return;
 
     const ctx = this.ctx;
-    const w   = this.canvas.clientWidth;
-    const h   = this.canvas.clientHeight;
+    const canvasWidth  = this.canvas.clientWidth;
+    const canvasHeight = this.canvas.clientHeight;
 
-    const bars = Math.min(amount, freq.length);
-    const step = Math.max(1, Math.floor(freq.length / bars));
-    const barW = Math.max(1, (w / bars) - this.properties.barSpacing);
+    const barCount = Math.min(amount, frequencyData.length);
+    const step = Math.max(1, Math.floor(frequencyData.length / barCount));
+    const barWidth = Math.max(
+      1,
+      canvasWidth / barCount - this.properties.barSpacing
+    );
 
-    const lvl = Math.min(1, Math.pow(level, 0.5) * 1.8);
+    // realça níveis baixos: sqrt(level) * 1.8
+    const audioIntensity = Math.min(1, Math.pow(level, 0.5) * 1.8);
 
-    for (let i = 0; i < bars; i++) {
-      const v = freq[i * step] / 255;
-      const barH = v * (h - 5);
-      const x = i * (barW + this.properties.barSpacing);
-      const y = h - barH;
+    for (let i = 0; i < barCount; i++) {
+      const normalizedValue = frequencyData[i * step] / 255; // 0..1
+      const barHeight = normalizedValue * (canvasHeight - 5);
 
-      let baseHue, baseLight;
+      const x = i * (barWidth + this.properties.barSpacing);
+      const y = canvasHeight - barHeight;
+
+      let baseHue;
+      let baseLightness;
+
       if (this.properties.dynamicColor) {
-        baseHue   = 200 + lvl * 120 + (i / bars) * 30;
-        baseLight = 40 + v * 40;
+        baseHue =
+          200 + audioIntensity * 120 + (i / barCount) * 30; // posição + nível global
+        baseLightness = 40 + normalizedValue * 40; // barras mais altas = mais claras
       }
 
       if (this.properties.useGradient) {
-        const grad = ctx.createLinearGradient(0, y, 0, y + barH);
+        // Gradiente vertical por barra
+        const gradient = ctx.createLinearGradient(0, y, 0, y + barHeight);
 
         if (this.properties.dynamicColor) {
-          const topLight    = Math.min(100, baseLight + 15);
-          const bottomLight = Math.max(0,   baseLight - 10);
-          grad.addColorStop(0, `hsl(${baseHue}, 90%, ${topLight}%)`);
-          grad.addColorStop(1, `hsl(${baseHue}, 90%, ${bottomLight}%)`);
+          const topLightness = Math.min(100, baseLightness + 15);
+          const bottomLightness = Math.max(0, baseLightness - 10);
+
+          gradient.addColorStop(
+            0,
+            `hsl(${baseHue}, 90%, ${topLightness}%)`
+          );
+          gradient.addColorStop(
+            1,
+            `hsl(${baseHue}, 90%, ${bottomLightness}%)`
+          );
         } else {
-          grad.addColorStop(0, this.properties.color);
-          grad.addColorStop(1, "#ffffff");
+          gradient.addColorStop(0, this.properties.color);
+          gradient.addColorStop(1, "#ffffff");
         }
 
-        ctx.fillStyle = grad;
+        ctx.fillStyle = gradient;
       } else {
         ctx.fillStyle = this.properties.dynamicColor
-          ? `hsl(${baseHue}, 90%, ${baseLight}%)`
+          ? `hsl(${baseHue}, 90%, ${baseLightness}%)`
           : this.properties.color;
       }
 
-      ctx.fillRect(x, y, barW, barH);
+      ctx.fillRect(x, y, barWidth, barHeight);
     }
   }
 }

@@ -1,21 +1,21 @@
 class AudioProcessor {
   constructor() {
-    this.audioContext  = null;
-    this.analyserNode  = null;
-    this.sourceNode    = null;
-    this.mediaStream   = null;
+    this.audioContext        = null;
+    this.analyserNode        = null;
+    this.sourceNode          = null;
+    this.mediaStream         = null;
 
-    this.frequencyData = null;
-    this.waveformData  = null;
+    this.frequencyData       = null;
+    this.waveformData        = null;
 
-    this._audioEl = new Audio();
-    this._audioEl.crossOrigin = "anonymous";
+    this.audioElement = new Audio();
+    this.audioElement.crossOrigin = "anonymous";
 
-    this.mediaElementSource = null;
-    this._currentObjectUrl  = null;
+    this.mediaElementSource  = null;
+    this.objectUrl           = null;
   }
 
-  _ensureCtx() {
+  _ensureContext() {
     if (this.audioContext) return;
 
     this.audioContext = new (window.AudioContext || window.webkitAudioContext)({
@@ -30,90 +30,79 @@ class AudioProcessor {
     this.waveformData  = new Uint8Array(this.analyserNode.fftSize);
   }
 
-  // Microfone
   async startMicrophone() {
-    this._ensureCtx();
+    this._ensureContext();
     await this.audioContext.resume();
 
     this.stop({ keepMediaElementSource: true });
 
     this.mediaStream = await navigator.mediaDevices.getUserMedia({
       audio: {
-        echoCancellation:   false,
-        noiseSuppression:   false,
-        autoGainControl:    false,
-        channelCount:       1,
+        echoCancellation: false,
+        noiseSuppression: false,
+        autoGainControl: false,
+        channelCount: 1,
       },
     });
 
-    const node = this.audioContext.createMediaStreamSource(this.mediaStream);
-    node.connect(this.analyserNode);
-    this.sourceNode = node;
+    const source = this.audioContext.createMediaStreamSource(this.mediaStream);
+    source.connect(this.analyserNode);
+    this.sourceNode = source;
   }
 
-  // Ficheiro
-  async loadAudioFile(file, mode = "element") {
-    this._ensureCtx();
+  async loadAudioFile(file) {
+    this._ensureContext();
     await this.audioContext.resume();
 
     this.stop({ keepMediaElementSource: true });
 
-    if (mode === "element") {
-      if (this._currentObjectUrl) {
-        try { URL.revokeObjectURL(this._currentObjectUrl); } catch {}
-        this._currentObjectUrl = null;
-      }
-
-      this._currentObjectUrl = URL.createObjectURL(file);
-      this._audioEl.src = this._currentObjectUrl;
-
-      if (!this.mediaElementSource) {
-        this.mediaElementSource = this.audioContext.createMediaElementSource(
-          this._audioEl
-        );
-      } else {
-        try { this.mediaElementSource.disconnect(); } catch {}
-      }
-
-      this.mediaElementSource.connect(this.analyserNode);
-      this.mediaElementSource.connect(this.audioContext.destination);
-
-      await this._audioEl.play();
-      this.sourceNode = this.mediaElementSource;
-      return;
+    // Libertar URL antiga
+    if (this.objectUrl) {
+      try { URL.revokeObjectURL(this.objectUrl); } catch {}
+      this.objectUrl = null;
     }
 
-    // modo buffer (opcional)
-    const arrayBuffer  = await file.arrayBuffer();
-    const audioBuffer  = await this.audioContext.decodeAudioData(arrayBuffer);
-    const bufferSource = this.audioContext.createBufferSource();
-    bufferSource.buffer = audioBuffer;
-    bufferSource.loop   = false;
-    bufferSource.connect(this.analyserNode);
-    bufferSource.connect(this.audioContext.destination);
-    bufferSource.start();
-    this.sourceNode = bufferSource;
+    this.objectUrl = URL.createObjectURL(file);
+    this.audioElement.src = this.objectUrl;
+
+    if (!this.mediaElementSource) {
+      this.mediaElementSource = this.audioContext.createMediaElementSource(
+        this.audioElement
+      );
+    } else {
+      try { this.mediaElementSource.disconnect(); } catch {}
+    }
+
+    this.mediaElementSource.connect(this.analyserNode);
+    this.mediaElementSource.connect(this.audioContext.destination);
+
+    await this.audioElement.play();
+
+    this.sourceNode = this.mediaElementSource;
   }
 
   stop(opts = {}) {
     const { keepMediaElementSource = true } = opts;
 
     try {
-      if (this._audioEl) {
-        this._audioEl.pause();
-        this._audioEl.removeAttribute("src");
-        this._audioEl.load();
+      if (this.audioElement) {
+        this.audioElement.pause();
+        this.audioElement.removeAttribute("src");
+        this.audioElement.load();
       }
 
-      if (this._currentObjectUrl) {
-        try { URL.revokeObjectURL(this._currentObjectUrl); } catch {}
-        this._currentObjectUrl = null;
+      // Libertar URL
+      if (this.objectUrl) {
+        try { URL.revokeObjectURL(this.objectUrl); } catch {}
+        this.objectUrl = null;
       }
 
+      // Parar microfone
       if (this.mediaStream) {
         this.mediaStream.getTracks().forEach(t => t.stop());
       }
 
+      // Desligar source
       if (this.sourceNode) {
         try { this.sourceNode.disconnect(); } catch {}
       }
@@ -125,13 +114,13 @@ class AudioProcessor {
       if (!keepMediaElementSource && this.mediaElementSource) {
         try { this.mediaElementSource.disconnect(); } catch {}
       }
+
     } finally {
       this.sourceNode  = null;
       this.mediaStream = null;
     }
   }
 
-  // Dados
   getFrequencyData() {
     if (!this.analyserNode) return null;
     this.analyserNode.getByteFrequencyData(this.frequencyData);
@@ -148,16 +137,18 @@ class AudioProcessor {
     return this.getTimeData();
   }
 
+  // Volume RMS normalizado entre 0 e 1
   getLevel() {
-    const arr = this.getWaveformData();
-    if (!arr?.length) return 0;
+    const data = this.getWaveformData();
+    if (!data?.length) return 0;
 
     let sum = 0;
-    for (let i = 0; i < arr.length; i++) {
-      const v = (arr[i] - 128) / 128; // -1..1
-      sum += v * v;
+    for (let i = 0; i < data.length; i++) {
+      const normalized = (data[i] - 128) / 128;
+      sum += normalized * normalized;
     }
-    const rms = Math.sqrt(sum / arr.length); // 0..1
+    const rms = Math.sqrt(sum / data.length);
+
     return Math.min(1, rms * 1.4);
   }
 }

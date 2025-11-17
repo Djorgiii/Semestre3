@@ -6,54 +6,58 @@ class OscilloscopeVisualization extends AudioVisualization {
     this.properties = {
       ...this.properties,
       thickness: 1.5,
-      scale:     1.0,
-      showGrid:  true,
+      scale: 1.0,
+      showGrid: true,
     };
   }
 
-  // remove "amount" do painel (não é usado aqui)
   getProperties() {
-    const props = { ...super.getProperties(), ...this.properties };
-    delete props.amount;
-    return props;
+    const mergedProps = { ...super.getProperties(), ...this.properties };
+    delete mergedProps.amount;
+    return mergedProps;
   }
 
   draw() {
     this.update();
 
-    const w = this.canvas.clientWidth;
-    const h = this.canvas.clientHeight;
+    const canvasWidth  = this.canvas.clientWidth;
+    const canvasHeight = this.canvas.clientHeight;
+
     this.clearCanvas();
-    if (this.properties.showGrid) this.drawGrid();
+    if (this.properties.showGrid) {
+      this.drawGrid();
+    }
 
-    const { time } = this.normalizeData();
-    if (!time?.length) return;
+    const { time: timeDomainData } = this.normalizeData();
+    if (!timeDomainData?.length) return;
 
-    const ctx     = this.ctx;
-    const mid     = h / 2;
-    const samples = time.length;
-    const slice   = w / samples;
-    const scale   = Math.max(0, Math.min(1, this.properties.scale || 1));
+    const ctx = this.ctx;
+    const centerY = canvasHeight / 2;
+    const sampleCount = timeDomainData.length;
+    const stepX = canvasWidth / sampleCount;
+    const scale = Math.max(0, Math.min(1, this.properties.scale || 1));
 
-    // linha central
     ctx.strokeStyle = "rgba(0, 255, 100, 0.4)";
-    ctx.lineWidth   = 1;
+    ctx.lineWidth = 1;
     ctx.beginPath();
-    ctx.moveTo(0, mid);
-    ctx.lineTo(w, mid);
+    ctx.moveTo(0, centerY);
+    ctx.lineTo(canvasWidth, centerY);
     ctx.stroke();
 
-    // waveform
     ctx.strokeStyle = "#00ff99";
-    ctx.lineWidth   = this.properties.thickness || 1.5;
+    ctx.lineWidth = this.properties.thickness || 1.5;
     ctx.beginPath();
 
-    for (let i = 0; i < samples; i++) {
-      const v = (time[i] - 128) / 128;
-      const x = i * slice;
-      const y = mid + v * (h / 2 - 10) * scale;
-      if (i === 0) ctx.moveTo(x, y);
-      else         ctx.lineTo(x, y);
+    for (let i = 0; i < sampleCount; i++) {
+      const normalizedSample = (timeDomainData[i] - 128) / 128; // -1..1
+      const x = i * stepX;
+      const y = centerY + normalizedSample * (canvasHeight / 2 - 10) * scale;
+
+      if (i === 0) {
+        ctx.moveTo(x, y);
+      } else {
+        ctx.lineTo(x, y);
+      }
     }
 
     ctx.stroke();

@@ -6,7 +6,6 @@ class App {
     this.uiManager          = new UIManager(this);
     this.exportManager      = new ExportManager(this.visualizationEngine);
 
-    // ligar audioProcessor às visualizações
     this.visualizationEngine.setAudioProcessor(this.audioProcessor);
 
     this.init();
@@ -24,7 +23,6 @@ class App {
     console.log("App inicializada");
   }
 
-  // Microfone
   async startMicrophone() {
     try {
       this.uiManager.setButtonStates(true);
@@ -37,7 +35,6 @@ class App {
     }
   }
 
-  // Carregamento de ficheiro
   async loadAudioFile(file) {
     try {
       this.uiManager.setButtonStates(true);
@@ -53,7 +50,6 @@ class App {
     }
   }
 
-  // Parar áudio
   stopAudio() {
     this.visualizationEngine.stop();
     this.audioProcessor.stop();
@@ -61,7 +57,6 @@ class App {
     this.uiManager.setButtonStates(false);
   }
 
-  // Mudança de visualização
   setVisualization(type) {
     const ok = this.visualizationEngine.setVisualization(type);
     if (!ok) {
@@ -72,12 +67,10 @@ class App {
     this.visualizationEngine.start();
   }
 
-  // Export
   exportFrame() {
     this.exportManager.exportAsPNG();
   }
 
-  // Tratamento de erros
   handleError(origin, error) {
     console.error(`[${origin}]`, error);
     this.uiManager.showError(`${origin}: ${error?.message || error}`);
@@ -85,7 +78,6 @@ class App {
   }
 }
 
-// Inicialização
 document.addEventListener("DOMContentLoaded", () => {
   window.app = new App();
 });
