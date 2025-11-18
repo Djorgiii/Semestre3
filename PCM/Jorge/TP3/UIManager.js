@@ -1,96 +1,216 @@
 class UIManager {
-  constructor(app){
+  constructor(app) {
     this.app = app;
-    this._cacheEls();
+
+    this.cacheElements();
     this.setupEventListeners();
-    this.setupAudioLevels();
+    this.setupAudioLevelLoop();
   }
 
-  _cacheEls(){
-    this.$status = document.getElementById("audioStatus");
-    this.$level  = document.getElementById("audioLevel");
-    this.$props  = document.getElementById("properties-container");
-    this.$btnMic = document.getElementById("startMic");
-    this.$btnStop= document.getElementById("stopAudio");
-    this.$file   = document.getElementById("audioFile");
-    this.$sel    = document.getElementById("visualizationType");
-    this.$png    = document.getElementById("exportPNG");
-    this.$jpg    = document.getElementById("exportJPEG");
+  cacheElements() {
+    this.statusElement   = document.getElementById("audioStatus");
+    this.levelElement    = document.getElementById("audioLevel");
+    this.propsContainer  = document.getElementById("properties-container");
+
+    this.buttonMic       = document.getElementById("startMic");
+    this.buttonStop      = document.getElementById("stopAudio");
+    this.fileInput       = document.getElementById("audioFile");
+    this.visualSelect    = document.getElementById("visualizationType");
+
+    this.buttonExportPng = document.getElementById("exportPNG");
+    this.buttonExportJpg = document.getElementById("exportJPEG");
   }
 
-  updateAudioInfo(info, isError=false){
-    if (!this.$status || !this.$level) return;
-    if (isError){
-      this.$status.textContent = `Erro: ${info}`;
-      this.$status.style.color = "#f72585";
-    } else {
-      this.$status.textContent = `Áudio: ${info.status || "Ativo"}`;
-      this.$status.style.color = "#e6e6e6";
-      const lvl = typeof info.level === "number" ? info.level : 0;
-      this.$level.textContent = `Nível: ${Math.round(lvl)}%`;
+  updateAudioInfo(info, isError = false) {
+    if (!this.statusElement || !this.levelElement) return;
+
+    if (isError) {
+      this.statusElement.textContent = `Erro: ${info}`;
+      this.statusElement.style.color = "#f72585";
+      return;
     }
+
+    this.statusElement.textContent = `Áudio: ${info.status || "Ativo"}`;
+    this.statusElement.style.color = "#e6e6e6";
+
+    const level = typeof info.level === "number" ? info.level : 0;
+    this.levelElement.textContent = `Nível: ${Math.round(level)}%`;
   }
 
-  setButtonStates(playing){
-    if (this.$btnMic)  this.$btnMic.disabled  = playing;
-    if (this.$btnStop) this.$btnStop.disabled = !playing;
+  setButtonStates(isPlaying) {
+    if (this.buttonMic)  this.buttonMic.disabled  = isPlaying;
+    if (this.buttonStop) this.buttonStop.disabled = !isPlaying;
   }
 
-  showError(message){
-    const modal = document.getElementById("errorModal");
-    const msg   = document.getElementById("errorMessage");
-    const close = document.querySelector(".close");
-    if (!modal || !msg || !close) return alert(message);
-    msg.textContent = message; modal.classList.remove("hidden");
-    close.onclick = () => modal.classList.add("hidden");
-    const onWin = (e)=>{ if (e.target===modal){ modal.classList.add("hidden"); window.removeEventListener("click", onWin);} };
-    window.addEventListener("click", onWin);
-  }
+  showError(message) {
+    const modalElement = document.getElementById("errorModal");
+    const messageElement = document.getElementById("errorMessage");
+    const closeButton = document.querySelector(".close");
 
-  setupEventListeners(){
-    this.$btnMic?.addEventListener("click", () => this.app.startMicrophone());
-    this.$btnStop?.addEventListener("click", () => this.app.stopAudio());
-    this.$file?.addEventListener("change", e => { const f=e.target.files?.[0]; if (f) this.app.loadAudioFile(f); });
-    this.$sel?.addEventListener("change", e => this.app.setVisualization(e.target.value));
-    this.$png?.addEventListener("click", () => this.app.exportManager.exportAsPNG());
-    this.$jpg?.addEventListener("click", () => this.app.exportManager.exportAsJPEG(0.9));
-  }
+    if (!modalElement || !messageElement || !closeButton) {
+      alert(message);
+      return;
+    }
 
-  setupAudioLevels(){
-    const loop = () => {
-      const lvl01 = this.app.audioProcessor?.getLevel?.() || 0;
-      this.updateAudioInfo({ status: "Ativo", level: Math.round(lvl01*100) }, false);
-      requestAnimationFrame(loop);
+    messageElement.textContent = message;
+    modalElement.classList.remove("hidden");
+
+    closeButton.onclick = () => modalElement.classList.add("hidden");
+
+    const handleWindowClick = event => {
+      if (event.target === modalElement) {
+        modalElement.classList.add("hidden");
+        window.removeEventListener("click", handleWindowClick);
+      }
     };
-    requestAnimationFrame(loop);
+
+    window.addEventListener("click", handleWindowClick);
   }
 
-  // painel de propriedades (se precisares na semana 2)
-  updatePropertiesPanel(){
-    const eng = this.app.visualizationEngine;
-    const props = eng.getVisualizationProperties();
-    if (!this.$props) return;
-    this.$props.innerHTML = "";
-    for (const [k,v] of Object.entries(props)){
-      if (typeof v === "boolean"){
-        const row=document.createElement("div"); const label=document.createElement("label"); const input=document.createElement("input");
-        row.className="property-control"; input.type="checkbox"; input.checked=v; label.textContent=k;
-        input.oninput = e => eng.updateVisualizationProperty(k, !!e.target.checked);
-        row.append(label,input); this.$props.append(row);
-      } else if (typeof v === "number"){
-        const row=document.createElement("div"); row.className="property-control";
-        const label=document.createElement("label"); label.textContent=k;
-        const input=document.createElement("input"); input.type="range";
-        // heurísticas simples
-        const meta = (()=>{
-          if (k==="smoothing") return {min:0,max:0.95,step:0.01};
-          if (k==="amount") return {min:1,max:512,step:1};
-          if (k==="barSpacing") return {min:0,max:6,step:1};
-          return {min:0,max:Math.max(v*2||1,1),step:0.01};
+  setupEventListeners() {
+    this.buttonMic?.addEventListener("click", () =>
+      this.app.startMicrophone()
+    );
+
+    this.buttonStop?.addEventListener("click", () =>
+      this.app.stopAudio()
+    );
+
+    this.fileInput?.addEventListener("change", event => {
+      const file = event.target.files?.[0];
+      if (file) this.app.loadAudioFile(file);
+    });
+
+    this.visualSelect?.addEventListener("change", event =>
+      this.app.setVisualization(event.target.value)
+    );
+
+    this.buttonExportPng?.addEventListener("click", () =>
+      this.app.exportManager.exportAsPNG()
+    );
+
+    this.buttonExportJpg?.addEventListener("click", () =>
+      this.app.exportManager.exportAsJPEG(0.9)
+    );
+  }
+
+  // Loop contínuo para mostrar o nível de áudio
+  setupAudioLevelLoop() {
+    const updateLoop = () => {
+      const level01 = this.app.audioProcessor?.getLevel?.() || 0;
+
+      this.updateAudioInfo(
+        {
+          status: "Ativo",
+          level: Math.round(level01 * 100),
+        },
+        false
+      );
+
+      requestAnimationFrame(updateLoop);
+    };
+
+    requestAnimationFrame(updateLoop);
+  }
+
+  updatePropertiesPanel() {
+    const engine = this.app.visualizationEngine;
+    const properties = engine.getVisualizationProperties();
+
+    if (!this.propsContainer) return;
+
+    this.propsContainer.innerHTML = "";
+
+    for (const [key, value] of Object.entries(properties)) {
+      const row = document.createElement("div");
+      row.className = "property-control";
+
+      const label = document.createElement("label");
+      label.textContent = key;
+
+      // Boolean → checkbox
+      if (typeof value === "boolean") {
+        const input = document.createElement("input");
+        input.type = "checkbox";
+        input.checked = value;
+
+        input.oninput = event =>
+          engine.updateVisualizationProperty(key, !!event.target.checked);
+
+        row.append(label, input);
+        this.propsContainer.append(row);
+        continue;
+      }
+
+      if (typeof value === "number") {
+        const input = document.createElement("input");
+        input.type = "range";
+
+        const meta = (() => {
+          if (key === "smoothing")  return { min: 0,   max: 0.95, step: 0.01 };
+          if (key === "amount")     return { min: 1,   max: 512,  step: 1 };
+          if (key === "barSpacing") return { min: 0,   max: 6,    step: 1 };
+          if (key === "fadeTrail")  return { min: 0,   max: 0.2,  step: 0.005 };
+          if (key.toLowerCase().includes("boost"))
+                                    return { min: 0,   max: 5,    step: 0.1 };
+          return { min: 0, max: Math.max(value * 2 || 1, 1), step: 0.01 };
         })();
-        input.min=meta.min; input.max=meta.max; input.step=meta.step; input.value=v;
-        input.oninput = e => eng.updateVisualizationProperty(k, parseFloat(e.target.value));
-        row.append(label,input); this.$props.append(row);
+
+        input.min   = meta.min;
+        input.max   = meta.max;
+        input.step  = meta.step;
+        input.value = value;
+
+        input.oninput = event =>
+          engine.updateVisualizationProperty(key, parseFloat(event.target.value));
+
+        row.append(label, input);
+        this.propsContainer.append(row);
+        continue;
+      }
+
+      if (typeof value === "string") {
+        const input = document.createElement("input");
+
+        const looksLikeColor =
+          value.startsWith("#") ||
+          /^rgb\(/i.test(value) ||
+          /^hsl\(/i.test(value);
+
+        if (looksLikeColor) {
+          input.type = "color";
+
+          try {
+            const temp = document.createElement("div");
+            temp.style.color = value;
+            document.body.appendChild(temp);
+
+            const rgb = getComputedStyle(temp).color;
+            document.body.removeChild(temp);
+
+            const match = rgb.match(/\d+/g);
+            if (match) {
+              const [r, g, b] = match.map(Number);
+              input.value =
+                "#" +
+                ((1 << 24) | (r << 16) | (g << 8) | b)
+                  .toString(16)
+                  .slice(1);
+            }
+          } catch {
+            input.value = value;
+          }
+        } else {
+          input.type = "text";
+          input.value = value;
+        }
+
+        input.oninput = event =>
+          engine.updateVisualizationProperty(key, event.target.value);
+
+        row.append(label, input);
+        this.propsContainer.append(row);
+        continue;
       }
     }
   }
