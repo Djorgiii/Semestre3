@@ -1,5 +1,7 @@
 package setup;
 import SolarSystem.SolarSystemSim;
+import AgentesAutonomos.BoidApp;
+
 import processing.core.PApplet;
 
 public class processingMain extends PApplet {
@@ -9,7 +11,7 @@ public class processingMain extends PApplet {
 	
 	public static void main(String[] args) {
 		
-		app= new SolarSystemSim();
+		app= new BoidApp();
 		PApplet.main(processingMain.class.getName());
 		
 	}
