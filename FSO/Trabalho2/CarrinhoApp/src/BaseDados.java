@@ -12,8 +12,14 @@ public class BaseDados {
     private final Semaphore produtorMux = new Semaphore(1, true);
     private volatile boolean pausaServidor;
     private final Semaphore pausaSem = new Semaphore(0, true);
+    
+    private final Semaphore ev3Sem = new Semaphore(1, true);
 
     
+    public Semaphore getEv3Sem() {
+        return ev3Sem;
+    }
+
     
     public Semaphore getProdutorMux() {
         return produtorMux;
