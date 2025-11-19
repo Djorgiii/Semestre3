@@ -1,8 +1,8 @@
 package setup;
-import SolarSystem.SolarSystemSim;
-import AgentesAutonomos.BoidApp;
-
+import agentesautonomos.BoidApp;
 import processing.core.PApplet;
+import solarsystem.SolarSystemSim;
+import flock.FlockApp;
 
 public class processingMain extends PApplet {
 	
@@ -55,5 +55,10 @@ public class processingMain extends PApplet {
 	public void mouseMoved() {
 		app.mouseMoved(this);
 	}
+	
+	@Override
+    public void keyReleased() {
+        app.keyReleased(this);
+    }
 	
 }
