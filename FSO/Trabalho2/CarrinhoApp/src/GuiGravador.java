@@ -15,10 +15,12 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JScrollPane;
 import java.awt.Font;
+import java.awt.Component;
+import javax.swing.Box;
+import java.awt.Button;
 
-public class GUI extends JFrame {
-
-    private static final long serialVersionUID = 1L;
+public class GuiGravador extends JFrame {
+	private static final long serialVersionUID = 1L;
     private JPanel contentPane;
 
     private BaseDados bd;
@@ -34,6 +36,7 @@ public class GUI extends JFrame {
     private MovimentosAleatorios movimentosAleatorios;
     private Movimento movimentoPendente;
     private EvitarObstaculo tObstaculo;
+    private JTextField textField;
     
     
     public void myPrint(String s) {
@@ -76,7 +79,7 @@ public class GUI extends JFrame {
     /**
      * Create the frame.
      */
-    public GUI() {
+    public GuiGravador() {
         bd = new BaseDados();
         bufferCircular = new BufferCircular();
 
@@ -94,7 +97,7 @@ public class GUI extends JFrame {
                     });
 
                     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                    setBounds(100, 100, 619, 446);
+                    setBounds(100, 100, 619, 569);
                     contentPane = new JPanel();
                     contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
                     setContentPane(contentPane);
@@ -164,7 +167,7 @@ public class GUI extends JFrame {
                     textFieldDistancia.setColumns(10);
                     
                     JScrollPane scrollPane = new JScrollPane();
-                    scrollPane.setBounds(17, 246, 567, 123);
+                    scrollPane.setBounds(10, 399, 567, 123);
                     contentPane.add(scrollPane);
                     
                     textAreaConsola = new JTextArea();
@@ -290,7 +293,7 @@ public class GUI extends JFrame {
                     
                     JLabel lblConsola = new JLabel("Consola");
                     lblConsola.setFont(new Font("Tahoma", Font.PLAIN, 18));
-                    lblConsola.setBounds(17, 218, 67, 18);
+                    lblConsola.setBounds(10, 371, 67, 18);
                     contentPane.add(lblConsola);
                     
                     JRadioButton rdbtnMovimentosAleatrios = new JRadioButton("Movimentos Aleatórios");
@@ -318,6 +321,42 @@ public class GUI extends JFrame {
                     rdbtnMovimentosAleatrios.setFont(new Font("Tahoma", Font.PLAIN, 18));
                     rdbtnMovimentosAleatrios.setBounds(378, 200, 221, 21);
                     contentPane.add(rdbtnMovimentosAleatrios);
+                    
+                    JLabel lblGravador = new JLabel("Gravador");
+                    lblGravador.setBackground(new Color(0, 128, 255));
+                    lblGravador.setFont(new Font("Tahoma", Font.PLAIN, 18));
+                    lblGravador.setBounds(10, 244, 81, 18);
+                    contentPane.add(lblGravador);
+                    
+                    JLabel lblFicheiro_1 = new JLabel("Ficheiro");
+                    lblFicheiro_1.setFont(new Font("Tahoma", Font.PLAIN, 15));
+                    lblFicheiro_1.setBackground(new Color(0, 128, 255));
+                    lblFicheiro_1.setBounds(10, 272, 57, 19);
+                    contentPane.add(lblFicheiro_1);
+                    
+                    textField = new JTextField();
+                    textField.setFont(new Font("Tahoma", Font.PLAIN, 16));
+                    textField.setColumns(10);
+                    textField.setBounds(88, 270, 386, 19);
+                    contentPane.add(textField);
+                    
+                    JButton btnGravar = new JButton("Gravar");
+                    btnGravar.setFont(new Font("Tahoma", Font.PLAIN, 12));
+                    btnGravar.setForeground(new Color(0, 0, 0));
+                    btnGravar.setBounds(181, 299, 84, 20);
+                    contentPane.add(btnGravar);
+                    
+                    JButton btnReproduzir = new JButton("Reproduzir");
+                    btnReproduzir.setForeground(new Color(0, 0, 0));
+                    btnReproduzir.setFont(new Font("Tahoma", Font.PLAIN, 12));
+                    btnReproduzir.setBounds(304, 299, 94, 20);
+                    contentPane.add(btnReproduzir);
+                    
+                    JButton btnBotaoFicheiro = new JButton("...");
+                    btnBotaoFicheiro.setForeground(new Color(0, 0, 0));
+                    btnBotaoFicheiro.setFont(new Font("Tahoma", Font.PLAIN, 12));
+                    btnBotaoFicheiro.setBounds(484, 270, 57, 20);
+                    contentPane.add(btnBotaoFicheiro);
 
                     setVisible(true);
                 } catch (Exception e) {
