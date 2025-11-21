@@ -13,6 +13,8 @@ public interface iProcessing {
 	
 	public void mousePressed(PApplet parent);
 	
+	public void keyReleased(PApplet parent);
+	
 	public void mouseMoved(PApplet parent);
 
 }

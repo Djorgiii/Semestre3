@@ -14,7 +14,7 @@ class WaveformVisualization extends AudioVisualization {
 
   draw() {
     this.update();
-
+    
     const canvasWidth  = this.canvas.clientWidth;
     const canvasHeight = this.canvas.clientHeight;
     const fadeAmount = Math.max(

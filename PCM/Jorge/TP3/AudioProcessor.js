@@ -1,24 +1,24 @@
 class AudioProcessor {
   constructor() {
-    this.audioContext        = null;
-    this.analyserNode        = null;
-    this.sourceNode          = null;
-    this.mediaStream         = null;
+    this.audioContext = null;
+    this.analyserNode = null;
+    this.sourceNode = null;
+    this.mediaStream = null;
 
-    this.frequencyData       = null;
-    this.waveformData        = null;
+    this.frequencyData = null;
+    this.waveformData = null;
 
     this.audioElement = new Audio();
     this.audioElement.crossOrigin = "anonymous";
 
-    this.mediaElementSource  = null;
-    this.objectUrl           = null;
+    this.mediaElementSource = null;
+    this.objectUrl = null;
   }
 
   _ensureContext() {
     if (this.audioContext) return;
 
-    this.audioContext = new (window.AudioContext || window.webkitAudioContext)({
+    this.audioContext = new (window.AudioContext)({
       latencyHint: "interactive",
     });
 
@@ -46,7 +46,9 @@ class AudioProcessor {
     });
 
     const source = this.audioContext.createMediaStreamSource(this.mediaStream);
+
     source.connect(this.analyserNode);
+    
     this.sourceNode = source;
   }
 

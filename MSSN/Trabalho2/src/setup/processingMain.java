@@ -1,6 +1,8 @@
 package setup;
-import SolarSystem.SolarSystemSim;
+import agentesautonomos.BoidApp;
 import processing.core.PApplet;
+import solarsystem.SolarSystemSim;
+import flock.FlockApp;
 
 public class processingMain extends PApplet {
 	
@@ -9,7 +11,7 @@ public class processingMain extends PApplet {
 	
 	public static void main(String[] args) {
 		
-		app= new SolarSystemSim();
+		app= new BoidApp();
 		PApplet.main(processingMain.class.getName());
 		
 	}
@@ -53,5 +55,10 @@ public class processingMain extends PApplet {
 	public void mouseMoved() {
 		app.mouseMoved(this);
 	}
+	
+	@Override
+    public void keyReleased() {
+        app.keyReleased(this);
+    }
 	
 }

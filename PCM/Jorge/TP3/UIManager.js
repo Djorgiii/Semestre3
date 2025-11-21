@@ -8,14 +8,14 @@ class UIManager {
   }
 
   cacheElements() {
-    this.statusElement   = document.getElementById("audioStatus");
-    this.levelElement    = document.getElementById("audioLevel");
-    this.propsContainer  = document.getElementById("properties-container");
+    this.statusElement = document.getElementById("audioStatus");
+    this.levelElement = document.getElementById("audioLevel");
+    this.propsContainer = document.getElementById("properties-container");
 
-    this.buttonMic       = document.getElementById("startMic");
-    this.buttonStop      = document.getElementById("stopAudio");
-    this.fileInput       = document.getElementById("audioFile");
-    this.visualSelect    = document.getElementById("visualizationType");
+    this.buttonMic = document.getElementById("startMic");
+    this.buttonStop = document.getElementById("stopAudio");
+    this.fileInput = document.getElementById("audioFile");
+    this.visualSelect = document.getElementById("visualizationType");
 
     this.buttonExportPng = document.getElementById("exportPNG");
     this.buttonExportJpg = document.getElementById("exportJPEG");
