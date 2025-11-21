@@ -121,27 +121,6 @@ public class GuiGravador extends JFrame {
                     
                     btnFrente.setBounds(242, 84, 105, 37);
                     contentPane.add(btnFrente);
-
-                    // Botão On/Off
-                    rdbtnOnOff = new JRadioButton("Abrir/Fechar");
-                    rdbtnOnOff.setFont(new Font("Tahoma", Font.PLAIN, 12));
-                    rdbtnOnOff.addActionListener(new ActionListener() {
-                        public void actionPerformed(ActionEvent e) {
-                            if (bd.isRobotAberto()) {
-                                bd.getRobot().CloseEV3();
-                                bd.setRobotAberto(false);
-                            } else {
-                                bd.setRobotAberto(bd.getRobot().OpenEV3("EV2"));
-                                tObstaculo.desbloquear();
-                                
-                            }
-                            rdbtnOnOff.setSelected(bd.isRobotAberto());
-                            myPrint("O Robot foi " + (bd.isRobotAberto()? "aberto": "fechado" +"."));
-                            btnFrente.setEnabled(bd.isRobotAberto());
-                        }
-                    });
-                    rdbtnOnOff.setBounds(471, 35, 94, 21);
-                    contentPane.add(rdbtnOnOff);
                     
                     JLabel lblDistancia = new JLabel("Distância");
                     lblDistancia.setFont(new Font("Tahoma", Font.PLAIN, 18));
@@ -167,7 +146,7 @@ public class GuiGravador extends JFrame {
                     textFieldDistancia.setColumns(10);
                     
                     JScrollPane scrollPane = new JScrollPane();
-                    scrollPane.setBounds(10, 399, 567, 123);
+                    scrollPane.setBounds(28, 371, 537, 123);
                     contentPane.add(scrollPane);
                     
                     textAreaConsola = new JTextArea();
@@ -232,6 +211,7 @@ public class GuiGravador extends JFrame {
                     contentPane.add(textFieldRobot);
                     
                     JButton btnParar = new JButton("PARAR");
+                    btnParar.setEnabled(false);
                     btnParar.setBackground(new Color(255, 0, 0));
                     btnParar.addActionListener(new ActionListener() {
                     	public void actionPerformed(ActionEvent arg0) {
@@ -247,6 +227,7 @@ public class GuiGravador extends JFrame {
                     contentPane.add(btnParar);
                     
                     JButton btnDireita = new JButton("DIREITA");
+                    btnDireita.setEnabled(false);
                     btnDireita.setBackground(new Color(0, 128, 255));
                     btnDireita.addActionListener(new ActionListener() {
                     	public void actionPerformed(ActionEvent e) {
@@ -262,6 +243,7 @@ public class GuiGravador extends JFrame {
                     contentPane.add(btnDireita);
                     
                     JButton btnEsquerda = new JButton("ESQUERDA");
+                    btnEsquerda.setEnabled(false);
                     btnEsquerda.setBackground(new Color(255, 128, 255));
                     btnEsquerda.addActionListener(new ActionListener() {
                     	public void actionPerformed(ActionEvent e) {
@@ -277,6 +259,7 @@ public class GuiGravador extends JFrame {
                     contentPane.add(btnEsquerda);
                     
                     JButton btnTras = new JButton("TRÁS");
+                    btnTras.setEnabled(false);
                     btnTras.setBackground(new Color(255, 128, 128));
                     btnTras.addActionListener(new ActionListener() {
                     	public void actionPerformed(ActionEvent e) {
@@ -293,70 +276,77 @@ public class GuiGravador extends JFrame {
                     
                     JLabel lblConsola = new JLabel("Consola");
                     lblConsola.setFont(new Font("Tahoma", Font.PLAIN, 18));
-                    lblConsola.setBounds(10, 371, 67, 18);
+                    lblConsola.setBounds(28, 343, 67, 18);
                     contentPane.add(lblConsola);
-                    
-                    JRadioButton rdbtnMovimentosAleatrios = new JRadioButton("Movimentos Aleatórios");
-                    rdbtnMovimentosAleatrios.addActionListener(new ActionListener() {
-                        public void actionPerformed(ActionEvent e) {
-                            if (rdbtnMovimentosAleatrios.isSelected()) {
-                                if (!bd.isRobotAberto()) {
-                                    myPrint("Abra o robot antes de executar movimentos aleatórios.");
-                                    return;
-                                }
-                                bd.setAleatoriosOn(true);
-                                if (movimentosAleatorios != null) {
-                                    // Pass the GUI reference so the task must go through GUI -> BaseDados -> Servidor
-                                    movimentosAleatorios.desbloquear();
-                                }
-                            }
-                            else {
-                            	bd.setAleatoriosOn(false);
-                            	if (bufferCircular != null) {
-									bufferCircular.clear();
-								}
-                            }
-                        }
-                    });
-                    rdbtnMovimentosAleatrios.setFont(new Font("Tahoma", Font.PLAIN, 18));
-                    rdbtnMovimentosAleatrios.setBounds(378, 200, 221, 21);
-                    contentPane.add(rdbtnMovimentosAleatrios);
                     
                     JLabel lblGravador = new JLabel("Gravador");
                     lblGravador.setBackground(new Color(0, 128, 255));
                     lblGravador.setFont(new Font("Tahoma", Font.PLAIN, 18));
-                    lblGravador.setBounds(10, 244, 81, 18);
+                    lblGravador.setBounds(28, 244, 81, 18);
                     contentPane.add(lblGravador);
                     
                     JLabel lblFicheiro_1 = new JLabel("Ficheiro");
                     lblFicheiro_1.setFont(new Font("Tahoma", Font.PLAIN, 15));
                     lblFicheiro_1.setBackground(new Color(0, 128, 255));
-                    lblFicheiro_1.setBounds(10, 272, 57, 19);
+                    lblFicheiro_1.setBounds(38, 272, 57, 19);
                     contentPane.add(lblFicheiro_1);
                     
                     textField = new JTextField();
                     textField.setFont(new Font("Tahoma", Font.PLAIN, 16));
                     textField.setColumns(10);
-                    textField.setBounds(88, 270, 386, 19);
+                    textField.setBounds(112, 271, 386, 19);
                     contentPane.add(textField);
                     
                     JButton btnGravar = new JButton("Gravar");
+                    btnGravar.setEnabled(false);
                     btnGravar.setFont(new Font("Tahoma", Font.PLAIN, 12));
                     btnGravar.setForeground(new Color(0, 0, 0));
-                    btnGravar.setBounds(181, 299, 84, 20);
+                    btnGravar.setBounds(203, 300, 84, 20);
                     contentPane.add(btnGravar);
                     
                     JButton btnReproduzir = new JButton("Reproduzir");
+                    btnReproduzir.setEnabled(false);
                     btnReproduzir.setForeground(new Color(0, 0, 0));
                     btnReproduzir.setFont(new Font("Tahoma", Font.PLAIN, 12));
-                    btnReproduzir.setBounds(304, 299, 94, 20);
+                    btnReproduzir.setBounds(338, 300, 94, 20);
                     contentPane.add(btnReproduzir);
                     
                     JButton btnBotaoFicheiro = new JButton("...");
+                    btnBotaoFicheiro.setEnabled(false);
                     btnBotaoFicheiro.setForeground(new Color(0, 0, 0));
                     btnBotaoFicheiro.setFont(new Font("Tahoma", Font.PLAIN, 12));
-                    btnBotaoFicheiro.setBounds(484, 270, 57, 20);
+                    btnBotaoFicheiro.setBounds(508, 272, 57, 20);
                     contentPane.add(btnBotaoFicheiro);
+                    
+                    // Botão On/Off
+                    rdbtnOnOff = new JRadioButton("Abrir/Fechar");
+                    rdbtnOnOff.setFont(new Font("Tahoma", Font.PLAIN, 12));
+                    rdbtnOnOff.addActionListener(new ActionListener() {
+                        public void actionPerformed(ActionEvent e) {
+                            if (bd.isRobotAberto()) {
+                                bd.getRobot().CloseEV3();
+                                bd.setRobotAberto(false);
+                            } else {
+                                bd.setRobotAberto(bd.getRobot().OpenEV3("EV2"));
+                                tObstaculo.desbloquear();
+                                
+                            }
+                            rdbtnOnOff.setSelected(bd.isRobotAberto());
+                            myPrint("O Robot foi " + (bd.isRobotAberto()? "aberto": "fechado" +"."));
+                            btnFrente.setEnabled(bd.isRobotAberto());
+                            btnTras.setEnabled(bd.isRobotAberto());
+                            btnDireita.setEnabled(bd.isRobotAberto());
+                            btnEsquerda.setEnabled(bd.isRobotAberto());
+                            btnParar.setEnabled(bd.isRobotAberto());
+                            btnReproduzir.setEnabled(bd.isRobotAberto());
+                            btnGravar.setEnabled(bd.isRobotAberto());
+                            btnReproduzir.setEnabled(bd.isRobotAberto());
+                            btnBotaoFicheiro.setEnabled(bd.isRobotAberto());
+                            
+                        }
+                    });
+                    rdbtnOnOff.setBounds(471, 35, 94, 21);
+                    contentPane.add(rdbtnOnOff);
 
                     setVisible(true);
                 } catch (Exception e) {

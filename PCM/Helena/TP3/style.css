@@ -74,23 +74,23 @@ main {
 }
 
 .btn-secondary {
-    background-color: #6c757d;
+    background-color: #7db867;
     color: white;
 }
 
 .btn-secondary:hover {
-    background-color: #5a6268;
+    background-color: #1a2bc5;
 }
 
 .btn-primary:disabled, .btn-secondary:disabled {
-    background-color: #495057;
+    background-color: #85b8eb;
     cursor: not-allowed;
 }
 
 input[type="file"] {
     width: 100%;
     padding: 8px;
-    background-color: #0f3460;
+    background-color: #dbe031;
     border: 1px solid #4cc9f0;
     border-radius: 4px;
     color: #e6e6e6;
@@ -99,7 +99,7 @@ input[type="file"] {
 select {
     width: 100%;
     padding: 8px;
-    background-color: #0f3460;
+    background-color: #33cac2;
     border: 1px solid #4cc9f0;
     border-radius: 4px;
     color: #e6e6e6;
@@ -108,7 +108,7 @@ select {
 #visualization-area {
     grid-column: 2;
     grid-row: 1;
-    background-color: #16213e;
+    background-color: #3397ad;
     padding: 20px;
     border-radius: 8px;
     display: flex;
@@ -119,7 +119,7 @@ select {
 #audioCanvas {
     width: 100%;
     height: 300px;
-    background-color: #0f3460;
+    background-color: #0f5960;
     border-radius: 4px;
 }
 
@@ -133,7 +133,7 @@ select {
 #properties-panel {
     grid-column: 2;
     grid-row: 2;
-    background-color: #16213e;
+    background-color: #32b9bb;
     padding: 20px;
     border-radius: 8px;
 }
@@ -164,7 +164,7 @@ select {
   width: 45px;
   text-align: right;
   font-family: monospace;
-  color: #9cd9ff;
+  color: #389e96;
 }
 
 .modal {
@@ -173,7 +173,7 @@ select {
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.7);
+    background-color: rgba(43, 189, 181, 0.7);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -181,7 +181,7 @@ select {
 }
 
 .modal-content {
-    background-color: #16213e;
+    background-color: #5bb3af;
     padding: 20px;
     border-radius: 8px;
     width: 400px;
