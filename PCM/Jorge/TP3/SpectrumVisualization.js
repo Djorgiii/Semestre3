@@ -20,7 +20,10 @@ class SpectrumVisualization extends AudioVisualization {
       this.drawGrid();
     }
 
-    const { freq: frequencyData, amount, level } = this.normalizeData();
+    const data = this.normalizeData();
+    const frequencyData = data.freq;
+    const level = data.level;
+    const amount = data.amount;
     if (!frequencyData?.length) return;
 
     const ctx = this.ctx;

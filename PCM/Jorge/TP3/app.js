@@ -1,10 +1,10 @@
 // Classe principal da aplicação
 class App {
   constructor() {
-    this.audioProcessor     = new AudioProcessor();
+    this.audioProcessor = new AudioProcessor();
     this.visualizationEngine = new VisualizationEngine("audioCanvas");
-    this.uiManager          = new UIManager(this);
-    this.exportManager      = new ExportManager(this.visualizationEngine);
+    this.uiManager= new UIManager(this);
+    this.exportManager = new ExportManager(this.visualizationEngine);
 
     this.visualizationEngine.setAudioProcessor(this.audioProcessor);
 
