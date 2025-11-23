@@ -116,29 +116,6 @@ public class GUI extends JFrame {
                         }
                     });
                     
-                    btnFrente.setBounds(242, 84, 105, 37);
-                    contentPane.add(btnFrente);
-
-                    // Botão On/Off
-                    rdbtnOnOff = new JRadioButton("Abrir/Fechar");
-                    rdbtnOnOff.setFont(new Font("Tahoma", Font.PLAIN, 12));
-                    rdbtnOnOff.addActionListener(new ActionListener() {
-                        public void actionPerformed(ActionEvent e) {
-                            if (bd.isRobotAberto()) {
-                                bd.getRobot().CloseEV3();
-                                bd.setRobotAberto(false);
-                            } else {
-                                bd.setRobotAberto(bd.getRobot().OpenEV3("EV2"));
-                                tObstaculo.desbloquear();
-                                
-                            }
-                            rdbtnOnOff.setSelected(bd.isRobotAberto());
-                            myPrint("O Robot foi " + (bd.isRobotAberto()? "aberto": "fechado" +"."));
-                            btnFrente.setEnabled(bd.isRobotAberto());
-                        }
-                    });
-                    rdbtnOnOff.setBounds(471, 35, 94, 21);
-                    contentPane.add(rdbtnOnOff);
                     
                     JLabel lblDistancia = new JLabel("Distância");
                     lblDistancia.setFont(new Font("Tahoma", Font.PLAIN, 18));
@@ -229,6 +206,7 @@ public class GUI extends JFrame {
                     contentPane.add(textFieldRobot);
                     
                     JButton btnParar = new JButton("PARAR");
+                    btnParar.setEnabled(false);
                     btnParar.setBackground(new Color(255, 0, 0));
                     btnParar.addActionListener(new ActionListener() {
                     	public void actionPerformed(ActionEvent arg0) {
@@ -244,6 +222,7 @@ public class GUI extends JFrame {
                     contentPane.add(btnParar);
                     
                     JButton btnDireita = new JButton("DIREITA");
+                    btnDireita.setEnabled(false);
                     btnDireita.setBackground(new Color(0, 128, 255));
                     btnDireita.addActionListener(new ActionListener() {
                     	public void actionPerformed(ActionEvent e) {
@@ -259,6 +238,7 @@ public class GUI extends JFrame {
                     contentPane.add(btnDireita);
                     
                     JButton btnEsquerda = new JButton("ESQUERDA");
+                    btnEsquerda.setEnabled(false);
                     btnEsquerda.setBackground(new Color(255, 128, 255));
                     btnEsquerda.addActionListener(new ActionListener() {
                     	public void actionPerformed(ActionEvent e) {
@@ -274,6 +254,7 @@ public class GUI extends JFrame {
                     contentPane.add(btnEsquerda);
                     
                     JButton btnTras = new JButton("TRÁS");
+                    btnTras.setEnabled(false);
                     btnTras.setBackground(new Color(255, 128, 128));
                     btnTras.addActionListener(new ActionListener() {
                     	public void actionPerformed(ActionEvent e) {
@@ -292,6 +273,34 @@ public class GUI extends JFrame {
                     lblConsola.setFont(new Font("Tahoma", Font.PLAIN, 18));
                     lblConsola.setBounds(17, 218, 67, 18);
                     contentPane.add(lblConsola);
+                    
+                    btnFrente.setBounds(242, 84, 105, 37);
+                    contentPane.add(btnFrente);
+
+                    // Botão On/Off
+                    rdbtnOnOff = new JRadioButton("Abrir/Fechar");
+                    rdbtnOnOff.setFont(new Font("Tahoma", Font.PLAIN, 12));
+                    rdbtnOnOff.addActionListener(new ActionListener() {
+                        public void actionPerformed(ActionEvent e) {
+                            if (bd.isRobotAberto()) {
+                                bd.getRobot().CloseEV3();
+                                bd.setRobotAberto(false);
+                            } else {
+                                bd.setRobotAberto(bd.getRobot().OpenEV3("EV2"));
+                                tObstaculo.desbloquear();
+                                
+                            }
+                            rdbtnOnOff.setSelected(bd.isRobotAberto());
+                            myPrint("O Robot foi " + (bd.isRobotAberto()? "aberto": "fechado" +"."));
+                            btnFrente.setEnabled(bd.isRobotAberto());
+                            btnTras.setEnabled(bd.isRobotAberto());
+                            btnDireita.setEnabled(bd.isRobotAberto());
+                            btnEsquerda.setEnabled(bd.isRobotAberto());
+                            btnParar.setEnabled(bd.isRobotAberto());
+                        }
+                    });
+                    rdbtnOnOff.setBounds(471, 35, 94, 21);
+                    contentPane.add(rdbtnOnOff);
                     
                     JRadioButton rdbtnMovimentosAleatrios = new JRadioButton("Movimentos Aleatórios");
                     rdbtnMovimentosAleatrios.addActionListener(new ActionListener() {

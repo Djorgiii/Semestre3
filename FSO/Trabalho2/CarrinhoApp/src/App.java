@@ -1,8 +1,10 @@
 public class App {
     private GUI gui;
+    private GuiGravador guigravador;
 
     public App() {
         gui = new GUI();
+        guigravador = new GuiGravador();
     }
 
     public void run() {
