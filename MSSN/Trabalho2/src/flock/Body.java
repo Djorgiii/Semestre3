@@ -6,10 +6,10 @@ import processing.core.PVector;
 public class Body extends Mover {
     
     protected int color;
-    protected PApplet app; // Antes: p
+    protected PApplet app;
 
     public Body(PApplet app, PVector position, PVector velocity, float mass, float radius, int color) {
-        super(position, velocity, mass, radius); // Passa os nomes novos para o Mover
+        super(position, velocity, mass, radius);
         this.app = app;
         this.color = color;
     }
@@ -19,7 +19,6 @@ public class Body extends Mover {
         app.noStroke();
         app.fill(color);
         
-        // Usa 'position' (herdado do Mover refatorizado) em vez de 'pos'
         app.ellipse(position.x, position.y, radius * 2, radius * 2);
         
         app.popStyle();
