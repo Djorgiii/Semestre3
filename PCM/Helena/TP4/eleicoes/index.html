@@ -64,39 +64,47 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
+<section id="legislativas-2025-dashboard" class="level1">
+<h1>Legislativas 2025 — Dashboard</h1>
+<p>Este dashboard foi desenvolvido em <strong>Quarto + JavaScript</strong>, otimizado para ser editado em <strong>VS Code (sem Visual Mode)</strong>.</p>
+<hr>
 <section id="mapa-partido-mais-votado" class="level2">
-<h2 class="anchored" data-anchor-id="mapa-partido-mais-votado">Mapa — Partido Mais Votado</h2>
-<div id="map-vencedor" style="height: 400px; margin-bottom: 20px;">
+<h2 class="anchored" data-anchor-id="mapa-partido-mais-votado">🗺️ Mapa — Partido Mais Votado</h2>
+<div id="map-vencedor" style="height: 420px; margin-bottom: 20px;">
 
 </div>
+<hr>
 </section>
 <section id="mapa-intensidade-por-partido" class="level2">
-<h2 class="anchored" data-anchor-id="mapa-intensidade-por-partido">Mapa — Intensidade por Partido</h2>
+<h2 class="anchored" data-anchor-id="mapa-intensidade-por-partido">🔥 Mapa — Intensidade por Partido</h2>
 <select id="dropdownPartido" style="margin-bottom: 10px;"></select>
-<div id="map-intensidade" style="height: 400px;">
+<div id="map-intensidade" style="height: 420px;">
 
 </div>
+<hr>
 </section>
 <section id="tabela-de-resultados" class="level2">
-<h2 class="anchored" data-anchor-id="tabela-de-resultados">Tabela de Resultados</h2>
+<h2 class="anchored" data-anchor-id="tabela-de-resultados">📊 Tabela de Resultados</h2>
 <table id="tabela" class="display" width="100%">
 </table>
+<hr>
 </section>
 <section id="gráfico-sunburst" class="level2">
-<h2 class="anchored" data-anchor-id="gráfico-sunburst">Gráfico Sunburst</h2>
+<h2 class="anchored" data-anchor-id="gráfico-sunburst">🌞 Gráfico Sunburst</h2>
 <div id="sunburst" style="height: 500px;">
 
 </div>
 <hr>
 </section>
-<section id="scripts-necessários" class="level2">
-<h2 class="anchored" data-anchor-id="scripts-necessários">Scripts Necessários</h2>
-<p>// IMPORTAR LIBS // Leaflet (mapas) let leafletCSS = document.createElement(“link”); leafletCSS.rel = “stylesheet”; leafletCSS.href = “https://unpkg.com/leaflet@1.9.4/dist/leaflet.css”; document.head.appendChild(leafletCSS);</p>
+</section>
+<section id="importar-bibliotecas-leaflet-plotly-datatables" class="level1">
+<h1>📦 Importar Bibliotecas (Leaflet, Plotly, DataTables)</h1>
+<p>// Leaflet let leafletCSS = document.createElement(“link”); leafletCSS.rel = “stylesheet”; leafletCSS.href = “https://unpkg.com/leaflet@1.9.4/dist/leaflet.css”; document.head.appendChild(leafletCSS);</p>
 <p>let leafletJS = document.createElement(“script”); leafletJS.src = “https://unpkg.com/leaflet@1.9.4/dist/leaflet.js”; document.head.appendChild(leafletJS);</p>
-<p>// DataTables (tabela) let dtCSS = document.createElement(“link”); dtCSS.rel = “stylesheet”; dtCSS.href = “https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css”; document.head.appendChild(dtCSS);</p>
+<p>// jQuery + DataTables let dtCSS = document.createElement(“link”); dtCSS.rel = “stylesheet”; dtCSS.href = “https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css”; document.head.appendChild(dtCSS);</p>
 <p>let jqueryJS = document.createElement(“script”); jqueryJS.src = “https://code.jquery.com/jquery-3.7.1.min.js”; document.head.appendChild(jqueryJS);</p>
 <p>let dtJS = document.createElement(“script”); dtJS.src = “https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js”; document.head.appendChild(dtJS);</p>
-<p>// Plotly (sunburst) let plotlyJS = document.createElement(“script”); plotlyJS.src = “https://cdn.plot.ly/plotly-latest.min.js”; document.head.appendChild(plotlyJS);</p>
+<p>// Plotly let plotlyJS = document.createElement(“script”); plotlyJS.src = “https://cdn.plot.ly/plotly-latest.min.js”; document.head.appendChild(plotlyJS);</p>
 </section>
 
 </main>
