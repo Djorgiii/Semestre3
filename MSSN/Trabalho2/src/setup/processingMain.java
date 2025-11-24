@@ -11,7 +11,7 @@ public class processingMain extends PApplet {
 	
 	public static void main(String[] args) {
 		
-		app= new BoidApp();
+		app= new solarsystem.SolarSystemSim();
 		PApplet.main(processingMain.class.getName());
 		
 	}

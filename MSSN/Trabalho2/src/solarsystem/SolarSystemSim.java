@@ -17,7 +17,7 @@ public class SolarSystemSim implements iProcessing {
     private final int numBackgroundStars = 500;
     
     // Parâmetros Físicos
-    private final float gravitationalConstant = 30f; // Antes: G
+    private final float gravitationalConstant = 35f; // Antes: G
     private final float starMass = 30000;
     private final int numberOfPlanets = 8;      // Antes: numPlanets
     private final int stepsPerFrame = 10;
