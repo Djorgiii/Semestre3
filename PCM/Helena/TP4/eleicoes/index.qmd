@@ -1,0 +1,60 @@
+---
+title: "Legislativas 2025 — Dashboard"
+format:
+  html:
+    theme: cosmo
+    toc: false
+    page-layout: full
+---
+
+## Mapa — Partido Mais Votado
+
+<div id="map-vencedor" style="height: 400px; margin-bottom: 20px;"></div>
+
+## Mapa — Intensidade por Partido
+
+<select id="dropdownPartido" style="margin-bottom: 10px;"></select>
+<div id="map-intensidade" style="height: 400px;"></div>
+
+## Tabela de Resultados
+
+<table id="tabela" class="display" width="100%"></table>
+
+## Gráfico Sunburst
+
+<div id="sunburst" style="height: 500px;"></div>
+
+---
+
+## Scripts Necessários
+
+```{javascript}
+// IMPORTAR LIBS
+// Leaflet (mapas)
+let leafletCSS = document.createElement("link");
+leafletCSS.rel = "stylesheet";
+leafletCSS.href = "https://unpkg.com/leaflet@1.9.4/dist/leaflet.css";
+document.head.appendChild(leafletCSS);
+
+let leafletJS = document.createElement("script");
+leafletJS.src = "https://unpkg.com/leaflet@1.9.4/dist/leaflet.js";
+document.head.appendChild(leafletJS);
+
+// DataTables (tabela)
+let dtCSS = document.createElement("link");
+dtCSS.rel = "stylesheet";
+dtCSS.href = "https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css";
+document.head.appendChild(dtCSS);
+
+let jqueryJS = document.createElement("script");
+jqueryJS.src = "https://code.jquery.com/jquery-3.7.1.min.js";
+document.head.appendChild(jqueryJS);
+
+let dtJS = document.createElement("script");
+dtJS.src = "https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js";
+document.head.appendChild(dtJS);
+
+// Plotly (sunburst)
+let plotlyJS = document.createElement("script");
+plotlyJS.src = "https://cdn.plot.ly/plotly-latest.min.js";
+document.head.appendChild(plotlyJS);

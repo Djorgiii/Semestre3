@@ -15,44 +15,50 @@ public class EvitarObstaculo extends Tarefa {
     
     @Override
     public void execucao() {
-        // Esta tarefa fica em loop, verificando constantemente o sensor
         while (gui.getBd().isRobotAberto()) {
-        	boolean aleatoriosAntes = gui.getBd().isAleatoriosOn();
+            boolean aleatoriosAntes = gui.getBd().isAleatoriosOn();
+            RobotLegoEV3 robot = gui.getBd().getRobot();
 
-        	RobotLegoEV3 robot = gui.getBd().getRobot();
+            // 🔒 proteger acesso ao EV3
+            int toque;
+            java.util.concurrent.Semaphore ev3Sem = gui.getBd().getEv3Sem();
+            ev3Sem.acquireUninterruptibly();
+            try {
+                toque = robot.SensorToque(sensorToquePort);
+            } finally {
+                ev3Sem.release();
+            }
 
-            // Lê o sensor de toque
-            int toque = robot.SensorToque(sensorToquePort);
-
-            // Quando detecta toque, executa a manobra
             if (toque == 1) {
                 gui.myPrint("[EVITAR] Obstáculo detectado no sensor! Iniciando evasão...");
 
-                // 1) Parar tudo imediatamente
                 gui.getBd().setPausaServidor(true);
                 gui.getBd().setAleatoriosOn(false);
                 gui.myPrint("[EVITAR] PARAR(true)");
-                robot.Parar(true);
+                //gui.getBufferCircular().inserirElemento(new Movimento("PARAR", true));
+                gui.getBd().getRobot().Parar(true); // Parar imediatamente
 
-                // 2) Evasão com logs
                 gui.myPrint("[EVITAR] RETA(-20, 0)");
-                robot.Reta(-20);
+                //gui.getBufferCircular().inserirElemento(new Movimento("RETA", -20, 0));
+                gui.getBd().getRobot().Reta(-20); // Recuar 20 cm
 
                 boolean direita = rnd.nextBoolean();
                 if (direita) {
                     gui.myPrint("[EVITAR] CURVARDIREITA(20, 90)");
-                    robot.CurvarDireita(20, 90);
+                    //gui.getBufferCircular().inserirElemento(new Movimento("CURVARDIREITA", 20, 90));
+                    gui.getBd().getRobot().CurvarDireita(0, 90); // Curvar à direita
                 } else {
                     gui.myPrint("[EVITAR] CURVARESQUERDA(20, 90)");
-                    robot.CurvarEsquerda(20, 90);
+                    //gui.getBufferCircular().inserirElemento(new Movimento("CURVARESQUERDA", 20, 90));
+                    gui.getBd().getRobot().CurvarEsquerda(0, 90); // Curvar à esquerda
                 }
 
                 gui.myPrint("[EVITAR] PARAR(false)");
-                robot.Parar(false);
+                //gui.getBufferCircular().inserirElemento(new Movimento("PARAR", false));
+                gui.getBd().getRobot().Parar(false); // Parar a manobra
 
                 gui.myPrint("[EVITAR] Evasão concluída");
 
-                // 3) Retomar o funcionamento normal
                 if (aleatoriosAntes) {
                     gui.getBd().setAleatoriosOn(true);
                     if (proxima != null) proxima.desbloquear();
@@ -63,10 +69,13 @@ public class EvitarObstaculo extends Tarefa {
                 gui.getBd().getPausaSem().release();
             }
 
-        	//dormir();
+            // opcional: evitar busy-wait violento
+            dormir();
         }
 
-        // Se o robot for fechado, a tarefa bloqueia até ser reativada
         bloquear();
     }
+
+
+
 }
