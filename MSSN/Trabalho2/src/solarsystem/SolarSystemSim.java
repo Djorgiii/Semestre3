@@ -7,33 +7,27 @@ import java.util.ArrayList;
 
 public class SolarSystemSim implements iProcessing {
 
-    // Variáveis da Simulação
-    private Body centralStar;                   // Antes: star
-    private ArrayList<Body> planetList;         // Antes: planets
-    private ParticleSystem sunCoronaSystem;     // Antes: sunCorona
+    private Body centralStar;
+    private ArrayList<Body> planetList;
+    private ParticleSystem sunCoronaSystem;
 
-    // Variável para o fundo de estrelas
-    private ArrayList<PVector> backgroundStarPositions; // Antes: starfield
+    private ArrayList<PVector> backgroundStarPositions;
     private final int numBackgroundStars = 500;
     
-    // Parâmetros Físicos
-    private final float gravitationalConstant = 30f; // Antes: G
+    private final float gravitationalConstant = 30f;
     private final float starMass = 30000;
-    private final int numberOfPlanets = 8;      // Antes: numPlanets
+    private final int numberOfPlanets = 8;
     private final int stepsPerFrame = 10;
 
     @Override
-    public void setup(PApplet app) { // Antes: p -> app
+    public void setup(PApplet app) {
         planetList = new ArrayList<Body>();
-        PVector starPosition = new PVector(app.width / 2.0f, app.height / 2.0f); // Antes: starPos
+        PVector starPosition = new PVector(app.width / 2.0f, app.height / 2.0f);
 
-        // 1. Criar o Sol
         centralStar = new Body(app, starPosition, new PVector(0, 0), starMass, 25, app.color(255, 255, 0));
         
-        // 2. Inicializar a coroa do Sol
         sunCoronaSystem = new ParticleSystem();
 
-        // 3. Criar N planetas
         for (int i = 0; i < numberOfPlanets; i++) {
             float orbitalRadius = 100 + i * 40;
             
@@ -43,16 +37,13 @@ public class SolarSystemSim implements iProcessing {
             float planetRadius = app.random(4, 9);
             int planetColor = app.color(app.random(100, 255), app.random(100, 255), app.random(100, 255));
             
-            // Fórmula da velocidade orbital
             float velocityMagnitude = (float) Math.sqrt((gravitationalConstant * starMass) / orbitalRadius);
             PVector planetVelocity = new PVector(0, -velocityMagnitude);
             
-            // Criar e adicionar (usando a classe Planet que tem rasto)
             Body newPlanet = new Planet(app, planetPosition, planetVelocity, planetMass, planetRadius, planetColor);
             planetList.add(newPlanet);
         }
 
-        // Gerar o fundo de estrelas
         backgroundStarPositions = new ArrayList<PVector>();
         for (int i = 0; i < numBackgroundStars; i++) {
             PVector starPositionBg = new PVector(app.random(app.width), app.random(app.height));
@@ -61,10 +52,9 @@ public class SolarSystemSim implements iProcessing {
     }
 
     @Override
-    public void draw(PApplet app, float secondsElapsed) { // Antes: dt -> secondsElapsed
+    public void draw(PApplet app, float secondsElapsed) {
         app.background(0);
         
-        // Desenhar fundo de estrelas
         app.pushStyle();
         app.stroke(255, 200);
         for (PVector starPositionBg : backgroundStarPositions) {
@@ -76,13 +66,10 @@ public class SolarSystemSim implements iProcessing {
         
         float subStepSecondsElapsed = secondsElapsed / (float) stepsPerFrame;
         
-        // Loop de Física (Sub-stepping)
         for (int i = 0; i < stepsPerFrame; i++) {
-            // Atualizar partículas do Sol
             sunCoronaSystem.addSunParticle(app, centralStar.getPosition()); 
             sunCoronaSystem.update(subStepSecondsElapsed); 
 
-            // Atualizar Planetas
             for (Body planet : planetList) {
                 PVector gravitationalForce = calculateGravitationalForce(centralStar, planet);
                 planet.applyForce(gravitationalForce);
@@ -90,7 +77,6 @@ public class SolarSystemSim implements iProcessing {
             }
         }
 
-        // Desenho
         sunCoronaSystem.display(app); 
         centralStar.display();
         

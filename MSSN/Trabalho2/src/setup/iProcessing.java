@@ -7,7 +7,7 @@ public interface iProcessing {
 	
 	public void setup(PApplet parent);
 	
-	public void draw(PApplet parent, float dt);// dt = frame rate(delta time)
+	public void draw(PApplet parent, float dt);
 	
 	public void keyPressed(PApplet parent);
 	
