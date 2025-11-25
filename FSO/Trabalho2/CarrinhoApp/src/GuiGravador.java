@@ -15,16 +15,13 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JScrollPane;
 import java.awt.Font;
-import java.awt.Component;
-import javax.swing.Box;
-import java.awt.Button;
 
 public class GuiGravador extends JFrame {
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
     private JPanel contentPane;
 
-    private BaseDados bd;
-    private JButton btnFrente;
+    private BaseDados bd; // usada só para distância, raio, ângulo
+    private JButton btnFrente, btnTras, btnDireita, btnEsquerda, btnParar;
     private JRadioButton rdbtnOnOff;
     private JTextField textFieldDistancia;
     private JTextArea textAreaConsola;
@@ -32,65 +29,41 @@ public class GuiGravador extends JFrame {
     private JTextField textFieldRaio;
     private JTextField textFieldAngulo;
     private JTextField textFieldRobot;
-    private BufferCircular bufferCircular;
-    private MovimentosAleatorios movimentosAleatorios;
-    private Movimento movimentoPendente;
-    private EvitarObstaculo tObstaculo;
-    private JTextField textField;
-    
-    
+    private Gravador gravador;
+    private JTextField textField;        // nome do ficheiro
+
+    private RobotLegoEV3 robotNovo;      // robot novo, só desta GUI
+    private boolean robotNovoAberto = false;
+
     public void myPrint(String s) {
-		textAreaConsola.append(s + "\n");
-	}
-
-    public void setTarefas(MovimentosAleatorios tAleatorios) {
-        this.movimentosAleatorios = tAleatorios;
+        textAreaConsola.append(s + "\n");
     }
 
-    public void pedirMovimentoManual(Movimento c) {
-    	if (c == null) {
-    		return;
-    	}
-    	
-    	c.setManual(true);
-    	java.util.concurrent.Semaphore mux = bd.getProdutorMux();
-		if (mux.tryAcquire()) {
-			try {
-				bufferCircular.inserirElemento(c);
-			}finally {
-				mux.release();
-			}
-		}
-		else {
-			synchronized (this) {
-				this.movimentoPendente = c;
-			}
-			myPrint("[GUI] Comando manual guardado como pendente: " + c.getTipo());
-		}
+    // Regista o comando no Gravador e (opcionalmente) executa já no robot
+    public void registarEExecutar(Movimento c) {
+        if (c == null) return;
+
+        c.setManual(true);
+        gravador.registar(c);
+
+        myPrint("[GUI] Comando gravado: " + c.getTipo()
+                + " (" + c.getArg1() + ", " + c.getArg2() + ")");
     }
 
-    public synchronized Movimento obterMovimentoManual() {
-        Movimento tmp = movimentoPendente;
-        movimentoPendente = null;
-        return tmp;
-    }
 
-    
-    /**
-     * Create the frame.
-     */
     public GuiGravador() {
         bd = new BaseDados();
-        bufferCircular = new BufferCircular();
+        gravador = new Gravador();
+        robotNovo = new RobotLegoEV3(); // só criamos quando abrimos
 
         EventQueue.invokeLater(new Runnable() {
             public void run() {
-                try { 
+                try {
                     addWindowListener(new WindowAdapter() {
                         @Override
                         public void windowClosing(WindowEvent arg0) {
-                            if (bd.isRobotAberto()) {
-                                bd.getRobot().CloseEV3();
+                            if (robotNovoAberto && robotNovo != null) {
+                                robotNovo.CloseEV3();
                             }
                             bd.setTerminar(true);
                         }
@@ -111,238 +84,292 @@ public class GuiGravador extends JFrame {
                     btnFrente.setEnabled(false);
                     btnFrente.addActionListener(new ActionListener() {
                         public void actionPerformed(ActionEvent arg0) {
-                            if (!bd.isRobotAberto()) {
+                            if (!robotNovoAberto) {
                                 myPrint("Abra o robot antes de executar movimentos.");
                                 return;
                             }
-                            pedirMovimentoManual(new Movimento("RETA", bd.getDistancia(), 0));
+                            Movimento m = new Movimento("RETA", bd.getDistancia(), 0);
+                            registarEExecutar(m);
+                            Movimento m2 = new Movimento("PARAR", false);
+                            registarEExecutar(m2);
                         }
                     });
-                    
                     btnFrente.setBounds(242, 84, 105, 37);
                     contentPane.add(btnFrente);
-                    
+
                     JLabel lblDistancia = new JLabel("Distância");
                     lblDistancia.setFont(new Font("Tahoma", Font.PLAIN, 18));
                     lblDistancia.setBounds(203, 9, 81, 21);
                     contentPane.add(lblDistancia);
-                    
+
                     textFieldDistancia = new JTextField();
                     textFieldDistancia.setText("33");
                     textFieldDistancia.setFont(new Font("Tahoma", Font.PLAIN, 16));
                     textFieldDistancia.addActionListener(new ActionListener() {
-                    	public void actionPerformed(ActionEvent arg0) {
-                            if (!bd.isRobotAberto()) {
-                                myPrint("Abra o robot antes de executar movimentos.");
-                                return;
-                            }
-                    		bd.setDistancia(Integer.parseInt(textFieldDistancia.getText()));
-                    		myPrint("A distância foi alterada para " + bd.getDistancia() + " cm.");
-                    		
-                    	}
+                        public void actionPerformed(ActionEvent arg0) {
+                            bd.setDistancia(Integer.parseInt(textFieldDistancia.getText()));
+                            myPrint("A distância foi alterada para " + bd.getDistancia() + " cm.");
+                        }
                     });
                     textFieldDistancia.setBounds(277, 9, 34, 21);
                     contentPane.add(textFieldDistancia);
                     textFieldDistancia.setColumns(10);
-                    
+
                     JScrollPane scrollPane = new JScrollPane();
                     scrollPane.setBounds(28, 371, 537, 123);
                     contentPane.add(scrollPane);
-                    
+
                     textAreaConsola = new JTextArea();
                     scrollPane.setViewportView(textAreaConsola);
-                    
+
                     lblRaio = new JLabel("Raio");
                     lblRaio.setFont(new Font("Tahoma", Font.PLAIN, 18));
                     lblRaio.setBounds(10, 10, 45, 18);
                     contentPane.add(lblRaio);
-                    
+
                     textFieldRaio = new JTextField();
                     textFieldRaio.setText("20");
                     textFieldRaio.addActionListener(new ActionListener() {
-                    	public void actionPerformed(ActionEvent e) {
-                            if (!bd.isRobotAberto()) {
-                                myPrint("Abra o robot antes de escrever.");
-                                return;
-                            }
-                    		bd.setRaio(Integer.parseInt(textFieldRaio.getText()));
-                    		myPrint("O Raio foi alterado para " + bd.getRaio() + " cm.");
-                    	}
+                        public void actionPerformed(ActionEvent e) {
+                            bd.setRaio(Integer.parseInt(textFieldRaio.getText()));
+                            myPrint("O Raio foi alterado para " + bd.getRaio() + " cm.");
+                        }
                     });
                     textFieldRaio.setFont(new Font("Tahoma", Font.PLAIN, 16));
                     textFieldRaio.setBounds(50, 10, 34, 19);
                     contentPane.add(textFieldRaio);
                     textFieldRaio.setColumns(10);
-                    
+
                     JLabel lblAngulo = new JLabel("Ângulo");
                     lblAngulo.setFont(new Font("Tahoma", Font.PLAIN, 18));
                     lblAngulo.setBounds(94, 4, 69, 30);
                     contentPane.add(lblAngulo);
-                    
+
                     textFieldAngulo = new JTextField();
                     textFieldAngulo.setText("90");
                     textFieldAngulo.addActionListener(new ActionListener() {
-                    	public void actionPerformed(ActionEvent e) {
-                            if (!bd.isRobotAberto()) {
-                                textFieldRaio.setEditable(false);
-                                myPrint("Abra o robot antes de escrever.");
-                                return;
-                            }
-                    		bd.setAngulo(Integer.parseInt(textFieldAngulo.getText()));
-                    		myPrint("O Ângulo foi alterado para " + bd.getAngulo() + " graus.");
-                    	}
+                        public void actionPerformed(ActionEvent e) {
+                            bd.setAngulo(Integer.parseInt(textFieldAngulo.getText()));
+                            myPrint("O Ângulo foi alterado para " + bd.getAngulo() + " graus.");
+                        }
                     });
                     textFieldAngulo.setFont(new Font("Tahoma", Font.PLAIN, 16));
                     textFieldAngulo.setColumns(10);
                     textFieldAngulo.setBounds(159, 10, 34, 19);
                     contentPane.add(textFieldAngulo);
-                    
+
                     JLabel lblRobot = new JLabel("Robot");
                     lblRobot.setFont(new Font("Tahoma", Font.PLAIN, 18));
                     lblRobot.setBounds(471, 4, 57, 30);
                     contentPane.add(lblRobot);
-                    
+
                     textFieldRobot = new JTextField();
-                    textFieldRobot.setEditable(false);
-                    textFieldRobot.setText("EV2");
+                    textFieldRobot.setEditable(true);
+                    textFieldRobot.setText("EV2"); // nome padrão do Bluetooth
                     textFieldRobot.setFont(new Font("Tahoma", Font.PLAIN, 12));
                     textFieldRobot.setColumns(10);
-                    textFieldRobot.setBounds(527, 9, 34, 19);
+                    textFieldRobot.setBounds(527, 9, 60, 19);
                     contentPane.add(textFieldRobot);
-                    
-                    JButton btnParar = new JButton("PARAR");
+
+                    btnParar = new JButton("PARAR");
                     btnParar.setEnabled(false);
                     btnParar.setBackground(new Color(255, 0, 0));
                     btnParar.addActionListener(new ActionListener() {
-                    	public void actionPerformed(ActionEvent arg0) {
-                            if (!bd.isRobotAberto()) {
+                        public void actionPerformed(ActionEvent arg0) {
+                            if (!robotNovoAberto) {
                                 myPrint("Abra o robot antes de executar movimentos.");
                                 return;
                             }
-                    		pedirMovimentoManual(new Movimento("PARAR", false));
-                    	}
+                            Movimento m = new Movimento("PARAR", false);
+                            registarEExecutar(m);
+                        }
                     });
                     btnParar.setFont(new Font("Tahoma", Font.PLAIN, 16));
                     btnParar.setBounds(242, 119, 105, 37);
                     contentPane.add(btnParar);
-                    
-                    JButton btnDireita = new JButton("DIREITA");
+
+                    btnDireita = new JButton("DIREITA");
                     btnDireita.setEnabled(false);
                     btnDireita.setBackground(new Color(0, 128, 255));
                     btnDireita.addActionListener(new ActionListener() {
-                    	public void actionPerformed(ActionEvent e) {
-                            if (!bd.isRobotAberto()) {
+                        public void actionPerformed(ActionEvent e) {
+                            if (!robotNovoAberto) {
                                 myPrint("Abra o robot antes de executar movimentos.");
                                 return;
                             }
-                    		pedirMovimentoManual(new Movimento("CURVARDIREITA", bd.getRaio(), bd.getAngulo()));
-                    	}
+                            Movimento m = new Movimento("CURVARDIREITA", bd.getRaio(), bd.getAngulo());
+                            registarEExecutar(m);
+                            Movimento m2 = new Movimento("PARAR", false);
+                            registarEExecutar(m2);
+                        }
                     });
                     btnDireita.setFont(new Font("Tahoma", Font.PLAIN, 16));
                     btnDireita.setBounds(345, 119, 117, 37);
                     contentPane.add(btnDireita);
-                    
-                    JButton btnEsquerda = new JButton("ESQUERDA");
+
+                    btnEsquerda = new JButton("ESQUERDA");
                     btnEsquerda.setEnabled(false);
                     btnEsquerda.setBackground(new Color(255, 128, 255));
                     btnEsquerda.addActionListener(new ActionListener() {
-                    	public void actionPerformed(ActionEvent e) {
-                            if (!bd.isRobotAberto()) {
+                        public void actionPerformed(ActionEvent e) {
+                            if (!robotNovoAberto) {
                                 myPrint("Abra o robot antes de executar movimentos.");
                                 return;
                             }
-                    		pedirMovimentoManual(new Movimento("CURVARESQUERDA", bd.getRaio(), bd.getAngulo()));
-                    	}
+                            Movimento m = new Movimento("CURVARESQUERDA", bd.getRaio(), bd.getAngulo());
+                            registarEExecutar(m);
+                            Movimento m2 = new Movimento("PARAR", false);
+                            registarEExecutar(m2);
+                        }
                     });
                     btnEsquerda.setFont(new Font("Tahoma", Font.PLAIN, 16));
                     btnEsquerda.setBounds(134, 119, 111, 37);
                     contentPane.add(btnEsquerda);
-                    
-                    JButton btnTras = new JButton("TRÁS");
+
+                    btnTras = new JButton("TRÁS");
                     btnTras.setEnabled(false);
                     btnTras.setBackground(new Color(255, 128, 128));
                     btnTras.addActionListener(new ActionListener() {
-                    	public void actionPerformed(ActionEvent e) {
-                            if (!bd.isRobotAberto()) {
+                        public void actionPerformed(ActionEvent e) {
+                            if (!robotNovoAberto) {
                                 myPrint("Abra o robot antes de executar movimentos.");
                                 return;
                             }
-                    		pedirMovimentoManual(new Movimento("RETA", -bd.getDistancia(), 0));
-                    	}
+                            Movimento m = new Movimento("RETA", -bd.getDistancia(), 0);
+                            registarEExecutar(m);
+                            Movimento m2 = new Movimento("PARAR", false);
+                            registarEExecutar(m2);
+                        }
                     });
                     btnTras.setFont(new Font("Tahoma", Font.PLAIN, 16));
                     btnTras.setBounds(242, 154, 105, 37);
                     contentPane.add(btnTras);
-                    
+
                     JLabel lblConsola = new JLabel("Consola");
                     lblConsola.setFont(new Font("Tahoma", Font.PLAIN, 18));
                     lblConsola.setBounds(28, 343, 67, 18);
                     contentPane.add(lblConsola);
-                    
+
                     JLabel lblGravador = new JLabel("Gravador");
                     lblGravador.setBackground(new Color(0, 128, 255));
                     lblGravador.setFont(new Font("Tahoma", Font.PLAIN, 18));
                     lblGravador.setBounds(28, 244, 81, 18);
                     contentPane.add(lblGravador);
-                    
+
                     JLabel lblFicheiro_1 = new JLabel("Ficheiro");
                     lblFicheiro_1.setFont(new Font("Tahoma", Font.PLAIN, 15));
                     lblFicheiro_1.setBackground(new Color(0, 128, 255));
                     lblFicheiro_1.setBounds(38, 272, 57, 19);
                     contentPane.add(lblFicheiro_1);
-                    
+
                     textField = new JTextField();
                     textField.setFont(new Font("Tahoma", Font.PLAIN, 16));
                     textField.setColumns(10);
                     textField.setBounds(112, 271, 386, 19);
                     contentPane.add(textField);
-                    
+
                     JButton btnGravar = new JButton("Gravar");
                     btnGravar.setEnabled(false);
                     btnGravar.setFont(new Font("Tahoma", Font.PLAIN, 12));
                     btnGravar.setForeground(new Color(0, 0, 0));
                     btnGravar.setBounds(203, 300, 84, 20);
                     contentPane.add(btnGravar);
-                    
+
+                    btnGravar.addActionListener(new ActionListener() {
+                        @Override
+                        public void actionPerformed(ActionEvent e) {
+                            String nome = textField.getText().trim();
+                            if (nome.isEmpty()) {
+                                myPrint("[Gravador] Indique um nome de ficheiro.");
+                                return;
+                            }
+
+                            gravador.guardarEmFicheiro(nome);
+                            myPrint("[Gravador] Sequência gravada em: " + nome);
+                        }
+                    });
+
                     JButton btnReproduzir = new JButton("Reproduzir");
                     btnReproduzir.setEnabled(false);
                     btnReproduzir.setForeground(new Color(0, 0, 0));
                     btnReproduzir.setFont(new Font("Tahoma", Font.PLAIN, 12));
                     btnReproduzir.setBounds(338, 300, 94, 20);
                     contentPane.add(btnReproduzir);
-                    
+
+                    btnReproduzir.addActionListener(new ActionListener() {
+                        @Override
+                        public void actionPerformed(ActionEvent e) {
+                            if (!robotNovoAberto || robotNovo == null) {
+                                myPrint("[Gravador] Abra o robot antes de reproduzir.");
+                                return;
+                            }
+
+                            String nome = textField.getText().trim();
+                            if (nome.isEmpty()) {
+                                myPrint("[Gravador] Indique o ficheiro a reproduzir.");
+                                return;
+                            }
+
+                            gravador.lerFicheiro(nome);
+                            myPrint("[Gravador] Ficheiro carregado: " + nome);
+
+                            // 👉 deixa o Gravador executar tudo no robotNovo
+                            gravador.executarTodosNoRobot(robotNovo);
+                            myPrint("[Gravador] Reprodução terminada.");
+                        }
+                    });
+
                     JButton btnBotaoFicheiro = new JButton("...");
                     btnBotaoFicheiro.setEnabled(false);
                     btnBotaoFicheiro.setForeground(new Color(0, 0, 0));
                     btnBotaoFicheiro.setFont(new Font("Tahoma", Font.PLAIN, 12));
+                    btnBotaoFicheiro.addActionListener(new ActionListener() {
+                        @Override
+                        public void actionPerformed(ActionEvent e) {
+                            javax.swing.JFileChooser jfc = new javax.swing.JFileChooser();
+                            int returnValue = jfc.showOpenDialog(null);
+                            if (returnValue == javax.swing.JFileChooser.APPROVE_OPTION) {
+                                java.io.File selectedFile = jfc.getSelectedFile();
+                                textField.setText(selectedFile.getAbsolutePath());
+                            }
+                        }
+                    });
                     btnBotaoFicheiro.setBounds(508, 272, 57, 20);
                     contentPane.add(btnBotaoFicheiro);
-                    
-                    // Botão On/Off
+
+                    // Botão On/Off - cria/abre/fecha o robotNovo
                     rdbtnOnOff = new JRadioButton("Abrir/Fechar");
                     rdbtnOnOff.setFont(new Font("Tahoma", Font.PLAIN, 12));
                     rdbtnOnOff.addActionListener(new ActionListener() {
                         public void actionPerformed(ActionEvent e) {
-                            if (bd.isRobotAberto()) {
-                                bd.getRobot().CloseEV3();
-                                bd.setRobotAberto(false);
+                            if (robotNovoAberto) {
+                                // FECHAR
+                                if (robotNovo != null) {
+                                    robotNovo.CloseEV3();
+                                }
+                                robotNovoAberto = false;
                             } else {
-                                bd.setRobotAberto(bd.getRobot().OpenEV3("EV2"));
-                                tObstaculo.desbloquear();
-                                
+                                // ABRIR
+                                String nomeRobot = textFieldRobot.getText().trim();
+                                if (nomeRobot.isEmpty()) nomeRobot = "EV2";
+
+                                robotNovoAberto = robotNovo.OpenEV3(nomeRobot);
+                                if (!robotNovoAberto) {
+                                    myPrint("Não foi possível abrir o robot \"" + nomeRobot + "\".");
+                                }
                             }
-                            rdbtnOnOff.setSelected(bd.isRobotAberto());
-                            myPrint("O Robot foi " + (bd.isRobotAberto()? "aberto": "fechado" +"."));
-                            btnFrente.setEnabled(bd.isRobotAberto());
-                            btnTras.setEnabled(bd.isRobotAberto());
-                            btnDireita.setEnabled(bd.isRobotAberto());
-                            btnEsquerda.setEnabled(bd.isRobotAberto());
-                            btnParar.setEnabled(bd.isRobotAberto());
-                            btnReproduzir.setEnabled(bd.isRobotAberto());
-                            btnGravar.setEnabled(bd.isRobotAberto());
-                            btnReproduzir.setEnabled(bd.isRobotAberto());
-                            btnBotaoFicheiro.setEnabled(bd.isRobotAberto());
-                            
+
+                            rdbtnOnOff.setSelected(robotNovoAberto);
+                            myPrint("Robot novo foi " + (robotNovoAberto ? "ABERTO" : "FECHADO") + ".");
+
+                            btnFrente.setEnabled(robotNovoAberto);
+                            btnTras.setEnabled(robotNovoAberto);
+                            btnDireita.setEnabled(robotNovoAberto);
+                            btnEsquerda.setEnabled(robotNovoAberto);
+                            btnParar.setEnabled(robotNovoAberto);
+                            btnReproduzir.setEnabled(robotNovoAberto);
+                            btnGravar.setEnabled(true);       // podes gravar mesmo sem robot
+                            btnBotaoFicheiro.setEnabled(true);
                         }
                     });
                     rdbtnOnOff.setBounds(471, 35, 94, 21);
@@ -356,40 +383,15 @@ public class GuiGravador extends JFrame {
         });
     }
 
-    // Allow clients (like ComandosAleatorios) to insert commands via the GUI
-    public void inserirComandoNoBuffer(Movimento c) {
-    	
-    	java.util.concurrent.Semaphore mux = bd.getProdutorMux();
-        if (mux.tryAcquire()) {
-        	try {
-        		bufferCircular.inserirElemento(c);
-        	}finally {
-        		mux.release();
-        	}
-        }
-        else {
-			// Could not acquire semaphore, store command as pending
-			this.movimentoPendente = c;
-        }
+    public BaseDados getBd() {
+        return bd;
     }
-    
-     public BaseDados getBd() {
-         return bd;
-     }
 
-     public void setBd(BaseDados bd) {
-         this.bd = bd;
-     }
+    public void setBd(BaseDados bd) {
+        this.bd = bd;
+    }
 
-     public BufferCircular getBufferCircular() {
-         return bufferCircular;
-     }
-
-     public void setServidor(Servidor servidor) {
-         this.bd.setServidor(servidor);
-     }
-     public void setTarefaObstaculo(EvitarObstaculo tObstaculo) {
- 		this.tObstaculo = tObstaculo;
- 		
- 	 }
- }
+    public void setServidor(Servidor servidor) {
+        this.bd.setServidor(servidor);
+    }
+}

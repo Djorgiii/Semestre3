@@ -1,32 +1,75 @@
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Gravador {
 
-    private final BufferCircular buffer;
-    private final BaseDados bd;
+    private static final double VELOCIDADE_CM_POR_MS = 0.02; // 20 cm/s
+    private static final int TEMPO_COMUNICACAO_MS = 100;
 
-    // Construtor: recebe o buffer que já tens e a BaseDados (para o semáforo produtorMux)
-    public Gravador(BufferCircular buffer, BaseDados bd) {
-        this.buffer = buffer;
-        this.bd = bd;
+    private List<Movimento> movimentos;   // lista que guarda os comandos
+
+    public Gravador() {
+        movimentos = new ArrayList<>();
     }
 
-    /**
-     * Lê um ficheiro de texto com comandos e coloca-os no BufferCircular.
-     * Cada linha do ficheiro deve ter um comando, por exemplo:
-     *
-     *  RETA 30
-     *  CURVADIREITA 20 90
-     *  CURVARESQUERDA 20 90
-     *  PARAR
-     *
-     * Também aceito ; como separador:
-     *  RETA;30
-     *  CURVADIREITA;20;90
-     */
+    // GUI chama isto sempre que carregas num botão (FRENTE, TRÁS, etc.)
+    public void registar(Movimento m) {
+        if (m != null) {
+            movimentos.add(m);
+        }
+    }
+
+    // Grava a lista num ficheiro de texto
+    public void guardarEmFicheiro(String nomeFicheiro) {
+        try (FileOutputStream out = new FileOutputStream(nomeFicheiro)) {
+
+            for (Movimento m : movimentos) {
+                if (m == null) continue;
+
+                String linha;
+
+                switch (m.getTipo().toUpperCase()) {
+                    case "RETA":
+                        linha = "RETA " + m.getArg1();
+                        break;
+
+                    case "CURVARDIREITA":
+                        linha = "CURVADIREITA " + m.getArg1() + " " + m.getArg2();
+                        break;
+
+                    case "CURVARESQUERDA":
+                        linha = "CURVARESQUERDA " + m.getArg1() + " " + m.getArg2();
+                        break;
+
+                    case "PARAR":
+                        linha = "PARAR";
+                        break;
+
+                    default:
+                        linha = "# desconhecido";
+                }
+
+                linha += "\n";
+                out.write(linha.getBytes());
+            }
+
+            System.out.println("[Gravador] Gravado em " + nomeFicheiro);
+
+        } catch (IOException e) {
+            System.out.println("[Gravador] Erro ao gravar o ficheiro " + nomeFicheiro);
+        }
+    }
+
+    // Lê um ficheiro e recria a lista de movimentos
     public void lerFicheiro(String nomeFicheiro) {
+
+        movimentos.clear();
+
         File f = new File(nomeFicheiro);
         Scanner sc;
 
@@ -37,58 +80,121 @@ public class Gravador {
             return;
         }
 
-        // Para não chocar com aleatórios / manuais, uso o mesmo produtorMux
-        java.util.concurrent.Semaphore mux = bd.getProdutorMux();
-        mux.acquireUninterruptibly();
-        try {
-            while (sc.hasNextLine()) {
-                String linha = sc.nextLine().trim();
-                if (linha.isEmpty() || linha.startsWith("#")) {
-                    continue; // linhas vazias ou comentários
-                }
+        while (sc.hasNextLine()) {
+            String linha = sc.nextLine().trim();
+            if (linha.isEmpty() || linha.startsWith("#")) continue;
 
-                // separa por espaços OU por ';'
-                String[] partes = linha.split("\\s+|;");
-                if (partes.length == 0) continue;
+            String[] p = linha.split("\\s+|;");
+            String cmd = p[0].toUpperCase();
 
-                String cmd = partes[0].toUpperCase();
-                Movimento m = null;
+            Movimento m = null;
 
-                try {
-                    if ("RETA".equals(cmd) && partes.length >= 2) {
-                        int dist = Integer.parseInt(partes[1]);
-                        m = new Movimento("RETA", dist, 0);
+            try {
+                switch (cmd) {
+                    case "RETA":
+                        m = new Movimento("RETA", Integer.parseInt(p[1]), 0);
+                        break;
 
-                    } else if ("CURVADIREITA".equals(cmd) && partes.length >= 3) {
-                        int raio = Integer.parseInt(partes[1]);
-                        int angulo = Integer.parseInt(partes[2]);
-                        m = new Movimento("CURVARDIREITA", raio, angulo);
+                    case "CURVADIREITA":
+                        m = new Movimento("CURVARDIREITA",
+                                Integer.parseInt(p[1]),
+                                Integer.parseInt(p[2]));
+                        break;
 
-                    } else if ("CURVARESQUERDA".equals(cmd) && partes.length >= 3) {
-                        int raio = Integer.parseInt(partes[1]);
-                        int angulo = Integer.parseInt(partes[2]);
-                        m = new Movimento("CURVARESQUERDA", raio, angulo);
+                    case "CURVARESQUERDA":
+                        m = new Movimento("CURVARESQUERDA",
+                                Integer.parseInt(p[1]),
+                                Integer.parseInt(p[2]));
+                        break;
 
-                    } else if ("PARAR".equals(cmd)) {
-                        // false = stop “normal” (como no botão Parar)
+                    case "PARAR":
                         m = new Movimento("PARAR", false);
-                    } else {
-                        System.out.println("[Gravador] Linha ignorada: " + linha);
-                    }
-                } catch (NumberFormatException e) {
-                    System.out.println("[Gravador] Erro a converter números na linha: " + linha);
-                    m = null;
+                        break;
                 }
-
-                if (m != null) {
-                    // Comandos de ficheiro não são “manuais”
-                    m.setManual(false);
-                    buffer.inserirElemento(m);
-                }
+            } catch (Exception e) {
+                System.out.println("[Gravador] Linha inválida: " + linha);
             }
-        } finally {
-            sc.close();
-            mux.release();
+
+            if (m != null)
+                movimentos.add(m);
         }
+        sc.close();
+
+        System.out.println("[Gravador] Ficheiro carregado. Nº movimentos = " + movimentos.size());
+    }
+
+    public List<Movimento> getMovimentos() {
+        return movimentos;
+    }
+
+    // -------------------------------------------------------
+    //  EXECUÇÃO NO ROBOT (robot vem de fora, criado na GUI)
+    // -------------------------------------------------------
+
+    public void executarMovimentoNoRobot(Movimento m, RobotLegoEV3 robot) {
+        if (robot == null || m == null) {
+            return;
+        }
+
+        String tipo = m.getTipo().toUpperCase();
+        int a1 = m.getArg1();
+        int a2 = m.getArg2();
+
+        System.out.println("[Gravador] Exec: " + tipo + " (" + a1 + ", " + a2 + ")");
+
+        int tempoExecucao = 0;
+
+        switch (tipo) {
+            case "RETA":
+                tempoExecucao = (int)(Math.abs(a1) / VELOCIDADE_CM_POR_MS) + TEMPO_COMUNICACAO_MS;
+                robot.Reta(a1);
+                break;
+
+            case "CURVARDIREITA":
+                double angDirRad = a2 * Math.PI / 180.0;
+                tempoExecucao = (int)((a1 * angDirRad) / VELOCIDADE_CM_POR_MS) + TEMPO_COMUNICACAO_MS;
+                robot.CurvarDireita(a1, a2);
+                break;
+
+            case "CURVARESQUERDA":
+                double angEsqRad = a2 * Math.PI / 180.0;
+                tempoExecucao = (int)((a1 * angEsqRad) / VELOCIDADE_CM_POR_MS) + TEMPO_COMUNICACAO_MS;
+                robot.CurvarEsquerda(a1, a2);
+                break;
+
+            case "PARAR":
+                robot.Parar(false);
+                return; // não faz pausa extra
+            default:
+                System.out.println("[Gravador] Tipo desconhecido: " + tipo);
+                return;
+        }
+
+        // Esperar o tempo real de execução
+        try {
+            Thread.sleep(tempoExecucao);
+        } catch (InterruptedException e) {
+            // ignorar
+        }
+
+        // Parar no final de cada movimento "ativo"
+        robot.Parar(false);
+
+        try {
+            Thread.sleep(TEMPO_COMUNICACAO_MS);
+        } catch (InterruptedException e) {
+            // ignorar
+        }
+    }
+
+    // Executa TODOS os movimentos gravados no robot
+    public void executarTodosNoRobot(RobotLegoEV3 robot) {
+        if (robot == null) return;
+
+        System.out.println("[Gravador] A executar " + movimentos.size() + " movimentos no robot...");
+        for (Movimento m : movimentos) {
+            executarMovimentoNoRobot(m, robot);
+        }
+        System.out.println("[Gravador] Reprodução terminada.");
     }
 }
