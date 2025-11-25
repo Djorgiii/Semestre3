@@ -6,28 +6,25 @@ import processing.core.PVector;
 
 public class ParticleSystem {
 
-    private ArrayList<Particle> particleList; // Antes: particles
+    private ArrayList<Particle> particleList;
 
     public ParticleSystem() {
         this.particleList = new ArrayList<Particle>();
     }
 
-    // --- MÉTODO DE EXPLOSÃO (Para os Boids) ---
     public void explode(PApplet app, PVector originPosition) {
-        for (int i = 0; i < 50; i++) { // Cria 50 partículas de uma vez
+        for (int i = 0; i < 50; i++) {
             PVector velocity = PVector.random2D();
-            velocity.mult(app.random(50, 400)); // Velocidade muito alta
+            velocity.mult(app.random(50, 400));
             
-            int particleColor = app.color(255, app.random(0, 100), 0); // Laranja/Vermelho
+            int particleColor = app.color(255, app.random(0, 100), 0);
             float radius = app.random(2, 5);
             float lifespan = 255f; 
             
-            // Adiciona à lista (Particle já usa nomes novos)
             particleList.add(new Particle(app, originPosition.copy(), velocity, 1f, radius, particleColor, lifespan));
         }
     }
 
-    // --- MÉTODOS ANTIGOS (Compatibilidade com Sistema Solar) ---
     
     public void addSunParticle(PApplet app, PVector originPosition) {
         PVector velocity = PVector.random2D();
@@ -51,9 +48,8 @@ public class ParticleSystem {
         particleList.add(new Particle(app, originPosition.copy(), velocity, 1f, radius, planetColor, 255f));
     }
 
-    // --- MÉTODOS PADRÃO ---
 
-    public void update(float secondsElapsed) { // Antes: dt
+    public void update(float secondsElapsed) {
         for (int i = particleList.size() - 1; i >= 0; i--) {
             Particle particle = particleList.get(i);
             

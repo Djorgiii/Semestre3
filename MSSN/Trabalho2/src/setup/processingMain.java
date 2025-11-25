@@ -35,7 +35,7 @@ public class processingMain extends PApplet {
 	public void draw() {
 		
 		int now = millis();
-		float dt = (now - lastUpdateTime) / 1000.0f; // Convert to seconds e transforma em float
+		float dt = (now - lastUpdateTime) / 1000.0f;
 		lastUpdateTime = now;
 		
 		app.draw(this, dt);
