@@ -8,15 +8,15 @@ class ParticleVisualization extends AudioVisualization {
 
     this.properties = {
       ...this.properties,
-      amount: 120,              
-      lineDistance: 100,        
-      maxSpeedBase: 2,          
-      audioSpeedBoost: 3,       
+      amount: 120,
+      lineDistance: 100,
+      maxSpeedBase: 2,
+      audioSpeedBoost: 3,
       sizeMin: 1.5,
       sizeMax: 3.5,
-      fadeTrail: 0.06,          
+      fadeTrail: 0.06,
       color: "#4aa3ff",
-      activeThreshold: 0.02,    
+      activeThreshold: 0.02,
       idleShowConnections: false,
     };
 
@@ -26,7 +26,7 @@ class ParticleVisualization extends AudioVisualization {
   draw() {
     this.update();
 
-    const canvasWidth  = this.canvas.clientWidth;
+    const canvasWidth = this.canvas.clientWidth;
     const canvasHeight = this.canvas.clientHeight;
 
     const isIdle = (this.audioLevel || 0) < this.properties.activeThreshold;
@@ -52,7 +52,6 @@ class ParticleVisualization extends AudioVisualization {
     }
   }
 
-
   update() {
     super.update();
 
@@ -75,11 +74,13 @@ class ParticleVisualization extends AudioVisualization {
   }
 
   getProperties() {
-    return { ...super.getProperties(), ...this.properties };
+    const mergedProperties = { ...super.getProperties(), ...this.properties };
+    delete mergedProperties.smoothing;
+    return mergedProperties;
   }
 
   initParticles() {
-    const canvasWidth  = this.canvas.clientWidth;
+    const canvasWidth = this.canvas.clientWidth;
     const canvasHeight = this.canvas.clientHeight;
 
     const amountRaw = parseInt(this.properties.amount || 120, 10) || 120;
@@ -113,13 +114,15 @@ class ParticleVisualization extends AudioVisualization {
     if (!Number.isFinite(targetCount) || targetCount < 1) targetCount = 1;
     if (targetCount > 200) targetCount = 200;
 
-    const canvasWidth  = this.canvas.clientWidth;
+    const canvasWidth = this.canvas.clientWidth;
     const canvasHeight = this.canvas.clientHeight;
 
     if (this.particles.length < targetCount) {
       const particlesToAdd = targetCount - this.particles.length;
       for (let i = 0; i < particlesToAdd; i++) {
-        this.particles.push(this.createRandomParticle(canvasWidth, canvasHeight));
+        this.particles.push(
+          this.createRandomParticle(canvasWidth, canvasHeight)
+        );
       }
     } else {
       this.particles.length = targetCount;
@@ -130,7 +133,7 @@ class ParticleVisualization extends AudioVisualization {
     const { freq: frequencyData, level } = this.normalizeData();
     const audioLevel = level || 0;
 
-    const canvasWidth  = this.canvas.clientWidth;
+    const canvasWidth = this.canvas.clientWidth;
     const canvasHeight = this.canvas.clientHeight;
 
     const maxSpeed =
@@ -141,7 +144,9 @@ class ParticleVisualization extends AudioVisualization {
       const particle = this.particles[i];
 
       if (frequencyData?.length) {
-        const bandIndex = Math.floor((i / this.particles.length) * frequencyData.length);
+        const bandIndex = Math.floor(
+          (i / this.particles.length) * frequencyData.length
+        );
         const bandValue = frequencyData[bandIndex] || 0;
         const intensity = bandValue / 255;
 
@@ -159,10 +164,10 @@ class ParticleVisualization extends AudioVisualization {
       particle.x += particle.vx;
       particle.y += particle.vy;
 
-      if (particle.x < 0)          particle.x = canvasWidth;
+      if (particle.x < 0) particle.x = canvasWidth;
       else if (particle.x > canvasWidth) particle.x = 0;
 
-      if (particle.y < 0)          particle.y = canvasHeight;
+      if (particle.y < 0) particle.y = canvasHeight;
       else if (particle.y > canvasHeight) particle.y = 0;
     }
   }
@@ -196,7 +201,10 @@ class ParticleVisualization extends AudioVisualization {
 
     for (let i = 0; i < totalParticles; i++) {
       const a = this.particles[i];
-      const endIndex = Math.min(totalParticles, i + 1 + maxNeighborsPerParticle);
+      const endIndex = Math.min(
+        totalParticles,
+        i + 1 + maxNeighborsPerParticle
+      );
 
       for (let j = i + 1; j < endIndex; j++) {
         const b = this.particles[j];
