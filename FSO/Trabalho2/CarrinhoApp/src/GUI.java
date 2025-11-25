@@ -113,6 +113,8 @@ public class GUI extends JFrame {
                                 return;
                             }
                             pedirMovimentoManual(new Movimento("RETA", bd.getDistancia(), 0));
+                    		pedirMovimentoManual(new Movimento("PARAR", false));
+
                         }
                     });
                     
@@ -231,6 +233,7 @@ public class GUI extends JFrame {
                                 return;
                             }
                     		pedirMovimentoManual(new Movimento("CURVARDIREITA", bd.getRaio(), bd.getAngulo()));
+                    		pedirMovimentoManual(new Movimento("PARAR", false));
                     	}
                     });
                     btnDireita.setFont(new Font("Tahoma", Font.PLAIN, 16));
@@ -247,6 +250,8 @@ public class GUI extends JFrame {
                                 return;
                             }
                     		pedirMovimentoManual(new Movimento("CURVARESQUERDA", bd.getRaio(), bd.getAngulo()));
+                    		pedirMovimentoManual(new Movimento("PARAR", false));
+
                     	}
                     });
                     btnEsquerda.setFont(new Font("Tahoma", Font.PLAIN, 16));
@@ -263,6 +268,8 @@ public class GUI extends JFrame {
                                 return;
                             }
                     		pedirMovimentoManual(new Movimento("RETA", -bd.getDistancia(), 0));
+                    		pedirMovimentoManual(new Movimento("PARAR", false));
+
                     	}
                     });
                     btnTras.setFont(new Font("Tahoma", Font.PLAIN, 16));

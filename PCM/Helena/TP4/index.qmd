@@ -1,0 +1,52 @@
+---
+title: "Teste Visual Mode"
+format: html
+---
+
+# Título de Exemplo
+
+Este é um ficheiro de teste **compatível com Visual Editing**.
+
+-   Não tem blocos de JavaScript
+-   Não tem `<script>`
+-   Não tem Observable
+-   Não tem divs personalizadas
+-   Apenas texto + markdown básico
+
+## Secção 1
+
+Aqui consegues editar tudo no *Visual Mode* — headings, negrito, listas, etc.
+
+## Secção 2
+
+Se quiseres inserir imagens, tabelas, etc., também funciona.
+
+### Pequeno Exemplo de Código
+
+-   <div>
+
+    -   <div>
+
+        -   <div>
+
+            -   <div>
+
+                -   <div>
+
+                    -   <div>
+
+                        ```{=html}
+                        ```python x = 10 y = 20 x + y
+                        ```
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
