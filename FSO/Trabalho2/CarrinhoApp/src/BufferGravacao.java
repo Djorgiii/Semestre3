@@ -1,114 +1,87 @@
 import java.util.concurrent.Semaphore;
 
 public class BufferGravacao {
-	final int dimensaoBuffer= 16;
-	Movimento[] bufferCircular;
-	int putBuffer, getBuffer;
-	// o semáforo elementosLivres indica se há posições livres para inserir Strings
-	// o semáforo acessoElemento garante exclusão mútua no acesso a um elemento
-	// o semáforo elementosOcupados indica se há posições com Strings válidas
-	Semaphore elementosLivres, acessoElemento, elementosOcupados;
-	private int lastRemovedIndex = -1;
 
-	public BufferGravacao(){
-		 bufferCircular= new Movimento[dimensaoBuffer];
-		 putBuffer= 0;
-		 getBuffer= 0;
-		 elementosLivres= new Semaphore(dimensaoBuffer);
-		 elementosOcupados= new Semaphore(0);
-		 acessoElemento= new Semaphore(1);
-	}
-	/*
-	public synchronized void debugPrint() {
-	    System.out.print("[BUFFER] put=" + putBuffer + 
-	                     " get=" + getBuffer +
-	                     " | ");
+    private final int dimensaoBuffer;
+    private Movimento[] buffer;
+    private int putBuffer, getBuffer, count;
 
-	    for (int i = 0; i < dimensaoBuffer; i++) {
-	        if (bufferCircular[i] == null) System.out.print("[ - ] ");
-	        else System.out.print("[" + bufferCircular[i].getTipo() + "] ");
-	    }
-	    System.out.println();
-	}
-	*/
-	
-	
-	public void clear() {
-	    // trava o acesso aos índices e ao array
-	    acessoElemento.acquireUninterruptibly();
-	    try {
-	        // 1) Zera "ocupados" (não há items no buffer)
-	        elementosOcupados.drainPermits();
+    private Semaphore elementosLivres;
+    private Semaphore elementosOcupados;
+    private Semaphore acessoElemento;
 
-	        // 2) Limpa as posições para evitar referências antigas (opcional mas recomendado)
-	        for (int i = 0; i < dimensaoBuffer; i++) {
-	            bufferCircular[i] = null;
-	        }
+    public BufferGravacao(int tamanho) {
+        this.dimensaoBuffer = tamanho;
+        buffer = new Movimento[dimensaoBuffer];
+        putBuffer = 0;
+        getBuffer = 0;
+        count = 0;
+        elementosLivres = new Semaphore(dimensaoBuffer, true);
+        elementosOcupados = new Semaphore(0, true);
+        acessoElemento = new Semaphore(1, true);
+    }
 
-	        // 3) Alinha índices: buffer vazio => put == get
-	        putBuffer = 0;
-	        getBuffer = 0;
-	        lastRemovedIndex = -1;
+    public BufferGravacao() {
+        this(64); // tamanho default
+    }
 
-	        // 4) Garante "livres" == capacidade total
-	        int livres = elementosLivres.availablePermits();
-	        int faltaLibertar = dimensaoBuffer - livres;
-	        if (faltaLibertar > 0) {
-	            elementosLivres.release(faltaLibertar);
-	        }
-	        // (se por alguma razão livres > capacidade, não fazemos nada —
-	        // mas isso indicaria uso incorreto do semáforo noutro lado)
-	    } finally {
-	        acessoElemento.release();
-	    }
-	}
+    public void clear() {
+        acessoElemento.acquireUninterruptibly();
+        try {
+            elementosOcupados.drainPermits();
+            for (int i = 0; i < dimensaoBuffer; i++) buffer[i] = null;
+            putBuffer = 0;
+            getBuffer = 0;
+            count = 0;
 
-	
-	public void inserirElemento(Movimento s){
-		try {
-		 elementosLivres.acquire();
-		 acessoElemento.acquire();
-		 Movimento c = new Movimento(s.getTipo(), s.getArg1(), s.getArg2());
-		 if (s.isManual()) c.setManual(true);
-		 //System.out.println("Inserido no buffer[" + putBuffer + "]: " + s);
-		 // Estado do buffer após inserção
-		 //System.out.print("Estado do buffer após inserção: ");
-		 //for (int i = 0; i < dimensaoBuffer; i++) {
-		//	 System.out.print(bufferCircular[i] + " | ");
-		 //}
-		 //System.out.println();
-		 bufferCircular[putBuffer]= c;
-		 putBuffer= ++putBuffer % dimensaoBuffer;
-		 acessoElemento.release();
-		} catch (InterruptedException e) {}
-		 elementosOcupados.release();
-		 //debugPrint(); 
-		}
-	
-		public Movimento removerElemento() {
-			Movimento s= null;
-			try {
-				elementosOcupados.acquire();
-				acessoElemento.acquire();
-			} catch (InterruptedException e) {}
-			lastRemovedIndex = getBuffer;
-			s =  bufferCircular[getBuffer];
-			bufferCircular[getBuffer] = null;
-			//System.out.println("Removido do buffer[" + getBuffer + "]: " + s);
-			// Estado do buffer após remoção
-			//System.out.print("Estado do buffer após remoção: ");
-			//for (int i = 0; i < dimensaoBuffer; i++) {
-			//}
-			//System.out.println();
-			getBuffer= ++getBuffer % dimensaoBuffer;
-			acessoElemento.release();
-			elementosLivres.release();
-			//debugPrint(); 
-			return s;
-		}
+            elementosLivres.drainPermits();
+            elementosLivres.release(dimensaoBuffer);
+        } finally {
+            acessoElemento.release();
+        }
+    }
 
-		public int getLastRemovedIndex() {
-			return lastRemovedIndex;
-		}
+    public void inserirElemento(Movimento m) {
+        elementosLivres.acquireUninterruptibly();
+        acessoElemento.acquireUninterruptibly();
+        try {
+            Movimento copia = new Movimento(m.getTipo(), m.getArg1(), m.getArg2());
+            if (m.isManual()) copia.setManual(true);
 
+            buffer[putBuffer] = copia;
+            putBuffer = (putBuffer + 1) % dimensaoBuffer;
+            count++;
+        } finally {
+            acessoElemento.release();
+            elementosOcupados.release();
+        }
+    }
+
+    public Movimento removerElemento() {
+        elementosOcupados.acquireUninterruptibly();
+        acessoElemento.acquireUninterruptibly();
+        try {
+            Movimento m = buffer[getBuffer];
+            buffer[getBuffer] = null;
+            getBuffer = (getBuffer + 1) % dimensaoBuffer;
+            count--;
+            return m;
+        } finally {
+            acessoElemento.release();
+            elementosLivres.release();
+        }
+    }
+
+    public boolean isVazio() {
+        return getCount() == 0;
+    }
+
+    public int getCount() {
+        acessoElemento.acquireUninterruptibly();
+        try {
+            return count;
+        } finally {
+            acessoElemento.release();
+        }
+    }
 }
