@@ -1,52 +1,77 @@
 ---
-title: "Teste Visual Mode"
-format: html
+title: "Mapa dos Distritos — Leaflet"
+format:
+  html:
+    theme: cosmo
+    page-layout: full
+execute:
+  enabled: false
+resources:
+  - ContinenteDistritos.geojson
 ---
 
-# Título de Exemplo
+## Mapa dos Distritos de Portugal Continental
 
-Este é um ficheiro de teste **compatível com Visual Editing**.
+<div id="map-distritos" style="height: 550px; border:1px solid #ccc;"></div>
 
--   Não tem blocos de JavaScript
--   Não tem `<script>`
--   Não tem Observable
--   Não tem divs personalizadas
--   Apenas texto + markdown básico
+```{=html}
+<!-- CSS + JS “clássico” do Leaflet (sem módulos) -->
+<link
+  rel="stylesheet"
+  href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+/>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
-## Secção 1
+<script>
+// 1. Criar o mapa base
+const map = L.map("map-distritos").setView([39.5, -8.0], 7);
 
-Aqui consegues editar tudo no *Visual Mode* — headings, negrito, listas, etc.
+// 2. Camada de tiles OpenStreetMap
+L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+  maxZoom: 19,
+  attribution: "&copy; OpenStreetMap contributors"
+}).addTo(map);
 
-## Secção 2
+// 3. Função de estilo para os distritos
+function distritoStyle(feature) {
+  return {
+    color: "#ffffff",
+    weight: 1.5,
+    fillColor: "#3b82f6",
+    fillOpacity: 0.4
+  };
+}
 
-Se quiseres inserir imagens, tabelas, etc., também funciona.
+// 4. Popups com o nome do distrito
+function onEachDistrito(feature, layer) {
+  const nome =
+    feature.properties.DISTRITO ||
+    feature.properties.Distrito ||
+    feature.properties.nome ||
+    "Distrito";
 
-### Pequeno Exemplo de Código
+  layer.bindPopup("<strong>" + nome + "</strong>");
+}
 
--   <div>
+// 5. Carregar o GeoJSON dos distritos
+fetch("ContinenteDistritos.geojson")
+  .then(resp => {
+    if (!resp.ok) {
+      throw new Error("Não consegui carregar o GeoJSON.");
+    }
+    return resp.json();
+  })
+  .then(geojson => {
+    const layerDistritos = L.geoJSON(geojson, {
+      style: distritoStyle,
+      onEachFeature: onEachDistrito
+    }).addTo(map);
 
-    -   <div>
-
-        -   <div>
-
-            -   <div>
-
-                -   <div>
-
-                    -   <div>
-
-                        ```{=html}
-                        ```python x = 10 y = 20 x + y
-                        ```
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-        </div>
-
-    </div>
+    const bounds = layerDistritos.getBounds();
+    if (bounds.isValid()) map.fitBounds(bounds.pad(0.05));
+  })
+  .catch(err => {
+    console.error(err);
+    alert("Erro a carregar 'ContinenteDistritos.geojson'.");
+  });
+</script>
