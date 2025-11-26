@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>index</title>
+<title>Mapa dos Distritos — Leaflet</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -34,36 +34,97 @@ ul.task-list li input[type="checkbox"] {
 <link href="index_files/libs/quarto-html/quarto-syntax-highlighting-587c61ba64f3a5504c4d52d930310e48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="index_files/libs/bootstrap/bootstrap.min.js"></script>
 <link href="index_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="index_files/libs/bootstrap/bootstrap-9e3ffae467580fdb927a41352e75a2e0.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="index_files/libs/bootstrap/bootstrap-4d7f0bce1131f3e5f9547cd857cfbfc8.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 
 
 </head>
 
-<body class="fullcontent quarto-light">
+<body class="quarto-light">
 
-<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-full">
 
-<main class="content" id="quarto-document-content">
+<main class="content column-page" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Mapa dos Distritos — Leaflet</h1>
+</div>
 
 
 
+<div class="quarto-title-meta column-page">
 
-<pre><code>---
-title: "Legislativas 2025 — Dashboard (sem Leaflet)"
-format:
-  html:
-    theme: cosmo
-    page-layout: full
-engine: observablejs
-execute:
-  echo: false
----</code></pre>
-<section id="dados-das-eleições-tabela" class="level2">
-<h2 class="anchored" data-anchor-id="dados-das-eleições-tabela">Dados das eleições (tabela)</h2>
-<p>```{ojs} // Carregar o ficheiro JSON limpo. // Ajusta o caminho/nome se for diferente: dados = (await FileAttachment(“eleicoes/2025_ar_mapa_resultados_clean.json”)).json()</p>
-<p>// distritos = todas as chaves excepto “Total” distritos = Object.keys(dados.Inscritos).filter(d =&gt; d !== “Total”)</p>
-<p>// Só para confirmar que carregou: console.log(“Distritos:”, distritos); console.log(“Exemplo PS Aveiro:”, dados.PS[“Aveiro”]);</p>
-<p>// Construir uma tabela simples com algumas colunas tabela = distritos.map(d =&gt; ({ Distrito: d, Inscritos: dados.Inscritos[d], Votantes: dados.Votantes[d], PS: dados.PS[d], CH: dados.CH ? dados.CH[d] : null, IL: dados.IL ? dados.IL[d] : null }));</p>
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="mapa-dos-distritos-de-portugal-continental" class="level2">
+<h2 class="anchored" data-anchor-id="mapa-dos-distritos-de-portugal-continental">Mapa dos Distritos de Portugal Continental</h2>
+<div id="map-distritos" style="height: 550px; border:1px solid #ccc;">
+
+</div>
+<!-- CSS + JS “clássico” do Leaflet (sem módulos) -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+// 1. Criar o mapa base
+const map = L.map("map-distritos").setView([39.5, -8.0], 7);
+
+// 2. Camada de tiles OpenStreetMap
+L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+  maxZoom: 19,
+  attribution: "&copy; OpenStreetMap contributors"
+}).addTo(map);
+
+// 3. Função de estilo para os distritos
+function distritoStyle(feature) {
+  return {
+    color: "#ffffff",
+    weight: 1.5,
+    fillColor: "#3b82f6",
+    fillOpacity: 0.4
+  };
+}
+
+// 4. Popups com o nome do distrito
+function onEachDistrito(feature, layer) {
+  const nome =
+    feature.properties.DISTRITO ||
+    feature.properties.Distrito ||
+    feature.properties.nome ||
+    "Distrito";
+
+  layer.bindPopup("<strong>" + nome + "</strong>");
+}
+
+// 5. Carregar o GeoJSON dos distritos
+fetch("ContinenteDistritos.geojson")
+  .then(resp => {
+    if (!resp.ok) {
+      throw new Error("Não consegui carregar o GeoJSON.");
+    }
+    return resp.json();
+  })
+  .then(geojson => {
+    const layerDistritos = L.geoJSON(geojson, {
+      style: distritoStyle,
+      onEachFeature: onEachDistrito
+    }).addTo(map);
+
+    const bounds = layerDistritos.getBounds();
+    if (bounds.isValid()) map.fitBounds(bounds.pad(0.05));
+  })
+  .catch(err => {
+    console.error(err);
+    alert("Erro a carregar 'ContinenteDistritos.geojson'.");
+  });
+</script>
 </section>
 
 </main>
