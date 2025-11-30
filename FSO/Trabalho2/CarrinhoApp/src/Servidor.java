@@ -7,7 +7,7 @@ public class Servidor extends Tarefa{
 	private Consumer<String> printCallback;
 	private int contadorAleatorios = 0;
     private static final int TOTAL_ALEATORIOS = 5;
-    private static final double VELOCIDADE_CM_POR_MS = 0.02; // 20 cm/s = 0.02 cm/ms
+    private static final double VELOCIDADE_CM_POR_MS = 0.02;
     private static final int TEMPO_COMUNICACAO_MS = 100;
 	
 	
