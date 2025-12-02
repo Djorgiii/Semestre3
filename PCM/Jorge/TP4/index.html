@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Mapa dos Distritos — Leaflet</title>
+<title>Dashboard Eleições Legislativas 2025</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -41,18 +41,26 @@ ul.task-list li input[type="checkbox"] {
 
 <body class="quarto-light">
 
-<div id="quarto-content" class="page-columns page-rows-contents page-layout-full">
-
-<main class="content column-page" id="quarto-document-content">
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+  <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#dashboard-eleições-legislativas-2025" id="toc-dashboard-eleições-legislativas-2025" class="nav-link active" data-scroll-target="#dashboard-eleições-legislativas-2025">Dashboard Eleições Legislativas 2025</a></li>
+  </ul>
+</nav>
+</div>
+<main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Mapa dos Distritos — Leaflet</h1>
+<h1 class="title">Dashboard Eleições Legislativas 2025</h1>
 </div>
 
 
 
-<div class="quarto-title-meta column-page">
+<div class="quarto-title-meta">
 
     
   
@@ -64,67 +72,17 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="mapa-dos-distritos-de-portugal-continental" class="level2">
-<h2 class="anchored" data-anchor-id="mapa-dos-distritos-de-portugal-continental">Mapa dos Distritos de Portugal Continental</h2>
-<div id="map-distritos" style="height: 550px; border:1px solid #ccc;">
-
-</div>
-<!-- CSS + JS “clássico” do Leaflet (sem módulos) -->
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-<script>
-// 1. Criar o mapa base
-const map = L.map("map-distritos").setView([39.5, -8.0], 7);
-
-// 2. Camada de tiles OpenStreetMap
-L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-  maxZoom: 19,
-  attribution: "&copy; OpenStreetMap contributors"
-}).addTo(map);
-
-// 3. Função de estilo para os distritos
-function distritoStyle(feature) {
-  return {
-    color: "#ffffff",
-    weight: 1.5,
-    fillColor: "#3b82f6",
-    fillOpacity: 0.4
-  };
-}
-
-// 4. Popups com o nome do distrito
-function onEachDistrito(feature, layer) {
-  const nome =
-    feature.properties.DISTRITO ||
-    feature.properties.Distrito ||
-    feature.properties.nome ||
-    "Distrito";
-
-  layer.bindPopup("<strong>" + nome + "</strong>");
-}
-
-// 5. Carregar o GeoJSON dos distritos
-fetch("ContinenteDistritos.geojson")
-  .then(resp => {
-    if (!resp.ok) {
-      throw new Error("Não consegui carregar o GeoJSON.");
-    }
-    return resp.json();
-  })
-  .then(geojson => {
-    const layerDistritos = L.geoJSON(geojson, {
-      style: distritoStyle,
-      onEachFeature: onEachDistrito
-    }).addTo(map);
-
-    const bounds = layerDistritos.getBounds();
-    if (bounds.isValid()) map.fitBounds(bounds.pad(0.05));
-  })
-  .catch(err => {
-    console.error(err);
-    alert("Erro a carregar 'ContinenteDistritos.geojson'.");
-  });
-</script>
+<section id="dashboard-eleições-legislativas-2025" class="level1">
+<h1>Dashboard Eleições Legislativas 2025</h1>
+<p>import * as d3 from “npm:d3”;</p>
+<p>// Carregar ficheiros const resultados = await FileAttachment(“resultados.json”).json(); const distritosGeo = await FileAttachment(“distritos.geojson”).json();</p>
+<p>// Lista de distritos (chaves dentro de “Inscritos”, exceto “Total”) const distritos = Object.keys(resultados[“Inscritos”]).filter(d =&gt; d !== “Total”);</p>
+<p>// Quais são as “séries” de partidos? = todas as chaves menos as bases const baseKeys = new Set([“Inscritos”, “Votantes”, “Brancos”, “Nulos”, “VVE”]); const partidos = Object.keys(resultados).filter(k =&gt; !baseKeys.has(k));</p>
+<p>// Mapa de cores por partido (ajusta como quiseres) const partyColors = new Map([ [“AD”, “#ff7f00”], [“PPD/PSD.CDS-PP”, “#ff7f00”], [“PPD/PSD.CDS-PP.PPM”, “#ff7f00”], [“PS”, “#e41a1c”], [“CH”, “#252525”], [“IL”, “#377eb8”], [“B.E.”, “#984ea3”], [“L”, “#4daf4a”], [“PCP-PEV”, “#1a9850”], [“PAN”, “#00a6a6”], [“R.I.R.”, “#f781bf”], [“VP”, “#a6cee3”]]);</p>
+<p>function getPartyColor(p) { return partyColors.get(p) ?? “#bbbbbb”; }</p>
+<p>// Função: devolver, para cada distrito, o partido mais votado function winnerByDistrict() { const winners = {}; for (const dist of distritos) { let bestParty = null; let bestVotes = -1; for (const p of partidos) { const votos = resultados[p]?.[dist] ?? 0; if (votos &gt; bestVotes) { bestVotes = votos; bestParty = p; } } winners[dist] = { partido: bestParty, votos: bestVotes }; } return winners; }</p>
+<p>const winners = winnerByDistrict();</p>
+<p>// Só para veres o resultado numa tabela simples viewof tabelaVencedores = Inputs.table( distritos.map(d =&gt; ({ distrito: d, partido: winners[d].partido, votos: winners[d].votos })) );</p>
 </section>
 
 </main>

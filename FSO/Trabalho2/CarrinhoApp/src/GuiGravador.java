@@ -34,6 +34,7 @@ public class GuiGravador extends JFrame {
 
     private RobotLegoEV3 robotNovo;      // robot novo, só desta GUI
     private boolean robotNovoAberto = false;
+    private String nomeRobot = "";
 
     public void myPrint(String s) {
         textAreaConsola.append(s + "\n");
@@ -103,6 +104,7 @@ public class GuiGravador extends JFrame {
                     contentPane.add(lblDistancia);
 
                     textFieldDistancia = new JTextField();
+                    textFieldDistancia.setEditable(false);
                     textFieldDistancia.setText("33");
                     textFieldDistancia.setFont(new Font("Tahoma", Font.PLAIN, 16));
                     textFieldDistancia.addActionListener(new ActionListener() {
@@ -128,6 +130,7 @@ public class GuiGravador extends JFrame {
                     contentPane.add(lblRaio);
 
                     textFieldRaio = new JTextField();
+                    textFieldRaio.setEditable(false);
                     textFieldRaio.setText("20");
                     textFieldRaio.addActionListener(new ActionListener() {
                         public void actionPerformed(ActionEvent e) {
@@ -146,6 +149,7 @@ public class GuiGravador extends JFrame {
                     contentPane.add(lblAngulo);
 
                     textFieldAngulo = new JTextField();
+                    textFieldAngulo.setEditable(false);
                     textFieldAngulo.setText("90");
                     textFieldAngulo.addActionListener(new ActionListener() {
                         public void actionPerformed(ActionEvent e) {
@@ -164,6 +168,12 @@ public class GuiGravador extends JFrame {
                     contentPane.add(lblRobot);
 
                     textFieldRobot = new JTextField();
+                    textFieldRobot.addActionListener(new ActionListener() {
+                    	public void actionPerformed(ActionEvent e) {
+                    		nomeRobot = textFieldRobot.getText().trim();
+							myPrint("O nome do robot foi alterado para \"" + nomeRobot + "\".");
+                    	}
+                    });
                     textFieldRobot.setEditable(true);
                     textFieldRobot.setText("EV2"); // nome padrão do Bluetooth
                     textFieldRobot.setFont(new Font("Tahoma", Font.PLAIN, 12));
@@ -263,6 +273,7 @@ public class GuiGravador extends JFrame {
                     contentPane.add(lblFicheiro_1);
 
                     textField = new JTextField();
+                    textField.setEditable(false);
                     textField.setFont(new Font("Tahoma", Font.PLAIN, 16));
                     textField.setColumns(10);
                     textField.setBounds(112, 271, 386, 19);
@@ -350,8 +361,10 @@ public class GuiGravador extends JFrame {
                                 robotNovoAberto = false;
                             } else {
                                 // ABRIR
-                                String nomeRobot = textFieldRobot.getText().trim();
-                                if (nomeRobot.isEmpty()) nomeRobot = "EV2";
+                                if (nomeRobot.equals("EV2")) {
+									myPrint("O nome do robot não pode ser EV2 (reservado).");
+									return;
+								}
 
                                 robotNovoAberto = robotNovo.OpenEV3(nomeRobot);
                                 if (!robotNovoAberto) {
@@ -360,7 +373,7 @@ public class GuiGravador extends JFrame {
                             }
 
                             rdbtnOnOff.setSelected(robotNovoAberto);
-                            myPrint("Robot novo foi " + (robotNovoAberto ? "ABERTO" : "FECHADO") + ".");
+                            myPrint("Robot " + nomeRobot  + " foi " + (robotNovoAberto ? "ABERTO" : "FECHADO") + ".");
 
                             btnFrente.setEnabled(robotNovoAberto);
                             btnTras.setEnabled(robotNovoAberto);
@@ -368,8 +381,13 @@ public class GuiGravador extends JFrame {
                             btnEsquerda.setEnabled(robotNovoAberto);
                             btnParar.setEnabled(robotNovoAberto);
                             btnReproduzir.setEnabled(robotNovoAberto);
-                            btnGravar.setEnabled(true);       // podes gravar mesmo sem robot
-                            btnBotaoFicheiro.setEnabled(true);
+                            btnGravar.setEnabled(robotNovoAberto);       // podes gravar mesmo sem robot
+                            btnBotaoFicheiro.setEnabled(robotNovoAberto);
+                            textField.setEditable(robotNovoAberto);
+                            textFieldRaio.setEditable(robotNovoAberto);
+                            textFieldAngulo.setEditable(robotNovoAberto);
+                            textFieldDistancia.setEditable(robotNovoAberto);
+                            
                         }
                     });
                     rdbtnOnOff.setBounds(471, 35, 94, 21);

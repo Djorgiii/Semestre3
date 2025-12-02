@@ -1,0 +1,74 @@
+---
+title: "Dashboard Eleições Legislativas 2025"
+format: 
+  html:
+    theme: cosmo
+    toc: true
+execute:
+  echo: false
+---
+
+# Dashboard Eleições Legislativas 2025
+
+```{ojs}
+import * as d3 from "npm:d3";
+
+// Carregar ficheiros
+const resultados = await FileAttachment("resultados.json").json();
+const distritosGeo = await FileAttachment("distritos.geojson").json();
+
+// Lista de distritos (chaves dentro de "Inscritos", exceto "Total")
+const distritos = Object.keys(resultados["Inscritos"]).filter(d => d !== "Total");
+
+// Quais são as “séries” de partidos? = todas as chaves menos as bases
+const baseKeys = new Set(["Inscritos", "Votantes", "Brancos", "Nulos", "VVE"]);
+const partidos = Object.keys(resultados).filter(k => !baseKeys.has(k));
+
+// Mapa de cores por partido (ajusta como quiseres)
+const partyColors = new Map([
+  ["AD", "#ff7f00"],
+  ["PPD/PSD.CDS-PP", "#ff7f00"],
+  ["PPD/PSD.CDS-PP.PPM", "#ff7f00"],
+  ["PS", "#e41a1c"],
+  ["CH", "#252525"],
+  ["IL", "#377eb8"],
+  ["B.E.", "#984ea3"],
+  ["L", "#4daf4a"],
+  ["PCP-PEV", "#1a9850"],
+  ["PAN", "#00a6a6"],
+  ["R.I.R.", "#f781bf"],
+  ["VP", "#a6cee3"]
+]);
+
+function getPartyColor(p) {
+  return partyColors.get(p) ?? "#bbbbbb";
+}
+
+// Função: devolver, para cada distrito, o partido mais votado
+function winnerByDistrict() {
+  const winners = {};
+  for (const dist of distritos) {
+    let bestParty = null;
+    let bestVotes = -1;
+    for (const p of partidos) {
+      const votos = resultados[p]?.[dist] ?? 0;
+      if (votos > bestVotes) {
+        bestVotes = votos;
+        bestParty = p;
+      }
+    }
+    winners[dist] = { partido: bestParty, votos: bestVotes };
+  }
+  return winners;
+}
+
+const winners = winnerByDistrict();
+
+// Só para veres o resultado numa tabela simples
+viewof tabelaVencedores = Inputs.table(
+  distritos.map(d => ({
+    distrito: d,
+    partido: winners[d].partido,
+    votos: winners[d].votos
+  }))
+);
