@@ -7,37 +7,31 @@ import java.util.ArrayList;
 
 public class FlockApp implements iProcessing {
 
-    private ArrayList<Boid> flockList;      // Antes: flock
-    private Boid leaderBoid;                // Antes: leader
-    private ParticleSystem explosionSystem; // Antes: explosions
-    private PVector mouseTarget;            // Antes: target
+    private ArrayList<Boid> flockList;
+    private Boid leaderBoid;
+    private ParticleSystem explosionSystem;
+    private PVector mouseTarget;
 
-    // Estado: false = Explosivo, true = Liderança
     private boolean isLeadershipMode = false; 
     
-    // Variáveis para movimento suave (WASD)
     private boolean isMovingUp, isMovingLeft, isMovingDown, isMovingRight;
 
     @Override
-    public void setup(PApplet app) { // Antes: p -> app
+    public void setup(PApplet app) {
         flockList = new ArrayList<Boid>();
         explosionSystem = new ParticleSystem();
         mouseTarget = new PVector(0,0);
 
-        // 1. Configurar o Líder (Vermelho, Imortal)
         PVector screenCenter = new PVector(app.width/2, app.height/2);
         leaderBoid = new Boid(app, screenCenter, 1, 15, app.color(255, 0, 0));
-        leaderBoid.setLifeTimer(999999); // Imortal (Antes: setTimer)
+        leaderBoid.setLifeTimer(999999);
 
-        // 2. Criar o enxame inicial
         resetFlock(app);
     }
 
-    // Função para reiniciar o enxame quando trocamos de modo
     private void resetFlock(PApplet app) {
         flockList.clear();
         
-        // Criamos 20 boids para a cobra, ou 15 para as explosões
         int numberOfBoids = isLeadershipMode ? 20 : 15;
         
         for (int i = 0; i < numberOfBoids; i++) { 
@@ -53,15 +47,10 @@ public class FlockApp implements iProcessing {
     }
 
     @Override
-    public void draw(PApplet app, float secondsElapsed) { // Antes: dt -> secondsElapsed
+    public void draw(PApplet app, float secondsElapsed) {
         app.background(30);
 
         if (isLeadershipMode) {
-            // ==================================================
-            // MODO 2: LIDERANÇA (WASD)
-            // ==================================================
-            
-            // --- 1. CONTROLAR O LÍDER (Movimento Fluido) ---
             PVector inputVelocity = new PVector(0, 0);
             
             if (isMovingUp)    inputVelocity.y -= 1;
@@ -70,30 +59,23 @@ public class FlockApp implements iProcessing {
             if (isMovingRight) inputVelocity.x += 1;
             
             if (inputVelocity.mag() > 0) {
-                inputVelocity.setMag(200); // Velocidade constante do líder
-                leaderBoid.setVelocityManually(inputVelocity); // Antes: setVelocity
+                inputVelocity.setMag(200);
+                leaderBoid.setVelocityManually(inputVelocity);
             } else {
-                leaderBoid.setVelocityManually(new PVector(0,0)); // Para se largar as teclas
+                leaderBoid.setVelocityManually(new PVector(0,0));
             }
             
             leaderBoid.move(secondsElapsed);
             leaderBoid.display(); 
 
-            // --- 2. BOIDS SEGUEM O LÍDER ---
             for (Boid currentBoid : flockList) {
                 
-                // Calcular distância para não bater no líder
                 float distToLeader = PVector.dist(currentBoid.getPosition(), leaderBoid.getPosition());
                 
-                // Zona de Respeito: Só acelera se estiver a mais de 40px
                 if (distToLeader > 40) {
-                    // FALSE = Não usar Snap (não colar)
-                    // Antes: arrive(...) -> Agora: applyArriveBehavior(...)
                     currentBoid.applyArriveBehavior(leaderBoid.getPosition(), 100f, false); 
                 }
 
-                // --- APLICAR SEPARAÇÃO ---
-                // Antes: separate(...) -> Agora: calculateSeparationForce(...)
                 PVector separationForce = currentBoid.calculateSeparationForce(flockList);
                 separationForce.mult(2.0f); // Prioridade à separação
                 currentBoid.applyForce(separationForce);
@@ -108,9 +90,6 @@ public class FlockApp implements iProcessing {
             app.text("Seguidores: " + flockList.size(), 10, 40);
 
         } else {
-            // ==================================================
-            // MODO 1: EXPLOSIVOS (Rato + Timer)
-            // ==================================================
             
             mouseTarget.set(app.mouseX, app.mouseY);
             app.fill(255, 100);
@@ -119,17 +98,14 @@ public class FlockApp implements iProcessing {
             for (int i = flockList.size() - 1; i >= 0; i--) {
                 Boid currentBoid = flockList.get(i);
                 
-                // TRUE = Usar Snap (colar no rato)
                 currentBoid.applyArriveBehavior(mouseTarget, 200f, true); 
                 
                 currentBoid.move(secondsElapsed);
-                currentBoid.decreaseLifeTimer(secondsElapsed); // Antes: decreaseTimer
+                currentBoid.decreaseLifeTimer(secondsElapsed);
 
                 if (currentBoid.isDead()) {
-                    // Antes: explode -> Agora: explode (no explosionSystem atualizado)
                     explosionSystem.explode(app, currentBoid.getPosition());
                     flockList.remove(i);
-                    // createRandomBoid(app); // Descomente para repovoar automático
                 } else {
                     currentBoid.display();
                 }
@@ -142,7 +118,6 @@ public class FlockApp implements iProcessing {
             app.text("Clique para adicionar", 10, 60);
         }
 
-        // --- 3. ATUALIZAR EXPLOSÕES ---
         explosionSystem.update(secondsElapsed);
         explosionSystem.display(app);
 
@@ -152,14 +127,12 @@ public class FlockApp implements iProcessing {
 
     @Override
     public void keyPressed(PApplet app) {
-        // Trocar de Modo e Resetar
         if (app.key == ' ') {
             isLeadershipMode = !isLeadershipMode;
             resetFlock(app); 
             leaderBoid.setVelocityManually(new PVector(0,0));
         }
         
-        // Teclas WASD (Ativar flags)
         if (app.key == 'w' || app.key == 'W') isMovingUp = true;
         if (app.key == 's' || app.key == 'S') isMovingDown = true;
         if (app.key == 'a' || app.key == 'A') isMovingLeft = true;
@@ -168,7 +141,6 @@ public class FlockApp implements iProcessing {
     
     @Override
     public void keyReleased(PApplet app) {
-        // Teclas WASD (Desativar flags)
         if (app.key == 'w' || app.key == 'W') isMovingUp = false;
         if (app.key == 's' || app.key == 'S') isMovingDown = false;
         if (app.key == 'a' || app.key == 'A') isMovingLeft = false;
