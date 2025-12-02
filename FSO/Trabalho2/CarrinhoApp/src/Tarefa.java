@@ -23,7 +23,7 @@ public abstract class Tarefa extends Thread{
 	}
 	public void bloquear() {
 		state = BLOQUEADO;
-		//sem.drainPermits();
+		sem.drainPermits();
 		
 		try {
 			sem.acquire();

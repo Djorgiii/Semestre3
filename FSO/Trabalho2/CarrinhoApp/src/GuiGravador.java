@@ -20,7 +20,7 @@ public class GuiGravador extends JFrame {
     private static final long serialVersionUID = 1L;
     private JPanel contentPane;
 
-    private BaseDados bd; // usada só para distância, raio, ângulo
+    private BaseDados bd;
     private JButton btnFrente, btnTras, btnDireita, btnEsquerda, btnParar;
     private JRadioButton rdbtnOnOff;
     private JTextField textFieldDistancia;
@@ -30,9 +30,9 @@ public class GuiGravador extends JFrame {
     private JTextField textFieldAngulo;
     private JTextField textFieldRobot;
     private Gravador gravador;
-    private JTextField textField;        // nome do ficheiro
+    private JTextField textField;
 
-    private RobotLegoEV3 robotNovo;      // robot novo, só desta GUI
+    private RobotLegoEV3 robotNovo;
     private boolean robotNovoAberto = false;
     private String nomeRobot = "";
 
@@ -52,10 +52,10 @@ public class GuiGravador extends JFrame {
     }
 
 
-    public GuiGravador() {
-        bd = new BaseDados();
+    public GuiGravador(BaseDados bd) {
+        this.bd = bd;
         gravador = new Gravador();
-        robotNovo = new RobotLegoEV3(); // só criamos quando abrimos
+        robotNovo = new RobotLegoEV3();
 
         EventQueue.invokeLater(new Runnable() {
             public void run() {
@@ -77,7 +77,6 @@ public class GuiGravador extends JFrame {
                     setContentPane(contentPane);
                     contentPane.setLayout(null);
 
-                    // Botão Fazer Reta
                     btnFrente = new JButton("FRENTE");
                     btnFrente.setForeground(new Color(0, 0, 0));
                     btnFrente.setBackground(new Color(128, 255, 128));
@@ -104,7 +103,7 @@ public class GuiGravador extends JFrame {
                     contentPane.add(lblDistancia);
 
                     textFieldDistancia = new JTextField();
-                    textFieldDistancia.setEditable(false);
+                    textFieldDistancia.setEnabled(false);
                     textFieldDistancia.setText("33");
                     textFieldDistancia.setFont(new Font("Tahoma", Font.PLAIN, 16));
                     textFieldDistancia.addActionListener(new ActionListener() {
@@ -130,7 +129,7 @@ public class GuiGravador extends JFrame {
                     contentPane.add(lblRaio);
 
                     textFieldRaio = new JTextField();
-                    textFieldRaio.setEditable(false);
+                    textFieldRaio.setEnabled(false);
                     textFieldRaio.setText("20");
                     textFieldRaio.addActionListener(new ActionListener() {
                         public void actionPerformed(ActionEvent e) {
@@ -149,7 +148,7 @@ public class GuiGravador extends JFrame {
                     contentPane.add(lblAngulo);
 
                     textFieldAngulo = new JTextField();
-                    textFieldAngulo.setEditable(false);
+                    textFieldAngulo.setEnabled(false);
                     textFieldAngulo.setText("90");
                     textFieldAngulo.addActionListener(new ActionListener() {
                         public void actionPerformed(ActionEvent e) {
@@ -274,6 +273,7 @@ public class GuiGravador extends JFrame {
 
                     textField = new JTextField();
                     textField.setEditable(false);
+                    textField.setEnabled(false);
                     textField.setFont(new Font("Tahoma", Font.PLAIN, 16));
                     textField.setColumns(10);
                     textField.setBounds(112, 271, 386, 19);
@@ -381,12 +381,16 @@ public class GuiGravador extends JFrame {
                             btnEsquerda.setEnabled(robotNovoAberto);
                             btnParar.setEnabled(robotNovoAberto);
                             btnReproduzir.setEnabled(robotNovoAberto);
-                            btnGravar.setEnabled(robotNovoAberto);       // podes gravar mesmo sem robot
+                            btnGravar.setEnabled(robotNovoAberto);
                             btnBotaoFicheiro.setEnabled(robotNovoAberto);
-                            textField.setEditable(robotNovoAberto);
+                            //textField.setEditable(robotNovoAberto);
+                            textField.setEnabled(robotNovoAberto);
                             textFieldRaio.setEditable(robotNovoAberto);
+                            textFieldRaio.setEnabled(robotNovoAberto);
                             textFieldAngulo.setEditable(robotNovoAberto);
+                            textFieldAngulo.setEnabled(robotNovoAberto);
                             textFieldDistancia.setEditable(robotNovoAberto);
+                            textFieldDistancia.setEnabled(robotNovoAberto);
                             
                         }
                     });
