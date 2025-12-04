@@ -18,20 +18,6 @@ public class BufferCircular {
 		 elementosOcupados= new Semaphore(0);
 		 acessoElemento= new Semaphore(1);
 	}
-	/*
-	public synchronized void debugPrint() {
-	    System.out.print("[BUFFER] put=" + putBuffer + 
-	                     " get=" + getBuffer +
-	                     " | ");
-
-	    for (int i = 0; i < dimensaoBuffer; i++) {
-	        if (bufferCircular[i] == null) System.out.print("[ - ] ");
-	        else System.out.print("[" + bufferCircular[i].getTipo() + "] ");
-	    }
-	    System.out.println();
-	}
-	*/
-	
 	
 	public void clear() {
 	    // trava o acesso aos índices e ao array
