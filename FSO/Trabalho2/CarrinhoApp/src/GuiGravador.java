@@ -44,6 +44,12 @@ public class GuiGravador extends JFrame {
     public void registarEExecutar(Movimento c) {
         if (c == null) return;
 
+        // 1️⃣ Se o Gravador estiver a reproduzir, ignora o comando
+        if (gravador.isEmReproducao()) {
+            myPrint("[GUI] O Gravador está a reproduzir — comando ignorado até terminar.");
+            return;
+        }
+        
         c.setManual(true);
         gravador.registar(c);
 
@@ -331,7 +337,7 @@ public class GuiGravador extends JFrame {
                             myPrint("[Gravador] Ficheiro carregado: " + nome);
 
                             // 👉 deixa o Gravador executar tudo no robotNovo
-                            gravador.executarTodosNoRobot(robotNovo);
+                            gravador.iniciarReproducao(robotNovo); // acorda a Tarefa
                             myPrint("[Gravador] Reprodução terminada.");
                         }
                     });
