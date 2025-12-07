@@ -4,7 +4,7 @@ public class App {
 
     public App() {
         gui = new GUI();
-        guigravador = new GuiGravador();
+        guigravador = new GuiGravador(gui.getBd());
     }
 
     public void run() {
