@@ -44,6 +44,12 @@ public class GuiGravador extends JFrame {
     public void registarEExecutar(Movimento c) {
         if (c == null) return;
 
+        // 1️⃣ Se o Gravador estiver a reproduzir, ignora o comando
+        if (gravador.isEmReproducao()) {
+            myPrint("[GUI] O Gravador está a reproduzir — comando ignorado até terminar.");
+            return;
+        }
+        
         c.setManual(true);
         gravador.registar(c);
 
@@ -54,7 +60,7 @@ public class GuiGravador extends JFrame {
 
     public GuiGravador(BaseDados bd) {
         this.bd = bd;
-        gravador = new Gravador();
+        gravador = new Gravador(null);
         robotNovo = new RobotLegoEV3();
 
         EventQueue.invokeLater(new Runnable() {
@@ -310,6 +316,12 @@ public class GuiGravador extends JFrame {
                     btnReproduzir.addActionListener(new ActionListener() {
                         @Override
                         public void actionPerformed(ActionEvent e) {
+                        	
+                            if (gravador.isEmReproducao()) {
+                                myPrint("[GUI] O robot está a reproduzir, aguarde...");
+                                return;
+                            }
+                        	
                             if (!robotNovoAberto || robotNovo == null) {
                                 myPrint("[Gravador] Abra o robot antes de reproduzir.");
                                 return;
@@ -325,7 +337,7 @@ public class GuiGravador extends JFrame {
                             myPrint("[Gravador] Ficheiro carregado: " + nome);
 
                             // 👉 deixa o Gravador executar tudo no robotNovo
-                            gravador.executarTodosNoRobot(robotNovo);
+                            gravador.iniciarReproducao(robotNovo); // acorda a Tarefa
                             myPrint("[Gravador] Reprodução terminada.");
                         }
                     });
