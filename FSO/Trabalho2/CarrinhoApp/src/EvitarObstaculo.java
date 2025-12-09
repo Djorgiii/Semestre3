@@ -46,11 +46,11 @@ public class EvitarObstaculo extends Tarefa {
 
                 boolean direita = rnd.nextBoolean();
                 if (direita) {
-                    gui.myPrint("[EVITAR] CURVARDIREITA(20, 90)");
-                    robot.CurvarDireita(20, 90); // Curvar à direita
+                    gui.myPrint("[EVITAR] CURVARDIREITA(0, 90)");
+                    robot.CurvarDireita(0, 90); // Curvar à direita
                 } else {
-                    gui.myPrint("[EVITAR] CURVARESQUERDA(20, 90)");
-                    robot.CurvarEsquerda(20, 90); // Curvar à esquerda
+                    gui.myPrint("[EVITAR] CURVARESQUERDA(0, 90)");
+                    robot.CurvarEsquerda(0, 90); // Curvar à esquerda
                 }
 
                 gui.myPrint("[EVITAR] PARAR(false)");

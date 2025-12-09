@@ -19,7 +19,6 @@ import java.awt.Font;
 public class GuiGravador extends JFrame {
     private static final long serialVersionUID = 1L;
     private JPanel contentPane;
-
     private BaseDados bd;
     private JButton btnFrente, btnTras, btnDireita, btnEsquerda, btnParar;
     private JRadioButton rdbtnOnOff;
@@ -34,7 +33,7 @@ public class GuiGravador extends JFrame {
 
     private RobotLegoEV3 robotNovo;
     private boolean robotNovoAberto = false;
-    private String nomeRobot = "";
+    private String nomeRobot = "EV3";
 
     public void myPrint(String s) {
         textAreaConsola.append(s + "\n");
@@ -56,7 +55,7 @@ public class GuiGravador extends JFrame {
         myPrint("[GUI] Comando gravado: " + c.getTipo()
                 + " (" + c.getArg1() + ", " + c.getArg2() + ")");
     }
-
+    
 
     public GuiGravador(BaseDados bd) {
         this.bd = bd;
@@ -70,6 +69,7 @@ public class GuiGravador extends JFrame {
                         @Override
                         public void windowClosing(WindowEvent arg0) {
                             if (robotNovoAberto && robotNovo != null) {
+                            	robotNovo.Parar(true);
                                 robotNovo.CloseEV3();
                             }
                             bd.setTerminar(true);
@@ -180,7 +180,7 @@ public class GuiGravador extends JFrame {
                     	}
                     });
                     textFieldRobot.setEditable(true);
-                    textFieldRobot.setText("EV2"); // nome padrão do Bluetooth
+                    textFieldRobot.setText("EV3"); // nome padrão do Bluetooth
                     textFieldRobot.setFont(new Font("Tahoma", Font.PLAIN, 12));
                     textFieldRobot.setColumns(10);
                     textFieldRobot.setBounds(527, 9, 60, 19);
@@ -373,10 +373,15 @@ public class GuiGravador extends JFrame {
                                 robotNovoAberto = false;
                             } else {
                                 // ABRIR
-                                if (nomeRobot.equals("EV2")) {
-									myPrint("O nome do robot não pode ser EV2 (reservado).");
-									return;
-								}
+                            	String nomePrincipal = bd.getNomeRobotPrincipal();
+
+                            	if (nomePrincipal != null &&
+                            	    nomeRobot != null &&
+                            	    nomeRobot.equalsIgnoreCase(nomePrincipal)) {
+
+                            	    myPrint("O Robot '" + nomeRobot + "' já está aberto na GUI principal. Use outro.");
+                            	    return;
+                            	}
 
                                 robotNovoAberto = robotNovo.OpenEV3(nomeRobot);
                                 if (!robotNovoAberto) {
@@ -395,7 +400,6 @@ public class GuiGravador extends JFrame {
                             btnReproduzir.setEnabled(robotNovoAberto);
                             btnGravar.setEnabled(robotNovoAberto);
                             btnBotaoFicheiro.setEnabled(robotNovoAberto);
-                            //textField.setEditable(robotNovoAberto);
                             textField.setEnabled(robotNovoAberto);
                             textFieldRaio.setEditable(robotNovoAberto);
                             textFieldRaio.setEnabled(robotNovoAberto);

@@ -22,7 +22,7 @@ public class App {
     public static void main(String[] args) {
         App app = new App();
 
-        Servidor servidor = new Servidor(app.gui.getBufferCircular(), app.gui.getBd().getRobot(), app.gui.getBd(),s -> app.gui.myPrint(s));
+        Servidor servidor = new Servidor(app.gui.getBufferCircular(), app.gui.getBd().getRobot(), app.gui.getBd(),s -> app.gui.myPrintServidor(s));
         app.gui.setServidor(servidor);
         servidor.start();
 
