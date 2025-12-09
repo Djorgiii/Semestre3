@@ -4,6 +4,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.LinkedList;
+import java.util.Queue;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -15,16 +17,20 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JScrollPane;
 import java.awt.Font;
+import javax.swing.JSpinner;
+import javax.swing.SpinnerNumberModel;
+import javax.swing.event.ChangeListener;
+import javax.swing.event.ChangeEvent;
 
 public class GUI extends JFrame {
 
     private static final long serialVersionUID = 1L;
     private JPanel contentPane;
-
     private BaseDados bd;
     private JButton btnFrente;
     private JRadioButton rdbtnOnOff;
     private JTextField textFieldDistancia;
+    private JTextArea textAreaServidor;
     private JTextArea textAreaConsola;
     private JLabel lblRaio;
     private JTextField textFieldRaio;
@@ -32,13 +38,27 @@ public class GUI extends JFrame {
     private JTextField textFieldRobot;
     private BufferCircular bufferCircular;
     private MovimentosAleatorios movimentosAleatorios;
-    private Movimento movimentoPendente;
+    private final Queue<Movimento> pendentes = new LinkedList<>();
     private EvitarObstaculo tObstaculo;
+    private String nomeRobot = "EV2";
+    private int spinnerValue = 5;
     
-    
-    public void myPrint(String s) {
+    public int getSpinnerValue() {
+		return spinnerValue;
+	}
+
+	public String getNomeRobot() {
+		return nomeRobot;
+	}
+
+	public void myPrint(String s) {
 		textAreaConsola.append(s + "\n");
 	}
+	
+	public void myPrintServidor(String s) {
+	    textAreaServidor.append(s + "\n");
+	}
+
 
     public void setTarefas(MovimentosAleatorios tAleatorios) {
         this.movimentosAleatorios = tAleatorios;
@@ -60,16 +80,14 @@ public class GUI extends JFrame {
 		}
 		else {
 			synchronized (this) {
-				this.movimentoPendente = c;
+				pendentes.add(c);
 			}
 			myPrint("[GUI] Comando manual guardado como pendente: " + c.getTipo());
 		}
     }
 
     public synchronized Movimento obterMovimentoManual() {
-        Movimento tmp = movimentoPendente;
-        movimentoPendente = null;
-        return tmp;
+        return pendentes.poll();
     }
 
     
@@ -87,6 +105,7 @@ public class GUI extends JFrame {
                         @Override
                         public void windowClosing(WindowEvent arg0) {
                             if (bd.isRobotAberto()) {
+                            	bd.getRobot().Parar(true);
                                 bd.getRobot().CloseEV3();
                             }
                             bd.setTerminar(true);
@@ -94,7 +113,7 @@ public class GUI extends JFrame {
                     });
 
                     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                    setBounds(100, 100, 619, 446);
+                    setBounds(100, 100, 619, 584);
                     contentPane = new JPanel();
                     contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
                     setContentPane(contentPane);
@@ -148,6 +167,7 @@ public class GUI extends JFrame {
                     contentPane.add(scrollPane);
                     
                     textAreaConsola = new JTextArea();
+                    textAreaConsola.setEditable(false);
                     scrollPane.setViewportView(textAreaConsola);
                     
                     lblRaio = new JLabel("Raio");
@@ -203,7 +223,13 @@ public class GUI extends JFrame {
                     contentPane.add(lblRobot);
                     
                     textFieldRobot = new JTextField();
-                    textFieldRobot.setEditable(false);
+                    textFieldRobot.addActionListener(new ActionListener() {
+                    	public void actionPerformed(ActionEvent e) {
+							nomeRobot = textFieldRobot.getText().trim();
+							myPrint("O nome do robot foi alterado para " + nomeRobot + ".");
+                    	}
+                    });
+                    textFieldRobot.setEditable(true);
                     textFieldRobot.setText("EV2");
                     textFieldRobot.setFont(new Font("Tahoma", Font.PLAIN, 12));
                     textFieldRobot.setColumns(10);
@@ -314,6 +340,21 @@ public class GUI extends JFrame {
                     rdbtnMovimentosAleatrios.setBounds(378, 200, 221, 21);
                     contentPane.add(rdbtnMovimentosAleatrios);
                     
+                    
+                    JSpinner spinner = new JSpinner();
+                    spinner.addChangeListener(new ChangeListener() {
+                    	public void stateChanged(ChangeEvent e) {
+                    		int valor = (int) spinner.getValue();
+                    		bd.setSpinnerValue(valor);
+                    	}
+                    });
+                    spinner.setModel(new SpinnerNumberModel(Integer.valueOf(5), null, null, Integer.valueOf(1)));
+                    spinner.setEnabled(false);
+                    spinner.setFont(new Font("Tahoma", Font.PLAIN, 12));
+                    spinner.setBounds(345, 199, 34, 21);
+                    spinnerValue = (Integer) spinner.getValue();
+                    contentPane.add(spinner);
+                    
                     // Botão On/Off
                     rdbtnOnOff = new JRadioButton("Abrir/Fechar");
                     rdbtnOnOff.setFont(new Font("Tahoma", Font.PLAIN, 12));
@@ -323,9 +364,13 @@ public class GUI extends JFrame {
                                 bd.getRobot().CloseEV3();
                                 bd.setRobotAberto(false);
                             } else {
-                                bd.setRobotAberto(bd.getRobot().OpenEV3("EV2"));
+                            	boolean aberto = bd.getRobot().OpenEV3(nomeRobot);
+                            	if (aberto) {
+                                bd.setNomeRobotPrincipal(nomeRobot);
                                 tObstaculo.desbloquear();
-                                
+                            	}
+                            	bd.setRobotAberto(aberto);
+
                             }
                             rdbtnOnOff.setSelected(bd.isRobotAberto());
                             myPrint("O Robot foi " + (bd.isRobotAberto()? "aberto": "fechado" +"."));
@@ -339,11 +384,25 @@ public class GUI extends JFrame {
                             textFieldDistancia.setEnabled(bd.isRobotAberto());
                             textFieldRaio.setEnabled(bd.isRobotAberto());
                             textFieldAngulo.setEnabled(bd.isRobotAberto());
+                            spinner.setEnabled(bd.isRobotAberto());
                             
                         }
                     });
                     rdbtnOnOff.setBounds(471, 35, 94, 21);
                     contentPane.add(rdbtnOnOff);
+                    
+                    JLabel lblServidor = new JLabel("Servidor");
+                    lblServidor.setFont(new Font("Tahoma", Font.PLAIN, 18));
+                    lblServidor.setBounds(17, 394, 67, 18);
+                    contentPane.add(lblServidor);
+                    
+                    JScrollPane scrollPane_1 = new JScrollPane();
+                    scrollPane_1.setBounds(17, 420, 567, 123);
+                    contentPane.add(scrollPane_1);
+                    
+                    textAreaServidor = new JTextArea();
+                    textAreaServidor.setEditable(false);
+                    scrollPane_1.setViewportView(textAreaServidor);
 
                     setVisible(true);
                 } catch (Exception e) {
@@ -367,7 +426,7 @@ public class GUI extends JFrame {
         }
         else {
 			// Could not acquire semaphore, store command as pending
-			this.movimentoPendente = c;
+			pendentes.add(c);
         }
     }
     

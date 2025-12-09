@@ -3,6 +3,7 @@ import java.util.concurrent.Semaphore;
 public class BaseDados {
     private boolean terminar;
     private RobotLegoEV3 robot;
+    private String nomeRobotPrincipal;
     private boolean robotAberto;
     private int distancia;
     private int raio;
@@ -12,9 +13,25 @@ public class BaseDados {
     private final Semaphore produtorMux = new Semaphore(1, true);
     private volatile boolean pausaServidor;
     private final Semaphore pausaSem = new Semaphore(0, true);
+    private int spinnerValue = 5;
     
     private final Semaphore ev3Sem = new Semaphore(1, true);
+    
+    public void setSpinnerValue(int v) {
+        this.spinnerValue = v;
+    }
 
+    public int getSpinnerValue() {
+        return spinnerValue;
+    }
+
+	public String getNomeRobotPrincipal() {
+        return nomeRobotPrincipal;
+    }
+
+    public void setNomeRobotPrincipal(String nomeRobotPrincipal) {
+        this.nomeRobotPrincipal = nomeRobotPrincipal;
+    } 
     
     public Semaphore getEv3Sem() {
         return ev3Sem;
