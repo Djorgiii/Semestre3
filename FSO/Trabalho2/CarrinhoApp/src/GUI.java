@@ -94,8 +94,8 @@ public class GUI extends JFrame {
     /**
      * Create the frame.
      */
-    public GUI() {
-        bd = new BaseDados();
+    public GUI(BaseDados bd) {
+        this.bd = bd;
         bufferCircular = new BufferCircular();
 
         EventQueue.invokeLater(new Runnable() {
@@ -104,11 +104,31 @@ public class GUI extends JFrame {
                     addWindowListener(new WindowAdapter() {
                         @Override
                         public void windowClosing(WindowEvent arg0) {
+                        	bd.setTerminar(true);
+                            bd.setAleatoriosOn(false);
+                            
+                            if (tObstaculo != null) tObstaculo.terminar();
+                            
+
+                            if (movimentosAleatorios != null)
+                                movimentosAleatorios.terminar();
+
+                            if (bd.getServidor() != null)
+                                bd.getServidor().terminar();
+                            
                             if (bd.isRobotAberto()) {
+                            	try {
                             	bd.getRobot().Parar(true);
+                            	Thread.sleep(150);
+                            	} catch (Exception e) {}
+                            	
                                 bd.getRobot().CloseEV3();
+                                bd.setRobotAberto(false);
                             }
+                            
                             bd.setTerminar(true);
+                            
+                            dispose();
                         }
                     });
 
@@ -330,6 +350,7 @@ public class GUI extends JFrame {
                             }
                             else {
                             	bd.setAleatoriosOn(false);
+                            	bd.getServidor().resetContadorAleatorios();
                             	if (bufferCircular != null) {
 									bufferCircular.clear();
 								}
@@ -360,17 +381,39 @@ public class GUI extends JFrame {
                     rdbtnOnOff.setFont(new Font("Tahoma", Font.PLAIN, 12));
                     rdbtnOnOff.addActionListener(new ActionListener() {
                         public void actionPerformed(ActionEvent e) {
+                        	
+                        	RobotLegoEV3 robot = bd.getRobot();
+                        	
                             if (bd.isRobotAberto()) {
+                            	try {
+                            		bd.getRobot().Parar(true);
+                            		Thread.sleep(150);
+                            	} catch (Exception ex) {}
+                            	
                                 bd.getRobot().CloseEV3();
-                                bd.setRobotAberto(false);
-                            } else {
-                            	boolean aberto = bd.getRobot().OpenEV3(nomeRobot);
-                            	if (aberto) {
+								bd.setRobotAberto(false);
+                            } 
+                            else {
+                                
+                            	String nomePrincipal = bd.getNomeRobotPrincipal();
+                            	
+                                if (nomePrincipal != null && nomePrincipal.equalsIgnoreCase(nomeRobot)) {
+                                    myPrint("Esse robot já está em uso noutra janela!");
+                                    return;
+                                }
+                                
+                                boolean abriu = robot.OpenEV3(nomeRobot);
+								if (!abriu) {
+					                myPrint("Não foi possível abrir o robot \"" + nomeRobot + "\".");
+					                try { robot.CloseEV3(); } catch (Exception ex) {}
+					                return;
+								}
+                                bd.setRobotAberto(true);
                                 bd.setNomeRobotPrincipal(nomeRobot);
-                                tObstaculo.desbloquear();
-                            	}
-                            	bd.setRobotAberto(aberto);
-
+                                
+                                if (tObstaculo != null) {
+									tObstaculo.desbloquear();
+                                }
                             }
                             rdbtnOnOff.setSelected(bd.isRobotAberto());
                             myPrint("O Robot foi " + (bd.isRobotAberto()? "aberto": "fechado" +"."));
