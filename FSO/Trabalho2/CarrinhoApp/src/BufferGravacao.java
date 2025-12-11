@@ -6,51 +6,57 @@ public class BufferGravacao {
     private Movimento[] buffer;
     private int putBuffer, getBuffer, count;
 
-    private Semaphore elementosLivres;
-    private Semaphore elementosOcupados;
-    private Semaphore acessoElemento;
+    private final Semaphore elementosLivres;
+    private final Semaphore elementosOcupados;
+    private final Semaphore acessoElemento;
 
     public BufferGravacao(int tamanho) {
         this.dimensaoBuffer = tamanho;
-        buffer = new Movimento[dimensaoBuffer];
+        buffer = new Movimento[tamanho];
         putBuffer = 0;
         getBuffer = 0;
         count = 0;
-        elementosLivres = new Semaphore(dimensaoBuffer, true);
+
+        elementosLivres = new Semaphore(tamanho, true);
         elementosOcupados = new Semaphore(0, true);
         acessoElemento = new Semaphore(1, true);
     }
 
     public BufferGravacao() {
-        this(64); // tamanho default
+        this(128); // tamanho default
     }
 
     public void clear() {
-        acessoElemento.acquireUninterruptibly();
         try {
+            acessoElemento.acquire();
             elementosOcupados.drainPermits();
-            for (int i = 0; i < dimensaoBuffer; i++) buffer[i] = null;
+            elementosLivres.drainPermits();
+            elementosLivres.release(dimensaoBuffer);
+
             putBuffer = 0;
             getBuffer = 0;
             count = 0;
 
-            elementosLivres.drainPermits();
-            elementosLivres.release(dimensaoBuffer);
+            for (int i = 0; i < dimensaoBuffer; i++) buffer[i] = null;
+
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
         } finally {
             acessoElemento.release();
         }
     }
 
     public void inserirElemento(Movimento m) {
-        elementosLivres.acquireUninterruptibly();
-        acessoElemento.acquireUninterruptibly();
         try {
-            Movimento copia = new Movimento(m.getTipo(), m.getArg1(), m.getArg2());
-            if (m.isManual()) copia.setManual(true);
+            elementosLivres.acquire();
+            acessoElemento.acquire();
 
-            buffer[putBuffer] = copia;
+            buffer[putBuffer] = new Movimento(m.getTipo(), m.getArg1(), m.getArg2());
             putBuffer = (putBuffer + 1) % dimensaoBuffer;
             count++;
+
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
         } finally {
             acessoElemento.release();
             elementosOcupados.release();
@@ -58,30 +64,39 @@ public class BufferGravacao {
     }
 
     public Movimento removerElemento() {
-        elementosOcupados.acquireUninterruptibly();
-        acessoElemento.acquireUninterruptibly();
+        Movimento m = null;
         try {
-            Movimento m = buffer[getBuffer];
+            elementosOcupados.acquire();
+            acessoElemento.acquire();
+
+            m = buffer[getBuffer];
             buffer[getBuffer] = null;
             getBuffer = (getBuffer + 1) % dimensaoBuffer;
             count--;
-            return m;
+
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
         } finally {
             acessoElemento.release();
             elementosLivres.release();
         }
+        return m;
+    }
+
+    public int getCount() {
+        int c = 0;
+        try {
+            acessoElemento.acquire();
+            c = count;
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        } finally {
+            acessoElemento.release();
+        }
+        return c;
     }
 
     public boolean isVazio() {
         return getCount() == 0;
-    }
-
-    public int getCount() {
-        acessoElemento.acquireUninterruptibly();
-        try {
-            return count;
-        } finally {
-            acessoElemento.release();
-        }
     }
 }

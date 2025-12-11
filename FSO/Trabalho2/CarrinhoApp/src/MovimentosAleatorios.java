@@ -2,8 +2,8 @@ public class MovimentosAleatorios extends Tarefa {
 
     private GUI gui;
     private BaseDados bd;
-    public MovimentosAleatorios(GUI gui, Tarefa proxima) {
-        super(proxima);
+    public MovimentosAleatorios(GUI gui) {
+    	super();
         this.gui = gui;
         this.bd = gui.getBd();
     }
@@ -63,11 +63,14 @@ public class MovimentosAleatorios extends Tarefa {
                     } else {
                         int angulo = 20 + (int)(Math.random() * 71);
                         int raio = 10 + (int)(Math.random() * 21);
-                        comando = new Movimento(tipo, angulo, raio);
+                        comando = new Movimento(tipo, raio, angulo);
                     }
 
-                    gui.getBufferCircular().inserirElemento(comando);
-                    dormir();
+                    gui.myPrint("[Aleatório] " + comando.getTipo()
+                    + " (" + comando.getArg1() + ", " + comando.getArg2() + ")");
+                    
+		            gui.getBufferCircular().inserirElemento(comando);
+		            dormir();
                 }
 
                 // 4️⃣ INSERIR PENDENTES
