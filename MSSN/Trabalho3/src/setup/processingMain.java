@@ -18,7 +18,7 @@ public class processingMain extends PApplet {
 	@Override
 	public void settings() {
 		
-		size(1024,1024);
+		size(1024,800);
 	
 	}
 	
