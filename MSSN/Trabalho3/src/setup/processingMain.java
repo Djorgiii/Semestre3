@@ -1,6 +1,7 @@
 package setup;
 import processing.core.PApplet;
 import jogodocaos.JogoDoCaos;
+import lsystem.JogoLSystem;
 
 public class processingMain extends PApplet {
 	
@@ -9,7 +10,7 @@ public class processingMain extends PApplet {
 	
 	public static void main(String[] args) {
 		
-		app= new jogodocaos.JogoDoCaos();
+		app= new JogoLSystem();
 		PApplet.main(processingMain.class.getName());
 		
 	}
