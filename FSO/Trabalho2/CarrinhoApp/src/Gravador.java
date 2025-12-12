@@ -1,16 +1,21 @@
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Scanner;
-import java.io.File;
-
+import java.util.concurrent.Semaphore;
 
 public class Gravador extends Tarefa {
 
     private static final double VELOCIDADE_CM_POR_MS = 0.02;
     private static final int TEMPO_COMUNICACAO_MS = 100;
 
+    // Buffer próprio para gravação/reprodução
     private final BufferGravacao buffer = new BufferGravacao();
+
+    // Exclusão mútua REAL entre gravar / reproduzir
+    private final Semaphore exclusao = new Semaphore(1, true);
+
     private volatile boolean emReproducao = false;
     private RobotLegoEV3 robotLigado;
 
@@ -18,200 +23,190 @@ public class Gravador extends Tarefa {
         start();
     }
 
-    // ------------------------------------------------------
-    // GETTERS / SETTERS
-    // ------------------------------------------------------
+    // --------------------------------------------------
+    // ESTADO
+    // --------------------------------------------------
 
-    public synchronized boolean isEmReproducao() {
+    public boolean isEmReproducao() {
         return emReproducao;
     }
-
-    public synchronized void limpar() {
-        buffer.clear();
+    
+    public void limpar() {
+        try {
+            exclusao.acquire();
+            buffer.clear();
+        } catch (InterruptedException ignored) {
+        } finally {
+            exclusao.release();
+        }
     }
 
-    private synchronized void setEmReproducao(boolean valor) {
-        emReproducao = valor;
-    }
-
-    public synchronized void setRobot(RobotLegoEV3 robot) {
-        this.robotLigado = robot;
-    }
-
-    // ------------------------------------------------------
-    // REGISTAR
-    // ------------------------------------------------------
+    // --------------------------------------------------
+    // REGISTAR COMANDOS (GRAVAÇÃO)
+    // --------------------------------------------------
 
     public void registar(Movimento m) {
         if (m == null) return;
-        if (emReproducao) return;
-        buffer.inserirElemento(m);
-    }
-    
-    public synchronized void lerFicheiro(String nomeFicheiro) {
-        if (emReproducao) {
-            System.out.println("[Gravador] Não pode ler enquanto reproduz!");
+
+        // Se não conseguir adquirir, está a reproduzir
+        if (!exclusao.tryAcquire()) {
+            System.out.println("[Gravador] Gravação bloqueada (em reprodução)");
             return;
         }
 
-        buffer.clear(); // limpar buffer antes de carregar
+        try {
+            buffer.inserirElemento(m);
+        } finally {
+            exclusao.release();
+        }
+    }
 
-        try (Scanner sc = new Scanner(new File(nomeFicheiro))) {
+    // --------------------------------------------------
+    // LER FICHEIRO
+    // --------------------------------------------------
+
+    public void lerFicheiro(String nomeFicheiro) {
+
+        if (!exclusao.tryAcquire()) {
+            System.out.println("[Gravador] Não pode ler durante reprodução");
+            return;
+        }
+
+        try {
+            buffer.clear();
+
+            Scanner sc = new Scanner(new File(nomeFicheiro));
+
             while (sc.hasNextLine()) {
 
                 String linha = sc.nextLine().trim();
-                if (linha.isEmpty() || linha.startsWith("#"))
-                    continue;
+                if (linha.isEmpty() || linha.startsWith("#")) continue;
 
                 String[] p = linha.split("\\s+|;");
                 String cmd = p[0].toUpperCase();
                 Movimento m = null;
 
                 try {
-                    switch (cmd) {
-                        case "RETA":
-                            m = new Movimento("RETA", Integer.parseInt(p[1]), 0);
-                            break;
-
-                        case "CURVADIREITA":
-                            m = new Movimento("CURVARDIREITA",
-                                    Integer.parseInt(p[1]),
-                                    Integer.parseInt(p[2]));
-                            break;
-
-                        case "CURVARESQUERDA":
-                            m = new Movimento("CURVARESQUERDA",
-                                    Integer.parseInt(p[1]),
-                                    Integer.parseInt(p[2]));
-                            break;
-
-                        case "PARAR":
-                            m = new Movimento("PARAR", false);
-                            break;
+                    if (cmd.equals("RETA")) {
+                        m = new Movimento("RETA", Integer.parseInt(p[1]), 0);
+                    }
+                    else if (cmd.equals("CURVADIREITA")) {
+                        m = new Movimento("CURVARDIREITA",
+                                Integer.parseInt(p[1]),
+                                Integer.parseInt(p[2]));
+                    }
+                    else if (cmd.equals("CURVARESQUERDA")) {
+                        m = new Movimento("CURVARESQUERDA",
+                                Integer.parseInt(p[1]),
+                                Integer.parseInt(p[2]));
+                    }
+                    else if (cmd.equals("PARAR")) {
+                        m = new Movimento("PARAR", false);
                     }
                 } catch (Exception e) {
                     System.out.println("[Gravador] Linha inválida: " + linha);
                 }
 
-                if (m != null) {
-                    buffer.inserirElemento(m);
-                }
+                if (m != null) buffer.inserirElemento(m);
             }
 
-            System.out.println("[Gravador] Ficheiro carregado!");
-        }
-        catch (FileNotFoundException e) {
-            System.out.println("[Gravador] Ficheiro não encontrado: " + nomeFicheiro);
+            sc.close();
+            System.out.println("[Gravador] Ficheiro carregado");
+
+        } catch (FileNotFoundException e) {
+            System.out.println("[Gravador] Ficheiro não encontrado");
+        } finally {
+            exclusao.release();
         }
     }
 
-    
-
-    // ------------------------------------------------------
+    // --------------------------------------------------
     // GUARDAR EM FICHEIRO
-    // ------------------------------------------------------
-    
-    public synchronized void guardarEmFicheiro(String nomeFicheiro) {
+    // --------------------------------------------------
 
-        if (emReproducao) {
-            System.out.println("[Gravador] Não pode gravar enquanto reproduz!");
+    public void guardarEmFicheiro(String nomeFicheiro) {
+
+        if (!exclusao.tryAcquire()) {
+            System.out.println("[Gravador] Não pode guardar durante reprodução");
             return;
         }
 
         try (FileOutputStream out = new FileOutputStream(nomeFicheiro)) {
 
-            // Copiar movimentos atuais para um array temporário
             int n = buffer.getCount();
             Movimento[] lista = new Movimento[n];
 
             for (int i = 0; i < n; i++) {
                 lista[i] = buffer.removerElemento();
-                buffer.inserirElemento(lista[i]); // voltar a inserir para não perder a gravação
+                buffer.inserirElemento(lista[i]);
             }
 
-            // Escrever no ficheiro
             for (Movimento m : lista) {
 
-                if (m == null) continue;
                 String linha = "";
 
-                switch (m.getTipo().toUpperCase()) {
-                    case "RETA":
-                        linha = "RETA " + m.getArg1();
-                        break;
-
-                    case "CURVARDIREITA":
-                        linha = "CURVADIREITA " + m.getArg1() + " " + m.getArg2();
-                        break;
-
-                    case "CURVARESQUERDA":
-                        linha = "CURVARESQUERDA " + m.getArg1() + " " + m.getArg2();
-                        break;
-
-                    case "PARAR":
-                        linha = "PARAR";
-                        break;
-
-                    default:
-                        linha = "# desconhecido";
+                if (m.getTipo().equalsIgnoreCase("RETA")) {
+                    linha = "RETA " + m.getArg1();
+                }
+                else if (m.getTipo().equalsIgnoreCase("CURVARDIREITA")) {
+                    linha = "CURVADIREITA " + m.getArg1() + " " + m.getArg2();
+                }
+                else if (m.getTipo().equalsIgnoreCase("CURVARESQUERDA")) {
+                    linha = "CURVARESQUERDA " + m.getArg1() + " " + m.getArg2();
+                }
+                else if (m.getTipo().equalsIgnoreCase("PARAR")) {
+                    linha = "PARAR";
                 }
 
-                linha += "\n";
-                out.write(linha.getBytes());
+                out.write((linha + "\n").getBytes());
             }
 
-            System.out.println("[Gravador] Ficheiro \"" + nomeFicheiro + "\" gravado com sucesso.");
+            System.out.println("[Gravador] Ficheiro gravado");
 
         } catch (IOException e) {
-            System.out.println("[Gravador] Erro ao gravar ficheiro: " + e.getMessage());
+            System.out.println("[Gravador] Erro ao gravar ficheiro");
+        } finally {
+            exclusao.release();
         }
     }
 
-    // ------------------------------------------------------
-    // EXECUTAR MOVIMENTO
-    // ------------------------------------------------------
+    // --------------------------------------------------
+    // EXECUTAR MOVIMENTO NO ROBOT
+    // --------------------------------------------------
 
-    private void executarMovimentoNoRobot(Movimento m) {
+    private void executarMovimento(Movimento m) {
 
         if (robotLigado == null || m == null) return;
 
-        String tipo = m.getTipo().toUpperCase();
-        int a1 = m.getArg1();
-        int a2 = m.getArg2();
-        int tempoExecucao = 0;
+        int tempo = 0;
 
-        switch (tipo) {
-            case "RETA":
-                tempoExecucao = (int)(Math.abs(a1) / VELOCIDADE_CM_POR_MS) + TEMPO_COMUNICACAO_MS;
-                robotLigado.Reta(a1);
-                break;
-
-            case "CURVARDIREITA":
-                tempoExecucao = (int)((a1 * (a2 * Math.PI / 180)) / VELOCIDADE_CM_POR_MS) + TEMPO_COMUNICACAO_MS;
-                robotLigado.CurvarDireita(a1, a2);
-                break;
-
-            case "CURVARESQUERDA":
-                tempoExecucao = (int)((a1 * (a2 * Math.PI / 180)) / VELOCIDADE_CM_POR_MS) + TEMPO_COMUNICACAO_MS;
-                robotLigado.CurvarEsquerda(a1, a2);
-                break;
-
-            case "PARAR":
-                robotLigado.Parar(false);
-                return;
-
-            default:
-                return;
+        if (m.getTipo().equalsIgnoreCase("RETA")) {
+            tempo = (int)(Math.abs(m.getArg1()) / VELOCIDADE_CM_POR_MS) + TEMPO_COMUNICACAO_MS;
+            robotLigado.Reta(m.getArg1());
+        }
+        else if (m.getTipo().equalsIgnoreCase("CURVARDIREITA")) {
+            tempo = (int)((m.getArg1() * (m.getArg2() * Math.PI / 180)) / VELOCIDADE_CM_POR_MS)
+                    + TEMPO_COMUNICACAO_MS;
+            robotLigado.CurvarDireita(m.getArg1(), m.getArg2());
+        }
+        else if (m.getTipo().equalsIgnoreCase("CURVARESQUERDA")) {
+            tempo = (int)((m.getArg1() * (m.getArg2() * Math.PI / 180)) / VELOCIDADE_CM_POR_MS)
+                    + TEMPO_COMUNICACAO_MS;
+            robotLigado.CurvarEsquerda(m.getArg1(), m.getArg2());
+        }
+        else if (m.getTipo().equalsIgnoreCase("PARAR")) {
+            robotLigado.Parar(false);
+            return;
         }
 
-        try { Thread.sleep(tempoExecucao); } catch (InterruptedException ignored) {}
+        try { Thread.sleep(tempo); } catch (InterruptedException ignored) {}
         robotLigado.Parar(false);
         try { Thread.sleep(TEMPO_COMUNICACAO_MS); } catch (InterruptedException ignored) {}
     }
 
-    // ------------------------------------------------------
+    // --------------------------------------------------
     // CICLO DA TAREFA
-    // ------------------------------------------------------
+    // --------------------------------------------------
 
     @Override
     public void execucao() {
@@ -223,25 +218,26 @@ public class Gravador extends Tarefa {
                 continue;
             }
 
-            // Executar tudo o que estiver no buffer
             while (!buffer.isVazio()) {
-                Movimento m = buffer.removerElemento();
-                executarMovimentoNoRobot(m);
+                executarMovimento(buffer.removerElemento());
             }
 
-            setEmReproducao(false);
+            emReproducao = false;
+            exclusao.release(); // 🔓 volta a permitir gravação
         }
     }
 
-    // ------------------------------------------------------
+    // --------------------------------------------------
     // INICIAR REPRODUÇÃO
-    // ------------------------------------------------------
+    // --------------------------------------------------
 
     public void iniciarReproducao(RobotLegoEV3 robot) {
-        if (emReproducao) return;
 
-        setRobot(robot);
-        setEmReproducao(true);
-        desbloquear();
+        try {
+            exclusao.acquire();      // 🔒 bloqueia gravar
+            robotLigado = robot;
+            emReproducao = true;
+            desbloquear();
+        } catch (InterruptedException ignored) {}
     }
 }

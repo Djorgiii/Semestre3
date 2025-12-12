@@ -16,9 +16,8 @@ public abstract class Tarefa extends Thread{
 	
 	public void terminar() {
 	    running = false;
-	    sem.release(); // para desbloquear se estiver bloqueada
+	    sem.release();
 	}
-
 
 	public void desbloquear() {
 		state = EXECUCAO;

@@ -23,7 +23,7 @@ public class BufferGravacao {
     }
 
     public BufferGravacao() {
-        this(128); // tamanho default
+        this(128);
     }
 
     public void clear() {
