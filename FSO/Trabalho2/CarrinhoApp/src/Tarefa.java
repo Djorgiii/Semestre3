@@ -6,16 +6,19 @@ public abstract class Tarefa extends Thread{
 	private final byte IDLE = 2;
 	private Semaphore sem;
 	private byte state;
-	protected Tarefa proxima;
+	protected volatile boolean running = true;
+
 	
-	public Tarefa(Tarefa t) {
+	public Tarefa() {
 		state=BLOQUEADO;
 		sem = new Semaphore(0);
-		proxima = t;
 	}
-	public void setProxima(Tarefa t) {
-		proxima = t;
+	
+	public void terminar() {
+	    running = false;
+	    sem.release(); // para desbloquear se estiver bloqueada
 	}
+
 
 	public void desbloquear() {
 		state = EXECUCAO;
@@ -49,7 +52,7 @@ public abstract class Tarefa extends Thread{
 		//1 que pode ficar bloqueada
 		//2 execucao da zona critica onde da print
 		//3 dormir / idle
-		while(true) {
+		while(running) {
 			switch(state) {
 			case BLOQUEADO:
 				esperaTrabalho();

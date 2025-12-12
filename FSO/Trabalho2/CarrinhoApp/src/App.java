@@ -3,8 +3,9 @@ public class App {
     private GuiGravador guigravador;
 
     public App() {
-        gui = new GUI();
-        guigravador = new GuiGravador(gui.getBd());
+    	BaseDados bd = new BaseDados();
+        gui = new GUI(bd);
+        guigravador = new GuiGravador(bd);
     }
 
     public void run() {
@@ -27,13 +28,13 @@ public class App {
         servidor.start();
 
         // Tarefa dos aleatórios (lote de 5). Já não há "próxima" (manuais).
-        MovimentosAleatorios tAleatorios = new MovimentosAleatorios(app.gui, null);
+        MovimentosAleatorios tAleatorios = new MovimentosAleatorios(app.gui);
         tAleatorios.start();
 
         // Dizer à GUI quem é a única tarefa (aleatórios)
         app.gui.setTarefas(tAleatorios);
 
-        EvitarObstaculo tObstaculo = new EvitarObstaculo(tAleatorios, app.gui);
+        EvitarObstaculo tObstaculo = new EvitarObstaculo(app.gui);
         tObstaculo.start();
         app.gui.setTarefaObstaculo(tObstaculo);
         // Entrar no ciclo normal

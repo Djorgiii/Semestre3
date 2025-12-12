@@ -11,7 +11,7 @@ public class Servidor extends Tarefa{
     
     
     public Servidor(BufferCircular buffercircular, RobotLegoEV3 asdrubal, BaseDados bd, Consumer<String> printCallback) {
-        super(null);
+    	super();
         this.buffercircular = buffercircular;
         this.asdrubal = asdrubal;
         this.bd = bd;

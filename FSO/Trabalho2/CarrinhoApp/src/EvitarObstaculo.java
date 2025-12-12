@@ -7,8 +7,8 @@ public class EvitarObstaculo extends Tarefa {
     private final Random rnd = new Random();
     private final int sensorToquePort = RobotLegoEV3.S_1; // Porta do sensor de toque
 
-    public EvitarObstaculo(Tarefa proxima, GUI gui) {
-        super(proxima);  // normalmente 'proxima' = tAleatorios
+    public EvitarObstaculo(GUI gui) {
+    	super();
         this.gui = gui;
     }
 
@@ -60,7 +60,6 @@ public class EvitarObstaculo extends Tarefa {
 
                 if (aleatoriosAntes) {
                     gui.getBd().setAleatoriosOn(true);
-                    if (proxima != null) proxima.desbloquear();
                 } else {
                     gui.getBd().setAleatoriosOn(false);
                 }
@@ -69,7 +68,6 @@ public class EvitarObstaculo extends Tarefa {
                 gui.getBd().getPausaSem().release();
             }
 
-            // pequena pausa para não consumir CPU
             dormir();
         }
 
