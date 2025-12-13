@@ -433,6 +433,18 @@ public class GuiGravador extends JFrame {
                     });
                     btnBotaoFicheiro.setBounds(508, 272, 57, 20);
                     contentPane.add(btnBotaoFicheiro);
+                    
+                    JRadioButton rdbtnMesmoRobot = new JRadioButton("Mesmo Robot");
+                    rdbtnMesmoRobot.setEnabled(false);
+                    rdbtnMesmoRobot.addActionListener(new ActionListener() {
+                    	public void actionPerformed(ActionEvent e) {
+                    		
+                    	}
+                    });
+                    rdbtnMesmoRobot.setFont(new Font("Tahoma", Font.PLAIN, 12));
+                    rdbtnMesmoRobot.setBounds(471, 56, 105, 21);
+                    contentPane.add(rdbtnMesmoRobot);
+                    
 
                     // Botão On/Off - cria/abre/fecha o robotNovo
                     rdbtnOnOff = new JRadioButton("Abrir/Fechar");
@@ -488,6 +500,7 @@ public class GuiGravador extends JFrame {
                             textFieldAngulo.setEnabled(robotNovoAberto);
                             textFieldDistancia.setEditable(robotNovoAberto);
                             textFieldDistancia.setEnabled(robotNovoAberto);
+                            rdbtnMesmoRobot.setEnabled(robotNovoAberto);
                             
                         }
                     });
