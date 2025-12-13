@@ -9,7 +9,7 @@ public class LSystemApp implements iProcessing {
     private LSystem sistema;
     private AnimatedTurtle turtle;
     private int modo = 1;
-    private int speed = 50; // símbolos por frame (ajustável)
+    private int speed = 50;
 
 
     @Override
@@ -31,16 +31,17 @@ public class LSystemApp implements iProcessing {
                 break;
 
             case 2:
-                sistema = new LSystem("F--F--F");
-                sistema.addRule('F', "F+F--F+F");
-                sistema.iterate(4);
+                sistema = new LSystem("F");
+                sistema.addRule('F', "F+G");
+                sistema.addRule('G', "F-G");
+                sistema.iterate(12);
                 turtle = new AnimatedTurtle(
                 	    sistema.getString(),
-                	    3,                  // step
-                	    60,                 // angle
+                	    5,
+                	    90,
                 	    p,
-                	    new PVector(p.width/2f - 200, p.height/2f),   // START POSITION
-                	    0                   // heading → desenhar para a direita
+                	    new PVector(p.width/2f, p.height/2f),
+                	    0
                 	);
                 break;
         }
@@ -56,7 +57,7 @@ public class LSystemApp implements iProcessing {
         
         p.fill(255);
         p.textSize(24);
-        p.text("Modo: " + (modo == 1 ? "Planta Fractal" : "Floco de Neve de Koch"), 20, 30);
+        p.text("Modo: " + (modo == 1 ? "Planta Fractal" : "Curva do Dragão"), 20, 30);
         p.text("Pressione '1' ou '2' para mudar o modo", 20, 60);
     }
 
