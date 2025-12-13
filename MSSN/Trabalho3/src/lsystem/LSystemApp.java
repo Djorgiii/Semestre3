@@ -9,6 +9,8 @@ public class LSystemApp implements iProcessing {
     private LSystem sistema;
     private AnimatedTurtle turtle;
     private int modo = 1;
+    private int speed = 50; // símbolos por frame (ajustável)
+
 
     @Override
     public void setup(PApplet p) {
@@ -22,10 +24,10 @@ public class LSystemApp implements iProcessing {
 
             case 1:
                 sistema = new LSystem("X");
-                sistema.addRule('X', "F[+X][-X]FX");
+                sistema.addRule('X', "F+[[X]-X]-F[-FX]+X");
                 sistema.addRule('F', "FF");
                 sistema.iterate(6);
-                turtle = new AnimatedTurtle(sistema.getString(), 5, 25, p);
+                turtle = new AnimatedTurtle(sistema.getString(), 3.0f, 25f, p, new PVector(p.width/2f, p.height - 40), -PApplet.HALF_PI);
                 break;
 
             case 2:
@@ -47,7 +49,10 @@ public class LSystemApp implements iProcessing {
     @Override
     public void draw(PApplet p, float dt) {
 
-        turtle.drawNext(p);
+    	for (int i = 0; i < speed; i++) {
+    	    if (!turtle.drawNext(p)) break;
+    	}
+
         
         p.fill(255);
         p.textSize(24);
@@ -77,6 +82,14 @@ public class LSystemApp implements iProcessing {
                 p.background(0);
                 carregarSistema(p);
                 break;
+                
+            case '+':
+				speed += 10;
+				break;
+				
+            case '-':
+				speed = Math.max(10, speed - 10);
+				break;
         }
     }
 
