@@ -49,11 +49,13 @@ public class AnimatedTurtle {
         switch (c) {
 
             case 'F':
+            case 'G':
                 float nx = pos.x + step * PApplet.cos(heading);
                 float ny = pos.y + step * PApplet.sin(heading);
                 p.line(pos.x, pos.y, nx, ny);
                 pos.set(nx, ny);
                 break;
+                
 
             case 'X':
                 break;
