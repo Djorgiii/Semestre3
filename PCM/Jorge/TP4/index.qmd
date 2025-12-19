@@ -166,7 +166,6 @@ mapaVencedor = {
 
   if (distritosGeo && distritosGeo.features) {
      const geoLayer = L.geoJSON(distritosGeo, { style, onEachFeature }).addTo(map);
-     //try { map.fitBounds(geoLayer.getBounds()); } catch(e) {}
   }
   
   setTimeout(() => map.invalidateSize(), 500);
@@ -234,7 +233,6 @@ mapaIntensidade = {
 
   if (distritosGeo && distritosGeo.features) {
     const geoLayer = L.geoJSON(distritosGeo, { style, onEachFeature }).addTo(map);
-    //try { map.fitBounds(geoLayer.getBounds()); } catch(e) {}
   }
   
   setTimeout(() => map.invalidateSize(), 500);
@@ -245,13 +243,11 @@ mapaIntensidade = {
 # Detalhes {height=35% .tabset}
 ```{ojs}
 sunburst = {
-  // 1. DADOS E SEGURANÇA
   if (!dadosOK) return md`⚠️ A carregar dados...`;
 
   const width = 600;
   const radius = width / 2;
 
-  // 2. PREPARAÇÃO DOS DADOS
   const sunburstVotosNac = partidos.map(p => ({
     partido: p, 
     votos: (resultados[p] && resultados[p]["Total"]) ? +resultados[p]["Total"] : 0
@@ -259,8 +255,7 @@ sunburst = {
   
   const total = sunburstVotosNac.reduce((acc, x) => acc + x.votos, 0);
   
-  // Filtra partidos muito pequenos para "Outros" para limpar o gráfico
-  const grandes = sunburstVotosNac.filter(x => x.votos/total >= 0.015); // Ajustei para 1.5%
+  const grandes = sunburstVotosNac.filter(x => x.votos/total >= 0.015);
   const outros = sunburstVotosNac.filter(x => x.votos/total < 0.015);
   
   const data = {
@@ -284,7 +279,6 @@ sunburst = {
     ]
   };
 
-  // 3. HIERARQUIA E PARTIÇÃO
   const root = d3.hierarchy(data)
       .sum(d => d.value)
       .sort((a, b) => b.value - a.value);
@@ -293,7 +287,6 @@ sunburst = {
       .size([2 * Math.PI, radius]) 
     (root);
 
-  // 4. CONFIGURAÇÃO DO ARCO
   const arc = d3.arc()
       .startAngle(d => d.x0)
       .endAngle(d => d.x1)
@@ -302,19 +295,15 @@ sunburst = {
       .innerRadius(d => d.y0)
       .outerRadius(d => d.y1 - 1);
 
-  // 5. SVG
   const svg = d3.create("svg")
       .attr("viewBox", [-width / 2, -width / 2, width, width])
       .style("font", "10px sans-serif");
 
-  // 6. DESENHAR OS GRUPOS (Arco + Texto)
-  // MUDANÇA PRINCIPAL: Criamos um grupo 'g' para cada nó
   const cell = svg.append("g")
     .selectAll("g")
-    .data(root.descendants().slice(1)) // Ignora a raiz "Portugal"
+    .data(root.descendants().slice(1))
     .join("g");
 
-  // Desenha o caminho (a cor)
   cell.append("path")
       .attr("fill", d => { 
           let current = d;
@@ -326,29 +315,24 @@ sunburst = {
       .attr("stroke", "white")
       .attr("stroke-width", "1px");
 
-  // --- ADICIONAR RÓTULOS (LABELS) ---
   cell.append("text")
       .attr("transform", d => {
-          // Calcula a posição central e a rotação para o texto
           const x = (d.x0 + d.x1) / 2 * 180 / Math.PI;
           const y = (d.y0 + d.y1) / 2;
           return `rotate(${x - 90}) translate(${y},0) rotate(${x < 180 ? 0 : 180})`;
       })
       .attr("dy", "0.35em")
       .attr("text-anchor", "middle")
-      // Lógica para esconder texto se o arco for muito pequeno
       .style("opacity", d => (d.x1 - d.x0 > 0.05) ? 1 : 0) 
-      .style("pointer-events", "none") // O clique passa para o arco
-      .style("fill", "#fff") // Texto branco para contraste
+      .style("pointer-events", "none")
+      .style("fill", "#fff")
       .style("font-weight", "bold")
-      .style("text-shadow", "1px 1px 2px #000") // Sombra para legibilidade
-      .text(d.data.name);
+      .style("text-shadow", "1px 1px 2px #000")
+      .text(d => d.data.name);
 
-  // Tooltip (Hover)
   cell.append("title")
       .text(d => `${d.ancestors().map(d => d.data.name).reverse().join(" > ")}\n${Math.round(d.value).toLocaleString()} votos`);
 
-  // 7. CÍRCULO CENTRAL E TEXTO
   svg.append("text")
       .attr("text-anchor", "middle")
       .style("user-select", "none")
