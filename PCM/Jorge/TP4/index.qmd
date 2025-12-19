@@ -10,12 +10,10 @@ format:
 //| label: 1-setup-completo
 //| output: false
 
-// 1. BIBLIOTECAS
 d3 = require("d3@7")
 L = require("leaflet@1.9.4")
 html`<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>`
 
-// 2. CORES E HELPERS (Isto corre sempre bem)
 partyColors = {
   return {
     "PS": "#e41a1c", "AD": "#ff7f00", "PPD/PSD.CDS-PP": "#ff7f00", 
@@ -31,15 +29,11 @@ partyColors = {
 getColor = function(p) { return partyColors[p] || "#999"; }
 normalize = function(t) { return t ? t.toUpperCase().trim() : ""; }
 
-// 3. CARREGAR DADOS
-// O .catch impede que o site crashe se o ficheiro falhar
 resultados = FileAttachment("data/resultados.json").json().catch(e => null)
 distritosGeo = FileAttachment("data/ContinenteDistritos_geo.geojson").json().catch(e => null)
 
-// 4. PREPARAÇÃO DE DADOS (Só corre se os ficheiros existirem)
 dadosOK = (resultados && distritosGeo && resultados.Inscritos) ? true : false
 
-// Listas Seguras
 distritos = dadosOK 
   ? Object.keys(resultados.Inscritos).filter(d => d !== "Total") 
   : ["Aguardando..."]
@@ -48,7 +42,6 @@ partidos = dadosOK
   ? Object.keys(resultados).filter(k => !["Inscritos", "Votantes", "Brancos", "Nulos", "VVE"].includes(k)) 
   : ["PS", "PSD"]
 
-// A. Calcular Vencedores por Distrito
 winners = {
   const w = {};
   if (!dadosOK) return w;
@@ -69,7 +62,6 @@ winners = {
 
 winnersNorm = Object.fromEntries(Object.entries(winners).map(([d, i]) => [normalize(d), i]))
 
-// B. Calcular Vencedor Nacional
 partidoMaisVotadoNacional = {
   if (!dadosOK) return { partido: "...", votos: 0 };
   
@@ -83,7 +75,6 @@ partidoMaisVotadoNacional = {
     : { partido: "...", votos: 0 };
 }
 
-// C. Calcular Abstenção
 abstNacional = dadosOK 
   ? (100 - (resultados.Votantes.Total / resultados.Inscritos.Total * 100)) 
   : 0
@@ -103,7 +94,6 @@ md`
 
 # Visão Geral {height=20%}
 ```{ojs}
-// CARTÕES DE MÉTRICAS
 html`
 <div style="display:flex; gap:1rem; height:100%; align-items: center; width: 100%;">
   
@@ -125,35 +115,31 @@ html`
 # Mapas {height=45%}
 ## Column {width=50%}
 ```{ojs}
-// MAPA 1: VENCEDOR (Versão de Correção)
 mapaVencedor = {
   const div = document.createElement("div");
-  // ALTERAÇÃO 1: Altura fixa para garantir que aparece
   div.style.height = "500px"; 
   div.style.width = "100%";
-  div.style.zIndex = "1"; // Garante que fica em cima
+  div.style.zIndex = "1";
   
   if (!dadosOK) { 
     div.innerHTML = "<div style='padding:20px'>⚠️ A carregar dados...</div>"; 
     return div; 
   }
 
-  const map = L.map(div).setView([39.6, -8], 7); // Centro ajustado
+  const map = L.map(div).setView([39.6, -8], 6);
   
   L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
       attribution: '&copy; OpenStreetMap'
   }).addTo(map);
 
   function style(feature) {
-    // ALTERAÇÃO 2: Tenta encontrar o nome do distrito em várias propriedades comuns
     const props = feature.properties;
     const nomeRaw = props.DISTRITO || props.Distrito || props.NOME || props.name || props.NAME_1 || props.NAME_0 || "Desconhecido";
     
     const nome = normalize(nomeRaw);
     const info = winnersNorm[nome];
     
-    // Se info existir, usa a cor do partido. Se não, usa Rosa Choque (Debug)
-    const corFinal = info ? getColor(info.partido) : "#ff00ff"; // Rosa = Erro de nome
+    const corFinal = info ? getColor(info.partido) : "#ff00ff";
 
     return { 
       color: "#555", 
@@ -180,11 +166,9 @@ mapaVencedor = {
 
   if (distritosGeo && distritosGeo.features) {
      const geoLayer = L.geoJSON(distritosGeo, { style, onEachFeature }).addTo(map);
-     // Ajusta o zoom automaticamente para ver Portugal inteiro
-     try { map.fitBounds(geoLayer.getBounds()); } catch(e) {}
+     //try { map.fitBounds(geoLayer.getBounds()); } catch(e) {}
   }
   
-  // Força o mapa a redesenhar o tamanho
   setTimeout(() => map.invalidateSize(), 500);
   return div;
 }
@@ -192,10 +176,8 @@ mapaVencedor = {
 
 ## Column {width=50%}
 ```{ojs}
-// MAPA 2: INTENSIDADE (Versão Corrigida)
 mapaIntensidade = {
   const div = document.createElement("div");
-  // 1. Altura Fixa (Obrigatório para evitar ecrã branco)
   div.style.height = "500px"; 
   div.style.width = "100%";
   div.style.zIndex = "1";
@@ -212,18 +194,15 @@ mapaIntensidade = {
   }).addTo(map);
 
   function style(feature) {
-    // 2. Procura robusta do nome
     const props = feature.properties;
     const raw = props.DISTRITO || props.Distrito || props.NOME || props.name || props.NAME_1 || "Desconhecido";
     const match = distritos.find(d => normalize(d) === normalize(raw)) || raw;
     
-    // Dados com proteção
     const pData = resultados[partidoIntensidade] || {};
     const votos = pData[match] || 0;
     const total = (resultados["VVE"] || {})[match] || 1;
     
-    // Calcular rácio para opacidade (0.1 a 0.9)
-    let ratio = (votos / total) * 3; // O *3 aumenta o contraste
+    let ratio = (votos / total) * 3;
     const opacidade = Math.min(0.9, Math.max(0.2, ratio));
     
     return { 
@@ -255,7 +234,7 @@ mapaIntensidade = {
 
   if (distritosGeo && distritosGeo.features) {
     const geoLayer = L.geoJSON(distritosGeo, { style, onEachFeature }).addTo(map);
-    try { map.fitBounds(geoLayer.getBounds()); } catch(e) {}
+    //try { map.fitBounds(geoLayer.getBounds()); } catch(e) {}
   }
   
   setTimeout(() => map.invalidateSize(), 500);
@@ -265,80 +244,125 @@ mapaIntensidade = {
 
 # Detalhes {height=35% .tabset}
 ```{ojs}
-//| title: "Visualização Sunburst"
 sunburst = {
-  // 1. Proteção contra falta de dados
-  if (!dadosOK) return md`A carregar visualização...`;
+  // 1. DADOS E SEGURANÇA
+  if (!dadosOK) return md`⚠️ A carregar dados...`;
 
-  // 2. CRIAR CONTENTOR (O Segredo para aparecer!)
-  const div = document.createElement("div");
-  div.style.width = "100%";
-  div.style.height = "500px"; // Altura fixa obrigatória
-  div.style.display = "flex";
-  div.style.justifyContent = "center"; // Centra o gráfico
-  div.style.alignItems = "center";
+  const width = 600;
+  const radius = width / 2;
 
-  // 3. Configurações D3
-  const width = 600; 
-  const radius = width / 6;
-
-  // 4. Preparar Dados
+  // 2. PREPARAÇÃO DOS DADOS
   const sunburstVotosNac = partidos.map(p => ({
-    partido: p, votos: (resultados[p] || {})["Total"] || 0
+    partido: p, 
+    votos: (resultados[p] && resultados[p]["Total"]) ? +resultados[p]["Total"] : 0
   }));
+  
   const total = sunburstVotosNac.reduce((acc, x) => acc + x.votos, 0);
   
-  const grandes = sunburstVotosNac.filter(x => x.votos/total >= 0.02);
-  const outros = sunburstVotosNac.filter(x => x.votos/total < 0.02);
+  // Filtra partidos muito pequenos para "Outros" para limpar o gráfico
+  const grandes = sunburstVotosNac.filter(x => x.votos/total >= 0.015); // Ajustei para 1.5%
+  const outros = sunburstVotosNac.filter(x => x.votos/total < 0.015);
   
   const data = {
     name: "Portugal",
     children: [
       ...grandes.map(p => ({
-         name: p.partido, color: getColor(p.partido),
-         children: distritos.map(d => ({ name: d, value: (resultados[p.partido]||{})[d]||0 }))
+         name: p.partido, 
+         color: getColor(p.partido),
+         children: distritos.map(d => ({ 
+             name: d, 
+             value: (resultados[p.partido] && resultados[p.partido][d]) ? +resultados[p.partido][d] : 0 
+         })).filter(c => c.value > 0)
       })),
       {
          name: "Outros", color: "#ccc",
          children: distritos.map(d => ({
-           name: d, value: outros.reduce((acc, p) => acc + ((resultados[p.partido]||{})[d]||0), 0)
-         }))
+           name: d, 
+           value: outros.reduce((acc, p) => acc + ((resultados[p.partido] && resultados[p.partido][d]) ? +resultados[p.partido][d] : 0), 0)
+         })).filter(c => c.value > 0)
       }
     ]
   };
 
-  // 5. Desenhar
-  const root = d3.hierarchy(data).sum(d => d.value).sort((a, b) => b.value - a.value);
-  d3.partition().size([2 * Math.PI, radius * radius])(root);
-  
-  const arc = d3.arc().startAngle(d => d.x0).endAngle(d => d.x1)
-    .innerRadius(d => Math.sqrt(d.y0)).outerRadius(d => Math.sqrt(d.y1) - 1);
+  // 3. HIERARQUIA E PARTIÇÃO
+  const root = d3.hierarchy(data)
+      .sum(d => d.value)
+      .sort((a, b) => b.value - a.value);
 
+  d3.partition()
+      .size([2 * Math.PI, radius]) 
+    (root);
+
+  // 4. CONFIGURAÇÃO DO ARCO
+  const arc = d3.arc()
+      .startAngle(d => d.x0)
+      .endAngle(d => d.x1)
+      .padAngle(0.005)
+      .padRadius(radius / 2)
+      .innerRadius(d => d.y0)
+      .outerRadius(d => d.y1 - 1);
+
+  // 5. SVG
   const svg = d3.create("svg")
-    .attr("viewBox", [0, 0, width, width])
-    .attr("width", "100%")      // Ocupa o div
-    .attr("height", "100%")     // Ocupa o div
-    .style("max-width", "500px") // Impede que fique gigante
-    .style("font", "10px sans-serif");
-    
-  const g = svg.append("g").attr("transform", `translate(${width/2},${width/2})`);
+      .attr("viewBox", [-width / 2, -width / 2, width, width])
+      .style("font", "10px sans-serif");
 
-  g.append("g").selectAll("path").data(root.descendants().slice(1)).join("path")
-    .attr("fill", d => { while (d.depth > 1) d = d.parent; return d.data.color || "#ccc"; })
-    .attr("fill-opacity", 0.8).attr("d", arc)
-    .append("title").text(d => `${d.data.name}\n${Math.round(d.value).toLocaleString()}`);
-    
-  g.append("text").attr("text-anchor", "middle").text("Portugal").style("fill", "#666");
+  // 6. DESENHAR OS GRUPOS (Arco + Texto)
+  // MUDANÇA PRINCIPAL: Criamos um grupo 'g' para cada nó
+  const cell = svg.append("g")
+    .selectAll("g")
+    .data(root.descendants().slice(1)) // Ignora a raiz "Portugal"
+    .join("g");
 
-  // 6. Colocar o SVG dentro do Div e devolver o Div
-  div.appendChild(svg.node());
-  return div;
+  // Desenha o caminho (a cor)
+  cell.append("path")
+      .attr("fill", d => { 
+          let current = d;
+          while (current.depth > 1) current = current.parent; 
+          return current.data.color || "#ccc"; 
+      })
+      .attr("fill-opacity", d => d.children ? 0.8 : 0.6)
+      .attr("d", arc)
+      .attr("stroke", "white")
+      .attr("stroke-width", "1px");
+
+  // --- ADICIONAR RÓTULOS (LABELS) ---
+  cell.append("text")
+      .attr("transform", d => {
+          // Calcula a posição central e a rotação para o texto
+          const x = (d.x0 + d.x1) / 2 * 180 / Math.PI;
+          const y = (d.y0 + d.y1) / 2;
+          return `rotate(${x - 90}) translate(${y},0) rotate(${x < 180 ? 0 : 180})`;
+      })
+      .attr("dy", "0.35em")
+      .attr("text-anchor", "middle")
+      // Lógica para esconder texto se o arco for muito pequeno
+      .style("opacity", d => (d.x1 - d.x0 > 0.05) ? 1 : 0) 
+      .style("pointer-events", "none") // O clique passa para o arco
+      .style("fill", "#fff") // Texto branco para contraste
+      .style("font-weight", "bold")
+      .style("text-shadow", "1px 1px 2px #000") // Sombra para legibilidade
+      .text(d.data.name);
+
+  // Tooltip (Hover)
+  cell.append("title")
+      .text(d => `${d.ancestors().map(d => d.data.name).reverse().join(" > ")}\n${Math.round(d.value).toLocaleString()} votos`);
+
+  // 7. CÍRCULO CENTRAL E TEXTO
+  svg.append("text")
+      .attr("text-anchor", "middle")
+      .style("user-select", "none")
+      .style("pointer-events", "none")
+      .style("font-size", "14px")
+      .style("font-weight", "bold")
+      .text("Portugal");
+
+  return svg.node();
 }
 ```
 
 
 ```{ojs}
-//| title: "Detalhe Distrito"
 Inputs.table(
   partidos.map(p => ({
     Partido: p,
@@ -349,7 +373,6 @@ Inputs.table(
 
 
 ```{ojs}
-//| title: "Vencedores Nacionais"
 Inputs.table(
   distritos.map(d => ({
     Distrito: d,
