@@ -1,5 +1,5 @@
 ---
-title: "Audio Analytics Dashboard"
+title: "Audio Content Dashboard"
 format: 
   dashboard:
     theme: dark
@@ -7,25 +7,76 @@ format:
 ---
 ```{ojs}
 //| output: false
+
+// =================================================================
+// 1. ESTILO GLOBAL (CSS) & CONFIGURAÇÕES
+// =================================================================
 html`
 <style>
-  /* Fundo Preto e Texto Branco */
-  body, .page-columns, .quarto-content, #quarto-content {
-    background-color: #000000 !important;
-    color: #ffffff !important;
+  /* Variáveis de Cores */
+  :root {
+    --bg-main: #000000;
+    --bg-card: #121212;
+    --bg-hover: #282828;
+    --text-primary: #FFFFFF;
+    --text-secondary: #B3B3B3;
+    --accent: #1db954;
+    --border: #333333;
+  }
+
+  /* 1. FUNDO PRETO GLOBAL */
+  body, .page-columns, .quarto-content, #quarto-content, .dashboard-card {
+    background-color: var(--bg-main) !important;
+    color: var(--text-primary) !important;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  }
+
+  /* --- CORREÇÃO DOS FUNDOS BRANCOS (OJS/QUARTO) --- */
+  /* Isto remove o fundo branco dos painéis padrão do Quarto */
+  .card, .bslib-card, .bslib-grid-item, .card-body, .html-fill-container {
+    background-color: transparent !important; /* Deixa ver o preto de trás */
+    border: none !important; /* Remove bordas padrão feias */
+    box-shadow: none !important;
   }
   
-  /* Ajuste de Links */
-  a { color: #1db954 !important; }
-  
-  /* Scrollbar personalizada (opcional, fica mais bonito no dark mode) */
+  /* Garante que o texto dentro dos cartões padrão seja branco */
+  .card-body {
+    color: var(--text-primary) !important;
+  }
+
+  /* 2. SCROLLBAR PERSONALIZADA */
   ::-webkit-scrollbar { width: 8px; }
-  ::-webkit-scrollbar-track { background: #000; }
-  ::-webkit-scrollbar-thumb { background: #333; border-radius: 4px; }
-  ::-webkit-scrollbar-thumb:hover { background: #555; }
+  ::-webkit-scrollbar-track { background: var(--bg-main); }
+  ::-webkit-scrollbar-thumb { background: var(--bg-hover); border-radius: 4px; }
+
+  /* 3. DROPDOWN ESCURO */
+  form select {
+    background-color: var(--bg-hover) !important;
+    color: white !important;
+    border: 1px solid var(--border) !important;
+    padding: 8px;
+    border-radius: 6px;
+    width: 100%;
+  }
+  
+  /* Remove margens extras que criam espaços brancos */
+  .dashboard-card {
+    margin: 0 !important;
+  }
+
+  /* --- 4. CORREÇÃO DA BARRA AZUL (CABEÇALHO) --- */
+  .quarto-dashboard-header, .navbar {
+    background-color: #333 !important; /* Força o fundo preto */
+    color: white !important;
+  }
+  
+  /* Garante que o título "Audio Analytics..." fica branco */
+  .navbar-brand, .navbar-title {
+    color: white !important;
+  }
+
 </style>
 `
-
 ```
 
 ```{ojs}
@@ -104,7 +155,7 @@ html`<iframe
   style="border-radius:12px" 
   src=${`https://open.spotify.com/embed/track/${current.id}?utm_source=generator`} 
   width="100%" 
-  height="152" 
+  height="352" 
   frameBorder="0" 
   allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
   loading="lazy">
@@ -137,7 +188,9 @@ createTag = (label, value, icon = "") => {
     </div>
   `
 }
+```
 
+```{ojs}
 // 3. Renderiza o Bloco da Ficha Técnica
 html`
 <div style="margin-top: 20px; margin-bottom: 20px;">
@@ -150,7 +203,7 @@ html`
     ${createTag("Artista", current.Artista, "🎤")}
     ${createTag("Álbum", current.Album || "Single", "💿")}
     ${createTag("Duração", millisToMinutesAndSeconds(current.Duracao),"⏱")}
-    ${createTag("Ano", current.Ano || current.Release_Date || "N/A", "📅")}
+    ${createTag("Ano", current.Year || "N/A", "📅")}
 
     ${createTag("BPM", current.BPM, "🥁")}
     ${createTag("Popularidade", (current.Popularidade || 0) + "%", "🔥")}
@@ -162,39 +215,4 @@ html`
   </div>
 </div>
 `
-```
-
-```{ojs}
-// CORREÇÃO DO GRÁFICO: Cores escuras para fundo claro
-Plot.plot({
-  padding: 40,
-  grid: true,
-  style: {background: "transparent", color: "black", fontSize: "12px"}, // Texto Preto
-  x: { label: "← Triste (Valence) Feliz →", domain: [0, 1] },
-  y: { label: "← Calmo (Energia) Intenso →", domain: [0, 1] },
-  marks: [
-    Plot.ruleX([0.5], {stroke: "#ccc"}), // Linhas cinzentas
-    Plot.ruleY([0.5], {stroke: "#ccc"}),
-    
-    // Pontos de todas as músicas
-    Plot.dot(data, {
-      x: "Valence", 
-      y: "Energia", 
-      fill: d => d.Popularidade > 90 ? "#1DB954" : "#666", 
-      r: 8,
-      title: d => `${d.Música}\n${d.Artista}`,
-      fillOpacity: 0.8
-    }),
-    
-    // Destaque da música selecionada
-    Plot.dot([current], {
-      x: "Valence", y: "Energia", r: 15, stroke: "black", strokeWidth: 2, fill: "none"
-    }),
-    
-    // Nome da música no gráfico (Texto Preto)
-    Plot.text([current], {
-      x: "Valence", y: "Energia", text: "Música", dy: -25, fill: "black", weight: "bold", stroke: "white", strokeWidth: 3
-    })
-  ]
-})
 ```
