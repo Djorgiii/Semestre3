@@ -85,7 +85,7 @@ html`
 data = FileAttachment("dados.json").json()
 ```
 
-## Column {witdth=35%}
+## Column {width=35%}
 
 ### Métricas Principais
 ```{ojs}
