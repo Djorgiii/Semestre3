@@ -1,11 +1,13 @@
 public class App {
     private GUI gui;
-    private GuiGravador guigravador;
+    private GuiGravador guiGravador;
 
     public App() {
     	BaseDados bd = new BaseDados();
         gui = new GUI(bd);
-        guigravador = new GuiGravador(bd);
+        guiGravador = new GuiGravador(bd);
+        guiGravador.setBufferCentral(gui.getBufferCircular());
+        gui.setGuiGravador(guiGravador);
     }
 
     public void run() {
@@ -25,6 +27,7 @@ public class App {
 
         Servidor servidor = new Servidor(app.gui.getBufferCircular(), app.gui.getBd().getRobot(), app.gui.getBd(),s -> app.gui.myPrintServidor(s));
         app.gui.setServidor(servidor);
+        servidor.setGravador(app.guiGravador.getGravador());
         servidor.start();
 
         // Tarefa dos aleatórios (lote de 5). Já não há "próxima" (manuais).
@@ -34,7 +37,7 @@ public class App {
         // Dizer à GUI quem é a única tarefa (aleatórios)
         app.gui.setTarefas(tAleatorios);
 
-        EvitarObstaculo tObstaculo = new EvitarObstaculo(app.gui);
+        EvitarObstaculo tObstaculo = new EvitarObstaculo(app.gui, app.guiGravador);
         tObstaculo.start();
         app.gui.setTarefaObstaculo(tObstaculo);
         // Entrar no ciclo normal

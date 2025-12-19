@@ -18,6 +18,10 @@ public class Gravador extends Tarefa {
 
     private volatile boolean emReproducao = false;
     private RobotLegoEV3 robotLigado;
+    private volatile boolean aGravar = false;
+
+
+    
 
     public Gravador() {
         start();
@@ -30,6 +34,20 @@ public class Gravador extends Tarefa {
     public boolean isEmReproducao() {
         return emReproducao;
     }
+    
+    public void iniciarGravacao() {
+        aGravar = true;
+        limpar();
+    }
+
+    public void pararGravacao() {
+        aGravar = false;
+    }
+
+    public boolean isAGravar() {
+        return aGravar;
+    }
+
     
     public void limpar() {
         try {
@@ -47,6 +65,8 @@ public class Gravador extends Tarefa {
 
     public void registar(Movimento m) {
         if (m == null) return;
+        
+        if (!aGravar) return;
 
         // Se não conseguir adquirir, está a reproduzir
         if (!exclusao.tryAcquire()) {
@@ -60,6 +80,28 @@ public class Gravador extends Tarefa {
             exclusao.release();
         }
     }
+    
+    public void reproduzirParaBuffer(BufferCircular bufferCentral) {
+
+        try {
+            exclusao.acquire();     // 🔒 bloqueia gravação
+            emReproducao = true;
+
+            while (!buffer.isVazio()) {
+                bufferCentral.inserirElemento(buffer.removerElemento());
+            }
+
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        } finally {
+            emReproducao = false;
+            exclusao.release();     // 🔓 ACABA AQUI
+        }
+    }
+
+
+
+
 
     // --------------------------------------------------
     // LER FICHEIRO
@@ -223,9 +265,10 @@ public class Gravador extends Tarefa {
             }
 
             emReproducao = false;
-            exclusao.release(); // 🔓 volta a permitir gravação
+            exclusao.release();
         }
     }
+
 
     // --------------------------------------------------
     // INICIAR REPRODUÇÃO

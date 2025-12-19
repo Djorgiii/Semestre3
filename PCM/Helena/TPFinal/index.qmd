@@ -1,0 +1,101 @@
+---
+title: "Audio Library Dashboard"
+format: dashboard
+execute:
+  warning: false
+---
+
+```{ojs}
+audio = FileAttachment("data/audio_metadata.json").json()
+
+audio_numeric = audio.map(d => ({
+...d,
+duration_min: +d.duration_min
+}))
+
+```
+
+
+```{ojs}
+| title: Total de faixas
+audio_numeric.length
+
+```
+```{ojs}
+
+| title: Duração total (minutos)
+d3.sum(audio_numeric, d => d.duration_min).toFixed(1)
+
+```
+```{ojs}
+| title: Artista com mais faixas
+d3.rollups(
+audio_numeric,
+v => v.length,
+d => d.artist
+)
+.sort((a, b) => d3.descending(a[1], b[1]))[0][0]
+
+
+```
+
+```{ojs}
+| title: Número de faixas por género
+
+Plot.plot({
+marks: [
+Plot.barY(
+audio_numeric,
+Plot.groupX({ y: "count" }, { x: "genre" })
+)
+],
+x: { type: "band", label: "Género" },
+y: { label: "Número de faixas", grid: true },
+width: 600,
+height: 400
+})
+
+```
+```{ojs}
+
+| title: Duração total por artista (minutos)
+
+Plot.plot({
+marks: [
+Plot.barY(
+audio_numeric,
+Plot.groupX(
+{ y: d => d3.sum(d, v => v.duration_min) },
+{ x: "artist" }
+)
+)
+],
+x: { type: "band", label: "Artista" },
+y: { label: "Duração total (min)", grid: true },
+width: 600,
+height: 400
+})
+
+```
+```{ojs}
+| title: Distribuição temporal das faixas
+
+Plot.plot({
+marks: [
+Plot.barY(
+audio_numeric,
+Plot.groupX({ y: "count" }, { x: "year" })
+)
+],
+x: { type: "band", label: "Ano" },
+y: { label: "Número de faixas", grid: true },
+width: 600,
+height: 400
+})
+
+```
+```{ojs}
+| title: Biblioteca de áudio
+Inputs.table(audio_numeric)
+
+```

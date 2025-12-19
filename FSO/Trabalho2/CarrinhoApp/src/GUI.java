@@ -40,12 +40,17 @@ public class GUI extends JFrame {
     private MovimentosAleatorios movimentosAleatorios;
     private final Queue<Movimento> pendentes = new LinkedList<>();
     private EvitarObstaculo tObstaculo;
+    private GuiGravador guiGravador;
     private String nomeRobot = "EV2";
     private int spinnerValue = 5;
     
     public int getSpinnerValue() {
 		return spinnerValue;
 	}
+    
+    public void setGuiGravador(GuiGravador g) {
+        this.guiGravador = g;
+    }
 
 	public String getNomeRobot() {
 		return nomeRobot;
@@ -151,8 +156,11 @@ public class GUI extends JFrame {
                                 myPrint("Abra o robot antes de executar movimentos.");
                                 return;
                             }
-                            pedirMovimentoManual(new Movimento("RETA", bd.getDistancia(), 0));
-                    		pedirMovimentoManual(new Movimento("PARAR", false));
+                            Movimento m1 = new Movimento("RETA", bd.getDistancia(), 0);
+                            Movimento m2 = new Movimento("PARAR", false);
+                            pedirMovimentoManual(m1);
+                    		pedirMovimentoManual(m2);
+                    		
 
                         }
                     });
@@ -265,7 +273,12 @@ public class GUI extends JFrame {
                                 myPrint("Abra o robot antes de executar movimentos.");
                                 return;
                             }
-                    		pedirMovimentoManual(new Movimento("PARAR", false));
+                            Movimento m = new Movimento("PARAR", false);
+                            
+                    		pedirMovimentoManual(m);
+                    		
+
+
                     	}
                     });
                     btnParar.setFont(new Font("Tahoma", Font.PLAIN, 16));
@@ -281,8 +294,12 @@ public class GUI extends JFrame {
                                 myPrint("Abra o robot antes de executar movimentos.");
                                 return;
                             }
-                    		pedirMovimentoManual(new Movimento("CURVARDIREITA", bd.getRaio(), bd.getAngulo()));
-                    		pedirMovimentoManual(new Movimento("PARAR", false));
+                            Movimento m1 = new Movimento("CURVARDIREITA", bd.getRaio(), bd.getAngulo());
+                            Movimento m2 = new Movimento("PARAR", false);
+                    		pedirMovimentoManual(m1);
+                    		pedirMovimentoManual(m2);
+                    	
+
                     	}
                     });
                     btnDireita.setFont(new Font("Tahoma", Font.PLAIN, 16));
@@ -298,8 +315,11 @@ public class GUI extends JFrame {
                                 myPrint("Abra o robot antes de executar movimentos.");
                                 return;
                             }
-                    		pedirMovimentoManual(new Movimento("CURVARESQUERDA", bd.getRaio(), bd.getAngulo()));
-                    		pedirMovimentoManual(new Movimento("PARAR", false));
+                            Movimento m1 = new Movimento("CURVARESQUERDA", bd.getRaio(), bd.getAngulo());
+                            Movimento m2 = new Movimento("PARAR", false);
+                    		pedirMovimentoManual(m1);
+                    		pedirMovimentoManual(m2);
+
 
                     	}
                     });
@@ -316,10 +336,13 @@ public class GUI extends JFrame {
                                 myPrint("Abra o robot antes de executar movimentos.");
                                 return;
                             }
-                    		pedirMovimentoManual(new Movimento("RETA", -bd.getDistancia(), 0));
-                    		pedirMovimentoManual(new Movimento("PARAR", false));
+                            Movimento m1 = new Movimento("RETA", -bd.getDistancia(), 0);
+                            Movimento m2 = new Movimento("PARAR", false);
+                            
+                    		pedirMovimentoManual(m1);
+                    		pedirMovimentoManual(m2);
+                    		}
 
-                    	}
                     });
                     btnTras.setFont(new Font("Tahoma", Font.PLAIN, 16));
                     btnTras.setBounds(242, 154, 105, 37);
