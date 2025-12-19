@@ -30,7 +30,11 @@ public class GuiGravador extends JFrame {
     private JTextField textFieldRobot;
     private Gravador gravador;
     private JTextField textField;
-    private boolean aGravar = false;
+    private boolean mesmoRobot = false;
+    private BufferCircular bufferCentral;
+    private JRadioButton rdbtnMesmoRobot;
+
+    
 
     private RobotLegoEV3 robotNovo = new RobotLegoEV3();
     private boolean robotNovoAberto = false;
@@ -39,6 +43,89 @@ public class GuiGravador extends JFrame {
     public void myPrint(String s) {
         textAreaConsola.append(s + "\n");
     }
+    
+    public void setBufferCentral(BufferCircular buffer) {
+        this.bufferCentral = buffer;
+    }
+
+    
+    public Gravador getGravador() {
+        return gravador;
+    }
+
+    public void registarExterno(Movimento m) {
+        if (gravador.isAGravar() && m != null) {
+            gravador.registar(m);
+        }
+    }
+
+    private boolean podeGravar() {
+        if (gravador.isEmReproducao()) {
+            myPrint("[AVISO] Não pode gravar enquanto está a reproduzir.");
+            return false;
+        }
+        return true;
+    }
+
+    private boolean podeReproduzir() {
+        if (gravador.isAGravar()) {
+            myPrint("[AVISO] Não pode reproduzir enquanto está a gravar.");
+            return false;
+        }
+        return true;
+    }
+
+    
+    public boolean isMesmoRobot() {
+        return mesmoRobot;
+    }
+    
+    private void enviarMovimento(Movimento m) {
+        if (m == null) return;
+
+        if (mesmoRobot) {
+            bufferCentral.inserirElemento(m);
+            return;
+        }
+
+        executarDireto(m);
+    }
+
+    private void executarDireto(Movimento m) {
+
+        switch (m.getTipo()) {
+
+            case "RETA":
+                robotNovo.Reta(m.getArg1());
+                break;
+
+            case "CURVARDIREITA":
+                robotNovo.CurvarDireita(m.getArg1(), m.getArg2());
+                break;
+
+            case "CURVARESQUERDA":
+                robotNovo.CurvarEsquerda(m.getArg1(), m.getArg2());
+                break;
+
+            case "PARAR":
+                robotNovo.Parar(false);
+                return;
+        }
+
+        robotNovo.Parar(false);
+    }
+
+    private boolean podeExecutar() {
+
+        if (mesmoRobot) {
+            // robot é o da GUI principal
+            return bd.isRobotAberto();
+        }
+
+        // modo isolado
+        return robotNovoAberto;
+    }
+
  
     public GuiGravador(BaseDados bd) {
         this.bd = bd;
@@ -80,28 +167,34 @@ public class GuiGravador extends JFrame {
                     btnFrente.setEnabled(false);
                     btnFrente.addActionListener(new ActionListener() {
                         public void actionPerformed(ActionEvent arg0) {
-                            if (!robotNovoAberto) {
+                        	
+                            if (!podeExecutar()) {
                                 myPrint("Abra o robot antes de executar movimentos.");
                                 return;
                             }
+                            
+                            
                             Movimento m = new Movimento("RETA", bd.getDistancia(), 0);
                             Movimento m2 = new Movimento("PARAR", false);
+                            
+                            if (gravador.isAGravar()) {
+                            	gravador.registar(m);
+                            	myPrint("[Gravador] Gravado: " + m.getTipo());
+                            	gravador.registar(m2);
+                            	myPrint("[Gravador] Gravado: " + m2.getTipo());
+                            	return;
+                            																	
+                            }
                             
                             if(gravador.isEmReproducao()) {
 								myPrint("[GUI] O robot está a reproduzir, aguarde...");
 								return;
 							}
                             
-                            if (aGravar) {
-                            	gravador.registar(m);
-                            	myPrint("[Gravador] Gravado: " + m.getTipo());
-								gravador.registar(m2);
-								myPrint("[Gravador] Gravado: " + m2.getTipo());
-								return;
-							}
-                            
-                            robotNovo.Reta(bd.getDistancia());
-                            robotNovo.Parar(false);
+                            enviarMovimento(m);
+                            enviarMovimento(m2);
+
+                          
                         }
                     });
                     btnFrente.setBounds(242, 84, 105, 37);
@@ -195,7 +288,7 @@ public class GuiGravador extends JFrame {
                     btnParar.setBackground(new Color(255, 0, 0));
                     btnParar.addActionListener(new ActionListener() {
                         public void actionPerformed(ActionEvent arg0) {
-                            if (!robotNovoAberto) {
+                            if (!podeExecutar()) {
                                 myPrint("Abra o robot antes de executar movimentos.");
                                 return;
                             }
@@ -208,13 +301,13 @@ public class GuiGravador extends JFrame {
                             Movimento m = new Movimento("PARAR", false);
                             
 
-                            if (aGravar) {
+                            if (gravador.isAGravar()) {
                                 gravador.registar(m);
                                 myPrint("[Gravador] Gravado: PARAR");
                                 return;
                             }
                             
-                            robotNovo.Parar(false);
+                            enviarMovimento(new Movimento("PARAR", false));
                         }
                     });
                     btnParar.setFont(new Font("Tahoma", Font.PLAIN, 16));
@@ -226,7 +319,7 @@ public class GuiGravador extends JFrame {
                     btnDireita.setBackground(new Color(0, 128, 255));
                     btnDireita.addActionListener(new ActionListener() {
                         public void actionPerformed(ActionEvent e) {
-                            if (!robotNovoAberto) {
+                            if (!podeExecutar()) {
                                 myPrint("Abra o robot antes de executar movimentos.");
                                 return;
                             }
@@ -239,15 +332,15 @@ public class GuiGravador extends JFrame {
                             Movimento m = new Movimento("CURVARDIREITA", bd.getRaio(), bd.getAngulo());
                             Movimento m2 = new Movimento("PARAR", false);
                             
-                            if (aGravar) {
+                            if (gravador.isAGravar()) {
 								gravador.registar(m);
 								myPrint("[Gravador] Gravado: " + m.getTipo());
 								gravador.registar(m2);
 								myPrint("[Gravador] Gravado: " + m2.getTipo());
 								return;
                             }
-                            robotNovo.CurvarDireita(bd.getRaio(), bd.getAngulo());
-                            robotNovo.Parar(false);
+                            enviarMovimento(m);
+                            enviarMovimento(m2);
                         }
                     });
                     btnDireita.setFont(new Font("Tahoma", Font.PLAIN, 16));
@@ -259,7 +352,7 @@ public class GuiGravador extends JFrame {
                     btnEsquerda.setBackground(new Color(255, 128, 255));
                     btnEsquerda.addActionListener(new ActionListener() {
                         public void actionPerformed(ActionEvent e) {
-                            if (!robotNovoAberto) {
+                            if (!podeExecutar()) {
                                 myPrint("Abra o robot antes de executar movimentos.");
                                 return;
                             }
@@ -272,7 +365,7 @@ public class GuiGravador extends JFrame {
                             Movimento m = new Movimento("CURVARESQUERDA", bd.getRaio(), bd.getAngulo());
                             Movimento m2 = new Movimento("PARAR", false);
                             
-                            if (aGravar) {
+                            if (gravador.isAGravar()) {
 								gravador.registar(m);
 								myPrint("[Gravador] Gravado: " + m.getTipo());
 								gravador.registar(m2);
@@ -280,8 +373,8 @@ public class GuiGravador extends JFrame {
 								return;
 								}
 							
-							robotNovo.CurvarEsquerda(bd.getRaio(), bd.getAngulo());
-							robotNovo.Parar(false);
+                            enviarMovimento(m);
+                            enviarMovimento(m2);
                         }
                     });
                     btnEsquerda.setFont(new Font("Tahoma", Font.PLAIN, 16));
@@ -293,7 +386,7 @@ public class GuiGravador extends JFrame {
                     btnTras.setBackground(new Color(255, 128, 128));
                     btnTras.addActionListener(new ActionListener() {
                         public void actionPerformed(ActionEvent e) {
-                            if (!robotNovoAberto) {
+                            if (!podeExecutar()) {
                                 myPrint("Abra o robot antes de executar movimentos.");
                                 return;
                             }
@@ -306,7 +399,7 @@ public class GuiGravador extends JFrame {
                             Movimento m = new Movimento("RETA", -bd.getDistancia(), 0);
                             Movimento m2 = new Movimento("PARAR", false);
                             
-                            if (aGravar) {
+                            if (gravador.isAGravar()) {
                             	gravador.registar(m);
                             	myPrint("[Gravador] Gravado: " + m.getTipo());
 								gravador.registar(m2);
@@ -314,8 +407,9 @@ public class GuiGravador extends JFrame {
 								return;
 							}
 							
-							robotNovo.Reta(-bd.getDistancia());
-							robotNovo.Parar(false);
+                            enviarMovimento(m);
+                            enviarMovimento(m2);
+
                         }
                     });
                     btnTras.setFont(new Font("Tahoma", Font.PLAIN, 16));
@@ -358,24 +452,30 @@ public class GuiGravador extends JFrame {
                         @Override
                         public void actionPerformed(ActionEvent e) {
                         	
-                        	if (!aGravar) {
-                        		aGravar = true;
-                        		gravador.limpar();
-                        		btnGravar.setText("Parar");
-                        		myPrint("[Gravador] A gravar...");
-                        		return;
-                        	}
-                        	
-                        	aGravar = false;
-                        	btnGravar.setText("Gravar");
-                        	
-                            String nome = textField.getText().trim();
-                            if (nome.isEmpty()) {
-                                myPrint("[Gravador] Indique um nome de ficheiro.");
-                                return;
-                            }
+                            if (!podeGravar()) {
+								myPrint("[GUI] Não pode gravar agora.");
+								return;
+								}
 
-                            gravador.guardarEmFicheiro(nome);
+                        	
+                        	if (!gravador.isAGravar()) {
+                        	    gravador.iniciarGravacao();
+                        	    btnGravar.setText("Parar");
+                        	    myPrint("[Gravador] A gravar...");
+                        	    return;
+                        	}
+
+                        	gravador.pararGravacao();
+                        	btnGravar.setText("Gravar");
+
+                        	String nome = textField.getText().trim();
+                        	if (nome.isEmpty()) {
+                        	    myPrint("[Gravador] Indique um nome de ficheiro.");
+                        	    return;
+                        	}
+
+                        	gravador.guardarEmFicheiro(nome);
+
                             myPrint("[Gravador] Sequência gravada em: " + nome);
                         }
                     });
@@ -391,28 +491,32 @@ public class GuiGravador extends JFrame {
                         @Override
                         public void actionPerformed(ActionEvent e) {
                         	
-                            if (gravador.isEmReproducao()) {
-                                myPrint("[GUI] O robot está a reproduzir, aguarde...");
-                                return;
-                            }
+                        	if (!podeReproduzir()) {
+                        		myPrint("[GUI] Não pode reproduzir agora.");
+                        		return;
+                        	}
                         	
-                            if (!robotNovoAberto || robotNovo == null) {
-                                myPrint("[Gravador] Abra o robot antes de reproduzir.");
+                            if (gravador.isEmReproducao()) {
+                                myPrint("[GUI] Reprodução em curso.");
                                 return;
                             }
 
                             String nome = textField.getText().trim();
                             if (nome.isEmpty()) {
-                                myPrint("[Gravador] Indique o ficheiro a reproduzir.");
+                                myPrint("[Gravador] Indique o ficheiro.");
                                 return;
                             }
 
                             gravador.lerFicheiro(nome);
-                            myPrint("[Gravador] Ficheiro carregado: " + nome);
+                            
 
-                            // 👉 deixa o Gravador executar tudo no robotNovo
-                            gravador.iniciarReproducao(robotNovo); // acorda a Tarefa
-                            myPrint("[Gravador] Reprodução terminada.");
+                            if (mesmoRobot) {
+                                gravador.reproduzirParaBuffer(bufferCentral);
+                                myPrint("[Gravador] Reprodução via Servidor.");
+                            } else {
+                                gravador.iniciarReproducao(robotNovo);
+                                myPrint("[Gravador] Reprodução direta.");
+                            }
                         }
                     });
 
@@ -434,11 +538,56 @@ public class GuiGravador extends JFrame {
                     btnBotaoFicheiro.setBounds(508, 272, 57, 20);
                     contentPane.add(btnBotaoFicheiro);
                     
-                    JRadioButton rdbtnMesmoRobot = new JRadioButton("Mesmo Robot");
-                    rdbtnMesmoRobot.setEnabled(false);
+                    rdbtnMesmoRobot = new JRadioButton("Mesmo Robot");
                     rdbtnMesmoRobot.addActionListener(new ActionListener() {
                     	public void actionPerformed(ActionEvent e) {
-                    		
+							mesmoRobot = rdbtnMesmoRobot.isSelected();
+							
+							if(mesmoRobot) {
+					            nomeRobot = bd.getNomeRobotPrincipal();
+					            textFieldRobot.setText(nomeRobot);
+					            
+	                            btnFrente.setEnabled(true);
+	                            btnTras.setEnabled(true);
+	                            btnDireita.setEnabled(true);
+	                            btnEsquerda.setEnabled(true);
+	                            btnParar.setEnabled(true);
+	                            rdbtnOnOff.setEnabled(true);
+	                            btnReproduzir.setEnabled(true);
+	                            btnGravar.setEnabled(true);
+	                            btnBotaoFicheiro.setEnabled(true);
+	                            textField.setEnabled(true);
+	                            textFieldRaio.setEditable(true);
+	                            textFieldRaio.setEnabled(true);
+	                            textFieldAngulo.setEditable(true);
+	                            textFieldAngulo.setEnabled(true);
+	                            textFieldDistancia.setEditable(true);
+	                            textFieldDistancia.setEnabled(true);
+	                            
+					            myPrint("[GUI] Modo PARTILHADO: comandos via Servidor.");
+					            
+							}
+							else {
+					            nomeRobot = textFieldRobot.getText().trim();
+					            myPrint("[GUI] Modo ISOLADO: execução direta.");
+					            
+	                            btnFrente.setEnabled(true);
+	                            btnTras.setEnabled(true);
+	                            btnDireita.setEnabled(true);
+	                            btnEsquerda.setEnabled(true);
+	                            btnParar.setEnabled(true);
+	                            rdbtnOnOff.setEnabled(true);
+	                            btnReproduzir.setEnabled(true);
+	                            btnGravar.setEnabled(true);
+	                            btnBotaoFicheiro.setEnabled(true);
+	                            textField.setEnabled(true);
+	                            textFieldRaio.setEditable(true);
+	                            textFieldRaio.setEnabled(true);
+	                            textFieldAngulo.setEditable(true);
+	                            textFieldAngulo.setEnabled(true);
+	                            textFieldDistancia.setEditable(true);
+	                            textFieldDistancia.setEnabled(true);
+							}
                     	}
                     });
                     rdbtnMesmoRobot.setFont(new Font("Tahoma", Font.PLAIN, 12));
@@ -472,6 +621,12 @@ public class GuiGravador extends JFrame {
                                         myPrint("O Robot '" + nomeRobot + "' já está aberto na GUI principal.");
                                         return;
                                     }
+                                
+                                if(mesmoRobot) {
+                                    robotNovoAberto = true; // lógico apenas
+                                    myPrint("[GUI] A usar robot principal (via Servidor).");
+                                    return;
+								}
                             	
                             	boolean abriu = robotNovo.OpenEV3(nomeRobot);
                             	
@@ -500,7 +655,6 @@ public class GuiGravador extends JFrame {
                             textFieldAngulo.setEnabled(robotNovoAberto);
                             textFieldDistancia.setEditable(robotNovoAberto);
                             textFieldDistancia.setEnabled(robotNovoAberto);
-                            rdbtnMesmoRobot.setEnabled(robotNovoAberto);
                             
                         }
                     });

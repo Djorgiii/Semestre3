@@ -3,6 +3,7 @@ import java.util.function.Consumer;
 public class Servidor extends Tarefa{
     private BufferCircular buffercircular;
     private RobotLegoEV3 asdrubal;
+    private Gravador gravador;
     private final BaseDados bd;
     private Consumer<String> printCallback;
     private int contadorAleatorios = 0;
@@ -20,6 +21,10 @@ public class Servidor extends Tarefa{
     
     public void resetContadorAleatorios() {
         contadorAleatorios = 0;
+    }
+    
+    public void setGravador(Gravador g) {
+        this.gravador = g;
     }
     
     public BufferCircular getBufferCircular() {
@@ -45,6 +50,14 @@ public class Servidor extends Tarefa{
             }
 
             Movimento movimento = buffercircular.removerElemento();
+            
+         // 🔴 GRAVAÇÃO GLOBAL (mesmo robot)
+            if (gravador != null && gravador.isAGravar()) {
+                gravador.registar(movimento);
+            }
+
+
+            
             boolean isManual = movimento.isManual();
             int pos = buffercircular.getLastRemovedIndex();
 
@@ -161,6 +174,7 @@ public class Servidor extends Tarefa{
 
                     try { Thread.sleep(TEMPO_COMUNICACAO_MS); }
                     catch (InterruptedException e) { Thread.currentThread().interrupt(); }
+
                 }
 
                 // CONTROLO DE LOTE ALEATÓRIO

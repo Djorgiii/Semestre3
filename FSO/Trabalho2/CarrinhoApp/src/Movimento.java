@@ -4,6 +4,8 @@ public class Movimento {
 	private int arg2;
 	private boolean b;
 	private boolean manual;
+	private boolean deReproducao = false;
+
 	
 	public Movimento(String tipo, int arg1, int arg2) {
 		this.tipo = tipo;
@@ -16,6 +18,14 @@ public class Movimento {
 		this.b = b;
 	}
 	
+	public void setDeReproducao(boolean v) {
+	    this.deReproducao = v;
+	}
+
+	public boolean isDeReproducao() {
+	    return deReproducao;
+	}
+
 	public String getTipo() {
 		return tipo;
 	}

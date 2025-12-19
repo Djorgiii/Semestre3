@@ -7,7 +7,6 @@ public class MovimentosAleatorios extends Tarefa {
     }
 
     public void execucao() {
-        // Garantias mínimas
         if (gui == null || gui.getBd() == null || gui.getBd().getServidor() == null) {
             bloquear();
             return;
@@ -19,7 +18,6 @@ public class MovimentosAleatorios extends Tarefa {
         // produz lotes de 5 comandos de cada vez.
         while (gui.getBd().isRobotAberto() && gui.getBd().isAleatoriosOn()) {
             // (opcional) Reinicia contador de lote no servidor
-            //gui.getBd().getServidor().resetContadorAleatorios();
 
             java.util.concurrent.Semaphore mux = gui.getBd().getProdutorMux();
             mux.acquireUninterruptibly();
@@ -55,7 +53,7 @@ public class MovimentosAleatorios extends Tarefa {
                     do {
                         gui.getBufferCircular().inserirElemento(pend);
                         if (gui != null) gui.myPrint("[GUI] Comando manual inserido entre lotes: " + pend.getTipo());
-                        pend = gui.obterComandoManual();   // tenta apanhar mais um pendente
+                        pend = gui.obterComandoManual();
                     } while (pend != null);
                 } finally {
                     mux2.release();
@@ -65,7 +63,6 @@ public class MovimentosAleatorios extends Tarefa {
             dormir();
         }
 
-        // Quando desligares aleatórios ou fechares o robot, a tarefa bloqueia.
         bloquear();
     }
 
