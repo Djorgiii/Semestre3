@@ -177,6 +177,15 @@ public class GuiGravador extends JFrame {
                             Movimento m = new Movimento("RETA", bd.getDistancia(), 0);
                             Movimento m2 = new Movimento("PARAR", false);
                             
+                            if (gravador.isAGravar()) {
+                            	gravador.registar(m);
+                            	myPrint("[Gravador] Gravado: " + m.getTipo());
+                            	gravador.registar(m2);
+                            	myPrint("[Gravador] Gravado: " + m2.getTipo());
+                            	return;
+                            																	
+                            }
+                            
                             if(gravador.isEmReproducao()) {
 								myPrint("[GUI] O robot está a reproduzir, aguarde...");
 								return;
@@ -330,8 +339,8 @@ public class GuiGravador extends JFrame {
 								myPrint("[Gravador] Gravado: " + m2.getTipo());
 								return;
                             }
-                            enviarMovimento(new Movimento("CURVARDIREITA", bd.getRaio(), bd.getAngulo()));
-                            enviarMovimento(new Movimento("PARAR", false));
+                            enviarMovimento(m);
+                            enviarMovimento(m2);
                         }
                     });
                     btnDireita.setFont(new Font("Tahoma", Font.PLAIN, 16));
@@ -364,8 +373,8 @@ public class GuiGravador extends JFrame {
 								return;
 								}
 							
-                            enviarMovimento(new Movimento("CURVARESQUERDA", bd.getRaio(), bd.getAngulo()));
-                            enviarMovimento(new Movimento("PARAR", false));
+                            enviarMovimento(m);
+                            enviarMovimento(m2);
                         }
                     });
                     btnEsquerda.setFont(new Font("Tahoma", Font.PLAIN, 16));
@@ -398,8 +407,8 @@ public class GuiGravador extends JFrame {
 								return;
 							}
 							
-                            enviarMovimento(new Movimento("RETA", -bd.getDistancia(), 0));
-                            enviarMovimento(new Movimento("PARAR", false));
+                            enviarMovimento(m);
+                            enviarMovimento(m2);
 
                         }
                     });
@@ -537,28 +546,31 @@ public class GuiGravador extends JFrame {
 							if(mesmoRobot) {
 					            nomeRobot = bd.getNomeRobotPrincipal();
 					            textFieldRobot.setText(nomeRobot);
-	                            btnFrente.setEnabled(false);
-	                            btnTras.setEnabled(false);
-	                            btnDireita.setEnabled(false);
-	                            btnEsquerda.setEnabled(false);
-	                            btnParar.setEnabled(false);
-	                            rdbtnOnOff.setEnabled(false);
+					            
+	                            btnFrente.setEnabled(true);
+	                            btnTras.setEnabled(true);
+	                            btnDireita.setEnabled(true);
+	                            btnEsquerda.setEnabled(true);
+	                            btnParar.setEnabled(true);
+	                            rdbtnOnOff.setEnabled(true);
 	                            btnReproduzir.setEnabled(true);
 	                            btnGravar.setEnabled(true);
 	                            btnBotaoFicheiro.setEnabled(true);
 	                            textField.setEnabled(true);
-	                            textFieldRaio.setEditable(false);
-	                            textFieldRaio.setEnabled(false);
-	                            textFieldAngulo.setEditable(false);
-	                            textFieldAngulo.setEnabled(false);
-	                            textFieldDistancia.setEditable(false);
-	                            textFieldDistancia.setEnabled(false);
+	                            textFieldRaio.setEditable(true);
+	                            textFieldRaio.setEnabled(true);
+	                            textFieldAngulo.setEditable(true);
+	                            textFieldAngulo.setEnabled(true);
+	                            textFieldDistancia.setEditable(true);
+	                            textFieldDistancia.setEnabled(true);
+	                            
 					            myPrint("[GUI] Modo PARTILHADO: comandos via Servidor.");
 					            
 							}
 							else {
 					            nomeRobot = textFieldRobot.getText().trim();
 					            myPrint("[GUI] Modo ISOLADO: execução direta.");
+					            
 	                            btnFrente.setEnabled(true);
 	                            btnTras.setEnabled(true);
 	                            btnDireita.setEnabled(true);
