@@ -1,101 +1,257 @@
 ---
-title: "Audio Library Dashboard"
-format: dashboard
-execute:
-  warning: false
+title: "Audio Content Dashboard"
+format: 
+  dashboard:
+    theme: dark
+    orientation: rows
 ---
-
 ```{ojs}
-audio = FileAttachment("data/audio_metadata.json").json()
+//| output: false
 
-audio_numeric = audio.map(d => ({
-...d,
-duration_min: +d.duration_min
-}))
+// =================================================================
+// 1. ESTILO GLOBAL (CSS) & CONFIGURAÇÕES
+// =================================================================
+html`
+<style>
+  /* Variáveis de Cores */
+  :root {
+    --bg-main: #355688ff;
+    --bg-card: #475d99ff;
+    --bg-hover: #283881ff;
+    --text-primary: #FFFFFF;
+    --text-secondary: #B3B3B3;
+    --accent: #1d2db9ff;
+    --border: #333333;
+  }
 
+  /* 1. FUNDO PRETO GLOBAL */
+  body, .page-columns, .quarto-content, #quarto-content, .dashboard-card {
+    background-color: var(--bg-main) !important;
+    color: var(--text-primary) !important;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  }
+
+  /* --- CORREÇÃO DOS FUNDOS BRANCOS (OJS/QUARTO) --- */
+  /* Isto remove o fundo branco dos painéis padrão do Quarto */
+  .card, .bslib-card, .bslib-grid-item, .card-body, .html-fill-container {
+    background-color: transparent !important; /* Deixa ver o preto de trás */
+    border: none !important; /* Remove bordas padrão feias */
+    box-shadow: none !important;
+  }
+  
+  /* Garante que o texto dentro dos cartões padrão seja branco */
+  .card-body {
+    color: var(--text-primary) !important;
+  }
+
+  /* 2. SCROLLBAR PERSONALIZADA */
+  ::-webkit-scrollbar { width: 8px; }
+  ::-webkit-scrollbar-track { background: var(--bg-main); }
+  ::-webkit-scrollbar-thumb { background: #444; border-radius: 10px; }
+  ::-webkit-scrollbar-thumb:hover { background: #1d80b9ff; }
+  /* 3. DROPDOWN ESCURO */
+  form select {
+    background-color: var(--bg-hover) !important;
+    color: white !important;
+    border: 1px solid var(--border) !important;
+    padding: 8px;
+    border-radius: 6px;
+    width: 100%;
+  }
+  
+  /* Remove margens extras que criam espaços brancos */
+  .dashboard-card {
+    margin: 0 !important;
+  }
+
+  /* --- 4. CORREÇÃO DA BARRA AZUL (CABEÇALHO) --- */
+  .quarto-dashboard-header, .navbar {
+    background-color: #333 !important; /* Força o fundo preto */
+    color: white !important;
+  }
+  
+  /* Garante que o título "Audio Analytics..." fica branco */
+  .navbar-brand, .navbar-title {
+    color: white !important;
+  }
+
+</style>
+`
 ```
 
-
 ```{ojs}
-| title: Total de faixas
-audio_numeric.length
-
-```
-```{ojs}
-
-| title: Duração total (minutos)
-d3.sum(audio_numeric, d => d.duration_min).toFixed(1)
-
-```
-```{ojs}
-| title: Artista com mais faixas
-d3.rollups(
-audio_numeric,
-v => v.length,
-d => d.artist
-)
-.sort((a, b) => d3.descending(a[1], b[1]))[0][0]
-
-
+//| output: false
+// 1. CARREGAR DADOS LOCAIS (Sem erros de API!)
+data = FileAttachment("data.json").json()
 ```
 
+## row {width=40%}
+
+### Métricas Principais
+
 ```{ojs}
-| title: Número de faixas por género
+//| echo: false
+// Player do Spotify (Usa o ID que pusemos no JSON)
+html`<iframe 
+  style="border-radius:12px" 
+  src=${`https://open.spotify.com/embed/track/${current.id}?utm_source=generator`} 
+  width="100%" 
+  height="300" 
+  frameBorder="0" 
+  allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
+  loading="lazy">
+</iframe>`
 
-Plot.plot({
-marks: [
-Plot.barY(
-audio_numeric,
-Plot.groupX({ y: "count" }, { x: "genre" })
-)
-],
-x: { type: "band", label: "Género" },
-y: { label: "Número de faixas", grid: true },
-width: 600,
-height: 400
-})
+// 1. Função auxiliar para converter ms em mm:ss
+millisToMinutesAndSeconds = (millis) => {
+  if (!millis) return "-";
+  var minutes = Math.floor(millis / 60000);
+  var seconds = ((millis % 60000) / 1000).toFixed(0);
+  return minutes + ":" + (seconds < 10 ? '0' : '') + seconds;
+}
 
+// 2. Função para criar os "cartões" de informação
+createTag = (label, value, icon = "") => {
+  return html`
+    <div style="
+      background: #1a1a1a; 
+      padding: 8px; 
+      border-radius: 6px; 
+      border: 1px solid #333; 
+      display: flex; 
+      flex-direction: column; 
+      justify-content: center;">
+      
+      <div style="font-size: 0.75rem; color: #b3b3b3; margin-bottom: 4px; text-transform: uppercase;">${label}</div>
+      <div style="font-size: 1.1rem; font-weight: 600; color: white;">
+        ${icon} ${value || "-"}
+      </div>
+    </div>
+  `
+}
+```
+
+## row {width=70%}
+
+```{ojs}
+//| output: false
+// Lógica: Se não selecionares nada, mostra a primeira
+current = selection ? selection : data[0]
 ```
 ```{ojs}
+//lista das musicas
+// Tabela Interativa (Lista de Músicas)
+viewof selection = {
+  // 1. Criamos um contentor para a lista
+  const container = html`<div style="display: flex; flex-direction: column; gap: 8px; max-height: 900px; overflow-y: auto;"></div>`;
+  
+  // 2. Definimos o valor inicial (primeira música)
+  container.value = data[0];
 
-| title: Duração total por artista (minutos)
+  // 3. Criamos o visual de cada música
+  for (const song of data) {
+    const row = html`
+      <div style="
+        display: flex; 
+        align-items: center; 
+        padding: 10px; 
+        background: #2b2b2b; 
+        border-radius: 8px; 
+        cursor: pointer; 
+        color: white; 
+        transition: background 0.2s;">
+        
+        <img src="${song.img}" style="width: 50px; height: 50px; border-radius: 4px; margin-right: 15px; object-fit: cover;">
+        
+        <div>
+          <div style="font-weight: bold; font-size: 1.1em;">${song.Música}</div>
+          <div style="opacity: 0.7; font-size: 0.9em;">${song.Artista}</div>
+        </div>
+      </div>
+    `;
 
-Plot.plot({
-marks: [
-Plot.barY(
-audio_numeric,
-Plot.groupX(
-{ y: d => d3.sum(d, v => v.duration_min) },
-{ x: "artist" }
-)
-)
-],
-x: { type: "band", label: "Artista" },
-y: { label: "Duração total (min)", grid: true },
-width: 600,
-height: 400
-})
+    // 4. Lógica do Clique
+    row.onclick = (event) => {
+      // Remove o destaque das outras linhas (opcional, visual simples)
+      for (const child of container.children) child.style.background = "#2b2b2b";
+      
+      // Destaca a linha clicada
+      row.style.background = "#1db954"; // Verde Spotify
+      
+      // Atualiza o valor para o OJS
+      container.value = song;
+      container.dispatchEvent(new Event("input", {bubbles: true}));
+    };
 
+    container.append(row);
+  }
+
+  return container;
+}
 ```
+
 ```{ojs}
-| title: Distribuição temporal das faixas
+// 3. Renderiza o Bloco da Ficha Técnica
+html`
+<div style="margin-top: 20px; margin-bottom: 20px;">
+  <h3 style="color: white; margin-bottom: 15px; border-bottom: 1px solid #333; padding-bottom: 10px;">
+    Detalhes da Faixa
+  </h3>
 
-Plot.plot({
-marks: [
-Plot.barY(
-audio_numeric,
-Plot.groupX({ y: "count" }, { x: "year" })
-)
-],
-x: { type: "band", label: "Ano" },
-y: { label: "Número de faixas", grid: true },
-width: 600,
-height: 400
-})
+  <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 10px;">
+    
+    ${createTag("Artista", current.Artista, "🎤")}
+    ${createTag("Álbum", current.Album || "Single", "💿")}
+    ${createTag("Duração", millisToMinutesAndSeconds(current.Duracao),"⏱")}
+    ${createTag("Ano", current.Year || "N/A", "📅")}
 
+    ${createTag("BPM", current.BPM, "🥁")}
+    ${createTag("Popularidade", (current.Popularidade || 0) + "%", "🔥")}
+    
+    ${createTag("Energia", ((current.Energia || 0) * 100).toFixed(0) + "%", "⚡")}
+    ${createTag("Dança", ((current.Danceability || 0) * 100).toFixed(0) + "%", "💃")}
+    ${createTag("Felicidade", ((current.Hapiness || 0) * 100).toFixed(0) + "%", "😊")}
+    
+  </div>
+</div>
+`
 ```
-```{ojs}
-| title: Biblioteca de áudio
-Inputs.table(audio_numeric)
 
+## row {width=40%}-
+### 📝 Letras da Música
+
+```{ojs}
+//| echo: false
+
+// 2. INTERFACE COM SCROLL MANUAL (Sem animações verdes/vermelhas)
+html`
+<div id="lyrics-window" style="
+  height: 500px; 
+  overflow-y: auto; 
+  background: #000000; 
+  border-radius: 12px; 
+  border: 1px solid #333;
+  padding: 40px;
+  color: #ffffff;
+  font-size: 1.3rem;
+  line-height: 1.8;
+  text-align: center;
+">
+  <div style="margin-bottom: 30px; border-bottom: 1px solid #222; padding-bottom: 20px;">
+    <h2 style="color: #1db954; margin: 0; font-size: 1.8rem;">${current.Música}</h2>
+    <p style="color: #888; margin: 5px 0;">${current.Artista}</p>
+  </div>
+  
+  <div style="white-space: pre-wrap; font-family: 'Inter', sans-serif;">
+    ${current.Lyrics ? current.Lyrics : "Letra não encontrada para esta música."}
+  </div>
+</div>
+
+<style>
+  /* Customização da barra de scroll para ser discreta */
+  #lyrics-window::-webkit-scrollbar { width: 6px; }
+  #lyrics-window::-webkit-scrollbar-track { background: #000; }
+
+</style>
+`
 ```

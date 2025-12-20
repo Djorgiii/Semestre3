@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Audio Library Dashboard</title>
+<title>Audio Content Dashboard</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -102,7 +102,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
       <div class="navbar-title">
-        <div class="navbar-title-text"><a href="#">Audio Library Dashboard</a></div>
+        <div class="navbar-title-text"><a href="#">Audio Content Dashboard</a></div>
         
         
       </div>
@@ -112,25 +112,149 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 <div class="page-layout-custom quarto-dashboard-content bslib-gap-spacing html-fill-container bslib-page-fill">  
 
-<div class="bslib-grid-item html-fill-item bslib-grid" data-layout="fill" style="display: grid; grid-template-rows: minmax(3em, 1fr) minmax(3em, max-content); grid-auto-columns: minmax(0, 1fr);">
+<div class="cell hidden bslib-grid-item html-fill-item">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb1" data-startfrom="9" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 8;"><span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="co">// =================================================================</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="co">// 1. ESTILO GLOBAL (CSS) &amp; CONFIGURAÇÕES</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="co">// =================================================================</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="fu">html</span><span class="vs">`</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="vs">&lt;style&gt;</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="vs">  /* Variáveis de Cores */</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="vs">  :root {</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="vs">    --bg-main: #355688ff;</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="vs">    --bg-card: #475d99ff;</span></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="vs">    --bg-hover: #283881ff;</span></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="vs">    --text-primary: #FFFFFF;</span></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="vs">    --text-secondary: #B3B3B3;</span></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="vs">    --accent: #1d2db9ff;</span></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a><span class="vs">    --border: #333333;</span></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a><span class="vs">  }</span></span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="vs">  /* 1. FUNDO PRETO GLOBAL */</span></span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a><span class="vs">  body, .page-columns, .quarto-content, #quarto-content, .dashboard-card {</span></span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a><span class="vs">    background-color: var(--bg-main) !important;</span></span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a><span class="vs">    color: var(--text-primary) !important;</span></span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a><span class="vs">    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;</span></span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a><span class="vs">  }</span></span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a><span class="vs">  /* --- CORREÇÃO DOS FUNDOS BRANCOS (OJS/QUARTO) --- */</span></span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a><span class="vs">  /* Isto remove o fundo branco dos painéis padrão do Quarto */</span></span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a><span class="vs">  .card, .bslib-card, .bslib-grid-item, .card-body, .html-fill-container {</span></span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a><span class="vs">    background-color: transparent !important; /* Deixa ver o preto de trás */</span></span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a><span class="vs">    border: none !important; /* Remove bordas padrão feias */</span></span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a><span class="vs">    box-shadow: none !important;</span></span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a><span class="vs">  }</span></span>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a><span class="vs">  </span></span>
+<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a><span class="vs">  /* Garante que o texto dentro dos cartões padrão seja branco */</span></span>
+<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a><span class="vs">  .card-body {</span></span>
+<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a><span class="vs">    color: var(--text-primary) !important;</span></span>
+<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a><span class="vs">  }</span></span>
+<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a><span class="vs">  /* 2. SCROLLBAR PERSONALIZADA */</span></span>
+<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a><span class="vs">  ::-webkit-scrollbar { width: 8px; }</span></span>
+<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a><span class="vs">  ::-webkit-scrollbar-track { background: var(--bg-main); }</span></span>
+<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a><span class="vs">  ::-webkit-scrollbar-thumb { background: #444; border-radius: 10px; }</span></span>
+<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a><span class="vs">  ::-webkit-scrollbar-thumb:hover { background: #1d80b9ff; }</span></span>
+<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a><span class="vs">  /* 3. DROPDOWN ESCURO */</span></span>
+<span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a><span class="vs">  form select {</span></span>
+<span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a><span class="vs">    background-color: var(--bg-hover) !important;</span></span>
+<span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a><span class="vs">    color: white !important;</span></span>
+<span id="cb1-54"><a href="#cb1-54" aria-hidden="true" tabindex="-1"></a><span class="vs">    border: 1px solid var(--border) !important;</span></span>
+<span id="cb1-55"><a href="#cb1-55" aria-hidden="true" tabindex="-1"></a><span class="vs">    padding: 8px;</span></span>
+<span id="cb1-56"><a href="#cb1-56" aria-hidden="true" tabindex="-1"></a><span class="vs">    border-radius: 6px;</span></span>
+<span id="cb1-57"><a href="#cb1-57" aria-hidden="true" tabindex="-1"></a><span class="vs">    width: 100%;</span></span>
+<span id="cb1-58"><a href="#cb1-58" aria-hidden="true" tabindex="-1"></a><span class="vs">  }</span></span>
+<span id="cb1-59"><a href="#cb1-59" aria-hidden="true" tabindex="-1"></a><span class="vs">  </span></span>
+<span id="cb1-60"><a href="#cb1-60" aria-hidden="true" tabindex="-1"></a><span class="vs">  /* Remove margens extras que criam espaços brancos */</span></span>
+<span id="cb1-61"><a href="#cb1-61" aria-hidden="true" tabindex="-1"></a><span class="vs">  .dashboard-card {</span></span>
+<span id="cb1-62"><a href="#cb1-62" aria-hidden="true" tabindex="-1"></a><span class="vs">    margin: 0 !important;</span></span>
+<span id="cb1-63"><a href="#cb1-63" aria-hidden="true" tabindex="-1"></a><span class="vs">  }</span></span>
+<span id="cb1-64"><a href="#cb1-64" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-65"><a href="#cb1-65" aria-hidden="true" tabindex="-1"></a><span class="vs">  /* --- 4. CORREÇÃO DA BARRA AZUL (CABEÇALHO) --- */</span></span>
+<span id="cb1-66"><a href="#cb1-66" aria-hidden="true" tabindex="-1"></a><span class="vs">  .quarto-dashboard-header, .navbar {</span></span>
+<span id="cb1-67"><a href="#cb1-67" aria-hidden="true" tabindex="-1"></a><span class="vs">    background-color: #333 !important; /* Força o fundo preto */</span></span>
+<span id="cb1-68"><a href="#cb1-68" aria-hidden="true" tabindex="-1"></a><span class="vs">    color: white !important;</span></span>
+<span id="cb1-69"><a href="#cb1-69" aria-hidden="true" tabindex="-1"></a><span class="vs">  }</span></span>
+<span id="cb1-70"><a href="#cb1-70" aria-hidden="true" tabindex="-1"></a><span class="vs">  </span></span>
+<span id="cb1-71"><a href="#cb1-71" aria-hidden="true" tabindex="-1"></a><span class="vs">  /* Garante que o título "Audio Analytics..." fica branco */</span></span>
+<span id="cb1-72"><a href="#cb1-72" aria-hidden="true" tabindex="-1"></a><span class="vs">  .navbar-brand, .navbar-title {</span></span>
+<span id="cb1-73"><a href="#cb1-73" aria-hidden="true" tabindex="-1"></a><span class="vs">    color: white !important;</span></span>
+<span id="cb1-74"><a href="#cb1-74" aria-hidden="true" tabindex="-1"></a><span class="vs">  }</span></span>
+<span id="cb1-75"><a href="#cb1-75" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-76"><a href="#cb1-76" aria-hidden="true" tabindex="-1"></a><span class="vs">&lt;/style&gt;</span></span>
+<span id="cb1-77"><a href="#cb1-77" aria-hidden="true" tabindex="-1"></a><span class="vs">`</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display hidden">
+<div id="ojs-cell-1" data-nodetype="expression">
+
+</div>
+</div>
+</div>
+<div class="cell hidden bslib-grid-item html-fill-item">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb2" data-startfrom="83" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 82;"><span id="cb2-83"><a href="#cb2-83" aria-hidden="true" tabindex="-1"></a><span class="co">// 1. CARREGAR DADOS LOCAIS (Sem erros de API!)</span></span>
+<span id="cb2-84"><a href="#cb2-84" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> <span class="fu">FileAttachment</span>(<span class="st">"data.json"</span>)<span class="op">.</span><span class="fu">json</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display hidden">
+<div id="ojs-cell-2" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="bslib-grid-item html-fill-item bslib-grid" data-layout="fill" style="display: grid; grid-template-rows: minmax(3em, 1fr) minmax(3em, 1fr) minmax(3em, 1fr); grid-auto-columns: minmax(0, 1fr);">
+<div class="bslib-grid" data-width="40%" style="display: grid; grid-template-columns: minmax(3em, 1fr);
+grid-auto-rows: minmax(0, 1fr);">
+<div class="bslib-grid" style="display: grid; grid-template-rows: minmax(3em, 1fr); grid-auto-columns: minmax(0, 1fr);">
 <div class="card cell bslib-card html-fill-container" data-bslib-card-init="" data-require-bs-caller="card()" data-full-screen="false">
 <div class="card-body html-fill-item html-fill-container">
-<div class="code-copy-outer-scaffold html-fill-item html-fill-container"><div class="sourceCode cell-code hidden html-fill-item html-fill-container" id="cb1" data-startfrom="9" data-source-offset="-0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 8;"><span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>audio <span class="op">=</span> <span class="fu">FileAttachment</span>(<span class="st">"data/audio_metadata.json"</span>)<span class="op">.</span><span class="fu">json</span>()</span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>audio_numeric <span class="op">=</span> audio<span class="op">.</span><span class="fu">map</span>(d <span class="kw">=&gt;</span> ({</span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="op">...</span>d<span class="op">,</span></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="dt">duration_min</span><span class="op">:</span> <span class="op">+</span>d<span class="op">.</span><span class="at">duration_min</span></span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>}))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold html-fill-item html-fill-container"><div class="sourceCode cell-code hidden html-fill-item html-fill-container" id="cb3" data-startfrom="95" data-source-offset="-53"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 94;"><span id="cb3-95"><a href="#cb3-95" aria-hidden="true" tabindex="-1"></a><span class="fu">html</span><span class="vs">`&lt;iframe </span></span>
+<span id="cb3-96"><a href="#cb3-96" aria-hidden="true" tabindex="-1"></a><span class="vs">  style="border-radius:12px" </span></span>
+<span id="cb3-97"><a href="#cb3-97" aria-hidden="true" tabindex="-1"></a><span class="vs">  src=</span><span class="sc">${</span><span class="vs">`https://open.spotify.com/embed/track/</span><span class="sc">${</span>current<span class="op">.</span><span class="at">id</span><span class="sc">}</span><span class="vs">?utm_source=generator`</span><span class="sc">}</span><span class="vs"> </span></span>
+<span id="cb3-98"><a href="#cb3-98" aria-hidden="true" tabindex="-1"></a><span class="vs">  width="100%" </span></span>
+<span id="cb3-99"><a href="#cb3-99" aria-hidden="true" tabindex="-1"></a><span class="vs">  height="300" </span></span>
+<span id="cb3-100"><a href="#cb3-100" aria-hidden="true" tabindex="-1"></a><span class="vs">  frameBorder="0" </span></span>
+<span id="cb3-101"><a href="#cb3-101" aria-hidden="true" tabindex="-1"></a><span class="vs">  allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" </span></span>
+<span id="cb3-102"><a href="#cb3-102" aria-hidden="true" tabindex="-1"></a><span class="vs">  loading="lazy"&gt;</span></span>
+<span id="cb3-103"><a href="#cb3-103" aria-hidden="true" tabindex="-1"></a><span class="vs">&lt;/iframe&gt;`</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display html-fill-item html-fill-container">
 <div class="html-fill-item html-fill-container">
-<div id="ojs-cell-1-1" data-nodetype="declaration" class="html-fill-item html-fill-container">
+<div id="ojs-cell-3-1" data-nodetype="expression" class="html-fill-item html-fill-container">
+
+</div>
+</div>
+</div>
+<div class="code-copy-outer-scaffold html-fill-item html-fill-container"><div class="sourceCode cell-code hidden html-fill-item html-fill-container" id="cb4" data-startfrom="106" data-source-offset="-408"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 105;"><span id="cb4-106"><a href="#cb4-106" aria-hidden="true" tabindex="-1"></a>millisToMinutesAndSeconds <span class="op">=</span> (millis) <span class="kw">=&gt;</span> {</span>
+<span id="cb4-107"><a href="#cb4-107" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="op">!</span>millis) <span class="cf">return</span> <span class="st">"-"</span><span class="op">;</span></span>
+<span id="cb4-108"><a href="#cb4-108" aria-hidden="true" tabindex="-1"></a>  <span class="kw">var</span> minutes <span class="op">=</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">floor</span>(millis <span class="op">/</span> <span class="dv">60000</span>)<span class="op">;</span></span>
+<span id="cb4-109"><a href="#cb4-109" aria-hidden="true" tabindex="-1"></a>  <span class="kw">var</span> seconds <span class="op">=</span> ((millis <span class="op">%</span> <span class="dv">60000</span>) <span class="op">/</span> <span class="dv">1000</span>)<span class="op">.</span><span class="fu">toFixed</span>(<span class="dv">0</span>)<span class="op">;</span></span>
+<span id="cb4-110"><a href="#cb4-110" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> minutes <span class="op">+</span> <span class="st">":"</span> <span class="op">+</span> (seconds <span class="op">&lt;</span> <span class="dv">10</span> <span class="op">?</span> <span class="st">'0'</span> <span class="op">:</span> <span class="st">''</span>) <span class="op">+</span> seconds<span class="op">;</span></span>
+<span id="cb4-111"><a href="#cb4-111" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb4-112"><a href="#cb4-112" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-113"><a href="#cb4-113" aria-hidden="true" tabindex="-1"></a><span class="co">// 2. Função para criar os "cartões" de informação</span></span>
+<span id="cb4-114"><a href="#cb4-114" aria-hidden="true" tabindex="-1"></a>createTag <span class="op">=</span> (label<span class="op">,</span> value<span class="op">,</span> icon <span class="op">=</span> <span class="st">""</span>) <span class="kw">=&gt;</span> {</span>
+<span id="cb4-115"><a href="#cb4-115" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> <span class="fu">html</span><span class="vs">`</span></span>
+<span id="cb4-116"><a href="#cb4-116" aria-hidden="true" tabindex="-1"></a><span class="vs">    &lt;div style="</span></span>
+<span id="cb4-117"><a href="#cb4-117" aria-hidden="true" tabindex="-1"></a><span class="vs">      background: #1a1a1a; </span></span>
+<span id="cb4-118"><a href="#cb4-118" aria-hidden="true" tabindex="-1"></a><span class="vs">      padding: 8px; </span></span>
+<span id="cb4-119"><a href="#cb4-119" aria-hidden="true" tabindex="-1"></a><span class="vs">      border-radius: 6px; </span></span>
+<span id="cb4-120"><a href="#cb4-120" aria-hidden="true" tabindex="-1"></a><span class="vs">      border: 1px solid #333; </span></span>
+<span id="cb4-121"><a href="#cb4-121" aria-hidden="true" tabindex="-1"></a><span class="vs">      display: flex; </span></span>
+<span id="cb4-122"><a href="#cb4-122" aria-hidden="true" tabindex="-1"></a><span class="vs">      flex-direction: column; </span></span>
+<span id="cb4-123"><a href="#cb4-123" aria-hidden="true" tabindex="-1"></a><span class="vs">      justify-content: center;"&gt;</span></span>
+<span id="cb4-124"><a href="#cb4-124" aria-hidden="true" tabindex="-1"></a><span class="vs">      </span></span>
+<span id="cb4-125"><a href="#cb4-125" aria-hidden="true" tabindex="-1"></a><span class="vs">      &lt;div style="font-size: 0.75rem; color: #b3b3b3; margin-bottom: 4px; text-transform: uppercase;"&gt;</span><span class="sc">${</span>label<span class="sc">}</span><span class="vs">&lt;/div&gt;</span></span>
+<span id="cb4-126"><a href="#cb4-126" aria-hidden="true" tabindex="-1"></a><span class="vs">      &lt;div style="font-size: 1.1rem; font-weight: 600; color: white;"&gt;</span></span>
+<span id="cb4-127"><a href="#cb4-127" aria-hidden="true" tabindex="-1"></a><span class="vs">        </span><span class="sc">${</span>icon<span class="sc">}</span><span class="vs"> </span><span class="sc">${</span>value <span class="op">||</span> <span class="st">"-"</span><span class="sc">}</span></span>
+<span id="cb4-128"><a href="#cb4-128" aria-hidden="true" tabindex="-1"></a><span class="vs">      &lt;/div&gt;</span></span>
+<span id="cb4-129"><a href="#cb4-129" aria-hidden="true" tabindex="-1"></a><span class="vs">    &lt;/div&gt;</span></span>
+<span id="cb4-130"><a href="#cb4-130" aria-hidden="true" tabindex="-1"></a><span class="vs">  `</span></span>
+<span id="cb4-131"><a href="#cb4-131" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display html-fill-item html-fill-container">
+<div class="html-fill-item html-fill-container">
+<div id="ojs-cell-3-2" data-nodetype="declaration" class="html-fill-item html-fill-container">
 
 </div>
 </div>
 </div>
 <div class="cell-output cell-output-display html-fill-item html-fill-container">
 <div class="html-fill-item html-fill-container">
-<div id="ojs-cell-1-2" data-nodetype="declaration" class="html-fill-item html-fill-container">
+<div id="ojs-cell-3-3" data-nodetype="declaration" class="html-fill-item html-fill-container">
 
 </div>
 </div>
@@ -142,207 +266,158 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" style="height:1em;width:1em;" aria-hidden="true" role="img"><path d="M20 5C20 4.4 19.6 4 19 4H13C12.4 4 12 3.6 12 3C12 2.4 12.4 2 13 2H21C21.6 2 22 2.4 22 3V11C22 11.6 21.6 12 21 12C20.4 12 20 11.6 20 11V5ZM4 19C4 19.6 4.4 20 5 20H11C11.6 20 12 20.4 12 21C12 21.6 11.6 22 11 22H3C2.4 22 2 21.6 2 21V13C2 12.4 2.4 12 3 12C3.6 12 4 12.4 4 13V19Z"></path></svg>
     </span>
 </bslib-tooltip><script data-bslib-card-init="">bslib.Card.initializeAllCards();</script></div>
-<div class="card bslib-card html-fill-container" data-fill="false" data-bslib-card-init="" data-require-bs-caller="card()" data-full-screen="false">
+</div>
+</div>
+<div class="bslib-grid" data-width="70%" style="display: grid; grid-template-columns: minmax(3em, 1fr) minmax(3em, 1fr);
+grid-auto-rows: minmax(0, 1fr);">
+<div class="cell hidden">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb5" data-startfrom="137" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 136;"><span id="cb5-137"><a href="#cb5-137" aria-hidden="true" tabindex="-1"></a><span class="co">// Lógica: Se não selecionares nada, mostra a primeira</span></span>
+<span id="cb5-138"><a href="#cb5-138" aria-hidden="true" tabindex="-1"></a>current <span class="op">=</span> selection <span class="op">?</span> selection <span class="op">:</span> data[<span class="dv">0</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display hidden">
+<div id="ojs-cell-4" data-nodetype="declaration">
+
+</div>
+</div>
+</div><div class="card cell bslib-card html-fill-container" data-bslib-card-init="" data-require-bs-caller="card()" data-full-screen="false">
 <div class="card-body html-fill-item html-fill-container">
-<div class="quarto-ojs-syntax-error html-fill-item html-fill-container">
-<div class="code-copy-outer-scaffold html-fill-item html-fill-container"><div class="sourceCode html-fill-item html-fill-container" id="cb2" data-startfrom="19" data-syntax-error-position="0" data-source-offset="9"><pre class="sourceCode numberSource numberLines java code-with-copy"><code class="sourceCode java" style="counter-reset: source-line 18;"><span id="cb2-19"><a href="#cb2-19"></a>```<span class="op">{</span>ojs<span class="op">}</span></span>
-<span id="cb2-20"><a href="#cb2-20"></a><span class="op">|</span> title<span class="op">:</span> Total de faixas</span>
-<span id="cb2-21"><a href="#cb2-21"></a>audio_numeric<span class="op">.</span><span class="fu">length</span></span>
-<span id="cb2-22"><a href="#cb2-22"></a></span>
-<span id="cb2-23"><a href="#cb2-23"></a>```</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-error html-fill-item html-fill-container">
-<div class="callout callout-style-default callout-important callout-empty-content callout-titled">
-<div class="callout-header d-flex align-content-center html-fill-item html-fill-container">
-<div class="callout-icon-container html-fill-item html-fill-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill html-fill-item html-fill-container">
-<span class="screen-reader-only">Important</span>OJS Syntax Error (line 20, column 1)Unexpected token
-</div>
-</div>
-<div class="callout-body-container callout-body html-fill-item html-fill-container">
+<div class="code-copy-outer-scaffold html-fill-item html-fill-container"><div class="sourceCode cell-code hidden html-fill-item html-fill-container" id="cb6" data-startfrom="141" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 140;"><span id="cb6-141"><a href="#cb6-141" aria-hidden="true" tabindex="-1"></a><span class="co">//lista das musicas</span></span>
+<span id="cb6-142"><a href="#cb6-142" aria-hidden="true" tabindex="-1"></a><span class="co">// Tabela Interativa (Lista de Músicas)</span></span>
+<span id="cb6-143"><a href="#cb6-143" aria-hidden="true" tabindex="-1"></a>viewof selection <span class="op">=</span> {</span>
+<span id="cb6-144"><a href="#cb6-144" aria-hidden="true" tabindex="-1"></a>  <span class="co">// 1. Criamos um contentor para a lista</span></span>
+<span id="cb6-145"><a href="#cb6-145" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> container <span class="op">=</span> <span class="fu">html</span><span class="vs">`&lt;div style="display: flex; flex-direction: column; gap: 8px; max-height: 900px; overflow-y: auto;"&gt;&lt;/div&gt;`</span><span class="op">;</span></span>
+<span id="cb6-146"><a href="#cb6-146" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb6-147"><a href="#cb6-147" aria-hidden="true" tabindex="-1"></a>  <span class="co">// 2. Definimos o valor inicial (primeira música)</span></span>
+<span id="cb6-148"><a href="#cb6-148" aria-hidden="true" tabindex="-1"></a>  container<span class="op">.</span><span class="at">value</span> <span class="op">=</span> data[<span class="dv">0</span>]<span class="op">;</span></span>
+<span id="cb6-149"><a href="#cb6-149" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-150"><a href="#cb6-150" aria-hidden="true" tabindex="-1"></a>  <span class="co">// 3. Criamos o visual de cada música</span></span>
+<span id="cb6-151"><a href="#cb6-151" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (<span class="kw">const</span> song <span class="kw">of</span> data) {</span>
+<span id="cb6-152"><a href="#cb6-152" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> row <span class="op">=</span> <span class="fu">html</span><span class="vs">`</span></span>
+<span id="cb6-153"><a href="#cb6-153" aria-hidden="true" tabindex="-1"></a><span class="vs">      &lt;div style="</span></span>
+<span id="cb6-154"><a href="#cb6-154" aria-hidden="true" tabindex="-1"></a><span class="vs">        display: flex; </span></span>
+<span id="cb6-155"><a href="#cb6-155" aria-hidden="true" tabindex="-1"></a><span class="vs">        align-items: center; </span></span>
+<span id="cb6-156"><a href="#cb6-156" aria-hidden="true" tabindex="-1"></a><span class="vs">        padding: 10px; </span></span>
+<span id="cb6-157"><a href="#cb6-157" aria-hidden="true" tabindex="-1"></a><span class="vs">        background: #2b2b2b; </span></span>
+<span id="cb6-158"><a href="#cb6-158" aria-hidden="true" tabindex="-1"></a><span class="vs">        border-radius: 8px; </span></span>
+<span id="cb6-159"><a href="#cb6-159" aria-hidden="true" tabindex="-1"></a><span class="vs">        cursor: pointer; </span></span>
+<span id="cb6-160"><a href="#cb6-160" aria-hidden="true" tabindex="-1"></a><span class="vs">        color: white; </span></span>
+<span id="cb6-161"><a href="#cb6-161" aria-hidden="true" tabindex="-1"></a><span class="vs">        transition: background 0.2s;"&gt;</span></span>
+<span id="cb6-162"><a href="#cb6-162" aria-hidden="true" tabindex="-1"></a><span class="vs">        </span></span>
+<span id="cb6-163"><a href="#cb6-163" aria-hidden="true" tabindex="-1"></a><span class="vs">        &lt;img src="</span><span class="sc">${</span>song<span class="op">.</span><span class="at">img</span><span class="sc">}</span><span class="vs">" style="width: 50px; height: 50px; border-radius: 4px; margin-right: 15px; object-fit: cover;"&gt;</span></span>
+<span id="cb6-164"><a href="#cb6-164" aria-hidden="true" tabindex="-1"></a><span class="vs">        </span></span>
+<span id="cb6-165"><a href="#cb6-165" aria-hidden="true" tabindex="-1"></a><span class="vs">        &lt;div&gt;</span></span>
+<span id="cb6-166"><a href="#cb6-166" aria-hidden="true" tabindex="-1"></a><span class="vs">          &lt;div style="font-weight: bold; font-size: 1.1em;"&gt;</span><span class="sc">${</span>song<span class="op">.</span><span class="at">Música</span><span class="sc">}</span><span class="vs">&lt;/div&gt;</span></span>
+<span id="cb6-167"><a href="#cb6-167" aria-hidden="true" tabindex="-1"></a><span class="vs">          &lt;div style="opacity: 0.7; font-size: 0.9em;"&gt;</span><span class="sc">${</span>song<span class="op">.</span><span class="at">Artista</span><span class="sc">}</span><span class="vs">&lt;/div&gt;</span></span>
+<span id="cb6-168"><a href="#cb6-168" aria-hidden="true" tabindex="-1"></a><span class="vs">        &lt;/div&gt;</span></span>
+<span id="cb6-169"><a href="#cb6-169" aria-hidden="true" tabindex="-1"></a><span class="vs">      &lt;/div&gt;</span></span>
+<span id="cb6-170"><a href="#cb6-170" aria-hidden="true" tabindex="-1"></a><span class="vs">    `</span><span class="op">;</span></span>
+<span id="cb6-171"><a href="#cb6-171" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-172"><a href="#cb6-172" aria-hidden="true" tabindex="-1"></a>    <span class="co">// 4. Lógica do Clique</span></span>
+<span id="cb6-173"><a href="#cb6-173" aria-hidden="true" tabindex="-1"></a>    row<span class="op">.</span><span class="at">onclick</span> <span class="op">=</span> (<span class="bu">event</span>) <span class="kw">=&gt;</span> {</span>
+<span id="cb6-174"><a href="#cb6-174" aria-hidden="true" tabindex="-1"></a>      <span class="co">// Remove o destaque das outras linhas (opcional, visual simples)</span></span>
+<span id="cb6-175"><a href="#cb6-175" aria-hidden="true" tabindex="-1"></a>      <span class="cf">for</span> (<span class="kw">const</span> child <span class="kw">of</span> container<span class="op">.</span><span class="at">children</span>) child<span class="op">.</span><span class="at">style</span><span class="op">.</span><span class="at">background</span> <span class="op">=</span> <span class="st">"#2b2b2b"</span><span class="op">;</span></span>
+<span id="cb6-176"><a href="#cb6-176" aria-hidden="true" tabindex="-1"></a>      </span>
+<span id="cb6-177"><a href="#cb6-177" aria-hidden="true" tabindex="-1"></a>      <span class="co">// Destaca a linha clicada</span></span>
+<span id="cb6-178"><a href="#cb6-178" aria-hidden="true" tabindex="-1"></a>      row<span class="op">.</span><span class="at">style</span><span class="op">.</span><span class="at">background</span> <span class="op">=</span> <span class="st">"#1db954"</span><span class="op">;</span> <span class="co">// Verde Spotify</span></span>
+<span id="cb6-179"><a href="#cb6-179" aria-hidden="true" tabindex="-1"></a>      </span>
+<span id="cb6-180"><a href="#cb6-180" aria-hidden="true" tabindex="-1"></a>      <span class="co">// Atualiza o valor para o OJS</span></span>
+<span id="cb6-181"><a href="#cb6-181" aria-hidden="true" tabindex="-1"></a>      container<span class="op">.</span><span class="at">value</span> <span class="op">=</span> song<span class="op">;</span></span>
+<span id="cb6-182"><a href="#cb6-182" aria-hidden="true" tabindex="-1"></a>      container<span class="op">.</span><span class="fu">dispatchEvent</span>(<span class="kw">new</span> <span class="bu">Event</span>(<span class="st">"input"</span><span class="op">,</span> {<span class="dt">bubbles</span><span class="op">:</span> <span class="kw">true</span>}))<span class="op">;</span></span>
+<span id="cb6-183"><a href="#cb6-183" aria-hidden="true" tabindex="-1"></a>    }<span class="op">;</span></span>
+<span id="cb6-184"><a href="#cb6-184" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-185"><a href="#cb6-185" aria-hidden="true" tabindex="-1"></a>    container<span class="op">.</span><span class="fu">append</span>(row)<span class="op">;</span></span>
+<span id="cb6-186"><a href="#cb6-186" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb6-187"><a href="#cb6-187" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-188"><a href="#cb6-188" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> container<span class="op">;</span></span>
+<span id="cb6-189"><a href="#cb6-189" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display html-fill-item html-fill-container">
+<div id="ojs-cell-5" data-nodetype="declaration" class="html-fill-item html-fill-container">
 
 </div>
 </div>
 </div>
-</div>
-<div class="quarto-ojs-syntax-error html-fill-item html-fill-container">
-<div class="code-copy-outer-scaffold html-fill-item html-fill-container"><div class="sourceCode html-fill-item html-fill-container" id="cb3" data-startfrom="24" data-syntax-error-position="2" data-source-offset="9"><pre class="sourceCode numberSource numberLines java code-with-copy"><code class="sourceCode java" style="counter-reset: source-line 23;"><span id="cb3-24"><a href="#cb3-24"></a>```<span class="op">{</span>ojs<span class="op">}</span></span>
-<span id="cb3-25"><a href="#cb3-25"></a></span>
-<span id="cb3-26"><a href="#cb3-26"></a><span class="op">|</span> title<span class="op">:</span> Duração <span class="fu">total</span> <span class="op">(</span>minutos<span class="op">)</span></span>
-<span id="cb3-27"><a href="#cb3-27"></a>d3<span class="op">.</span><span class="fu">sum</span><span class="op">(</span>audio_numeric<span class="op">,</span> d <span class="op">=&gt;</span> d<span class="op">.</span><span class="fu">duration_min</span><span class="op">).</span><span class="fu">toFixed</span><span class="op">(</span><span class="dv">1</span><span class="op">)</span></span>
-<span id="cb3-28"><a href="#cb3-28"></a></span>
-<span id="cb3-29"><a href="#cb3-29"></a>```</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-error html-fill-item html-fill-container">
-<div class="callout callout-style-default callout-important callout-empty-content callout-titled">
-<div class="callout-header d-flex align-content-center html-fill-item html-fill-container">
-<div class="callout-icon-container html-fill-item html-fill-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill html-fill-item html-fill-container">
-<span class="screen-reader-only">Important</span>OJS Syntax Error (line 26, column 1)Unexpected token
-</div>
-</div>
-<div class="callout-body-container callout-body html-fill-item html-fill-container">
+<bslib-tooltip placement="auto" bsoptions="[]" data-require-bs-version="5" data-require-bs-caller="tooltip()">
+    <template>Expand</template>
+    <span class="bslib-full-screen-enter badge rounded-pill">
+        <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" style="height:1em;width:1em;" aria-hidden="true" role="img"><path d="M20 5C20 4.4 19.6 4 19 4H13C12.4 4 12 3.6 12 3C12 2.4 12.4 2 13 2H21C21.6 2 22 2.4 22 3V11C22 11.6 21.6 12 21 12C20.4 12 20 11.6 20 11V5ZM4 19C4 19.6 4.4 20 5 20H11C11.6 20 12 20.4 12 21C12 21.6 11.6 22 11 22H3C2.4 22 2 21.6 2 21V13C2 12.4 2.4 12 3 12C3.6 12 4 12.4 4 13V19Z"></path></svg>
+    </span>
+</bslib-tooltip><script data-bslib-card-init="">bslib.Card.initializeAllCards();</script></div><div class="card cell bslib-card html-fill-container" data-bslib-card-init="" data-require-bs-caller="card()" data-full-screen="false">
+<div class="card-body html-fill-item html-fill-container">
+<div class="code-copy-outer-scaffold html-fill-item html-fill-container"><div class="sourceCode cell-code hidden html-fill-item html-fill-container" id="cb7" data-startfrom="193" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 192;"><span id="cb7-193"><a href="#cb7-193" aria-hidden="true" tabindex="-1"></a><span class="co">// 3. Renderiza o Bloco da Ficha Técnica</span></span>
+<span id="cb7-194"><a href="#cb7-194" aria-hidden="true" tabindex="-1"></a><span class="fu">html</span><span class="vs">`</span></span>
+<span id="cb7-195"><a href="#cb7-195" aria-hidden="true" tabindex="-1"></a><span class="vs">&lt;div style="margin-top: 20px; margin-bottom: 20px;"&gt;</span></span>
+<span id="cb7-196"><a href="#cb7-196" aria-hidden="true" tabindex="-1"></a><span class="vs">  &lt;h3 style="color: white; margin-bottom: 15px; border-bottom: 1px solid #333; padding-bottom: 10px;"&gt;</span></span>
+<span id="cb7-197"><a href="#cb7-197" aria-hidden="true" tabindex="-1"></a><span class="vs">    Detalhes da Faixa</span></span>
+<span id="cb7-198"><a href="#cb7-198" aria-hidden="true" tabindex="-1"></a><span class="vs">  &lt;/h3&gt;</span></span>
+<span id="cb7-199"><a href="#cb7-199" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-200"><a href="#cb7-200" aria-hidden="true" tabindex="-1"></a><span class="vs">  &lt;div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 10px;"&gt;</span></span>
+<span id="cb7-201"><a href="#cb7-201" aria-hidden="true" tabindex="-1"></a><span class="vs">    </span></span>
+<span id="cb7-202"><a href="#cb7-202" aria-hidden="true" tabindex="-1"></a><span class="vs">    </span><span class="sc">${</span><span class="fu">createTag</span>(<span class="st">"Artista"</span><span class="op">,</span> current<span class="op">.</span><span class="at">Artista</span><span class="op">,</span> <span class="st">"🎤"</span>)<span class="sc">}</span></span>
+<span id="cb7-203"><a href="#cb7-203" aria-hidden="true" tabindex="-1"></a><span class="vs">    </span><span class="sc">${</span><span class="fu">createTag</span>(<span class="st">"Álbum"</span><span class="op">,</span> current<span class="op">.</span><span class="at">Album</span> <span class="op">||</span> <span class="st">"Single"</span><span class="op">,</span> <span class="st">"💿"</span>)<span class="sc">}</span></span>
+<span id="cb7-204"><a href="#cb7-204" aria-hidden="true" tabindex="-1"></a><span class="vs">    </span><span class="sc">${</span><span class="fu">createTag</span>(<span class="st">"Duração"</span><span class="op">,</span> <span class="fu">millisToMinutesAndSeconds</span>(current<span class="op">.</span><span class="at">Duracao</span>)<span class="op">,</span><span class="st">"⏱"</span>)<span class="sc">}</span></span>
+<span id="cb7-205"><a href="#cb7-205" aria-hidden="true" tabindex="-1"></a><span class="vs">    </span><span class="sc">${</span><span class="fu">createTag</span>(<span class="st">"Ano"</span><span class="op">,</span> current<span class="op">.</span><span class="at">Year</span> <span class="op">||</span> <span class="st">"N/A"</span><span class="op">,</span> <span class="st">"📅"</span>)<span class="sc">}</span></span>
+<span id="cb7-206"><a href="#cb7-206" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-207"><a href="#cb7-207" aria-hidden="true" tabindex="-1"></a><span class="vs">    </span><span class="sc">${</span><span class="fu">createTag</span>(<span class="st">"BPM"</span><span class="op">,</span> current<span class="op">.</span><span class="at">BPM</span><span class="op">,</span> <span class="st">"🥁"</span>)<span class="sc">}</span></span>
+<span id="cb7-208"><a href="#cb7-208" aria-hidden="true" tabindex="-1"></a><span class="vs">    </span><span class="sc">${</span><span class="fu">createTag</span>(<span class="st">"Popularidade"</span><span class="op">,</span> (current<span class="op">.</span><span class="at">Popularidade</span> <span class="op">||</span> <span class="dv">0</span>) <span class="op">+</span> <span class="st">"%"</span><span class="op">,</span> <span class="st">"🔥"</span>)<span class="sc">}</span></span>
+<span id="cb7-209"><a href="#cb7-209" aria-hidden="true" tabindex="-1"></a><span class="vs">    </span></span>
+<span id="cb7-210"><a href="#cb7-210" aria-hidden="true" tabindex="-1"></a><span class="vs">    </span><span class="sc">${</span><span class="fu">createTag</span>(<span class="st">"Energia"</span><span class="op">,</span> ((current<span class="op">.</span><span class="at">Energia</span> <span class="op">||</span> <span class="dv">0</span>) <span class="op">*</span> <span class="dv">100</span>)<span class="op">.</span><span class="fu">toFixed</span>(<span class="dv">0</span>) <span class="op">+</span> <span class="st">"%"</span><span class="op">,</span> <span class="st">"⚡"</span>)<span class="sc">}</span></span>
+<span id="cb7-211"><a href="#cb7-211" aria-hidden="true" tabindex="-1"></a><span class="vs">    </span><span class="sc">${</span><span class="fu">createTag</span>(<span class="st">"Dança"</span><span class="op">,</span> ((current<span class="op">.</span><span class="at">Danceability</span> <span class="op">||</span> <span class="dv">0</span>) <span class="op">*</span> <span class="dv">100</span>)<span class="op">.</span><span class="fu">toFixed</span>(<span class="dv">0</span>) <span class="op">+</span> <span class="st">"%"</span><span class="op">,</span> <span class="st">"💃"</span>)<span class="sc">}</span></span>
+<span id="cb7-212"><a href="#cb7-212" aria-hidden="true" tabindex="-1"></a><span class="vs">    </span><span class="sc">${</span><span class="fu">createTag</span>(<span class="st">"Felicidade"</span><span class="op">,</span> ((current<span class="op">.</span><span class="at">Hapiness</span> <span class="op">||</span> <span class="dv">0</span>) <span class="op">*</span> <span class="dv">100</span>)<span class="op">.</span><span class="fu">toFixed</span>(<span class="dv">0</span>) <span class="op">+</span> <span class="st">"%"</span><span class="op">,</span> <span class="st">"😊"</span>)<span class="sc">}</span></span>
+<span id="cb7-213"><a href="#cb7-213" aria-hidden="true" tabindex="-1"></a><span class="vs">    </span></span>
+<span id="cb7-214"><a href="#cb7-214" aria-hidden="true" tabindex="-1"></a><span class="vs">  &lt;/div&gt;</span></span>
+<span id="cb7-215"><a href="#cb7-215" aria-hidden="true" tabindex="-1"></a><span class="vs">&lt;/div&gt;</span></span>
+<span id="cb7-216"><a href="#cb7-216" aria-hidden="true" tabindex="-1"></a><span class="vs">`</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display html-fill-item html-fill-container">
+<div id="ojs-cell-6" data-nodetype="expression" class="html-fill-item html-fill-container">
 
 </div>
 </div>
 </div>
+<bslib-tooltip placement="auto" bsoptions="[]" data-require-bs-version="5" data-require-bs-caller="tooltip()">
+    <template>Expand</template>
+    <span class="bslib-full-screen-enter badge rounded-pill">
+        <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" style="height:1em;width:1em;" aria-hidden="true" role="img"><path d="M20 5C20 4.4 19.6 4 19 4H13C12.4 4 12 3.6 12 3C12 2.4 12.4 2 13 2H21C21.6 2 22 2.4 22 3V11C22 11.6 21.6 12 21 12C20.4 12 20 11.6 20 11V5ZM4 19C4 19.6 4.4 20 5 20H11C11.6 20 12 20.4 12 21C12 21.6 11.6 22 11 22H3C2.4 22 2 21.6 2 21V13C2 12.4 2.4 12 3 12C3.6 12 4 12.4 4 13V19Z"></path></svg>
+    </span>
+</bslib-tooltip><script data-bslib-card-init="">bslib.Card.initializeAllCards();</script></div>
 </div>
-<div class="quarto-ojs-syntax-error html-fill-item html-fill-container">
-<div class="code-copy-outer-scaffold html-fill-item html-fill-container"><div class="sourceCode html-fill-item html-fill-container" id="cb4" data-startfrom="30" data-syntax-error-position="0" data-source-offset="9"><pre class="sourceCode numberSource numberLines java code-with-copy"><code class="sourceCode java" style="counter-reset: source-line 29;"><span id="cb4-30"><a href="#cb4-30"></a>```<span class="op">{</span>ojs<span class="op">}</span></span>
-<span id="cb4-31"><a href="#cb4-31"></a><span class="op">|</span> title<span class="op">:</span> Artista com mais faixas</span>
-<span id="cb4-32"><a href="#cb4-32"></a>d3<span class="op">.</span><span class="fu">rollups</span><span class="op">(</span></span>
-<span id="cb4-33"><a href="#cb4-33"></a>audio_numeric<span class="op">,</span></span>
-<span id="cb4-34"><a href="#cb4-34"></a>v <span class="op">=&gt;</span> v<span class="op">.</span><span class="fu">length</span><span class="op">,</span></span>
-<span id="cb4-35"><a href="#cb4-35"></a>d <span class="op">=&gt;</span> d<span class="op">.</span><span class="fu">artist</span></span>
-<span id="cb4-36"><a href="#cb4-36"></a><span class="op">)</span></span>
-<span id="cb4-37"><a href="#cb4-37"></a><span class="op">.</span><span class="fu">sort</span><span class="op">((</span>a<span class="op">,</span> b<span class="op">)</span> <span class="op">=&gt;</span> d3<span class="op">.</span><span class="fu">descending</span><span class="op">(</span>a<span class="op">[</span><span class="dv">1</span><span class="op">],</span> b<span class="op">[</span><span class="dv">1</span><span class="op">]))[</span><span class="dv">0</span><span class="op">][</span><span class="dv">0</span><span class="op">]</span></span>
-<span id="cb4-38"><a href="#cb4-38"></a></span>
-<span id="cb4-39"><a href="#cb4-39"></a></span>
-<span id="cb4-40"><a href="#cb4-40"></a>```</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-error html-fill-item html-fill-container">
-<div class="callout callout-style-default callout-important callout-empty-content callout-titled">
-<div class="callout-header d-flex align-content-center html-fill-item html-fill-container">
-<div class="callout-icon-container html-fill-item html-fill-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill html-fill-item html-fill-container">
-<span class="screen-reader-only">Important</span>OJS Syntax Error (line 31, column 1)Unexpected token
-</div>
-</div>
-<div class="callout-body-container callout-body html-fill-item html-fill-container">
+<div class="bslib-grid" style="display: grid; grid-template-columns: minmax(3em, 1fr);
+grid-auto-rows: minmax(0, 1fr);">
+<div class="bslib-grid" style="display: grid; grid-template-rows: minmax(3em, 1fr); grid-auto-columns: minmax(0, 1fr);">
+<div class="card cell bslib-card html-fill-container" data-bslib-card-init="" data-require-bs-caller="card()" data-full-screen="false">
+<div class="card-body html-fill-item html-fill-container">
+<div class="code-copy-outer-scaffold html-fill-item html-fill-container"><div class="sourceCode cell-code hidden html-fill-item html-fill-container" id="cb8" data-startfrom="224" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 223;"><span id="cb8-224"><a href="#cb8-224" aria-hidden="true" tabindex="-1"></a><span class="co">// 2. INTERFACE COM SCROLL MANUAL (Sem animações verdes/vermelhas)</span></span>
+<span id="cb8-225"><a href="#cb8-225" aria-hidden="true" tabindex="-1"></a><span class="fu">html</span><span class="vs">`</span></span>
+<span id="cb8-226"><a href="#cb8-226" aria-hidden="true" tabindex="-1"></a><span class="vs">&lt;div id="lyrics-window" style="</span></span>
+<span id="cb8-227"><a href="#cb8-227" aria-hidden="true" tabindex="-1"></a><span class="vs">  height: 500px; </span></span>
+<span id="cb8-228"><a href="#cb8-228" aria-hidden="true" tabindex="-1"></a><span class="vs">  overflow-y: auto; </span></span>
+<span id="cb8-229"><a href="#cb8-229" aria-hidden="true" tabindex="-1"></a><span class="vs">  background: #000000; </span></span>
+<span id="cb8-230"><a href="#cb8-230" aria-hidden="true" tabindex="-1"></a><span class="vs">  border-radius: 12px; </span></span>
+<span id="cb8-231"><a href="#cb8-231" aria-hidden="true" tabindex="-1"></a><span class="vs">  border: 1px solid #333;</span></span>
+<span id="cb8-232"><a href="#cb8-232" aria-hidden="true" tabindex="-1"></a><span class="vs">  padding: 40px;</span></span>
+<span id="cb8-233"><a href="#cb8-233" aria-hidden="true" tabindex="-1"></a><span class="vs">  color: #ffffff;</span></span>
+<span id="cb8-234"><a href="#cb8-234" aria-hidden="true" tabindex="-1"></a><span class="vs">  font-size: 1.3rem;</span></span>
+<span id="cb8-235"><a href="#cb8-235" aria-hidden="true" tabindex="-1"></a><span class="vs">  line-height: 1.8;</span></span>
+<span id="cb8-236"><a href="#cb8-236" aria-hidden="true" tabindex="-1"></a><span class="vs">  text-align: center;</span></span>
+<span id="cb8-237"><a href="#cb8-237" aria-hidden="true" tabindex="-1"></a><span class="vs">"&gt;</span></span>
+<span id="cb8-238"><a href="#cb8-238" aria-hidden="true" tabindex="-1"></a><span class="vs">  &lt;div style="margin-bottom: 30px; border-bottom: 1px solid #222; padding-bottom: 20px;"&gt;</span></span>
+<span id="cb8-239"><a href="#cb8-239" aria-hidden="true" tabindex="-1"></a><span class="vs">    &lt;h2 style="color: #1db954; margin: 0; font-size: 1.8rem;"&gt;</span><span class="sc">${</span>current<span class="op">.</span><span class="at">Música</span><span class="sc">}</span><span class="vs">&lt;/h2&gt;</span></span>
+<span id="cb8-240"><a href="#cb8-240" aria-hidden="true" tabindex="-1"></a><span class="vs">    &lt;p style="color: #888; margin: 5px 0;"&gt;</span><span class="sc">${</span>current<span class="op">.</span><span class="at">Artista</span><span class="sc">}</span><span class="vs">&lt;/p&gt;</span></span>
+<span id="cb8-241"><a href="#cb8-241" aria-hidden="true" tabindex="-1"></a><span class="vs">  &lt;/div&gt;</span></span>
+<span id="cb8-242"><a href="#cb8-242" aria-hidden="true" tabindex="-1"></a><span class="vs">  </span></span>
+<span id="cb8-243"><a href="#cb8-243" aria-hidden="true" tabindex="-1"></a><span class="vs">  &lt;div style="white-space: pre-wrap; font-family: 'Inter', sans-serif;"&gt;</span></span>
+<span id="cb8-244"><a href="#cb8-244" aria-hidden="true" tabindex="-1"></a><span class="vs">    </span><span class="sc">${</span>current<span class="op">.</span><span class="at">Lyrics</span> <span class="op">?</span> current<span class="op">.</span><span class="at">Lyrics</span> <span class="op">:</span> <span class="st">"Letra não encontrada para esta música."</span><span class="sc">}</span></span>
+<span id="cb8-245"><a href="#cb8-245" aria-hidden="true" tabindex="-1"></a><span class="vs">  &lt;/div&gt;</span></span>
+<span id="cb8-246"><a href="#cb8-246" aria-hidden="true" tabindex="-1"></a><span class="vs">&lt;/div&gt;</span></span>
+<span id="cb8-247"><a href="#cb8-247" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-248"><a href="#cb8-248" aria-hidden="true" tabindex="-1"></a><span class="vs">&lt;style&gt;</span></span>
+<span id="cb8-249"><a href="#cb8-249" aria-hidden="true" tabindex="-1"></a><span class="vs">  /* Customização da barra de scroll para ser discreta */</span></span>
+<span id="cb8-250"><a href="#cb8-250" aria-hidden="true" tabindex="-1"></a><span class="vs">  #lyrics-window::-webkit-scrollbar { width: 6px; }</span></span>
+<span id="cb8-251"><a href="#cb8-251" aria-hidden="true" tabindex="-1"></a><span class="vs">  #lyrics-window::-webkit-scrollbar-track { background: #000; }</span></span>
+<span id="cb8-252"><a href="#cb8-252" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-253"><a href="#cb8-253" aria-hidden="true" tabindex="-1"></a><span class="vs">&lt;/style&gt;</span></span>
+<span id="cb8-254"><a href="#cb8-254" aria-hidden="true" tabindex="-1"></a><span class="vs">`</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display html-fill-item html-fill-container">
+<div id="ojs-cell-7" data-nodetype="expression" class="html-fill-item html-fill-container">
 
-</div>
-</div>
-</div>
-</div>
-<div class="quarto-ojs-syntax-error html-fill-item html-fill-container">
-<div class="code-copy-outer-scaffold html-fill-item html-fill-container"><div class="sourceCode html-fill-item html-fill-container" id="cb5" data-startfrom="42" data-syntax-error-position="0" data-source-offset="9"><pre class="sourceCode numberSource numberLines java code-with-copy"><code class="sourceCode java" style="counter-reset: source-line 41;"><span id="cb5-42"><a href="#cb5-42"></a>```<span class="op">{</span>ojs<span class="op">}</span></span>
-<span id="cb5-43"><a href="#cb5-43"></a><span class="op">|</span> title<span class="op">:</span> Número de faixas por género</span>
-<span id="cb5-44"><a href="#cb5-44"></a></span>
-<span id="cb5-45"><a href="#cb5-45"></a>Plot<span class="op">.</span><span class="fu">plot</span><span class="op">({</span></span>
-<span id="cb5-46"><a href="#cb5-46"></a>marks<span class="op">:</span> <span class="op">[</span></span>
-<span id="cb5-47"><a href="#cb5-47"></a>Plot<span class="op">.</span><span class="fu">barY</span><span class="op">(</span></span>
-<span id="cb5-48"><a href="#cb5-48"></a>audio_numeric<span class="op">,</span></span>
-<span id="cb5-49"><a href="#cb5-49"></a>Plot<span class="op">.</span><span class="fu">groupX</span><span class="op">({</span> y<span class="op">:</span> <span class="st">"count"</span> <span class="op">},</span> <span class="op">{</span> x<span class="op">:</span> <span class="st">"genre"</span> <span class="op">})</span></span>
-<span id="cb5-50"><a href="#cb5-50"></a><span class="op">)</span></span>
-<span id="cb5-51"><a href="#cb5-51"></a><span class="op">],</span></span>
-<span id="cb5-52"><a href="#cb5-52"></a>x<span class="op">:</span> <span class="op">{</span> type<span class="op">:</span> <span class="st">"band"</span><span class="op">,</span> label<span class="op">:</span> <span class="st">"Género"</span> <span class="op">},</span></span>
-<span id="cb5-53"><a href="#cb5-53"></a>y<span class="op">:</span> <span class="op">{</span> label<span class="op">:</span> <span class="st">"Número de faixas"</span><span class="op">,</span> grid<span class="op">:</span> <span class="kw">true</span> <span class="op">},</span></span>
-<span id="cb5-54"><a href="#cb5-54"></a>width<span class="op">:</span> <span class="dv">600</span><span class="op">,</span></span>
-<span id="cb5-55"><a href="#cb5-55"></a>height<span class="op">:</span> <span class="dv">400</span></span>
-<span id="cb5-56"><a href="#cb5-56"></a><span class="op">})</span></span>
-<span id="cb5-57"><a href="#cb5-57"></a></span>
-<span id="cb5-58"><a href="#cb5-58"></a>```</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-error html-fill-item html-fill-container">
-<div class="callout callout-style-default callout-important callout-empty-content callout-titled">
-<div class="callout-header d-flex align-content-center html-fill-item html-fill-container">
-<div class="callout-icon-container html-fill-item html-fill-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill html-fill-item html-fill-container">
-<span class="screen-reader-only">Important</span>OJS Syntax Error (line 43, column 1)Unexpected token
-</div>
-</div>
-<div class="callout-body-container callout-body html-fill-item html-fill-container">
-
-</div>
-</div>
-</div>
-</div>
-<div class="quarto-ojs-syntax-error html-fill-item html-fill-container">
-<div class="code-copy-outer-scaffold html-fill-item html-fill-container"><div class="sourceCode html-fill-item html-fill-container" id="cb6" data-startfrom="59" data-syntax-error-position="2" data-source-offset="9"><pre class="sourceCode numberSource numberLines java code-with-copy"><code class="sourceCode java" style="counter-reset: source-line 58;"><span id="cb6-59"><a href="#cb6-59"></a>```<span class="op">{</span>ojs<span class="op">}</span></span>
-<span id="cb6-60"><a href="#cb6-60"></a></span>
-<span id="cb6-61"><a href="#cb6-61"></a><span class="op">|</span> title<span class="op">:</span> Duração total por <span class="fu">artista</span> <span class="op">(</span>minutos<span class="op">)</span></span>
-<span id="cb6-62"><a href="#cb6-62"></a></span>
-<span id="cb6-63"><a href="#cb6-63"></a>Plot<span class="op">.</span><span class="fu">plot</span><span class="op">({</span></span>
-<span id="cb6-64"><a href="#cb6-64"></a>marks<span class="op">:</span> <span class="op">[</span></span>
-<span id="cb6-65"><a href="#cb6-65"></a>Plot<span class="op">.</span><span class="fu">barY</span><span class="op">(</span></span>
-<span id="cb6-66"><a href="#cb6-66"></a>audio_numeric<span class="op">,</span></span>
-<span id="cb6-67"><a href="#cb6-67"></a>Plot<span class="op">.</span><span class="fu">groupX</span><span class="op">(</span></span>
-<span id="cb6-68"><a href="#cb6-68"></a><span class="op">{</span> y<span class="op">:</span> d <span class="op">=&gt;</span> d3<span class="op">.</span><span class="fu">sum</span><span class="op">(</span>d<span class="op">,</span> v <span class="op">=&gt;</span> v<span class="op">.</span><span class="fu">duration_min</span><span class="op">)</span> <span class="op">},</span></span>
-<span id="cb6-69"><a href="#cb6-69"></a><span class="op">{</span> x<span class="op">:</span> <span class="st">"artist"</span> <span class="op">}</span></span>
-<span id="cb6-70"><a href="#cb6-70"></a><span class="op">)</span></span>
-<span id="cb6-71"><a href="#cb6-71"></a><span class="op">)</span></span>
-<span id="cb6-72"><a href="#cb6-72"></a><span class="op">],</span></span>
-<span id="cb6-73"><a href="#cb6-73"></a>x<span class="op">:</span> <span class="op">{</span> type<span class="op">:</span> <span class="st">"band"</span><span class="op">,</span> label<span class="op">:</span> <span class="st">"Artista"</span> <span class="op">},</span></span>
-<span id="cb6-74"><a href="#cb6-74"></a>y<span class="op">:</span> <span class="op">{</span> label<span class="op">:</span> <span class="st">"Duração total (min)"</span><span class="op">,</span> grid<span class="op">:</span> <span class="kw">true</span> <span class="op">},</span></span>
-<span id="cb6-75"><a href="#cb6-75"></a>width<span class="op">:</span> <span class="dv">600</span><span class="op">,</span></span>
-<span id="cb6-76"><a href="#cb6-76"></a>height<span class="op">:</span> <span class="dv">400</span></span>
-<span id="cb6-77"><a href="#cb6-77"></a><span class="op">})</span></span>
-<span id="cb6-78"><a href="#cb6-78"></a></span>
-<span id="cb6-79"><a href="#cb6-79"></a>```</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-error html-fill-item html-fill-container">
-<div class="callout callout-style-default callout-important callout-empty-content callout-titled">
-<div class="callout-header d-flex align-content-center html-fill-item html-fill-container">
-<div class="callout-icon-container html-fill-item html-fill-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill html-fill-item html-fill-container">
-<span class="screen-reader-only">Important</span>OJS Syntax Error (line 61, column 1)Unexpected token
-</div>
-</div>
-<div class="callout-body-container callout-body html-fill-item html-fill-container">
-
-</div>
-</div>
-</div>
-</div>
-<div class="quarto-ojs-syntax-error html-fill-item html-fill-container">
-<div class="code-copy-outer-scaffold html-fill-item html-fill-container"><div class="sourceCode html-fill-item html-fill-container" id="cb7" data-startfrom="80" data-syntax-error-position="0" data-source-offset="9"><pre class="sourceCode numberSource numberLines java code-with-copy"><code class="sourceCode java" style="counter-reset: source-line 79;"><span id="cb7-80"><a href="#cb7-80"></a>```<span class="op">{</span>ojs<span class="op">}</span></span>
-<span id="cb7-81"><a href="#cb7-81"></a><span class="op">|</span> title<span class="op">:</span> Distribuição temporal das faixas</span>
-<span id="cb7-82"><a href="#cb7-82"></a></span>
-<span id="cb7-83"><a href="#cb7-83"></a>Plot<span class="op">.</span><span class="fu">plot</span><span class="op">({</span></span>
-<span id="cb7-84"><a href="#cb7-84"></a>marks<span class="op">:</span> <span class="op">[</span></span>
-<span id="cb7-85"><a href="#cb7-85"></a>Plot<span class="op">.</span><span class="fu">barY</span><span class="op">(</span></span>
-<span id="cb7-86"><a href="#cb7-86"></a>audio_numeric<span class="op">,</span></span>
-<span id="cb7-87"><a href="#cb7-87"></a>Plot<span class="op">.</span><span class="fu">groupX</span><span class="op">({</span> y<span class="op">:</span> <span class="st">"count"</span> <span class="op">},</span> <span class="op">{</span> x<span class="op">:</span> <span class="st">"year"</span> <span class="op">})</span></span>
-<span id="cb7-88"><a href="#cb7-88"></a><span class="op">)</span></span>
-<span id="cb7-89"><a href="#cb7-89"></a><span class="op">],</span></span>
-<span id="cb7-90"><a href="#cb7-90"></a>x<span class="op">:</span> <span class="op">{</span> type<span class="op">:</span> <span class="st">"band"</span><span class="op">,</span> label<span class="op">:</span> <span class="st">"Ano"</span> <span class="op">},</span></span>
-<span id="cb7-91"><a href="#cb7-91"></a>y<span class="op">:</span> <span class="op">{</span> label<span class="op">:</span> <span class="st">"Número de faixas"</span><span class="op">,</span> grid<span class="op">:</span> <span class="kw">true</span> <span class="op">},</span></span>
-<span id="cb7-92"><a href="#cb7-92"></a>width<span class="op">:</span> <span class="dv">600</span><span class="op">,</span></span>
-<span id="cb7-93"><a href="#cb7-93"></a>height<span class="op">:</span> <span class="dv">400</span></span>
-<span id="cb7-94"><a href="#cb7-94"></a><span class="op">})</span></span>
-<span id="cb7-95"><a href="#cb7-95"></a></span>
-<span id="cb7-96"><a href="#cb7-96"></a>```</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-error html-fill-item html-fill-container">
-<div class="callout callout-style-default callout-important callout-empty-content callout-titled">
-<div class="callout-header d-flex align-content-center html-fill-item html-fill-container">
-<div class="callout-icon-container html-fill-item html-fill-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill html-fill-item html-fill-container">
-<span class="screen-reader-only">Important</span>OJS Syntax Error (line 81, column 1)Unexpected token
-</div>
-</div>
-<div class="callout-body-container callout-body html-fill-item html-fill-container">
-
-</div>
-</div>
-</div>
-</div>
-<div class="quarto-ojs-syntax-error html-fill-item html-fill-container">
-<div class="code-copy-outer-scaffold html-fill-item html-fill-container"><div class="sourceCode html-fill-item html-fill-container" id="cb8" data-startfrom="97" data-syntax-error-position="0" data-source-offset="9"><pre class="sourceCode numberSource numberLines java code-with-copy"><code class="sourceCode java" style="counter-reset: source-line 96;"><span id="cb8-97"><a href="#cb8-97"></a>```<span class="op">{</span>ojs<span class="op">}</span></span>
-<span id="cb8-98"><a href="#cb8-98"></a><span class="op">|</span> title<span class="op">:</span> Biblioteca de áudio</span>
-<span id="cb8-99"><a href="#cb8-99"></a>Inputs<span class="op">.</span><span class="fu">table</span><span class="op">(</span>audio_numeric<span class="op">)</span></span>
-<span id="cb8-100"><a href="#cb8-100"></a></span>
-<span id="cb8-101"><a href="#cb8-101"></a>```</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-error html-fill-item html-fill-container">
-<div class="callout callout-style-default callout-important callout-empty-content callout-titled">
-<div class="callout-header d-flex align-content-center html-fill-item html-fill-container">
-<div class="callout-icon-container html-fill-item html-fill-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill html-fill-item html-fill-container">
-<span class="screen-reader-only">Important</span>OJS Syntax Error (line 98, column 1)Unexpected token
-</div>
-</div>
-<div class="callout-body-container callout-body html-fill-item html-fill-container">
-
-</div>
-</div>
 </div>
 </div>
 </div>
@@ -356,10 +431,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 </div>
 </div>
+</div>
+</div>
 
 
 <script type="ojs-module-contents">
-eyJjb250ZW50cyI6W3sibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtMSIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6ImF1ZGlvID0gRmlsZUF0dGFjaG1lbnQoXCJkYXRhL2F1ZGlvX21ldGFkYXRhLmpzb25cIikuanNvbigpXHJcblxyXG5hdWRpb19udW1lcmljID0gYXVkaW8ubWFwKGQgPT4gKHtcclxuLi4uZCxcclxuZHVyYXRpb25fbWluOiArZC5kdXJhdGlvbl9taW5cclxufSkpXHJcblxyXG4ifV19
+eyJjb250ZW50cyI6W3sibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtMSIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6IlxyXG4vLyA9PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PVxyXG4vLyAxLiBFU1RJTE8gR0xPQkFMIChDU1MpICYgQ09ORklHVVJBw4fDlUVTXHJcbi8vID09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09XHJcbmh0bWxgXHJcbjxzdHlsZT5cclxuICAvKiBWYXJpw6F2ZWlzIGRlIENvcmVzICovXHJcbiAgOnJvb3Qge1xyXG4gICAgLS1iZy1tYWluOiAjMzU1Njg4ZmY7XHJcbiAgICAtLWJnLWNhcmQ6ICM0NzVkOTlmZjtcclxuICAgIC0tYmctaG92ZXI6ICMyODM4ODFmZjtcclxuICAgIC0tdGV4dC1wcmltYXJ5OiAjRkZGRkZGO1xyXG4gICAgLS10ZXh0LXNlY29uZGFyeTogI0IzQjNCMztcclxuICAgIC0tYWNjZW50OiAjMWQyZGI5ZmY7XHJcbiAgICAtLWJvcmRlcjogIzMzMzMzMztcclxuICB9XHJcblxyXG4gIC8qIDEuIEZVTkRPIFBSRVRPIEdMT0JBTCAqL1xyXG4gIGJvZHksIC5wYWdlLWNvbHVtbnMsIC5xdWFydG8tY29udGVudCwgI3F1YXJ0by1jb250ZW50LCAuZGFzaGJvYXJkLWNhcmQge1xyXG4gICAgYmFja2dyb3VuZC1jb2xvcjogdmFyKC0tYmctbWFpbikgIWltcG9ydGFudDtcclxuICAgIGNvbG9yOiB2YXIoLS10ZXh0LXByaW1hcnkpICFpbXBvcnRhbnQ7XHJcbiAgICBmb250LWZhbWlseTogJ0hlbHZldGljYSBOZXVlJywgSGVsdmV0aWNhLCBBcmlhbCwgc2Fucy1zZXJpZjtcclxuICB9XHJcblxyXG4gIC8qIC0tLSBDT1JSRcOHw4NPIERPUyBGVU5ET1MgQlJBTkNPUyAoT0pTL1FVQVJUTykgLS0tICovXHJcbiAgLyogSXN0byByZW1vdmUgbyBmdW5kbyBicmFuY28gZG9zIHBhaW7DqWlzIHBhZHLDo28gZG8gUXVhcnRvICovXHJcbiAgLmNhcmQsIC5ic2xpYi1jYXJkLCAuYnNsaWItZ3JpZC1pdGVtLCAuY2FyZC1ib2R5LCAuaHRtbC1maWxsLWNvbnRhaW5lciB7XHJcbiAgICBiYWNrZ3JvdW5kLWNvbG9yOiB0cmFuc3BhcmVudCAhaW1wb3J0YW50OyAvKiBEZWl4YSB2ZXIgbyBwcmV0byBkZSB0csOhcyAqL1xyXG4gICAgYm9yZGVyOiBub25lICFpbXBvcnRhbnQ7IC8qIFJlbW92ZSBib3JkYXMgcGFkcsOjbyBmZWlhcyAqL1xyXG4gICAgYm94LXNoYWRvdzogbm9uZSAhaW1wb3J0YW50O1xyXG4gIH1cclxuICBcclxuICAvKiBHYXJhbnRlIHF1ZSBvIHRleHRvIGRlbnRybyBkb3MgY2FydMO1ZXMgcGFkcsOjbyBzZWphIGJyYW5jbyAqL1xyXG4gIC5jYXJkLWJvZHkge1xyXG4gICAgY29sb3I6IHZhcigtLXRleHQtcHJpbWFyeSkgIWltcG9ydGFudDtcclxuICB9XHJcblxyXG4gIC8qIDIuIFNDUk9MTEJBUiBQRVJTT05BTElaQURBICovXHJcbiAgOjotd2Via2l0LXNjcm9sbGJhciB7IHdpZHRoOiA4cHg7IH1cclxuICA6Oi13ZWJraXQtc2Nyb2xsYmFyLXRyYWNrIHsgYmFja2dyb3VuZDogdmFyKC0tYmctbWFpbik7IH1cclxuICA6Oi13ZWJraXQtc2Nyb2xsYmFyLXRodW1iIHsgYmFja2dyb3VuZDogIzQ0NDsgYm9yZGVyLXJhZGl1czogMTBweDsgfVxyXG4gIDo6LXdlYmtpdC1zY3JvbGxiYXItdGh1bWI6aG92ZXIgeyBiYWNrZ3JvdW5kOiAjMWQ4MGI5ZmY7IH1cclxuICAvKiAzLiBEUk9QRE9XTiBFU0NVUk8gKi9cclxuICBmb3JtIHNlbGVjdCB7XHJcbiAgICBiYWNrZ3JvdW5kLWNvbG9yOiB2YXIoLS1iZy1ob3ZlcikgIWltcG9ydGFudDtcclxuICAgIGNvbG9yOiB3aGl0ZSAhaW1wb3J0YW50O1xyXG4gICAgYm9yZGVyOiAxcHggc29saWQgdmFyKC0tYm9yZGVyKSAhaW1wb3J0YW50O1xyXG4gICAgcGFkZGluZzogOHB4O1xyXG4gICAgYm9yZGVyLXJhZGl1czogNnB4O1xyXG4gICAgd2lkdGg6IDEwMCU7XHJcbiAgfVxyXG4gIFxyXG4gIC8qIFJlbW92ZSBtYXJnZW5zIGV4dHJhcyBxdWUgY3JpYW0gZXNwYcOnb3MgYnJhbmNvcyAqL1xyXG4gIC5kYXNoYm9hcmQtY2FyZCB7XHJcbiAgICBtYXJnaW46IDAgIWltcG9ydGFudDtcclxuICB9XHJcblxyXG4gIC8qIC0tLSA0LiBDT1JSRcOHw4NPIERBIEJBUlJBIEFaVUwgKENBQkXDh0FMSE8pIC0tLSAqL1xyXG4gIC5xdWFydG8tZGFzaGJvYXJkLWhlYWRlciwgLm5hdmJhciB7XHJcbiAgICBiYWNrZ3JvdW5kLWNvbG9yOiAjMzMzICFpbXBvcnRhbnQ7IC8qIEZvcsOnYSBvIGZ1bmRvIHByZXRvICovXHJcbiAgICBjb2xvcjogd2hpdGUgIWltcG9ydGFudDtcclxuICB9XHJcbiAgXHJcbiAgLyogR2FyYW50ZSBxdWUgbyB0w610dWxvIFwiQXVkaW8gQW5hbHl0aWNzLi4uXCIgZmljYSBicmFuY28gKi9cclxuICAubmF2YmFyLWJyYW5kLCAubmF2YmFyLXRpdGxlIHtcclxuICAgIGNvbG9yOiB3aGl0ZSAhaW1wb3J0YW50O1xyXG4gIH1cclxuXHJcbjwvc3R5bGU+XHJcbmBcclxuIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0IiwiY2VsbE5hbWUiOiJvanMtY2VsbC0yIiwiaW5saW5lIjpmYWxzZSwic291cmNlIjoiLy8gMS4gQ0FSUkVHQVIgREFET1MgTE9DQUlTIChTZW0gZXJyb3MgZGUgQVBJISlcclxuZGF0YSA9IEZpbGVBdHRhY2htZW50KFwiZGF0YS5qc29uXCIpLmpzb24oKVxyXG4ifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJjZWxsTmFtZSI6Im9qcy1jZWxsLTMiLCJpbmxpbmUiOmZhbHNlLCJzb3VyY2UiOiIvLyBQbGF5ZXIgZG8gU3BvdGlmeSAoVXNhIG8gSUQgcXVlIHB1c2Vtb3Mgbm8gSlNPTilcclxuaHRtbGA8aWZyYW1lIFxyXG4gIHN0eWxlPVwiYm9yZGVyLXJhZGl1czoxMnB4XCIgXHJcbiAgc3JjPSR7YGh0dHBzOi8vb3Blbi5zcG90aWZ5LmNvbS9lbWJlZC90cmFjay8ke2N1cnJlbnQuaWR9P3V0bV9zb3VyY2U9Z2VuZXJhdG9yYH0gXHJcbiAgd2lkdGg9XCIxMDAlXCIgXHJcbiAgaGVpZ2h0PVwiMzAwXCIgXHJcbiAgZnJhbWVCb3JkZXI9XCIwXCIgXHJcbiAgYWxsb3c9XCJhdXRvcGxheTsgY2xpcGJvYXJkLXdyaXRlOyBlbmNyeXB0ZWQtbWVkaWE7IGZ1bGxzY3JlZW47IHBpY3R1cmUtaW4tcGljdHVyZVwiIFxyXG4gIGxvYWRpbmc9XCJsYXp5XCI+XHJcbjwvaWZyYW1lPmBcclxuXHJcbi8vIDEuIEZ1bsOnw6NvIGF1eGlsaWFyIHBhcmEgY29udmVydGVyIG1zIGVtIG1tOnNzXHJcbm1pbGxpc1RvTWludXRlc0FuZFNlY29uZHMgPSAobWlsbGlzKSA9PiB7XHJcbiAgaWYgKCFtaWxsaXMpIHJldHVybiBcIi1cIjtcclxuICB2YXIgbWludXRlcyA9IE1hdGguZmxvb3IobWlsbGlzIC8gNjAwMDApO1xyXG4gIHZhciBzZWNvbmRzID0gKChtaWxsaXMgJSA2MDAwMCkgLyAxMDAwKS50b0ZpeGVkKDApO1xyXG4gIHJldHVybiBtaW51dGVzICsgXCI6XCIgKyAoc2Vjb25kcyA8IDEwID8gJzAnIDogJycpICsgc2Vjb25kcztcclxufVxyXG5cclxuLy8gMi4gRnVuw6fDo28gcGFyYSBjcmlhciBvcyBcImNhcnTDtWVzXCIgZGUgaW5mb3JtYcOnw6NvXHJcbmNyZWF0ZVRhZyA9IChsYWJlbCwgdmFsdWUsIGljb24gPSBcIlwiKSA9PiB7XHJcbiAgcmV0dXJuIGh0bWxgXHJcbiAgICA8ZGl2IHN0eWxlPVwiXHJcbiAgICAgIGJhY2tncm91bmQ6ICMxYTFhMWE7IFxyXG4gICAgICBwYWRkaW5nOiA4cHg7IFxyXG4gICAgICBib3JkZXItcmFkaXVzOiA2cHg7IFxyXG4gICAgICBib3JkZXI6IDFweCBzb2xpZCAjMzMzOyBcclxuICAgICAgZGlzcGxheTogZmxleDsgXHJcbiAgICAgIGZsZXgtZGlyZWN0aW9uOiBjb2x1bW47IFxyXG4gICAgICBqdXN0aWZ5LWNvbnRlbnQ6IGNlbnRlcjtcIj5cclxuICAgICAgXHJcbiAgICAgIDxkaXYgc3R5bGU9XCJmb250LXNpemU6IDAuNzVyZW07IGNvbG9yOiAjYjNiM2IzOyBtYXJnaW4tYm90dG9tOiA0cHg7IHRleHQtdHJhbnNmb3JtOiB1cHBlcmNhc2U7XCI+JHtsYWJlbH08L2Rpdj5cclxuICAgICAgPGRpdiBzdHlsZT1cImZvbnQtc2l6ZTogMS4xcmVtOyBmb250LXdlaWdodDogNjAwOyBjb2xvcjogd2hpdGU7XCI+XHJcbiAgICAgICAgJHtpY29ufSAke3ZhbHVlIHx8IFwiLVwifVxyXG4gICAgICA8L2Rpdj5cclxuICAgIDwvZGl2PlxyXG4gIGBcclxufVxyXG4ifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJjZWxsTmFtZSI6Im9qcy1jZWxsLTQiLCJpbmxpbmUiOmZhbHNlLCJzb3VyY2UiOiIvLyBMw7NnaWNhOiBTZSBuw6NvIHNlbGVjaW9uYXJlcyBuYWRhLCBtb3N0cmEgYSBwcmltZWlyYVxyXG5jdXJyZW50ID0gc2VsZWN0aW9uID8gc2VsZWN0aW9uIDogZGF0YVswXVxyXG4ifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJjZWxsTmFtZSI6Im9qcy1jZWxsLTUiLCJpbmxpbmUiOmZhbHNlLCJzb3VyY2UiOiIvL2xpc3RhIGRhcyBtdXNpY2FzXHJcbi8vIFRhYmVsYSBJbnRlcmF0aXZhIChMaXN0YSBkZSBNw7pzaWNhcylcclxudmlld29mIHNlbGVjdGlvbiA9IHtcclxuICAvLyAxLiBDcmlhbW9zIHVtIGNvbnRlbnRvciBwYXJhIGEgbGlzdGFcclxuICBjb25zdCBjb250YWluZXIgPSBodG1sYDxkaXYgc3R5bGU9XCJkaXNwbGF5OiBmbGV4OyBmbGV4LWRpcmVjdGlvbjogY29sdW1uOyBnYXA6IDhweDsgbWF4LWhlaWdodDogOTAwcHg7IG92ZXJmbG93LXk6IGF1dG87XCI+PC9kaXY+YDtcclxuICBcclxuICAvLyAyLiBEZWZpbmltb3MgbyB2YWxvciBpbmljaWFsIChwcmltZWlyYSBtw7pzaWNhKVxyXG4gIGNvbnRhaW5lci52YWx1ZSA9IGRhdGFbMF07XHJcblxyXG4gIC8vIDMuIENyaWFtb3MgbyB2aXN1YWwgZGUgY2FkYSBtw7pzaWNhXHJcbiAgZm9yIChjb25zdCBzb25nIG9mIGRhdGEpIHtcclxuICAgIGNvbnN0IHJvdyA9IGh0bWxgXHJcbiAgICAgIDxkaXYgc3R5bGU9XCJcclxuICAgICAgICBkaXNwbGF5OiBmbGV4OyBcclxuICAgICAgICBhbGlnbi1pdGVtczogY2VudGVyOyBcclxuICAgICAgICBwYWRkaW5nOiAxMHB4OyBcclxuICAgICAgICBiYWNrZ3JvdW5kOiAjMmIyYjJiOyBcclxuICAgICAgICBib3JkZXItcmFkaXVzOiA4cHg7IFxyXG4gICAgICAgIGN1cnNvcjogcG9pbnRlcjsgXHJcbiAgICAgICAgY29sb3I6IHdoaXRlOyBcclxuICAgICAgICB0cmFuc2l0aW9uOiBiYWNrZ3JvdW5kIDAuMnM7XCI+XHJcbiAgICAgICAgXHJcbiAgICAgICAgPGltZyBzcmM9XCIke3NvbmcuaW1nfVwiIHN0eWxlPVwid2lkdGg6IDUwcHg7IGhlaWdodDogNTBweDsgYm9yZGVyLXJhZGl1czogNHB4OyBtYXJnaW4tcmlnaHQ6IDE1cHg7IG9iamVjdC1maXQ6IGNvdmVyO1wiPlxyXG4gICAgICAgIFxyXG4gICAgICAgIDxkaXY+XHJcbiAgICAgICAgICA8ZGl2IHN0eWxlPVwiZm9udC13ZWlnaHQ6IGJvbGQ7IGZvbnQtc2l6ZTogMS4xZW07XCI+JHtzb25nLk3DunNpY2F9PC9kaXY+XHJcbiAgICAgICAgICA8ZGl2IHN0eWxlPVwib3BhY2l0eTogMC43OyBmb250LXNpemU6IDAuOWVtO1wiPiR7c29uZy5BcnRpc3RhfTwvZGl2PlxyXG4gICAgICAgIDwvZGl2PlxyXG4gICAgICA8L2Rpdj5cclxuICAgIGA7XHJcblxyXG4gICAgLy8gNC4gTMOzZ2ljYSBkbyBDbGlxdWVcclxuICAgIHJvdy5vbmNsaWNrID0gKGV2ZW50KSA9PiB7XHJcbiAgICAgIC8vIFJlbW92ZSBvIGRlc3RhcXVlIGRhcyBvdXRyYXMgbGluaGFzIChvcGNpb25hbCwgdmlzdWFsIHNpbXBsZXMpXHJcbiAgICAgIGZvciAoY29uc3QgY2hpbGQgb2YgY29udGFpbmVyLmNoaWxkcmVuKSBjaGlsZC5zdHlsZS5iYWNrZ3JvdW5kID0gXCIjMmIyYjJiXCI7XHJcbiAgICAgIFxyXG4gICAgICAvLyBEZXN0YWNhIGEgbGluaGEgY2xpY2FkYVxyXG4gICAgICByb3cuc3R5bGUuYmFja2dyb3VuZCA9IFwiIzFkYjk1NFwiOyAvLyBWZXJkZSBTcG90aWZ5XHJcbiAgICAgIFxyXG4gICAgICAvLyBBdHVhbGl6YSBvIHZhbG9yIHBhcmEgbyBPSlNcclxuICAgICAgY29udGFpbmVyLnZhbHVlID0gc29uZztcclxuICAgICAgY29udGFpbmVyLmRpc3BhdGNoRXZlbnQobmV3IEV2ZW50KFwiaW5wdXRcIiwge2J1YmJsZXM6IHRydWV9KSk7XHJcbiAgICB9O1xyXG5cclxuICAgIGNvbnRhaW5lci5hcHBlbmQocm93KTtcclxuICB9XHJcblxyXG4gIHJldHVybiBjb250YWluZXI7XHJcbn1cclxuIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0IiwiY2VsbE5hbWUiOiJvanMtY2VsbC02IiwiaW5saW5lIjpmYWxzZSwic291cmNlIjoiLy8gMy4gUmVuZGVyaXphIG8gQmxvY28gZGEgRmljaGEgVMOpY25pY2FcclxuaHRtbGBcclxuPGRpdiBzdHlsZT1cIm1hcmdpbi10b3A6IDIwcHg7IG1hcmdpbi1ib3R0b206IDIwcHg7XCI+XHJcbiAgPGgzIHN0eWxlPVwiY29sb3I6IHdoaXRlOyBtYXJnaW4tYm90dG9tOiAxNXB4OyBib3JkZXItYm90dG9tOiAxcHggc29saWQgIzMzMzsgcGFkZGluZy1ib3R0b206IDEwcHg7XCI+XHJcbiAgICBEZXRhbGhlcyBkYSBGYWl4YVxyXG4gIDwvaDM+XHJcblxyXG4gIDxkaXYgc3R5bGU9XCJkaXNwbGF5OiBncmlkOyBncmlkLXRlbXBsYXRlLWNvbHVtbnM6IHJlcGVhdChhdXRvLWZpbGwsIG1pbm1heCgxMzBweCwgMWZyKSk7IGdhcDogMTBweDtcIj5cclxuICAgIFxyXG4gICAgJHtjcmVhdGVUYWcoXCJBcnRpc3RhXCIsIGN1cnJlbnQuQXJ0aXN0YSwgXCLwn46kXCIpfVxyXG4gICAgJHtjcmVhdGVUYWcoXCLDgWxidW1cIiwgY3VycmVudC5BbGJ1bSB8fCBcIlNpbmdsZVwiLCBcIvCfkr9cIil9XHJcbiAgICAke2NyZWF0ZVRhZyhcIkR1cmHDp8Ojb1wiLCBtaWxsaXNUb01pbnV0ZXNBbmRTZWNvbmRzKGN1cnJlbnQuRHVyYWNhbyksXCLij7FcIil9XHJcbiAgICAke2NyZWF0ZVRhZyhcIkFub1wiLCBjdXJyZW50LlllYXIgfHwgXCJOL0FcIiwgXCLwn5OFXCIpfVxyXG5cclxuICAgICR7Y3JlYXRlVGFnKFwiQlBNXCIsIGN1cnJlbnQuQlBNLCBcIvCfpYFcIil9XHJcbiAgICAke2NyZWF0ZVRhZyhcIlBvcHVsYXJpZGFkZVwiLCAoY3VycmVudC5Qb3B1bGFyaWRhZGUgfHwgMCkgKyBcIiVcIiwgXCLwn5SlXCIpfVxyXG4gICAgXHJcbiAgICAke2NyZWF0ZVRhZyhcIkVuZXJnaWFcIiwgKChjdXJyZW50LkVuZXJnaWEgfHwgMCkgKiAxMDApLnRvRml4ZWQoMCkgKyBcIiVcIiwgXCLimqFcIil9XHJcbiAgICAke2NyZWF0ZVRhZyhcIkRhbsOnYVwiLCAoKGN1cnJlbnQuRGFuY2VhYmlsaXR5IHx8IDApICogMTAwKS50b0ZpeGVkKDApICsgXCIlXCIsIFwi8J+Sg1wiKX1cclxuICAgICR7Y3JlYXRlVGFnKFwiRmVsaWNpZGFkZVwiLCAoKGN1cnJlbnQuSGFwaW5lc3MgfHwgMCkgKiAxMDApLnRvRml4ZWQoMCkgKyBcIiVcIiwgXCLwn5iKXCIpfVxyXG4gICAgXHJcbiAgPC9kaXY+XHJcbjwvZGl2PlxyXG5gXHJcbiJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtNyIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6IlxyXG4vLyAyLiBJTlRFUkZBQ0UgQ09NIFNDUk9MTCBNQU5VQUwgKFNlbSBhbmltYcOnw7VlcyB2ZXJkZXMvdmVybWVsaGFzKVxyXG5odG1sYFxyXG48ZGl2IGlkPVwibHlyaWNzLXdpbmRvd1wiIHN0eWxlPVwiXHJcbiAgaGVpZ2h0OiA1MDBweDsgXHJcbiAgb3ZlcmZsb3cteTogYXV0bzsgXHJcbiAgYmFja2dyb3VuZDogIzAwMDAwMDsgXHJcbiAgYm9yZGVyLXJhZGl1czogMTJweDsgXHJcbiAgYm9yZGVyOiAxcHggc29saWQgIzMzMztcclxuICBwYWRkaW5nOiA0MHB4O1xyXG4gIGNvbG9yOiAjZmZmZmZmO1xyXG4gIGZvbnQtc2l6ZTogMS4zcmVtO1xyXG4gIGxpbmUtaGVpZ2h0OiAxLjg7XHJcbiAgdGV4dC1hbGlnbjogY2VudGVyO1xyXG5cIj5cclxuICA8ZGl2IHN0eWxlPVwibWFyZ2luLWJvdHRvbTogMzBweDsgYm9yZGVyLWJvdHRvbTogMXB4IHNvbGlkICMyMjI7IHBhZGRpbmctYm90dG9tOiAyMHB4O1wiPlxyXG4gICAgPGgyIHN0eWxlPVwiY29sb3I6ICMxZGI5NTQ7IG1hcmdpbjogMDsgZm9udC1zaXplOiAxLjhyZW07XCI+JHtjdXJyZW50Lk3DunNpY2F9PC9oMj5cclxuICAgIDxwIHN0eWxlPVwiY29sb3I6ICM4ODg7IG1hcmdpbjogNXB4IDA7XCI+JHtjdXJyZW50LkFydGlzdGF9PC9wPlxyXG4gIDwvZGl2PlxyXG4gIFxyXG4gIDxkaXYgc3R5bGU9XCJ3aGl0ZS1zcGFjZTogcHJlLXdyYXA7IGZvbnQtZmFtaWx5OiAnSW50ZXInLCBzYW5zLXNlcmlmO1wiPlxyXG4gICAgJHtjdXJyZW50Lkx5cmljcyA/IGN1cnJlbnQuTHlyaWNzIDogXCJMZXRyYSBuw6NvIGVuY29udHJhZGEgcGFyYSBlc3RhIG3DunNpY2EuXCJ9XHJcbiAgPC9kaXY+XHJcbjwvZGl2PlxyXG5cclxuPHN0eWxlPlxyXG4gIC8qIEN1c3RvbWl6YcOnw6NvIGRhIGJhcnJhIGRlIHNjcm9sbCBwYXJhIHNlciBkaXNjcmV0YSAqL1xyXG4gICNseXJpY3Mtd2luZG93Ojotd2Via2l0LXNjcm9sbGJhciB7IHdpZHRoOiA2cHg7IH1cclxuICAjbHlyaWNzLXdpbmRvdzo6LXdlYmtpdC1zY3JvbGxiYXItdHJhY2sgeyBiYWNrZ3JvdW5kOiAjMDAwOyB9XHJcblxyXG48L3N0eWxlPlxyXG5gXHJcbiJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldFF1aWV0Iiwic291cmNlIjoic2hpbnlJbnB1dCgnc2VsZWN0aW9uJykifV19
 </script>
 <script type="module">
 if (window.location.protocol === "file:") { alert("The OJS runtime does not work with file:// URLs. Please use a web server to view this document."); }
