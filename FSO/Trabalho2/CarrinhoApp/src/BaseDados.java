@@ -10,12 +10,12 @@ public class BaseDados {
     private int angulo;
     private Servidor servidor;
     private volatile boolean aleatoriosOn;
-    private final Semaphore produtorMux = new Semaphore(1, true);
+    private final Semaphore produtorMux = new Semaphore(1);
     private volatile boolean pausaServidor;
-    private final Semaphore pausaSem = new Semaphore(0, true);
+    private final Semaphore pausaSem = new Semaphore(0);
     private int spinnerValue = 5;
     
-    private final Semaphore ev3Sem = new Semaphore(1, true);
+    private final Semaphore ev3Sem = new Semaphore(1);
     
     public void setSpinnerValue(int v) {
         this.spinnerValue = v;

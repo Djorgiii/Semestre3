@@ -14,7 +14,7 @@ public class Gravador extends Tarefa {
     private final BufferGravacao buffer = new BufferGravacao();
 
     // Exclusão mútua REAL entre gravar / reproduzir
-    private final Semaphore exclusao = new Semaphore(1, true);
+    private final Semaphore exclusao = new Semaphore(1);
 
     private volatile boolean emReproducao = false;
     private RobotLegoEV3 robotLigado;
