@@ -15,12 +15,12 @@ html`
 <style>
   /* Variáveis de Cores */
   :root {
-    --bg-main: #355688ff;
+    --bg-main: #c1c7cfff;
     --bg-card: #475d99ff;
     --bg-hover: #283881ff;
     --text-primary: #FFFFFF;
     --text-secondary: #B3B3B3;
-    --accent: #1d2db9ff;
+    --accent: #204250ff;
     --border: #333333;
   }
 
@@ -66,7 +66,7 @@ html`
 
   /* --- 4. CORREÇÃO DA BARRA AZUL (CABEÇALHO) --- */
   .quarto-dashboard-header, .navbar {
-    background-color: #333 !important; /* Força o fundo preto */
+    background-color: #5d9edbff !important; /* Força o fundo preto */
     color: white !important;
   }
   
@@ -94,7 +94,7 @@ data = FileAttachment("data.json").json()
 // Player do Spotify (Usa o ID que pusemos no JSON)
 html`<iframe 
   style="border-radius:12px" 
-  src=${`https://open.spotify.com/embed/track/${current.id}?utm_source=generator`} 
+  src=${`https://open.spotify.com/embed/track/${current.id}?utm_source=generator`}
   width="100%" 
   height="300" 
   frameBorder="0" 
@@ -114,15 +114,15 @@ millisToMinutesAndSeconds = (millis) => {
 createTag = (label, value, icon = "") => {
   return html`
     <div style="
-      background: #1a1a1a; 
+      background: #5d9edbff; 
       padding: 8px; 
       border-radius: 6px; 
-      border: 1px solid #333; 
+      border: 1px solid #080808ff; 
       display: flex; 
       flex-direction: column; 
       justify-content: center;">
       
-      <div style="font-size: 0.75rem; color: #b3b3b3; margin-bottom: 4px; text-transform: uppercase;">${label}</div>
+      <div style="font-size: 0.75rem; color: #020202ff; margin-bottom: 4px; text-transform: uppercase;">${label}</div>
       <div style="font-size: 1.1rem; font-weight: 600; color: white;">
         ${icon} ${value || "-"}
       </div>
@@ -176,7 +176,7 @@ viewof selection = {
       for (const child of container.children) child.style.background = "#2b2b2b";
       
       // Destaca a linha clicada
-      row.style.background = "#1db954"; // Verde Spotify
+      row.style.background = "#5d9edbff"; // Verde Spotify
       
       // Atualiza o valor para o OJS
       container.value = song;
@@ -190,32 +190,7 @@ viewof selection = {
 }
 ```
 
-```{ojs}
-// 3. Renderiza o Bloco da Ficha Técnica
-html`
-<div style="margin-top: 20px; margin-bottom: 20px;">
-  <h3 style="color: white; margin-bottom: 15px; border-bottom: 1px solid #333; padding-bottom: 10px;">
-    Detalhes da Faixa
-  </h3>
 
-  <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 10px;">
-    
-    ${createTag("Artista", current.Artista, "🎤")}
-    ${createTag("Álbum", current.Album || "Single", "💿")}
-    ${createTag("Duração", millisToMinutesAndSeconds(current.Duracao),"⏱")}
-    ${createTag("Ano", current.Year || "N/A", "📅")}
-
-    ${createTag("BPM", current.BPM, "🥁")}
-    ${createTag("Popularidade", (current.Popularidade || 0) + "%", "🔥")}
-    
-    ${createTag("Energia", ((current.Energia || 0) * 100).toFixed(0) + "%", "⚡")}
-    ${createTag("Dança", ((current.Danceability || 0) * 100).toFixed(0) + "%", "💃")}
-    ${createTag("Felicidade", ((current.Hapiness || 0) * 100).toFixed(0) + "%", "😊")}
-    
-  </div>
-</div>
-`
-```
 
 ## row {width=40%}-
 ### 📝 Letras da Música
@@ -238,8 +213,8 @@ html`
   text-align: center;
 ">
   <div style="margin-bottom: 30px; border-bottom: 1px solid #222; padding-bottom: 20px;">
-    <h2 style="color: #1db954; margin: 0; font-size: 1.8rem;">${current.Música}</h2>
-    <p style="color: #888; margin: 5px 0;">${current.Artista}</p>
+    <h2 style="color: #5d9edbff; margin: 0; font-size: 1.8rem;">${current.Música}</h2>
+    <p style="color: #5d9edbff; margin: 5px 0;">${current.Artista}</p>
   </div>
   
   <div style="white-space: pre-wrap; font-family: 'Inter', sans-serif;">
