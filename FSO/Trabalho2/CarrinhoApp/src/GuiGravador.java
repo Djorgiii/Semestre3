@@ -193,8 +193,6 @@ public class GuiGravador extends JFrame {
                             
                             enviarMovimento(m);
                             enviarMovimento(m2);
-
-                          
                         }
                     });
                     btnFrente.setBounds(242, 84, 105, 37);
@@ -545,48 +543,13 @@ public class GuiGravador extends JFrame {
 							
 							if(mesmoRobot) {
 					            nomeRobot = bd.getNomeRobotPrincipal();
-					            textFieldRobot.setText(nomeRobot);
-					            
-	                            btnFrente.setEnabled(true);
-	                            btnTras.setEnabled(true);
-	                            btnDireita.setEnabled(true);
-	                            btnEsquerda.setEnabled(true);
-	                            btnParar.setEnabled(true);
-	                            rdbtnOnOff.setEnabled(true);
-	                            btnReproduzir.setEnabled(true);
-	                            btnGravar.setEnabled(true);
-	                            btnBotaoFicheiro.setEnabled(true);
-	                            textField.setEnabled(true);
-	                            textFieldRaio.setEditable(true);
-	                            textFieldRaio.setEnabled(true);
-	                            textFieldAngulo.setEditable(true);
-	                            textFieldAngulo.setEnabled(true);
-	                            textFieldDistancia.setEditable(true);
-	                            textFieldDistancia.setEnabled(true);
-	                            
+					            textFieldRobot.setText(nomeRobot);                            
 					            myPrint("[GUI] Modo PARTILHADO: comandos via Servidor.");
 					            
 							}
 							else {
 					            nomeRobot = textFieldRobot.getText().trim();
-					            myPrint("[GUI] Modo ISOLADO: execução direta.");
-					            
-	                            btnFrente.setEnabled(true);
-	                            btnTras.setEnabled(true);
-	                            btnDireita.setEnabled(true);
-	                            btnEsquerda.setEnabled(true);
-	                            btnParar.setEnabled(true);
-	                            rdbtnOnOff.setEnabled(true);
-	                            btnReproduzir.setEnabled(true);
-	                            btnGravar.setEnabled(true);
-	                            btnBotaoFicheiro.setEnabled(true);
-	                            textField.setEnabled(true);
-	                            textFieldRaio.setEditable(true);
-	                            textFieldRaio.setEnabled(true);
-	                            textFieldAngulo.setEditable(true);
-	                            textFieldAngulo.setEnabled(true);
-	                            textFieldDistancia.setEditable(true);
-	                            textFieldDistancia.setEnabled(true);
+					            myPrint("[GUI] Modo ISOLADO: execução direta.");				            
 							}
                     	}
                     });
