@@ -1,6 +1,6 @@
 const fs = require('fs');
 const Genius = require("genius-lyrics");
-const Client = new Genius.Client("E6Hp1DNtAjFGfAoj0q2laNh9FqFkawCGlBmlIoN4U6usKR79B75t2UkuPyqUw8kO");
+const Client = new Genius.Client("eCZ58Odu4amgSKd3yZzeg6n6cdNdRfda_tn6Djtl3lvvdBb7URcIYL0JI5ppWZgE");
 
 async function atualizarLetras() {
     try {
