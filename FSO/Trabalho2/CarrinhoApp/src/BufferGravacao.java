@@ -17,9 +17,9 @@ public class BufferGravacao {
         getBuffer = 0;
         count = 0;
 
-        elementosLivres = new Semaphore(tamanho, true);
-        elementosOcupados = new Semaphore(0, true);
-        acessoElemento = new Semaphore(1, true);
+        elementosLivres = new Semaphore(tamanho);
+        elementosOcupados = new Semaphore(0);
+        acessoElemento = new Semaphore(1);
     }
 
     public BufferGravacao() {
