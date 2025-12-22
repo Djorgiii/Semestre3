@@ -32,7 +32,7 @@ public class Servidor extends Tarefa{
     }
 
     public void execucao() {
-        while (true) {
+        while (bd.isRobotAberto()) {
 
             // PAUSA DO SERVIDOR
             if (bd != null && bd.isPausaServidor()) {
