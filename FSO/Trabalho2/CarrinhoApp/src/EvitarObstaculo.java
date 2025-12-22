@@ -6,7 +6,7 @@ public class EvitarObstaculo extends Tarefa {
     private final GUI gui;
     private GuiGravador guiGravador;
     private final Random rnd = new Random();
-private final int sensorToquePort = RobotLegoEV3.S_1; // Porta do sensor de toque 
+    private final int sensorToquePort = RobotLegoEV3.S_1; // Porta do sensor de toque 
 
     public EvitarObstaculo(GUI gui, GuiGravador guiGravador) {
 		super();
