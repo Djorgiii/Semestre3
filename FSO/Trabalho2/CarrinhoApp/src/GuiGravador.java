@@ -193,8 +193,6 @@ public class GuiGravador extends JFrame {
                             
                             enviarMovimento(m);
                             enviarMovimento(m2);
-
-                          
                         }
                     });
                     btnFrente.setBounds(242, 84, 105, 37);
