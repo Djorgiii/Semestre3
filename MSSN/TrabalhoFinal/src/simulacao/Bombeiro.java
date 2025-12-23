@@ -14,7 +14,7 @@ public class Bombeiro {
         vel = PVector.random2D();
         acc = new PVector(0, 0);
         this.maxSpeed = speed; // DNA: Velocidade
-        this.maxForce = 0.2f;
+        this.maxForce = speed * 0.05f;
     }
 
     public void applyForce(PVector force) {
@@ -73,7 +73,7 @@ public class Bombeiro {
                     // Lógica de apagar fogo (Fitness)
                     if (d < f.cellSize * 2.0f) {
                         apagarArea(f,i,j); // Apaga o fogo
-                        fitness += 20;     // Ganha pontos
+                        fitness += 10 + (maxSpeed * 2);     // Ganha pontos
                     }
                 }
             }
