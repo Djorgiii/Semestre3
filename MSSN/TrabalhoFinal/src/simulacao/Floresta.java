@@ -35,23 +35,26 @@ public class Floresta {
                 nextGrid[i][j] = grid[i][j];
 
                 // 1. REGENERAÇÃO: Só cresce árvore se for Solo Limpo (4)
-                if (grid[i][j] == 4 && p.random(1) < 0.002f) {
+                if (grid[i][j] == 4 && p.random(1) < 0.015f) {
                     nextGrid[i][j] = 1;
                 }
 
                 // 2. RECUPERAÇÃO: Se está Queimado (3), volta a ser Solo Limpo (4)
                 // IMPORTANTE: Não volta para 0 (água), mas sim para 4 (terra)
-                if (grid[i][j] == 3 && p.random(1) < 0.005f) {
+                if (grid[i][j] == 3 && p.random(1) < 0.02f) {
                     nextGrid[i][j] = 4;
                 }
 
                 // 3. PROPAGAÇÃO (Só queima se for árvore)
                 if (grid[i][j] == 1 && temVizinhoArder(i, j)) {
-                    if (p.random(1) < 0.3f) nextGrid[i][j] = 2;
+                    if (p.random(1) < 0.10f) nextGrid[i][j] = 2;
                 }
+                else if (grid[i][j] == 1 && p.random(1) < 0.0001f) {
+					nextGrid[i][j] = 2; // Fogo espontâneo (raios, etc)
+				}
 
                 // 4. COMBUSTÃO
-                if (grid[i][j] == 2 && p.random(1) < 0.05f) {
+                if (grid[i][j] == 2 && p.random(1) < 0.02f) {
                     nextGrid[i][j] = 3; 
                 }
             }
@@ -73,10 +76,10 @@ public class Floresta {
     }
     
     public void forçarFogoAleatorio(PApplet p) {
-        // Garante que o índice sorteado está dentro dos limites da matriz [0, cols-1]
         int rx = (int) p.random(cols); 
         int ry = (int) p.random(rows);
         
+        // Só incendeia se houver combustível (Árvore)
         if (grid[rx][ry] == 1) {
             grid[rx][ry] = 2;
         }
