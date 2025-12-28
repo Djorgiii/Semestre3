@@ -1,6 +1,7 @@
 package simulacao;
 
 import processing.core.PApplet;
+import processing.core.PImage;
 import processing.core.PVector;
 import java.util.ArrayList;
 
@@ -134,22 +135,23 @@ public class Bombeiro {
     }
 
  // Na classe Bombeiro
-    public void display(PApplet p) {
+    public void display(PApplet p, PImage img) {
         p.pushMatrix();
         p.translate(pos.x, pos.y);
-        p.rotate(vel.heading()); // O avião aponta para onde se move
+        p.rotate(vel.heading() + p.HALF_PI); // O avião aponta para onde se move
         
+        p.imageMode(p.CENTER);
+        
+        if (img != null) {
+        	p.image(img, 0, 0, 20, 20);
+        } else {
         // Desenha o avião (triângulo estilizado)
         p.fill(255);
         p.stroke(0, 100, 255);
-        p.triangle(10, 0, -5, -5, -5, 5);
-        
-        // Rastro de fumo/água se estiver a apagar fogo
-        if (fitness > 0) {
-            p.noStroke();
-            p.fill(255, 255, 255, 100);
-            p.ellipse(-10, 0, 8, 8);
+        p.triangle(10, 0, -5, -5, -5, 5);       
         }
+        
+        
         p.popMatrix();
     }
 }
