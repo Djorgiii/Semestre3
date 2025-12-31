@@ -58,7 +58,7 @@ public class ForestFireApp implements iProcessing {
         // --- Lógica de Stocks & Flows ---
         p.fill(255);
         p.text("Clica +/- para alterar o numero de Bombeiros", 20, 30);
-        p.text("Clica Enter para dar reset à simulação ", 20, 50);
+        p.text("Clica no espaço para dar reset à simulação ", 20, 50);
         
 
         // --- Lógica de Seleção Natural (a cada 15 segundos) ---
