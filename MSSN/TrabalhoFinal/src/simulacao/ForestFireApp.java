@@ -110,9 +110,20 @@ public class ForestFireApp implements iProcessing {
         
      // Aumentar Boids
         if(p.key == '+') {
-        	numBoidsDesejados++;
             if (numBoidsDesejados < 100) { // Limite para não travar o PC
-                bombeiros.add(new Bombeiro(p.random(p.width), p.random(p.height), p.random(1, 4)));
+            	numBoidsDesejados++;
+            	
+            	float velDoMelhor = 2.0f;
+            	if (!bombeiros.isEmpty()) {
+            		Bombeiro campeaoAtual = bombeiros.get(0);
+					for (Bombeiro b : bombeiros) {
+						if (b.fitness > campeaoAtual.fitness) {
+							campeaoAtual = b;
+						}
+					}
+					velDoMelhor = campeaoAtual.maxSpeed;
+            	}
+                bombeiros.add(new Bombeiro(p.random(p.width), p.random(p.height), velDoMelhor) );
             }
         }
         
