@@ -53,7 +53,7 @@ public class ForestFireApp implements iProcessing {
 
         p.fill(255);
         p.text("Clica +/- para alterar o numero de Bombeiros", 20, 30);
-        p.text("Clica Enter para dar reset à simulação ", 20, 50);
+        p.text("Clica no espaço para dar reset à simulação ", 20, 50);
         
 
         generationTimer += dt;
