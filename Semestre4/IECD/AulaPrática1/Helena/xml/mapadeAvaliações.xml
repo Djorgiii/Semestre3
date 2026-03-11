@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<calendarioAvaliacoes curso="LEIM" anoLetivo="2025-2026">
+
+	<semestre numero = "3">	
+	
+	    <disciplina nome="Economia e Gestão de Projeto">
+	        
+	        <avaliacao tipo="Exame/Época Normal">
+	            <data>2026-01-16</data>
+	            <hora>19:00</hora>
+	            <duração>3h00 </duração>
+	        </avaliacao>
+	
+	        <avaliacao tipo="Exame/Época de Recurso">
+	            <data>2026-02-03</data>
+	            <hora>14:00</hora>
+	            <duração>3h00</duração>
+	        </avaliacao>
+	
+	    </disciplina>
+	
+	
+	    <disciplina nome="Empreendorismo">
+	
+	        <avaliacao tipo="Exame/Época Normal">
+	            <data>2026-01-14</data>
+	            <hora>18:00</hora>
+	            <duração>3h00</duração>>
+	        </avaliacao>
+	
+	        <avaliacao tipo="Exame/Época de Recurso">
+	            <data>2026-01-27</data>
+	            <hora>18:00</hora>
+	            <duração>3h00</duração>
+	        </avaliacao>
+	
+	    </disciplina>
+	
+	
+	    <disciplina nome="Funcamentos de Sistemas Operativos">
+	
+	        <avaliacao tipo="Exame/ Época Normal">
+	            <data>2026-01-19</data>
+	            <hora>10:00</hora>
+	            <duração>3h00</duração>>
+	        </avaliacao>
+	
+	        <avaliacao tipo="Exame/ ÉPoca de Recurso">
+	            <data>2026-01-29</data>
+	            <hora>10:00</hora>
+	            <duração>3h00</duração>
+	        </avaliacao>
+	
+	    </disciplina>
+	    
+	     <disciplina nome="Gestão e Avaliação de Projeto">
+	
+	        <avaliacao tipo="Exame/ Época Normal">
+	            <data>2026-01-20</data>
+	            <hora>10:00</hora>
+	            <duração>3h00</duração>>
+	        </avaliacao>
+	
+	        <avaliacao tipo="Exame/ Época de Recurso">
+	            <data>2026-02-02</data>
+	            <hora>14:00</hora>
+	            <duração>3h00</duração>
+	        </avaliacao>
+	
+	    </disciplina>
+	    
+	     <disciplina nome="Modelação e Simulação de Sistemas Naturais">
+	
+	        <avaliacao tipo="Exame/ Época Normal">
+	            <data>2026-01-15</data>
+	            <hora>14:00</hora>
+	            <duração>3h00</duração>>
+	        </avaliacao>
+	
+	        <avaliacao tipo="Exame/ Época de Recurso">
+	            <data>2026-02-04</data>
+	            <hora>10:00</hora>
+	            <duração>3h00</duração>
+	        </avaliacao>
+	
+	    </disciplina>
+	    
+	    <disciplina nome="Produção de Conteúdos Multimédia">
+	
+	        <avaliacao tipo="Exame/ Época Normal">
+	            <data>2026-01-07</data>
+	            <hora>10:00</hora>
+	            <duração>3h00</duração>>
+	        </avaliacao>
+	
+	        <avaliacao tipo="Exame/ ÉPoca de Recurso">
+	            <data>2026-01-22</data>
+	            <hora>10:00</hora>
+	            <duração>3h00</duração>
+	        </avaliacao>
+	
+	    </disciplina>
+	    
+	    <disciplina nome="Processamento de Sinais de Multimédia">
+	
+	        <avaliacao tipo="Exame/ Época Normal">
+	            <data>2026-01-13</data>
+	            <hora>10:00</hora>
+	            <duração>3h00</duração>>
+	        </avaliacao>
+	
+	        <avaliacao tipo="Exame/ ÉPoca de Recurso">
+	            <data>2026-01-24</data>
+	            <hora>10:00</hora>
+	            <duração>3h00</duração>
+	        </avaliacao>
+	
+	    </disciplina>
+	    
+	    <disciplina nome="Sistemas de Gestão">
+	
+	        <avaliacao tipo="Exame/ Época Normal">
+	            <data>2026-01-9</data>
+	            <hora>19:00</hora>
+	            <duração>3h00</duração>>
+	        </avaliacao>
+	
+	        <avaliacao tipo="Exame/ ÉPoca de Recurso">
+	            <data>2026-01-30</data>
+	            <hora>19:00</hora>
+	            <duração>3h00</duração>
+	        </avaliacao>
+	
+	    </disciplina>
+	    
+	</semestre>
+</calendarioAvaliacoes>
