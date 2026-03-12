@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="CalendarioPlurianual.xsl"?>
 <calendarioPlurianual xmlns="http://isel.pt/calendario" generated="2026-03-05">
     <!-- Academic calendar for ISEL, years 2025-2027. Dates use ISO 8601 (YYYY-MM-DD). -->
 
@@ -17,9 +18,9 @@
                 <start>2025-09-08</start>
                 <end>2026-01-23</end>
                 <classesStart>2025-09-08</classesStart>
-                <classesEnd>2025-12-19</classesEnd>
-                <examPeriodStart>2026-01-12</examPeriodStart>
-                <examPeriodEnd>2026-01-23</examPeriodEnd>
+                <classesEnd>2025-12-20</classesEnd>
+                <examPeriodStart>2026-01-05</examPeriodStart>
+                <examPeriodEnd>2026-01-21</examPeriodEnd>
             </semestre>
         </semestres>
 
@@ -32,8 +33,29 @@
         </holidays>
 
         <events>
+            <event id="2025-divulgacao-horarios" name="Divulgação de horários (1.º e 2.º semestre)" date="2025-07-14"/>
+            <event id="2025-matricula-pre" name="Matrícula (Pré-inscrição)" start="2025-08-18" end="2025-08-20"/>
+            <event id="2025-cna-1fase" name="Inscrições Concurso Nacional de Acesso 1ª fase" start="2025-08-25" end="2025-08-28"/>
+            <event id="2025-inscr-unidades-29ago" name="Inscrições a unidades curriculares" date="2025-08-29"/>
+            <event id="2025-inscr-unidades-set-1-4" name="Inscrições a unidades curriculares" start="2025-09-01" end="2025-09-04"/>
+            <event id="2025-inicio-periodo-letivo" name="Início do período letivo" date="2025-09-08"/>
+            <event id="2025-retificacoes-inscricoes" name="Retificações das inscrições a unidades curriculares" start="2025-09-09" end="2025-09-10"/>
+            <event id="2025-cna-2fase" name="Inscrições Concurso Nacional de Acesso 2ª fase" start="2025-09-15" end="2025-09-17"/>
+            <event id="2025-cna-3fase" name="Inscrições Concurso Nacional de Acesso 3ª fase" start="2025-10-01" end="2025-10-03"/>
+            <event id="2025-fim-periodo-letivo" name="Fim do período letivo" date="2025-12-20"/>
+            <event id="2025-natal-interrupcao" name="Interrupção de atividades letivas (Natal)" start="2025-12-22" end="2026-01-02"/>
+
+            <!-- Exames e classificações (relacionados com o 2.º semestre 2025) -->
+            <event id="2025-epoca-normal" name="Período de exames (época normal)" start="2026-01-05" end="2026-01-21"/>
+            <event id="2025-lancamento-classificacoes-normal" name="Lançamento das classificações (época normal)" start="2026-01-21" end="2026-01-28"/>
+            <event id="2025-epoca-recurso-inverno" name="Período de exames (época de recurso)" start="2026-01-22" end="2026-02-04"/>
+            <event id="2025-lancamento-classificacoes-recurso" name="Lançamento das classificações (época de recurso)" start="2026-02-04" end="2026-02-10"/>
+            <event id="2025-epoca-especial-inverno" name="Período de exames (época especial de inverno)" start="2026-02-09" end="2026-02-14"/>
+            <event id="2025-lancamento-classificacoes-especial-inverno" name="Lançamento de classificações (época especial de inverno)" start="2026-02-14" end="2026-02-21"/>
+
+            <!-- Mantém eventos existentes relevantes -->
             <event id="2025-orientacao" name="Semana de Orientação" date="2025-02-01"/>
-            <event id="2025-exame-recurso" name="Época de Recurso" start="2025-08-18" end="2025-08-29"/>
+            <event id="2025-exame-recurso" name="Época de Recurso (verão)" start="2025-08-18" end="2025-08-29"/>
             <event id="2025-fim-ano-academico" name="Cerimónia de Encerramento" date="2025-06-28"/>
         </events>
     </ano>
