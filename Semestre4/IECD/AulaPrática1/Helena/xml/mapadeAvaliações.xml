@@ -26,7 +26,7 @@
 	        <avaliacao tipo="Exame/Época Normal">
 	            <data>2026-01-14</data>
 	            <hora>18:00</hora>
-	            <duração>3h00</duração>>
+	            <duração>3h00</duração>
 	        </avaliacao>
 	
 	        <avaliacao tipo="Exame/Época de Recurso">
@@ -43,10 +43,10 @@
 	        <avaliacao tipo="Exame/ Época Normal">
 	            <data>2026-01-19</data>
 	            <hora>10:00</hora>
-	            <duração>3h00</duração>>
+	            <duração>3h00</duração>
 	        </avaliacao>
 	
-	        <avaliacao tipo="Exame/ ÉPoca de Recurso">
+	        <avaliacao tipo="Exame/ Época de Recurso">
 	            <data>2026-01-29</data>
 	            <hora>10:00</hora>
 	            <duração>3h00</duração>
@@ -59,7 +59,7 @@
 	        <avaliacao tipo="Exame/ Época Normal">
 	            <data>2026-01-20</data>
 	            <hora>10:00</hora>
-	            <duração>3h00</duração>>
+	            <duração>3h00</duração>
 	        </avaliacao>
 	
 	        <avaliacao tipo="Exame/ Época de Recurso">
@@ -75,7 +75,7 @@
 	        <avaliacao tipo="Exame/ Época Normal">
 	            <data>2026-01-15</data>
 	            <hora>14:00</hora>
-	            <duração>3h00</duração>>
+	            <duração>3h00</duração>
 	        </avaliacao>
 	
 	        <avaliacao tipo="Exame/ Época de Recurso">
@@ -91,10 +91,10 @@
 	        <avaliacao tipo="Exame/ Época Normal">
 	            <data>2026-01-07</data>
 	            <hora>10:00</hora>
-	            <duração>3h00</duração>>
+	            <duração>3h00</duração>
 	        </avaliacao>
 	
-	        <avaliacao tipo="Exame/ ÉPoca de Recurso">
+	        <avaliacao tipo="Exame/ Época de Recurso">
 	            <data>2026-01-22</data>
 	            <hora>10:00</hora>
 	            <duração>3h00</duração>
@@ -107,10 +107,10 @@
 	        <avaliacao tipo="Exame/ Época Normal">
 	            <data>2026-01-13</data>
 	            <hora>10:00</hora>
-	            <duração>3h00</duração>>
+	            <duração>3h00</duração>
 	        </avaliacao>
 	
-	        <avaliacao tipo="Exame/ ÉPoca de Recurso">
+	        <avaliacao tipo="Exame/ Época de Recurso">
 	            <data>2026-01-24</data>
 	            <hora>10:00</hora>
 	            <duração>3h00</duração>
@@ -121,12 +121,12 @@
 	    <disciplina nome="Sistemas de Gestão">
 	
 	        <avaliacao tipo="Exame/ Época Normal">
-	            <data>2026-01-9</data>
+	            <data>2026-01-09</data>
 	            <hora>19:00</hora>
-	            <duração>3h00</duração>>
+	            <duração>3h00</duração>
 	        </avaliacao>
 	
-	        <avaliacao tipo="Exame/ ÉPoca de Recurso">
+	        <avaliacao tipo="Exame/ Época de Recurso">
 	            <data>2026-01-30</data>
 	            <hora>19:00</hora>
 	            <duração>3h00</duração>
