@@ -16,12 +16,12 @@
 		</tarefa>
 	</tarefas>
 	<inscricoes>
-		<inscricao turma="42D">
+		<inscricao turma="LEIM42D">
 			<abrUC>IECD</abrUC>
 			<abrUC>AAV</abrUC>
 			<abrUC>CSM</abrUC>
 			<abrUC>RCP</abrUC>
 			<abrUC>IASA</abrUC>
-		</inscricao>
+	</inscricao>
 	</inscricoes>
 </agenda>

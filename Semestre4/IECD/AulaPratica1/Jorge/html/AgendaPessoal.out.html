@@ -1,0 +1,116 @@
+<html>
+    <head>
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>Dashboard Agenda Pessoal</title>
+        <style>
+                    body { font-family: 'Segoe UI', Arial, sans-serif; background-color: #f4f7f6; margin: 0; padding: 20px; color: #333; }
+                    .container { max-width: 1200px; margin: auto; }
+                    
+                    .header-main { background: #1a73e8; color: white; padding: 25px; border-radius: 10px; margin-bottom: 30px; }
+                    .section-card { background: white; border-radius: 10px; padding: 20px; margin-bottom: 25px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
+                    
+                    h2 { color: #1a73e8; border-bottom: 2px solid #e8f0fe; padding-bottom: 10px; margin-top: 0; }
+                    
+                    .item-lista { padding: 10px; border-bottom: 1px solid #eee; display: flex; justify-content: space-between; align-items: center; }
+                    .badge-urgente { background: #fce8e6; color: #d93025; padding: 3px 8px; border-radius: 4px; font-size: 0.75em; font-weight: bold; }
+
+                    /* Grid do Horário */
+                    .semana-grid { display: flex; gap: 15px; margin-top: 20px; }
+                    .dia-col { flex: 1; min-width: 200px; background: #ebf1f7; border-radius: 8px; padding: 12px; }
+                    .dia-header { background: #2c3e50; color: white; text-align: center; padding: 10px; border-radius: 6px; font-weight: bold; text-transform: uppercase; margin-bottom: 15px; }
+                    
+                    .aula-card { background: white; border-radius: 8px; padding: 12px; margin-bottom: 10px; border-left: 5px solid #fbbc04; box-shadow: 0 2px 5px rgba(0,0,0,0.08); }
+                    .aula-uc { font-weight: bold; color: #202124; display: block; }
+                    .aula-time { color: #1a73e8; font-size: 0.85em; font-weight: bold; margin: 4px 0; }
+                    .aula-sala { font-weight: bold; color: #e67e22; font-size: 0.85em; }
+                </style>
+    </head>
+    <body>
+        <div class="container">
+            <div class="header-main">
+                <h1>Minha Agenda Pessoal</h1>
+                <p>
+                    Inscrito na Turma: <strong>LEIM42D</strong>
+                </p>
+            </div>
+            <div class="section-card">
+                <h2>&#128204; Compromissos Pr&oacute;ximos</h2>
+                <div class="item-lista">
+                    <div>
+                        &#128204; <strong>Reuni&atilde;o de equipa</strong> - Escrit&oacute;rio
+                    </div>
+                    <div style="color: #1a73e8; font-weight: bold;">21:00:00</div>
+                </div>
+            </div>
+            <div class="section-card">
+                <h2>✅ Lista de Afazeres</h2>
+                <div class="item-lista">
+                    <div>
+                        <strong>Fazer trabalho de IECD</strong>
+                        <br>
+                        <small style="color: #666;">Prazo: 2026-03-05</small>
+                    </div>
+                    <span class="badge-urgente">URGENTE</span>
+                </div>
+            </div>
+            <h2>&#128197; Hor&aacute;rio Semanal de Aulas</h2>
+            <div class="semana-grid">
+                <div class="dia-col">
+                    <div class="dia-header">Segunda-feira</div>
+                    <div class="aula-card">
+                        <span class="aula-uc">AAV</span>
+                        <div class="aula-time">&#128338; 14:00 - 18:30</div>
+                        <div class="aula-sala">&#128205; G.0.19</div>
+                    </div>
+                </div>
+                <div class="dia-col">
+                    <div class="dia-header">Ter&ccedil;a-feira</div>
+                    <div class="aula-card">
+                        <span class="aula-uc">IASA</span>
+                        <div class="aula-time">&#128338; 14:00 - 18:30</div>
+                        <div class="aula-sala">&#128205; G.0.20</div>
+                    </div>
+                </div>
+                <div class="dia-col">
+                    <div class="dia-header">Quarta-feira</div>
+                    <div class="aula-card">
+                        <span class="aula-uc">CSM</span>
+                        <div class="aula-time">&#128338; 14:00 - 17:00</div>
+                        <div class="aula-sala">&#128205; C.1.02</div>
+                    </div>
+                    <div class="aula-card">
+                        <span class="aula-uc">RCP</span>
+                        <div class="aula-time">&#128338; 17:00 - 18:30</div>
+                        <div class="aula-sala">&#128205; G.-1.09</div>
+                    </div>
+                </div>
+                <div class="dia-col">
+                    <div class="dia-header">Quinta-feira</div>
+                    <div class="aula-card">
+                        <span class="aula-uc">IECD</span>
+                        <div class="aula-time">&#128338; 14:00 - 17:00</div>
+                        <div class="aula-sala">&#128205; F.-1-09</div>
+                    </div>
+                    <div class="aula-card">
+                        <span class="aula-uc">CSM</span>
+                        <div class="aula-time">&#128338; 17:00 - 18:30</div>
+                        <div class="aula-sala">&#128205; G.1.01</div>
+                    </div>
+                </div>
+                <div class="dia-col">
+                    <div class="dia-header">Sexta-feira</div>
+                    <div class="aula-card">
+                        <span class="aula-uc">RCP</span>
+                        <div class="aula-time">&#128338; 14:00 - 17:00</div>
+                        <div class="aula-sala">&#128205; E.1.32</div>
+                    </div>
+                    <div class="aula-card">
+                        <span class="aula-uc">IECD</span>
+                        <div class="aula-time">&#128338; 17:00 - 18:30</div>
+                        <div class="aula-sala">&#128205; G.2.07</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
