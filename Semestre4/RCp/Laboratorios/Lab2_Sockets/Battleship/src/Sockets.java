@@ -78,17 +78,43 @@ public final class Sockets {
 
     public static void send_ready() {
 
+        send_msg("Ready");
+
     }
 
     public static void wait_ready() {
+        while(true){
+            String msg = recv_msg();
+            if (msg == null) continue;
+            if(msg.equals("Ready")){
+                return;
+            }
+        }
 
     }
 
     public static void send_shot(int x, int y) {
+        send_msg("Shot" + x + " " + y);
 
     }
 
     public static int[] wait_shot() {
+        while (true) {
+            String msg = recv_msg();
+            if (msg == null) continue;
+            String[] parts = msg.split("\\s+");
+
+            // Expecting "SHOT", "x", "y"
+            if (parts.length >= 3 && parts[0].equals("SHOT")) {
+                try {
+                    int x = Integer.parseInt(parts[1]);
+                    int y = Integer.parseInt(parts[2]);
+                    return new int[]{x, y};
+                } catch (NumberFormatException e) {
+                    // Log error or ignore malformed coordinates
+                }
+            }
+        }
 
     }
 
