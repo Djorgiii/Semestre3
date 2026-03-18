@@ -6,23 +6,43 @@ public final class Sockets {
 
     private Sockets() {}
 
-    // =========================
-    // CONNECTION SETUP
-    // =========================
+    private static ServerSocket welcomeSocket;// Usado apenas pelo Servidor
+    private static Socket connectionSocket;// A conexão real
+    private static DataOutputStream outToOpponent;// Para enviar mensagens (Strings)
+    private static BufferedReader inFromOpponent;// Para receber mensagens (Strings)
+    private static final int PORT = 25565;// Escolha uma porta acima de 1024
 
     public static void create_server() {
         
-        // TODO
+        try{
+            welcomeSocket  = new ServerSocket(PORT);
+            System.out.println("Servidor a aguardar conexão na porta " + PORT + "...");
+        }catch (IOException e){
+            e.printStackTrace();
+        }
     }
 
     public static void wait_client() {
 
-        // TODO
+        try{
+            connectionSocket = welcomeSocket.accept();
+            outToOpponent = new DataOutputStream(connectionSocket.getOutputStream());
+            inFromOpponent = new BufferedReader(new InputStreamReader(connectionSocket.getInputStream()));
+            System.out.println("Cliente conectado: "+ connectionSocket.getInetAddress());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public static void connect_server(String serverAddr) {
 
-        // TODO
+        try{
+            connectionSocket = new Socket(serverAddr, PORT);
+            outToOpponent = new DataOutputStream(connectionSocket.getOutputStream());
+            inFromOpponent = new BufferedReader(new InputStreamReader(connectionSocket.getInputStream()))
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     // =========================
