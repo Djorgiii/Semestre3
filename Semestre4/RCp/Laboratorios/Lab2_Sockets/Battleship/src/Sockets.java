@@ -39,7 +39,7 @@ public final class Sockets {
         try{
             connectionSocket = new Socket(serverAddr, PORT);
             outToOpponent = new DataOutputStream(connectionSocket.getOutputStream());
-            inFromOpponent = new BufferedReader(new InputStreamReader(connectionSocket.getInputStream()))
+            inFromOpponent = new BufferedReader(new InputStreamReader(connectionSocket.getInputStream()));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -51,12 +51,25 @@ public final class Sockets {
 
     public static void send_msg(String msg) {
 
-        // TODO
+        try {
+            // send the message followed by a newline so the receiver can use readLine
+            outToOpponent.writeBytes(msg + "\n");
+            outToOpponent.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public static String recv_msg() {
 
-        // TODO
+        try {
+            String line = inFromOpponent.readLine();
+            if (line == null) return null;
+            return line.trim();
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
     // =========================
@@ -65,41 +78,53 @@ public final class Sockets {
 
     public static void send_ready() {
 
-        // TODO
     }
 
     public static void wait_ready() {
 
-        // TODO
     }
 
     public static void send_shot(int x, int y) {
 
-        // TODO
     }
 
     public static int[] wait_shot() {
 
-        // TODO
     }
 
     public static void send_gameover(boolean status) {
 
-        // TODO
+        send_msg("GAMEOVER " + (status ? "1" : "0"));
     }
 
     public static boolean wait_gameover() {
 
-        // TODO
+        while (true) {
+            String msg = recv_msg();
+            if (msg == null) continue;
+            String[] parts = msg.split("\\s+");
+            if (parts.length >= 2 && parts[0].equals("GAMEOVER")) {
+                return parts[1].equals("1") || parts[1].equalsIgnoreCase("true");
+            }
+            // ignore other messages
+        }
     }
 
     public static void send_result(char res) {
 
-        // TODO
+        send_msg("RESULT " + res);
     }
 
     public static char wait_result() {
 
-        // TODO
+        while (true) {
+            String msg = recv_msg();
+            if (msg == null) continue;
+            String[] parts = msg.split("\\s+");
+            if (parts.length >= 2 && parts[0].equals("RESULT")) {
+                return parts[1].charAt(0);
+            }
+            // ignore other messages
+        }
     }
 }
