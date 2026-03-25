@@ -52,7 +52,6 @@ public final class Sockets {
     public static void send_msg(String msg) {
 
         try {
-            // send the message followed by a newline so the receiver can use readLine
             outToOpponent.writeBytes(msg + "\n");
             outToOpponent.flush();
         } catch (IOException e) {
@@ -104,14 +103,12 @@ public final class Sockets {
             if (msg == null) continue;
             String[] parts = msg.split("\\s+");
 
-            // Expecting "SHOT", "x", "y"
             if (parts.length >= 3 && parts[0].equals("SHOT")) {
                 try {
                     int x = Integer.parseInt(parts[1]);
                     int y = Integer.parseInt(parts[2]);
                     return new int[]{x, y};
                 } catch (NumberFormatException e) {
-                    // Log error or ignore malformed coordinates
                 }
             }
         }
@@ -132,7 +129,6 @@ public final class Sockets {
             if (parts.length >= 2 && parts[0].equals("GAMEOVER")) {
                 return parts[1].equals("1") || parts[1].equalsIgnoreCase("true");
             }
-            // ignore other messages
         }
     }
 
@@ -150,7 +146,6 @@ public final class Sockets {
             if (parts.length >= 2 && parts[0].equals("RESULT")) {
                 return parts[1].charAt(0);
             }
-            // ignore other messages
         }
     }
 }
