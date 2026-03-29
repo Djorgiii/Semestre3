@@ -19,6 +19,7 @@ public class WebServer {
                 //retorna um socket dedicado a essa conexão
                 try (Socket clientSocket = serverSocket.accept()) {
                     handleRequest(clientSocket);
+                    System.out.println("Conexão fechada: " + clientSocket.getInetAddress());
                 } catch (IOException e) {
                     // se houver erro numa conexão especifica, não mata o servidor, apenas imprime o erro
                     // e volta ao inicio
