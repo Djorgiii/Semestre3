@@ -10,7 +10,6 @@
 # JAVA
 # =====================================
 *.class
-*.war
 *.ear
 
 # Build / output dirs
