@@ -1,0 +1,116 @@
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+	<xs:element name="metodo" type="metodoType">
+		<xs:annotation>
+			<xs:documentation>
+				Elemento raíz que representa pedidos envidados para o servidor 
+				que correspondem à chamada de métodos de interação com o jogo.
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="metodoType">
+		<xs:annotation>
+			<xs:documentation>Tipo complexo que define os métodos disponíveis
+				para interação durante o jogo.
+			</xs:documentation>
+		</xs:annotation>
+		<xs:choice>
+			<xs:element type="iniciarType" name="iniciar">
+				<xs:annotation>
+					<xs:documentation>Metodo para iniciar um jogo.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element type="obterType" name="obter">
+				<xs:annotation>
+					<xs:documentation>Metodo para obter o tabuleiro atual.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element type="jogarType" name="jogar">
+				<xs:annotation>
+					<xs:documentation>Metodo para assinalar uma jogada no tabuleiro.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="iniciarType">
+		<xs:attribute type="xs:token" name="nickname" use="required">
+			<xs:annotation>
+				<xs:documentation>Nome curto do jogador para iniciar o jogo.
+				</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute type="xs:token" name="senha" use="required">
+			<xs:annotation>
+				<xs:documentation>Senha do jogador para iniciar o jogo.
+				</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="obterType"/>
+	<xs:complexType name="jogarType">
+		<xs:attribute type="jogadaType" name="jogada" use="required">
+			<xs:annotation>
+				<xs:documentation>Assinala jogada realizada (entre 1 e 9).
+				</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:simpleType name="jogadaType">
+		<xs:annotation>
+			<xs:documentation>Tipo para representar uma jogada válida, que é um
+				valor numérico entre 1 e 9.
+			</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:byte">
+			<xs:minInclusive value="1" />
+			<xs:maxInclusive value="9" />
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="simboloType">
+		<xs:annotation>
+			<xs:documentation>Tipo que representa o símbolo do jogador (X ou O).
+			</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:token">
+			<xs:enumeration value="X" />
+			<xs:enumeration value="O" />
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="jogadaCombinadaType">
+		<xs:annotation>
+			<xs:documentation>Tipo que permite representar tanto uma jogada
+				numérica quanto um simbolo de jogador.
+			</xs:documentation>
+		</xs:annotation>
+		<xs:union memberTypes="jogadaType simboloType" />
+	</xs:simpleType>
+	<xs:simpleType name="estadoType">
+		<xs:annotation>
+			<xs:documentation>Tipo para representar o estado do jogo (Vitória O,
+				Vitória X, Empate, Jogada Inválida, Nada a registar).
+			</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:token">
+			<xs:enumeration value="VX" />
+			<xs:enumeration value="VO" />
+			<xs:enumeration value="EM" />
+			<xs:enumeration value="IV" />
+			<xs:enumeration value="ND" />
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="casaType">
+		<xs:attribute type="jogadaCombinadaType" name="simbolo" use="required">
+			<xs:annotation>
+				<xs:documentation>Símbolo do jogador que ocupou a casa (número
+					da casa ou símbolo X/O).
+				</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+</xs:schema>
+
+
+
+
+

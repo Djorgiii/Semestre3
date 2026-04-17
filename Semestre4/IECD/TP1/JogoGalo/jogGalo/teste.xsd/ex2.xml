@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metodo xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ xsi:noNamespaceSchemaLocation="metodos-cli.xsd">
+	<iniciar nickname="joaosilva" senha="senha123">
+		<jogador simbolo="X"><isto>pode ter qualquer coisa cá dentro</isto></jogador>
+	</iniciar>
+</metodo>
