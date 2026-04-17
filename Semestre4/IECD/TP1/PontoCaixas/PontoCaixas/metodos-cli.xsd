@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+	<xs:element name="metodo" type="metodoType"/>
+	<xs:complexType name="metodoType">
+		<xs:choice>
+			<xs:element type="iniciarType" name="iniciar"/>
+			<xs:element type="obterType" name="obter"/>
+			<xs:element type="jogarType" name="jogar"/>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="iniciarType">
+		<xs:sequence>
+			<xs:any minOccurs="0" maxOccurs="unbounded" processContents="skip"/>
+		</xs:sequence>
+		<xs:attribute type="xs:string" name="nickname" use="required"/>
+		<xs:attribute type="xs:string" name="senha" use="required"/>
+	</xs:complexType>
+	<xs:complexType name="obterType">
+		<xs:sequence>
+			<xs:element type="tabuleiroType" name="tabuleiro"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="jogarType">
+		<xs:attribute type="xs:string" name="jogada" use="required"/>
+	</xs:complexType>
+	<xs:simpleType name="estadoType">
+		<xs:restriction base="xs:token">
+			<xs:enumeration value="VX"/>
+			<xs:enumeration value="VO"/>
+			<xs:enumeration value="EM"/>
+			<xs:enumeration value="IV"/>
+			<xs:enumeration value="ND"/>
+			<xs:enumeration value="BO"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="linhaType">
+		<xs:attribute name="x1" type="xs:int" use="required"/>
+		<xs:attribute name="y1" type="xs:int" use="required"/>
+		<xs:attribute name="x2" type="xs:int" use="required"/>
+		<xs:attribute name="y2" type="xs:int" use="required"/>
+	</xs:complexType>
+	<xs:complexType name="caixaType">
+		<xs:attribute name="dono" type="xs:string" use="required"/>
+		<xs:attribute name="x" type="xs:int" use="required"/>
+		<xs:attribute name="y" type="xs:int" use="required"/>
+	</xs:complexType>
+	<xs:complexType name="tabuleiroType">
+		<xs:sequence>
+			<xs:element type="linhaType" name="linha" minOccurs="0" maxOccurs="unbounded" />
+			<xs:element type="caixaType" name="caixa" minOccurs="0" maxOccurs="unbounded" />
+		</xs:sequence>
+		<xs:attribute type="estadoType" name="estado" use="required" />
+	</xs:complexType>
+</xs:schema>
