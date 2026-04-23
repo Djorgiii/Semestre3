@@ -7,7 +7,7 @@ import org.w3c.dom.Element;
 import util.XMLDoc;
 
 public class Jogador {
-    private final static String DEFAULT_HOST = "10.11.78.190"; //localhost
+    private final static String DEFAULT_HOST = "localhost";
     private final static int DEFAULT_PORT = 5025;
     
     // Construtor vazio
