@@ -136,20 +136,53 @@ public class Jogador {
              Stub stub = new Stub(socket)) {
              
             System.out.println("\n--- REGISTAR NOVA CONTA ---");
-            System.out.print("Username: ");
-            String user = leitor.nextLine().trim();
-            System.out.print("Password: ");
-            String pass = leitor.nextLine().trim();
-            System.out.print("Nomes Próprios: ");
-            String first = leitor.nextLine().trim();
-            System.out.print("Apelidos: ");
-            String last = leitor.nextLine().trim();
-            System.out.print("Género (M/F): ");
-            String gender = leitor.nextLine().trim();
-            System.out.print("Data Nascimento (AAAA-MM-DD): ");
-            String birth = leitor.nextLine().trim();
-            System.out.print("Nacionalidade (ex: PT): ");
-            String nac = leitor.nextLine().trim();
+            String user = "";
+            do {
+                System.out.print("Username (4 a 10 letras/numeros, sem acentos): ");
+                user = leitor.nextLine().trim();
+            } while (!user.matches("[a-zA-Z0-9_-]{4,10}"));
+         // 2. PASSWORD (Pelo menos 3 caracteres, para não ir vazia)
+            String pass = "";
+            do {
+                System.out.print("Password (mínimo 3 caracteres): ");
+                pass = leitor.nextLine().trim();
+            } while (pass.length() < 3);
+
+            // 3. NOMES PRÓPRIOS (Só permite letras e espaços, incluindo acentos)
+            String first = "";
+            do {
+                System.out.print("Nomes Próprios (só letras): ");
+                first = leitor.nextLine().trim();
+            } while (!first.matches("[a-zA-ZÀ-ÿ\\s]+"));
+
+            // 4. APELIDOS (Só permite letras e espaços)
+            String last = "";
+            do {
+                System.out.print("Apelidos (só letras): ");
+                last = leitor.nextLine().trim();
+            } while (!last.matches("[a-zA-ZÀ-ÿ\\s]+"));
+
+            // 5. GÉNERO (Obriga a ser exatamente M ou F)
+            String gender = "";
+            do {
+                System.out.print("Género (M/F): ");
+                gender = leitor.nextLine().trim().toUpperCase(); // Converte logo para maiúscula
+            } while (!gender.matches("[MF]"));
+
+            // 6. DATA DE NASCIMENTO (Obriga ao formato exato AAAA-MM-DD)
+            String birth = "";
+            do {
+                System.out.print("Data Nascimento (AAAA-MM-DD): ");
+                birth = leitor.nextLine().trim();
+                // A Regex verifica: 4 dígitos - mês (01 a 12) - dia (01 a 31)
+            } while (!birth.matches("\\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12]\\d|3[01])"));
+
+            // 7. NACIONALIDADE (Obriga a exatamente 2 letras, ex: PT, BR, ES)
+            String nac = "";
+            do {
+                System.out.print("Nacionalidade (ex: PT - 2 letras): ");
+                nac = leitor.nextLine().trim().toUpperCase(); // Converte logo para maiúscula
+            } while (!nac.matches("[A-Z]{2}"));
             
             System.out.print("Caminho da foto (ENTER para default): ");
             String caminhoFoto = leitor.nextLine().trim();
