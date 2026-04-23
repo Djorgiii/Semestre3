@@ -17,11 +17,17 @@ public class Jogador {
      * Lê a jogada do utilizador (coordenadas x1 y1 x2 y2).
      */
     private static String readJogada(Scanner leitor) {
-        String entrada = "";
         while (true) {
-            entrada = leitor.nextLine().trim();
-            if (!entrada.isEmpty()) {
-                return entrada;
+            String entrada = leitor.nextLine().trim();
+            
+            // A expressão regular "\\d+\\s+\\d+\\s+\\d+\\s+\\d+" verifica se
+            // o texto tem exatamente 4 blocos de números separados por espaços.
+            if (entrada.matches("\\d+\\s+\\d+\\s+\\d+\\s+\\d+")) {
+                return entrada; // Formato perfeito! Devolve a string para enviar.
+            } else {
+                // Formato errado. O cliente bloqueia e pede de novo (o servidor nem chega a ser incomodado).
+                System.out.println("❌ Formato incorreto! Deves escrever exatamente 4 números.");
+                System.out.print("👉 Tenta novamente (ex: 1 1 2 1): ");
             }
         }
     }
