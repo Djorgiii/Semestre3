@@ -11,7 +11,6 @@ import java.time.LocalDateTime;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
-import org.xml.sax.SAXException;
 import util.MyImage;
 import util.XMLDoc;
 
@@ -185,7 +184,6 @@ public class Stub implements AutoCloseable {
         return (Element) d.getElementsByTagName("tabuleiro").item(0);
     }
 
-    // ALTERADO PARA RECEBER STRING
     public void jogar(final String coordenadas) throws Exception {
         os.println("<metodo><jogar jogada='" + coordenadas + "'/></metodo>");
         String resposta=is.readLine();
@@ -193,5 +191,35 @@ public class Stub implements AutoCloseable {
         if(resposta==null) throw new Exception("Ligação cancelada!");
         Document d = XMLDoc.parseString(resposta); 
         validXSD(d);
+    }
+
+    /**
+     * Envia o pedido de Registo para o Servidor.
+     */
+    public void registar(String user, String pass, String first, String last, String gender, String birth, String nac, String foto) throws Exception {
+        String xml = "<metodo><registar nickname='" + user + "' senha='" + pass + "' "
+                   + "firstnames='" + first + "' lastnames='" + last + "' "
+                   + "gender='" + gender + "' birthdate='" + birth + "' "
+                   + "nacionalidade='" + nac + "'>"
+                   + "<photography>" + foto + "</photography>"
+                   + "</registar></metodo>";
+        os.println(xml);
+    }
+
+    /**
+     * Envia o pedido de Alteração de Perfil para o Servidor.
+     */
+    public void alterar(String username, String novaPassword, String novaFotoBase64) throws Exception {
+        String xml = "<metodo><alterar nickname='" + username + "' senha='" + novaPassword + "'>"
+                   + "<photography>" + novaFotoBase64 + "</photography>"
+                   + "</alterar></metodo>";
+        os.println(xml);
+        registaLog("Cliente{" + xml + "}");
+        
+        String resposta = is.readLine();
+        if (resposta != null) {
+            registaLog("Cliente{" + resposta + "}");
+            System.out.println("Servidor respondeu: " + resposta);
+        }
     }
 }

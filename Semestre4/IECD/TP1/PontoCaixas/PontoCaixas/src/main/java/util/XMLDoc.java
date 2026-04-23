@@ -112,7 +112,7 @@ public class XMLDoc {
 		else
 			tf.setOutputProperty(OutputKeys.ENCODING, "UTF-8");
 
-		tf.setOutputProperty(OutputKeys.INDENT, "no");
+		tf.setOutputProperty(OutputKeys.INDENT, "yes");
 		tf.setOutputProperty("{http://util.apache.org/xslt}indent-amount", "2");
 
 		// Realiza a transformação do documento DOM para a string
@@ -1210,7 +1210,7 @@ public class XMLDoc {
 			else
 				transformer.setOutputProperty(OutputKeys.ENCODING, "UTF-8");
 
-			transformer.setOutputProperty(OutputKeys.INDENT, "no");
+			transformer.setOutputProperty(OutputKeys.INDENT, "yes");
 			transformer.setOutputProperty("{http://util.apache.org/xslt}indent-amount", "2");
 
 			try {
