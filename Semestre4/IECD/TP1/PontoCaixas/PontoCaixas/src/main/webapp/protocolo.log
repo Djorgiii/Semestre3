@@ -99,3 +99,71 @@
 2026-04-17T21:57:08.723348300 - Cliente{<metodo><obter><tabuleiro estado='BO'><linha x1='1' y1='1' x2='2' y2='1'/><linha x1='1' y1='2' x2='2' y2='2'/><linha x1='1' y1='1' x2='1' y2='2'/><linha x1='2' y1='1' x2='2' y2='2'/><caixa dono='O' x='1' y='1'/></tabuleiro></obter></metodo>}
 2026-04-17T21:57:20.398662700 - Cliente{null}
 2026-04-23T14:49:31.168848200 - Servidor{<metodo><iniciar nickname='cartwheel' senha='p1'/></metodo>}
+2026-04-23T15:01:04.713843700 - Servidor{<metodo><iniciar nickname='cartwheel' senha='p1'/></metodo>}
+2026-04-23T15:01:43.386321 - Servidor{<metodo><iniciar nickname='milkshake' senha='p2'/></metodo>}
+2026-04-23T15:01:43.426764500 - Servidor{<metodo><obter/></metodo>}
+2026-04-23T15:01:57.622289600 - Servidor{<metodo><jogar jogada='1112'/></metodo>}
+2026-04-23T15:02:47.593900200 - Servidor{<metodo><iniciar nickname='cartwheel' senha='p1'/></metodo>}
+2026-04-23T15:02:51.008657200 - Servidor{<metodo><iniciar nickname='milkshake' senha='p2'/></metodo>}
+2026-04-23T15:02:51.028646900 - Servidor{<metodo><obter/></metodo>}
+2026-04-23T15:02:57.832526600 - Servidor{<metodo><jogar jogada='1 1 1 2'/></metodo>}
+2026-04-23T15:02:57.836463100 - Servidor{<metodo><obter/></metodo>}
+2026-04-23T15:03:22.142024800 - Servidor{<metodo><jogar jogada='1 1'/></metodo>}
+2026-04-23T15:03:40.635932800 - Servidor{<metodo><iniciar nickname='milkshake ' senha='p2'/></metodo>}
+2026-04-23T15:03:50.675273800 - Servidor{<metodo><iniciar nickname='milkshake ' senha='p2'/></metodo>}
+2026-04-23T15:03:55.647373100 - Servidor{<metodo><iniciar nickname='cartwheel' senha='p1'/></metodo>}
+2026-04-23T15:04:08.591712800 - Servidor{<metodo><iniciar nickname='milkshake' senha='p2'/></metodo>}
+2026-04-23T15:04:08.610789 - Servidor{<metodo><obter/></metodo>}
+2026-04-23T15:04:40.703292300 - Servidor{<metodo><jogar jogada='2 2 3 2'/></metodo>}
+2026-04-23T15:04:40.708236200 - Servidor{<metodo><obter/></metodo>}
+2026-04-23T15:04:48.529271800 - Servidor{<metodo><jogar jogada='1 1 1 1'/></metodo>}
+2026-04-23T15:04:48.735596100 - Servidor{<metodo><obter/></metodo>}
+2026-04-23T15:05:02.770974100 - Servidor{<metodo><jogar jogada='1 1 1 1'/></metodo>}
+2026-04-23T15:05:02.966186300 - Servidor{<metodo><obter/></metodo>}
+2026-04-23T15:05:08.205250800 - Servidor{<metodo><jogar jogada='1 1 1 1'/></metodo>}
+2026-04-23T15:05:08.395011500 - Servidor{<metodo><obter/></metodo>}
+2026-04-23T15:05:13.720234300 - Servidor{<metodo><jogar jogada='1 2 2 1'/></metodo>}
+2026-04-23T15:05:14.026778400 - Servidor{<metodo><obter/></metodo>}
+2026-04-23T15:05:24.266906100 - Servidor{<metodo><jogar jogada='2 1 3 2'/></metodo>}
+2026-04-23T15:05:24.475678 - Servidor{<metodo><obter/></metodo>}
+2026-04-23T15:05:41.778562900 - Servidor{<metodo><jogar jogada='1 1 1 2'/></metodo>}
+2026-04-23T15:05:41.786554200 - Servidor{<metodo><obter/></metodo>}
+2026-04-23T15:06:03.493361700 - Servidor{<metodo><jogar jogada='1 2 2 2'/></metodo>}
+2026-04-23T15:06:03.500352 - Servidor{<metodo><obter/></metodo>}
+2026-04-23T15:06:14.137402400 - Servidor{<metodo><jogar jogada='3 1 2 3'/></metodo>}
+2026-04-23T15:06:14.341742900 - Servidor{<metodo><obter/></metodo>}
+2026-04-23T15:06:22.797669400 - Servidor{<metodo><jogar jogada='2 3 3 2'/></metodo>}
+2026-04-23T15:06:23.397087700 - Servidor{<metodo><obter/></metodo>}
+2026-04-23T15:06:34.718152900 - Servidor{<metodo><jogar jogada='3 2 2 1'/></metodo>}
+2026-04-23T15:06:34.735789800 - Servidor{<metodo><obter/></metodo>}
+2026-04-23T15:06:42.275775100 - Servidor{<metodo><jogar jogada='1 1 2 1'/></metodo>}
+2026-04-23T15:06:42.282514100 - Servidor{<metodo><obter/></metodo>}
+2026-04-23T15:06:58.271659700 - Servidor{<metodo><jogar jogada='1 2 2 2'/></metodo>}
+2026-04-23T15:06:58.383656800 - Servidor{<metodo><obter/></metodo>}
+2026-04-23T15:07:15.782246800 - Servidor{<metodo><jogar jogada='2 1 2 2'/></metodo>}
+2026-04-23T15:07:15.985568800 - Servidor{<metodo><obter/></metodo>}
+2026-04-23T15:07:40.877774700 - Servidor{<metodo><jogar jogada='4 1 4 2'/></metodo>}
+2026-04-23T15:07:40.885767700 - Servidor{<metodo><obter/></metodo>}
+2026-04-23T15:07:51.716993900 - Servidor{<metodo><jogar jogada='2 4 3 4'/></metodo>}
+2026-04-23T15:07:51.723927100 - Servidor{<metodo><obter/></metodo>}
+2026-04-23T15:08:05.652353100 - Servidor{<metodo><jogar jogada='1 3 2 3'/></metodo>}
+2026-04-23T15:08:05.657581600 - Servidor{<metodo><obter/></metodo>}
+2026-04-23T15:08:24.929059300 - Servidor{<metodo><jogar jogada='3 2 3 3'/></metodo>}
+2026-04-23T15:08:24.932159400 - Servidor{<metodo><obter/></metodo>}
+2026-04-23T15:08:39.137269400 - Servidor{<metodo><jogar jogada='3 3 4 3'/></metodo>}
+2026-04-23T15:08:39.152450400 - Servidor{<metodo><obter/></metodo>}
+2026-04-23T15:08:57.773423700 - Servidor{<metodo><jogar jogada='3 2 4 2'/></metodo>}
+2026-04-23T15:08:57.778425600 - Servidor{<metodo><obter/></metodo>}
+2026-04-23T15:09:16.103678600 - Servidor{<metodo><jogar jogada='4 2 4 3'/></metodo>}
+2026-04-23T15:09:16.410473700 - Servidor{<metodo><obter/></metodo>}
+2026-04-23T15:09:29.620531400 - Servidor{<metodo><jogar jogada='3 1 3 2'/></metodo>}
+2026-04-23T15:09:29.624456600 - Servidor{<metodo><obter/></metodo>}
+2026-04-23T15:09:41.900168100 - Servidor{<metodo><jogar jogada='3 1 4 1'/></metodo>}
+2026-04-23T15:09:42.018371700 - Servidor{<metodo><obter/></metodo>}
+2026-04-23T15:09:51.513070200 - Servidor{<metodo><jogar jogada='2 1 3 1'/></metodo>}
+2026-04-23T15:09:51.583450700 - Servidor{<metodo><obter/></metodo>}
+2026-04-23T15:10:00.025409200 - Servidor{<metodo><jogar jogada='4 3 4 4'/></metodo>}
+2026-04-23T15:10:00.040537900 - Servidor{<metodo><obter/></metodo>}
+2026-04-23T15:10:31.369121500 - Servidor{<metodo><jogar jogada='2 3 2 4'/></metodo>}
+2026-04-23T15:10:31.374094800 - Servidor{<metodo><obter/></metodo>}
+2026-04-23T15:10:44.272125700 - Servidor{<metodo><jogar jogada='3'/></metodo>}
