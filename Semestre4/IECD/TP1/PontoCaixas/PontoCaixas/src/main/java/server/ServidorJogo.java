@@ -28,7 +28,7 @@ class ServidorDedicado extends Thread {
             connectionX.setSoTimeout(timeout);
             connectionO.setSoTimeout(timeout);
             
-            System.out.println("Iniciou a Thread ("+ this.getId()+") do servidor dedicado!");
+            System.out.println("Iniciou a Thread ("+ this.threadId()+") do servidor dedicado!");
 
             JogoXML jogo = new JogoXML();
             char turno = 'X'; // O Jogador X começa sempre
@@ -68,6 +68,6 @@ class ServidorDedicado extends Thread {
                 if (connectionO != null) connectionO.close();
             } catch (IOException e) {}
         }
-        System.out.println("Servidor dedicado: terminou a Thread ("+ this.getId()+")!");
+        System.out.println("Servidor dedicado: terminou a Thread ("+ this.threadId()+")!");
     } 
 }

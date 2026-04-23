@@ -4,7 +4,6 @@ import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.time.LocalDateTime;
@@ -52,16 +51,125 @@ public class Skeleton {
         return d;
     }
 
+    
+    /**
+     * Método que atende a chamada Registar Conta.
+     */
+    public static void runRegistar(Socket sk, Document docPedido) throws Exception {
+        PrintWriter os = new PrintWriter(sk.getOutputStream(), true);
+        Element regEl = getMethod(docPedido, "registar");
+
+        // Extrair os novos atributos enviados pelo cliente
+        String username = regEl.getAttribute("nickname");
+        String senha = regEl.getAttribute("senha");
+        String first = regEl.getAttribute("firstnames");
+        String last = regEl.getAttribute("lastnames");
+        String gender = regEl.getAttribute("gender");
+        String birth = regEl.getAttribute("birthdate");
+        String nac = regEl.getAttribute("nacionalidade");
+        String foto = regEl.getElementsByTagName("photography").item(0).getTextContent();
+
+        // 1. Carregar o users.xml
+        String ficheiroUsers = XMLDoc.getContexto() + "users.xml";
+        Document docUsers = XMLDoc.parseFile(ficheiroUsers);
+        
+        // 2. Verificar se o username já existe
+        String xpathQuery = "//user[username='" + username + "']";
+        NodeList users = XMLDoc.getXPath(xpathQuery, docUsers);
+        
+        if (users != null && users.getLength() > 0) {
+            System.out.println("❌ Erro: O username '" + username + "' já está registado!");
+            os.println("<metodo><registar resposta='Erro: Username já existe'/></metodo>");
+            return;
+        }
+
+        // 3. Criar o utilizador
+        Element root = docUsers.getDocumentElement();
+        Element novoUser = docUsers.createElement("user");
+        
+        // Agora preenchemos com os dados REAIS usando a função addTag
+        addTag(docUsers, novoUser, "userid", java.util.UUID.randomUUID().toString());
+        // ISO_INSTANT garante que a data fica no formato exato que o XSD quer (ex: 2024-03-28T12:39:12Z)
+        addTag(docUsers, novoUser, "updated", java.time.ZonedDateTime.now(java.time.ZoneOffset.UTC).format(java.time.format.DateTimeFormatter.ISO_INSTANT));
+        addTag(docUsers, novoUser, "blocked", "false");
+        addTag(docUsers, novoUser, "profile", "1");
+        addTag(docUsers, novoUser, "username", username);
+        addTag(docUsers, novoUser, "firstnames", first);   
+        addTag(docUsers, novoUser, "lastnames", last);     
+        addTag(docUsers, novoUser, "email", username + "@mail.pt");
+        addTag(docUsers, novoUser, "gender", gender);      
+        addTag(docUsers, novoUser, "birthdate", birth);    
+        addTag(docUsers, novoUser, "photography", foto);
+        addTag(docUsers, novoUser, "nationality", nac.toUpperCase());
+        addTag(docUsers, novoUser, "password", XMLDoc.SHA256(senha));
+
+        // 4. Junta o novo utilizador à base de dados e grava
+        root.appendChild(novoUser);
+        XMLDoc.gravarLock(docUsers, ficheiroUsers, XMLDoc.gerarNomeFBackupVersao(ficheiroUsers));
+        
+        System.out.println("✅ Utilizador '" + username + "' registado com sucesso!");
+        os.println("<metodo><registar resposta='Sucesso'/></metodo>");
+    }
+
+    // Método auxiliar apenas para encurtar o código acima
+    private static void addTag(Document doc, Element parent, String name, String value) {
+        Element e = doc.createElement(name);
+        e.setTextContent(value);
+        parent.appendChild(e);
+    }    
+    /**
+     * Método que atende a chamada Alterar Perfil.
+     */
+    public static void runAlterar(Socket sk, Document docPedido) throws Exception {
+        PrintWriter os = new PrintWriter(sk.getOutputStream(), true);
+        
+        // Usa o docPedido em vez de fazer getNext()
+        Document x = docPedido; 
+        
+        Element alterarEl = getMethod(x, "alterar");
+        String username = alterarEl.getAttribute("nickname");
+        String novaSenha = alterarEl.getAttribute("senha");
+        
+        String novaFoto = null;
+        if (alterarEl.getElementsByTagName("photography").getLength() > 0) {
+            novaFoto = alterarEl.getElementsByTagName("photography").item(0).getTextContent();
+        }
+        
+        String ficheiroUsers = XMLDoc.getContexto() + "users.xml";
+        Document docUsers = XMLDoc.parseFile(ficheiroUsers);
+        
+        String xpathQuery = "//user[username='" + username + "']";
+        NodeList users = XMLDoc.getXPath(xpathQuery, docUsers);
+        
+        if (users != null && users.getLength() > 0) {
+            Element userNode = (Element) users.item(0);
+            
+            if (novaSenha != null && !novaSenha.isEmpty()) {
+                userNode.getElementsByTagName("password").item(0).setTextContent(XMLDoc.SHA256(novaSenha));
+            }
+            if (novaFoto != null && !novaFoto.isEmpty()) {
+                userNode.getElementsByTagName("photography").item(0).setTextContent(novaFoto);
+            }
+            
+            XMLDoc.gravarLock(docUsers, ficheiroUsers, XMLDoc.gerarNomeFBackupVersao(ficheiroUsers));
+            
+            os.println("<metodo><alterar resposta='Sucesso'/></metodo>");
+            System.out.println("✅ Perfil do utilizador '" + username + "' atualizado com sucesso!");
+            
+        } else {
+            os.println("<metodo><alterar resposta='Erro: Utilizador não encontrado'/></metodo>");
+        }
+    }
     /**
      * Método que atende a chamada Iniciar.
      */
-    public static void runIniciar(Socket sk, char simbolo) throws Exception {
-        // Estes streams não podem ser fechados porque fecham o socket
-        BufferedReader is = new BufferedReader(new InputStreamReader(sk.getInputStream()));
+    public static void runIniciar(Socket sk, char simbolo, Document docPedido) throws Exception {
         PrintWriter os = new PrintWriter(sk.getOutputStream(), true);
         
         System.out.println("   Jogador '" + simbolo + "': " + sk);
-        Document x = getNext(is);
+        
+        // JÁ NÃO FAZEMOS getNext(is) AQUI! Usamos o docPedido que o Servidor nos passou.
+        Document x = docPedido;
         
         // Extrai o nome e senha do jogador.
         String Nome  = getMethod(x, "iniciar").getAttribute("nickname");
@@ -80,8 +188,6 @@ public class Skeleton {
         Node cloneElement = x.importNode(jogador, true);
         x.getElementsByTagName("iniciar").item(0).appendChild(cloneElement);
         
-        // Envia a mensagem de "iniciar" para o jogador, 
-        // com o seu símbolo que confirma o login bem sucedido.
         String msg = XMLDoc.documentToString(x);
         os.println(msg);
     }
