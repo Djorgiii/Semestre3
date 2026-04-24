@@ -107,6 +107,9 @@ public class Skeleton {
         root.appendChild(novoUser);
         XMLDoc.gravarLock(docUsers, ficheiroUsers, XMLDoc.gerarNomeFBackupVersao(ficheiroUsers));
         
+        // ---> 5. ATUALIZAR A MEMÓRIA RAM DO SERVIDOR! <---
+        User._load(); // Diz à classe User para ler o ficheiro XML de novo!
+        
         System.out.println("✅ Utilizador '" + username + "' registado com sucesso!");
         os.println("<metodo><registar resposta='Sucesso'/></metodo>");
     }
@@ -163,15 +166,15 @@ public class Skeleton {
     /**
      * Método que atende a chamada Iniciar.
      */
+    /**
+     * Método que atende a chamada Iniciar.
+     */
     public static void runIniciar(Socket sk, char simbolo, Document docPedido) throws Exception {
         PrintWriter os = new PrintWriter(sk.getOutputStream(), true);
         
         System.out.println("   Jogador '" + simbolo + "': " + sk);
-        
-        // JÁ NÃO FAZEMOS getNext(is) AQUI! Usamos o docPedido que o Servidor nos passou.
         Document x = docPedido;
         
-        // Extrai o nome e senha do jogador.
         String Nome  = getMethod(x, "iniciar").getAttribute("nickname");
         String Senha = getMethod(x, "iniciar").getAttribute("senha");
         
@@ -188,7 +191,8 @@ public class Skeleton {
         Node cloneElement = x.importNode(jogador, true);
         x.getElementsByTagName("iniciar").item(0).appendChild(cloneElement);
         
-        String msg = XMLDoc.documentToString(x);
+        // CORREÇÃO: Removemos as quebras de linha para o is.readLine() do cliente não encravar!
+        String msg = XMLDoc.documentToString(x).replaceAll("\\r\\n|\\r|\\n", "");
         os.println(msg);
     }
     
@@ -212,10 +216,7 @@ public class Skeleton {
     public static JogoXML runJogar(BufferedReader is, PrintWriter os, char simbolo, Socket sk, JogoXML jogo) throws Exception {
         Document jogar = getNext(is);
 
-        // Obtém o elemento "jogar" da mensagem.
         Element jogadaEl = getMethod(jogar, "jogar");
-
-        // Extrai a jogada do jogador em formato String (ex: "1 1 1 2")
         String jogadaStr = jogadaEl.getAttribute("jogada");
         String[] partes = jogadaStr.trim().split("\\s+");
 
@@ -225,22 +226,17 @@ public class Skeleton {
                 for (int i = 0; i < 4; i++) {
                     coords[i] = Integer.parseInt(partes[i]);
                 }
-                
-                // Concretiza a jogada no novo sistema de Pontos e Caixas
-                // NOTA: O teu JogoXML precisa de estar atualizado para aceitar int[]
                 jogo.joga(coords, simbolo);
-                
             } else {
                 throw new Exception("Formato de coordenadas inválido.");
             }
         } catch (Exception e) {
             System.err.println("Erro na jogada do Skeleton: " + e.getMessage());
-            // Define o estado como Inválido se houver erro (requer que tenhas um setter no JogoXML)
-            // jogo.setEstado("IV"); 
         }
 
-        // Envia a mesma mensagem recebida como resposta "jogar" para o jogador.
-        os.println(XMLDoc.documentToString(jogar));       
+        // CORREÇÃO: Removemos as quebras de linha aqui também!
+        String msg = XMLDoc.documentToString(jogar).replaceAll("\\r\\n|\\r|\\n", "");
+        os.println(msg);       
         return jogo;
     }
 
