@@ -10,10 +10,6 @@ import java.util.concurrent.LinkedBlockingQueue;
 import org.w3c.dom.Document;
 import util.XMLDoc;
 
-/**
- * 🕹️ Classe Servidor: Gere um jogo do galo multi-jogador usando TCP.
- * Atua como um "lobby" que emparelha jogadores e lança instâncias dedicadas.
- */
 public class Servidor {
 
     public final static int DEFAULT_PORT = 25565;
@@ -31,7 +27,6 @@ public class Servidor {
         
         FIFOJogador fIFOJogador = new Servidor().new FIFOJogador();
 
-        // 🏗️ TAREFA DE EMPARELHAMENTO (Matchmaking)
         new Thread(() -> { 
             for(;;) { 
                 Socket sk1 = null;
@@ -55,7 +50,6 @@ public class Servidor {
             }
         }).start();
 
-        // 👂 CICLO DE ACEITAÇÃO (Socket Server)
         try (ServerSocket serverSocket = new ServerSocket(port)) {
             System.out.println("🌍 Servidor TCP à escuta no porto: " + port);
             
@@ -65,8 +59,6 @@ public class Servidor {
                 Socket newSock = serverSocket.accept();
                 System.out.println("✅ Ligação aceite: " + newSock.getInetAddress());
 
-                // 🚦 THREAD DISPATCHER (O Polícia Sinaleiro)
-                // Lemos a primeira mensagem para saber o que o cliente quer fazer
                 new Thread(() -> {
                     try {
                         BufferedReader is = new BufferedReader(new InputStreamReader(newSock.getInputStream()));
@@ -75,20 +67,19 @@ public class Servidor {
                         if (primeiraLinha != null) {
                             Document docPedido = XMLDoc.parseString(primeiraLinha);
                             
-                            // Verifica qual é a tag que vem dentro do XML
                             if (docPedido.getElementsByTagName("iniciar").getLength() > 0) {
                                 System.out.println("   ➡️ Pedido de Jogo (Login). A enviar para a fila...");
-                                fIFOJogador.add(newSock, docPedido); // Passa o socket e o XML já lido
+                                fIFOJogador.add(newSock, docPedido);
                                 
                             } else if (docPedido.getElementsByTagName("alterar").getLength() > 0) {
                                 System.out.println("   ➡️ Pedido de Alteração de Perfil.");
                                 Skeleton.runAlterar(newSock, docPedido);
-                                newSock.close(); // Fecha a ligação após alterar
+                                newSock.close();
                                 
                             } else if (docPedido.getElementsByTagName("registar").getLength() > 0) {
                                 System.out.println("   ➡️ Pedido de Registo de Conta.");
-                                Skeleton.runRegistar(newSock, docPedido); // (Descomenta quando criares este método)
-                                newSock.close(); // Fecha a ligação após registar
+                                Skeleton.runRegistar(newSock, docPedido);
+                                newSock.close();
                                 
                             } else {
                                 System.out.println("   ⚠️ Pedido desconhecido. A fechar ligação.");
@@ -105,20 +96,15 @@ public class Servidor {
         }
     }
 
-    /**
-     * 🧵 Classe interna para gerir a fila de jogadores (Modificada para receber o Document)
-     */
     private final class FIFOJogador {
         private final BlockingQueue<Socket> queue = new LinkedBlockingQueue<>();
         private char proximoSimbolo = 'X';
 
-        // Agora recebe o Document "docPedido" que o Dispatcher já leu!
         public synchronized void add(Socket element, Document docPedido) throws InterruptedException {
             new Thread(() -> {
                 try {
                     char atribuido = proximoSimbolo;
                     
-                    // Passamos o docPedido para o Skeleton não ter de ler o Socket de novo
                     Skeleton.runIniciar(element, atribuido, docPedido);
                     
                     queue.put(element);

@@ -22,7 +22,7 @@ public class WebServer {
                     System.out.println("Conexão fechada: " + clientSocket.getInetAddress());
                 } catch (IOException e) {
                     // se houver erro numa conexão especifica, não mata o servidor, apenas imprime o erro
-                    // e volta ao inicio
+                    // e volta ao início
                     System.err.println("Erro ao processar conexão: " + e.getMessage());
                 }
             }
