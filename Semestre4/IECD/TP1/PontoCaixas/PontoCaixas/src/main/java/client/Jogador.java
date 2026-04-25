@@ -13,9 +13,7 @@ public class Jogador {
     
     public Jogador() {}
     
-    /**
-     * Lê a jogada do utilizador e obriga a que o formato seja estritamente 4 números.
-     */
+
     private static String readJogada(Scanner leitor) {
         while (true) {
             String entrada = leitor.nextLine().trim();
@@ -50,7 +48,7 @@ public class Jogador {
         
         Scanner leitor = new Scanner(System.in);
         
-        // --- CICLO DO MENU PRINCIPAL ---
+        
         while(true) {
             System.out.println("\n" + "=".repeat(30));
             System.out.println("🎮 PONTOS E CAIXAS - MENU 🎮");
@@ -65,7 +63,7 @@ public class Jogador {
             
             if (op.equals("0")) {
                 System.out.println("👋 Até à próxima!");
-                break; // Sai do while e o programa termina
+                break;
             } else if (op.equals("1")) {
                 jogarPartida(host, port, leitor);
             } else if (op.equals("2")) {
@@ -79,9 +77,6 @@ public class Jogador {
         leitor.close();
     }
 
-    // ==========================================================
-    // OPÇÃO 1: JOGAR (LOGIN E CICLO DO JOGO)
-    // ==========================================================
     private static void jogarPartida(String host, int port, Scanner leitor) {
         try (Socket socket = new Socket(host, port);
              Stub stub = new Stub(socket)) {
@@ -93,7 +88,7 @@ public class Jogador {
             String senha = leSenha("<<< ***** Indique a sua senha:", leitor);
            
             char simbolo = stub.iniciar(nome, senha);
-            stub.print(); // Descarrega a foto
+            stub.print();
 
             if (simbolo == 'O') {
                 System.out.println("À espera que o oponente jogue...");
@@ -106,7 +101,6 @@ public class Jogador {
                 
                 if(!estado.equals("ND")) {
                     System.out.println(stub.estadoToTXT(estado));
-                    // Se não for Inválido nem Bónus, o jogo terminou
                     if(!estado.equals("IV") && !estado.equals("BO")) break;
                 }
                 
@@ -128,9 +122,6 @@ public class Jogador {
         }
     }
 
-    // ==========================================================
-    // OPÇÃO 2: REGISTAR NOVA CONTA
-    // ==========================================================
     private static void registarConta(String host, int port, Scanner leitor) {
         try (Socket socket = new Socket(host, port);
              Stub stub = new Stub(socket)) {
@@ -141,47 +132,40 @@ public class Jogador {
                 System.out.print("Username (4 a 10 letras/numeros, sem acentos): ");
                 user = leitor.nextLine().trim();
             } while (!user.matches("[a-zA-Z0-9_-]{4,10}"));
-         // 2. PASSWORD (Pelo menos 3 caracteres, para não ir vazia)
             String pass = "";
             do {
                 System.out.print("Password (mínimo 3 caracteres): ");
                 pass = leitor.nextLine().trim();
             } while (pass.length() < 3);
 
-            // 3. NOMES PRÓPRIOS (Só permite letras e espaços, incluindo acentos)
             String first = "";
             do {
                 System.out.print("Nomes Próprios (só letras): ");
                 first = leitor.nextLine().trim();
             } while (!first.matches("[a-zA-ZÀ-ÿ\\s]+"));
 
-            // 4. APELIDOS (Só permite letras e espaços)
             String last = "";
             do {
                 System.out.print("Apelidos (só letras): ");
                 last = leitor.nextLine().trim();
             } while (!last.matches("[a-zA-ZÀ-ÿ\\s]+"));
 
-            // 5. GÉNERO (Obriga a ser exatamente M ou F)
             String gender = "";
             do {
                 System.out.print("Género (M/F): ");
-                gender = leitor.nextLine().trim().toUpperCase(); // Converte logo para maiúscula
+                gender = leitor.nextLine().trim().toUpperCase();
             } while (!gender.matches("[MF]"));
 
-            // 6. DATA DE NASCIMENTO (Obriga ao formato exato AAAA-MM-DD)
             String birth = "";
             do {
                 System.out.print("Data Nascimento (AAAA-MM-DD): ");
                 birth = leitor.nextLine().trim();
-                // A Regex verifica: 4 dígitos - mês (01 a 12) - dia (01 a 31)
             } while (!birth.matches("\\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12]\\d|3[01])"));
 
-            // 7. NACIONALIDADE (Obriga a exatamente 2 letras, ex: PT, BR, ES)
             String nac = "";
             do {
                 System.out.print("Nacionalidade (ex: PT - 2 letras): ");
-                nac = leitor.nextLine().trim().toUpperCase(); // Converte logo para maiúscula
+                nac = leitor.nextLine().trim().toUpperCase();
             } while (!nac.matches("[A-Z]{2}"));
             
             System.out.print("Caminho da foto (ENTER para default): ");
@@ -191,7 +175,6 @@ public class Jogador {
             MyImage img = new MyImage(caminhoFoto);
             if (img.isOk()) {
                 String fotoBase64 = img.getBase64();
-                // Enviar todos os parâmetros para o stub
                 stub.registar(user, pass, first, last, gender, birth, nac, fotoBase64);
                 System.out.println("⏳ Pedido enviado!");
             }
@@ -200,9 +183,6 @@ public class Jogador {
         }
     }
 
-    // ==========================================================
-    // OPÇÃO 3: ALTERAR DADOS DO PERFIL
-    // ==========================================================
     private static void alterarConta(String host, int port, Scanner leitor) {
         try (Socket socket = new Socket(host, port);
              Stub stub = new Stub(socket)) {

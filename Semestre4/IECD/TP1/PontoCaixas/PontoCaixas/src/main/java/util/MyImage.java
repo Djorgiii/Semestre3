@@ -19,51 +19,36 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.SwingUtilities;
 
-/**
- * 🖼️ Classe MyImage: Utilitário para manipular, visualizar e transferir imagens.
- *
- * @author Engº Porfírio Filipe
- */
+
 public class MyImage implements Serializable {
 
-    // 🛡️ ID de serialização para consistência entre versões
     private static final long serialVersionUID = 1L;
 
-    private String path = null;     // Caminho do ficheiro no sistema 📂
-    private String mime = null;     // Extensão/Tipo da imagem 🏷️
-    private byte[] content = null;  // Dados binários da imagem em memória 💾
+    private String path = null;
+    private String mime = null; 
+    private byte[] content = null;
 
-    /**
-     * Caminho padrão para recursos da aplicação.
-     */
+
     public static final String contexto = "src/main/webapp/";
 
-    /**
-     * Construtor por omissão.
-     */
+
     public MyImage() {}
 
-    /**
-     * Construtor que carrega imagem a partir de um caminho.
-     */
+
     public MyImage(final String p) {
         this.path = p;
         this.mime = extrairExtensao(p);
         load();
     }
 
-    /**
-     * Construtor com caminho e tipo explícito.
-     */
+
     public MyImage(final String p, final String m) {
         this.path = p;
         this.mime = m;
         load();
     }
 
-    /**
-     * 🕵️ Extrai a extensão do ficheiro com segurança.
-     */
+
     private String extrairExtensao(String p) {
         if (p != null && p.contains(".")) {
             return p.substring(p.lastIndexOf('.') + 1);
@@ -71,15 +56,12 @@ public class MyImage implements Serializable {
         return "bin";
     }
 
-    /**
-     * 📖 Carrega os bytes da imagem do disco usando NIO.
-     */
+
     public boolean load() {
         if (path != null) {
             Path p = Paths.get(path);
             if (Files.exists(p)) {
                 try {
-                    // ⚡ Leitura direta e eficiente
                     this.content = Files.readAllBytes(p);
                     return true;
                 } catch (IOException e) {
@@ -92,24 +74,17 @@ public class MyImage implements Serializable {
         return false;
     }
 
-    /**
-     * ✅ Verifica se a imagem está carregada e pronta a ser usada.
-     * @return true se tiver bytes de conteúdo em memória.
-     */
+
     public boolean isOk() {
         return content != null && content.length > 0;
     }
-    
-    /**
-     * 💾 Guarda a imagem e cria backup se o ficheiro já existir.
-     */
+
     public boolean save(String dataFile) {
         if (dataFile == null) dataFile = path;
         if (dataFile == null || content == null) return false;
 
         Path target = Paths.get(dataFile);
 
-        // 🔄 Lógica de Backup (Move o antigo antes de gravar o novo)
         if (Files.exists(target)) {
             String backupName = dataFile + "." + System.currentTimeMillis() + ".bak";
             try {
@@ -128,36 +103,27 @@ public class MyImage implements Serializable {
         }
     }
 
-    /**
-     * 🔗 Codifica o conteúdo para Base64 (ideal para protocolos de texto).
-     */
+
     public String getBase64() {
         return (content != null) ? Base64.getEncoder().encodeToString(content) : null;
     }
 
-    /**
-     * 📥 Descodifica de Base64 para binário.
-     */
+
     public void setBase64(String base64) {
         if (base64 != null) {
             this.content = Base64.getDecoder().decode(base64);
         }
     }
 
-    /**
-     * 📤 Envia o objeto completo via Socket TCP.
-     */
+
     public void serializar(Socket socket) throws IOException {
-        // ✅ Try-with-resources garante que o stream fecha após o envio
         try (ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream())) {
             out.writeObject(this);
             out.flush();
         }
     }
 
-    /**
-     * 📥 Recebe o objeto completo via Socket TCP.
-     */
+
     public void deserializar(Socket socket) throws ClassNotFoundException, IOException {
         try (ObjectInputStream in = new ObjectInputStream(socket.getInputStream())) {
             MyImage temp = (MyImage) in.readObject();
@@ -167,18 +133,13 @@ public class MyImage implements Serializable {
         }
     }
 
-    /**
-     * 🌐 Descarrega imagem de um URL usando "transferTo".
-     */
+
     public static String descarregar(String sourceUrl, String targetDirectory) throws IOException {
-        // 🆕 Novo Padrão URI -> URL
         URL url = URI.create(sourceUrl).toURL();
         
         String fileName = Paths.get(url.getPath()).getFileName().toString();
         Path targetPath = Paths.get(targetDirectory, fileName);
 
-        // 🚀 O uso de Files.copy internamente utiliza 
-        // mecanismos de transferência de baixo nível
         try (InputStream in = url.openStream()) {
             Files.copy(in, targetPath, StandardCopyOption.REPLACE_EXISTING);
         }
@@ -186,9 +147,7 @@ public class MyImage implements Serializable {
         return targetPath.toString();
     }
 
-    /**
-     * 🖥️ Abre uma janela Swing para visualizar a imagem em memória.
-     */
+
     public void view() {
         if (content == null) {
             System.err.println("⚠️ Sem dados para visualizar!");
@@ -212,10 +171,8 @@ public class MyImage implements Serializable {
         });
     }
 
-    // --- Getters e Setters com proteção de memória ---
 
     public byte[] getContent() {
-        // 🛡️ Retorna cópia para manter o encapsulamento
         return content != null ? content.clone() : null;
     }
 
@@ -226,9 +183,7 @@ public class MyImage implements Serializable {
     public String getMime() { return mime; }
     public String getPath() { return path; }
 
-    /**
-     * Menu para demonstrar as capacidades da classe.
-     */
+
     public static void menu() {
         Scanner sc = new Scanner(System.in);
         MyImage imgAtual = new MyImage();
@@ -299,11 +254,8 @@ public class MyImage implements Serializable {
         sc.close();
     }
 
-    /**
-     * 🏁 Método principal para testes rápidos 🧪.
-     */
+
     public static void main(String[] args) {
-        // Garante que a pasta de contexto existe antes de começar 📁
         File pasta = new File(contexto);
         if (!pasta.exists()) pasta.mkdirs();
 

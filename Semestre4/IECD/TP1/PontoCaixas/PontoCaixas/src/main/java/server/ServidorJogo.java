@@ -8,7 +8,7 @@ import java.net.Socket;
 
 class ServidorDedicado extends Thread {
 
-    final int timeout = 0; // 30 segundos de timeout (podes alterar)
+    final int timeout = 0;
     private Socket connectionX = null; 
     private Socket connectionO = null; 
 
@@ -31,12 +31,10 @@ class ServidorDedicado extends Thread {
             System.out.println("Iniciou a Thread ("+ this.threadId()+") do servidor dedicado!");
 
             JogoXML jogo = new JogoXML();
-            char turno = 'X'; // O Jogador X começa sempre
+            char turno = 'X';
 
-            // Ciclo dinâmico de turnos
             for(;;) {
                 if (jogo.terminou()) {
-                    // Se o jogo acabou, envia o estado final para ambos e sai do ciclo
                     Skeleton.runObter(isX, osX, 'X', connectionX, jogo);
                     Skeleton.runObter(isO, osO, 'O', connectionO, jogo);
                     break;
@@ -46,15 +44,13 @@ class ServidorDedicado extends Thread {
                     Skeleton.runObter(isX, osX, 'X', connectionX, jogo);
                     jogo = Skeleton.runJogar(isX, osX, 'X', connectionX, jogo);
                     
-                    // Se a jogada foi válida e NÃO fechou caixa, passa a vez ao 'O'
                     if (!jogo.getEstado().equals("BO") && !jogo.getEstado().equals("IV")) {
                         turno = 'O'; 
                     }
-                } else { // Turno do 'O'
+                } else {
                     Skeleton.runObter(isO, osO, 'O', connectionO, jogo);
                     jogo = Skeleton.runJogar(isO, osO, 'O', connectionO, jogo);
                     
-                    // Se a jogada foi válida e NÃO fechou caixa, passa a vez ao 'X'
                     if (!jogo.getEstado().equals("BO") && !jogo.getEstado().equals("IV")) {
                         turno = 'X';
                     }
