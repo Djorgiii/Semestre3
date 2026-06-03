@@ -59,11 +59,13 @@
 
     <div class="header-card">
         <div>
-            <h1>Olá, @<%= meuUsername %>! 🎮</h1>
+            <h1>Olá, <%= meuUsername %>! 🎮</h1>
             <p style="margin: 5px 0 0 0; color: #718096; font-size: 0.9em;">A tua cor de jogo está ativa.</p>
         </div>
         <div style="display: flex; gap: 15px; align-items: center;">
             <div class="color-dot" style="background-color: <%= minhaCor %>;" title="A tua cor"></div>
+            <a href="honra.jsp" class="btn" style="background:#d69e2e;color:white;">🏆 Quadro de Honra</a>
+            <a href="perfil.jsp" class="btn" style="background:#319795;color:white;">✏️ O Meu Perfil</a>
             <a href="logout.jsp" class="btn btn-logout">Sair</a>
         </div>
     </div>
@@ -83,10 +85,10 @@
                 <li class="player-item">
                     <div class="player-info">
                         <div class="color-dot" style="background-color: <%= corAdv %>;" title="Cor do adversário"></div>
-                        <strong>@<%= nomeAdv %></strong>
+                        <strong><%= nomeAdv %></strong>
                         <span style="color: #718096; font-size: 0.85em;"><%= natAdv %></span>
                     </div>
-                    <a href="jogo.jsp?adversario=<%= nomeAdv %>" class="btn btn-play">Desafiar ⚔️</a>
+                    <a href="jogo.jsp?adversario=<%= nomeAdv %>" target="_blank" class="btn btn-play">Desafiar ⚔️</a>
                 </li>
             <%  } 
                } %>

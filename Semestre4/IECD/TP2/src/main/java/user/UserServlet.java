@@ -124,7 +124,7 @@ public class UserServlet extends HttpServlet {
         File xmlFile = new File(xmlPath);
 
         if (!xmlFile.exists()) {
-            response.sendRedirect("users.jsp?msgErro=" + java.net.URLEncoder.encode("O ficheiro users.xml não foi encontrado.", "UTF-8"));
+            response.sendRedirect("lobby.jsp");
             return;
         }
 
@@ -141,41 +141,9 @@ public class UserServlet extends HttpServlet {
             String mensagemSucesso = "";
 
             // =================================================================
-            // OPERAÇÃO: APAGAR UTILIZADOR (action=delete)
-            // =================================================================
-            if ("delete".equals(action) && !reqId.isEmpty()) {
-                NodeList listaUsers = root.getElementsByTagName("user");
-                Element userParaRemover = null;
-
-                for (int i = 0; i < listaUsers.getLength(); i++) {
-                    Element u = (Element) listaUsers.item(i);
-                    NodeList idNodes = u.getElementsByTagName("userid");
-                    if (idNodes.getLength() > 0 && idNodes.item(0).getTextContent().equals(reqId)) {
-                        userParaRemover = u;
-                        break;
-                    }
-                }
-
-                if (userParaRemover != null) {
-                    System.out.println("\n❌ [TOMCAT CONSOLA] UTILIZADOR A SER REMOVIDO:");
-                    System.out.println("------------------------------------------------");
-                    System.out.println("-> UserID    : " + reqId);
-                    System.out.println("-> Username  : " + userParaRemover.getElementsByTagName("username").item(0).getTextContent());
-                    System.out.println("-> Email     : " + userParaRemover.getElementsByTagName("email").item(0).getTextContent());
-                    System.out.println("------------------------------------------------\n");
-
-                    root.removeChild(userParaRemover);
-                    modificado = true; 
-                    mensagemSucesso = "Utilizador removido do ficheiro XML com sucesso!";
-                } else {
-                    response.sendRedirect("users.jsp?msgErro=" + java.net.URLEncoder.encode("Utilizador não encontrado no documento XML.", "UTF-8"));
-                    return;
-                }
-            }
-            // =================================================================
             // OPERAÇÃO: GRAVAR / ATUALIZAR UTILIZADOR (action=save)
             // =================================================================
-            else if ("save".equals(action)) {
+            if ("save".equals(action)) {
                 String reqProfile     = request.getParameter("profile");
                 String reqUsername    = request.getParameter("username");
                 String reqFirstnames  = request.getParameter("firstnames");
@@ -205,8 +173,8 @@ public class UserServlet extends HttpServlet {
                 if (reqUsername.isEmpty() || reqFirstnames.isEmpty() || reqLastnames.isEmpty() || 
                     reqEmail.isEmpty() || reqBirthdate.isEmpty() || reqNationality.isEmpty()) {
                     
-                    // Se estiver a criar novo utilizador, volta para o register.jsp. Se estiver a editar, volta para o users.jsp.
-                    String urlErro = reqId.isEmpty() ? "register.jsp" : "users.jsp?action=edit&id=" + reqId;
+                    // Se estiver a criar novo utilizador, vai para o login. Se estiver a editar, volta para o perfil.
+                    String urlErro = reqId.isEmpty() ? "register.jsp" : "perfil.jsp";
                     response.sendRedirect(urlErro + (urlErro.contains("?") ? "&" : "?") + "msgErro=" + java.net.URLEncoder.encode("Erro: Por favor, preenche todos os campos obrigatórios (incluindo Nacionalidade e Data de Nascimento).", "UTF-8"));
                     return; // Aborta a operação imediatamente!
                 }
@@ -218,7 +186,7 @@ public class UserServlet extends HttpServlet {
                 if (matcher.find()) {
                     reqNationality = matcher.group(1).toUpperCase(); // Extrai apenas "PT", "BR", etc.
                 } else {
-                    String urlErro = reqId.isEmpty() ? "register.jsp" : "users.jsp?action=edit&id=" + reqId;
+                    String urlErro = reqId.isEmpty() ? "register.jsp" : "perfil.jsp";
                     response.sendRedirect(urlErro + (urlErro.contains("?") ? "&" : "?") + "msgErro=" + java.net.URLEncoder.encode("Erro no formato da nacionalidade! Deve conter o código do país entre parênteses retos. Ex: [PT]", "UTF-8"));
                     return; // Aborta a operação imediatamente!
                 }
@@ -420,14 +388,19 @@ public class UserServlet extends HttpServlet {
                     
                     // Sucesso: Limpa qualquer erro anterior
                     request.getSession().removeAttribute("mensagemErroSessao");
-                    
-                    // --- NOVA LÓGICA DE REDIRECIONAMENTO INTELIGENTE ---
+
+                    // --- LÓGICA DE REDIRECIONAMENTO ---
                     if (reqId.isEmpty()) {
-                        // Se o reqId está vazio, significa que é um REGISTO NOVO. Vai para o login!
+                        // Registo novo — vai para o login
                         response.sendRedirect("login.jsp?msgSucesso=" + java.net.URLEncoder.encode("Conta criada com sucesso! Podes iniciar sessão.", "UTF-8"));
                     } else {
-                        // Se tem reqId, foi uma EDIÇÃO no painel. Volta para a página de gestão!
-                        response.sendRedirect("users.jsp?action=edit&id=" + reqId + "&msgSucesso=" + java.net.URLEncoder.encode(mensagemSucesso, "UTF-8"));
+                        // Edição de perfil — actualizar a cor na sessão para reflectir imediatamente
+                        // Ler a cor directamente do request pois reqCorFundo está noutro scope
+                        String corActualizada = request.getParameter("corFundo");
+                        if (corActualizada != null && !corActualizada.isBlank()) {
+                            request.getSession().setAttribute("corFundo", corActualizada.trim());
+                        }
+                        response.sendRedirect("perfil.jsp?msgSucesso=" + java.net.URLEncoder.encode(mensagemSucesso, "UTF-8"));
                     }
                     // ---------------------------------------------------
                     
@@ -441,7 +414,7 @@ public class UserServlet extends HttpServlet {
                                        + "Detalhe técnico: " + e.getMessage();
                     
                     request.getSession().setAttribute("mensagemErroSessao", msgAmigavel);
-                    response.sendRedirect("users.jsp?action=edit&id=" + reqId);
+                    response.sendRedirect("perfil.jsp");
                     return;
                     
                 } catch (Exception e) {
@@ -450,10 +423,10 @@ public class UserServlet extends HttpServlet {
                     e.printStackTrace();
                     
                     request.getSession().setAttribute("mensagemErroSessao", "Erro ao gravar no ficheiro: " + e.getMessage());
-                    response.sendRedirect("users.jsp");
+                    response.sendRedirect("perfil.jsp");
                 }
             } else {
-                response.sendRedirect("users.jsp");
+                response.sendRedirect("perfil.jsp");
             }
 
         } catch (Exception e) {
@@ -461,7 +434,7 @@ public class UserServlet extends HttpServlet {
             System.err.println("[ERRO GERAL] Falha crítica no processamento.");
             e.printStackTrace();
             request.getSession().setAttribute("mensagemErroSessao", "Erro inesperado: " + e.getMessage());
-            response.sendRedirect("users.jsp");
+            response.sendRedirect("perfil.jsp");
         }
     }
 }

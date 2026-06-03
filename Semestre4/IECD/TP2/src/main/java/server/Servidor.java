@@ -29,14 +29,18 @@ public class Servidor {
 
         new Thread(() -> { 
             for(;;) { 
-                Socket sk1 = null;
-                Socket sk2 = null;
+                String[] entrada1 = null;
+                String[] entrada2 = null;
                 try {
-                    sk1 = fIFOJogador.remove();
-                    sk2 = fIFOJogador.remove();
-                    
+                    entrada1 = fIFOJogador.remove();
+                    entrada2 = fIFOJogador.remove();
+                    Socket sk1   = fIFOJogador.getSocket(entrada1);
+                    Socket sk2   = fIFOJogador.getSocket(entrada2);
+                    String nome1 = fIFOJogador.getNome(entrada1);
+                    String nome2 = fIFOJogador.getNome(entrada2);
+
                     System.out.println("🤝 Par encontrado! A iniciar Servidor Dedicado...");
-                    Thread jogo = new ServidorDedicado(sk1, sk2);
+                    Thread jogo = new ServidorDedicado(sk1, sk2, nome1, nome2);
                     jogo.start(); 
 
                     if (single) { 
@@ -44,8 +48,8 @@ public class Servidor {
                         System.out.println("👋 Modo single-game terminado. A sair...");
                         System.exit(0);
                     }	
-                } catch (InterruptedException e) {
-                    System.out.println("❌ Erro na tarefa de gestão de fila.");
+                } catch (Exception e) {
+                    System.out.println("❌ Erro na tarefa de gestão de fila: " + e.getMessage());
                 }
             }
         }).start();
@@ -97,19 +101,26 @@ public class Servidor {
     }
 
     private final class FIFOJogador {
-        private final BlockingQueue<Socket> queue = new LinkedBlockingQueue<>();
+        // Cada entrada é um array: [0]=socket, [1]=nome do jogador
+        private final BlockingQueue<String[]> queue = new LinkedBlockingQueue<>();
         private char proximoSimbolo = 'X';
 
         public synchronized void add(Socket element, Document docPedido) throws InterruptedException {
             new Thread(() -> {
                 try {
                     char atribuido = proximoSimbolo;
-                    
+
+                    // Autenticar e obter o nome do jogador
+                    String nomeJogador = getMethod(docPedido, "iniciar").getAttribute("nickname");
                     Skeleton.runIniciar(element, atribuido, docPedido);
-                    
-                    queue.put(element);
+
+                    // Guardar socket e nome juntos na fila
+                    String[] entrada = new String[]{ element.toString(), nomeJogador };
+                    // Guardar o socket num mapa indexado pelo toString
+                    socketMap.put(element.toString(), element);
+                    queue.put(entrada);
                     proximoSimbolo = (atribuido == 'X' ? 'O' : 'X');
-                    
+
                 } catch (Exception e) {
                     System.out.println("⚠️ Falha na inicialização do jogador: " + e.getMessage());
                     try { element.close(); } catch (IOException e1) {}
@@ -117,8 +128,26 @@ public class Servidor {
             }).start();
         }
 
-        public Socket remove() throws InterruptedException {
+        public String[] remove() throws InterruptedException {
             return queue.take();
+        }
+
+        public Socket getSocket(String[] entrada) {
+            return socketMap.remove(entrada[0]);
+        }
+
+        public String getNome(String[] entrada) {
+            return entrada[1];
+        }
+
+        // Mapa temporário para recuperar o Socket a partir do toString
+        private final java.util.concurrent.ConcurrentHashMap<String, Socket> socketMap =
+            new java.util.concurrent.ConcurrentHashMap<>();
+
+        private org.w3c.dom.Element getMethod(Document doc, String method) throws Exception {
+            org.w3c.dom.NodeList items = doc.getElementsByTagName(method);
+            if (items.getLength() != 1) throw new Exception("Método não encontrado: " + method);
+            return (org.w3c.dom.Element) items.item(0);
         }
     }
 }

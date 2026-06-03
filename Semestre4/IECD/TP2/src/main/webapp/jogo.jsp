@@ -23,8 +23,8 @@
         body { font-family: 'Segoe UI', sans-serif; background: #f7fafc; display: flex; flex-direction: column; align-items: center; padding: 20px; color: #2d3748; }
         .game-header { text-align: center; margin-bottom: 20px; }
         .vs-badge { background: #e2e8f0; padding: 5px 15px; border-radius: 20px; font-weight: bold; font-size: 0.9em; margin: 0 10px; }
-        .board-container { background: white; padding: 30px; border-radius: 12px; box-shadow: 0 8px 16px rgba(0,0,0,0.1); border-top: 6px solid <%= minhaCor %>; }
-        svg { background: #fff; display: block; margin: 0 auto; }
+        .board-container { background: white; padding: 30px; border-radius: 12px; box-shadow: 0 8px 16px rgba(0,0,0,0.1); border-top: 6px solid <%= minhaCor %>; border-bottom: 6px solid <%= minhaCor %>; }
+        svg { background: <%= minhaCor %>18; display: block; margin: 0 auto; border-radius: 8px; }
         
         .dot { fill: #4a5568; }
         .line-hover { stroke: transparent; stroke-width: 20; cursor: pointer; }
@@ -32,6 +32,9 @@
         .line-drawn { stroke-width: 4; stroke-linecap: round; }
         
         .btn-leave { margin-top: 20px; padding: 10px 20px; background: #e53e3e; color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; text-decoration: none; }
+        #timer-container { display: none; text-align: center; margin: 8px 0; }
+        #timer-numero { font-size: 2.2em; font-weight: bold; transition: color 0.5s; }
+        #timer-label { font-size: 0.8em; color: #718096; }
     </style>
 </head>
 <body>
@@ -44,6 +47,10 @@
             <span style="font-weight: bold;">@<%= adversario %></span>
         </div>
         <p id="status-jogo" style="font-size: 0.85em; color: #718096; font-weight: bold;">A aguardar jogadas...</p>
+        <div id="timer-container">
+            <div id="timer-numero">30</div>
+            <div id="timer-label">segundos restantes</div>
+        </div>
     </div>
 
     <div class="board-container">
@@ -88,7 +95,7 @@
         </svg>
     </div>
 
-    <a href="lobby.jsp" class="btn-leave">Abandonar Partida</a>
+    <a href="abandonar.jsp?adversario=<%= adversario %>" class="btn-leave">Abandonar Partida</a>
 
     <script>
         const MINHA_COR      = "<%= minhaCor %>";
@@ -97,6 +104,42 @@
         const COR_CAIXA_O    = "#e53e3e";
 
         let jogoTerminado = false;
+
+        // --- TIMER DE 30 SEGUNDOS ---
+        let timerInterval = null;
+        let segundosRestantes = 0;
+
+        // Inicia a contagem decrescente no ecrã
+        function iniciarTimer() {
+            pararTimer();
+            segundosRestantes = 30;
+            atualizarTimer();
+            timerInterval = setInterval(() => {
+                segundosRestantes--;
+                atualizarTimer();
+                if (segundosRestantes <= 0) {
+                    pararTimer();
+                    document.getElementById("status-jogo").innerText = "⏰ Tempo esgotado!";
+                    document.getElementById("status-jogo").style.color = "#e53e3e";
+                }
+            }, 1000);
+        }
+
+        // Para a contagem e limpa o display
+        function pararTimer() {
+            if (timerInterval) { clearInterval(timerInterval); timerInterval = null; }
+            document.getElementById("timer-container").style.display = "none";
+        }
+
+        // Actualiza o display do timer
+        function atualizarTimer() {
+            let el = document.getElementById("timer-container");
+            let num = document.getElementById("timer-numero");
+            el.style.display = "block";
+            num.innerText = segundosRestantes;
+            // Fica vermelho nos últimos 10 segundos
+            num.style.color = (segundosRestantes <= 10) ? "#e53e3e" : "#319795";
+        }
 
         // Desenha uma linha nova com a cor indicada (só se ainda não foi desenhada)
         function desenharLinha(id, cor) {
@@ -189,12 +232,13 @@
             if (!linhaEl || linhaEl.className.baseVal !== "line-hover") return;
 
             // Feedback visual imediato
+            pararTimer();
             linhaEl.className.baseVal = "line-drawn";
             linhaEl.style.stroke = MINHA_COR;
             linhaEl.onclick = null;
             document.getElementById("status-jogo").innerText = "A enviar jogada...";
 
-            fetch("ServletGame?acao=jogar&linha=" + idLinha)
+            fetch("ServletGame?acao=jogar&linha=" + idLinha + "&adversario=<%= adversario %>")
                 .then(r => r.json())
                 .then(dados => {
                     if (dados.erro) {
@@ -207,8 +251,15 @@
                     }
                     aplicarEstado(dados, true); // linhas desta resposta são minhas
                     if (!jogoTerminado) {
-                        document.getElementById("status-jogo").innerText = "⏳ Vez do adversário...";
-                        setTimeout(verificarEstado, 1000);
+                        if (dados.estado === "BO") {
+                            // Bónus: continua a ser a nossa vez — reinicia o timer
+                            document.getElementById("status-jogo").innerText = "🔥 Bónus! Joga outra vez!";
+                            iniciarTimer();
+                        } else {
+                            document.getElementById("status-jogo").innerText = "⏳ Vez do adversário...";
+                            pararTimer();
+                            setTimeout(verificarEstado, 1000);
+                        }
                     }
                 })
                 .catch(() => {
@@ -219,7 +270,7 @@
         // Polling: pergunta ao servidor se o adversário já jogou
         function verificarEstado() {
             if (jogoTerminado) return;
-            fetch("ServletGame?acao=estado")
+            fetch("ServletGame?acao=estado&adversario=<%= adversario %>")
                 .then(r => r.json())
                 .then(dados => {
                     if (dados.erro) {
@@ -235,21 +286,24 @@
                     aplicarEstado(dados, false);
                     if (!jogoTerminado && dados.minhaVez === true) {
                         document.getElementById("status-jogo").innerText = "✅ A tua vez!";
+                        iniciarTimer();
                     }
                 })
                 .catch(() => setTimeout(verificarEstado, 3000));
         }
 
         // Arranque: pede o estado inicial (handshake TCP)
-        fetch("ServletGame?acao=estado")
+        fetch("ServletGame?acao=estado&adversario=<%= adversario %>")
             .then(r => r.json())
             .then(dados => {
                 aplicarEstado(dados, false); // arranque: linhas existentes são do histórico
                 // O servidor diz explicitamente se é a nossa vez neste momento
                 if (dados.minhaVez === true) {
                     document.getElementById("status-jogo").innerText = "✅ A tua vez!";
+                    iniciarTimer();
                 } else {
                     document.getElementById("status-jogo").innerText = "⏳ Vez do adversário...";
+                    pararTimer();
                     setTimeout(verificarEstado, 1500);
                 }
             });

@@ -17,17 +17,26 @@ import org.w3c.dom.NodeList;
 public class ServletGame extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
-    private void log(HttpSession s, String msg) {
+    // Prefixo das chaves de sessão — cada jogo tem chave única baseada no adversário
+    private static final String PREF_STUB     = "stub_";
+    private static final String PREF_VEZ      = "vez_";
+    private static final String PREF_OBTER    = "obterFeito_";
+    private static final String PREF_TABULEIRO= "tabuleiro_";
+    private static final String PREF_PENDENTE = "pendente_";
+
+    private void log(HttpSession s, String adv, String msg) {
         String user = (String) s.getAttribute("username");
-        Boolean vez = (Boolean) s.getAttribute("minhaVez");
-        Boolean pendente = (Boolean) s.getAttribute("obterPendente");
-        System.out.println("[GAME][" + user + "] minhaVez=" + vez + " obterPendente=" + pendente + " | " + msg);
+        Boolean vez = (Boolean) s.getAttribute(PREF_VEZ + adv);
+        System.out.println("[GAME][" + user + " vs " + adv + "] vez=" + vez + " | " + msg);
     }
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+
         String caminhoBase = getServletContext().getRealPath("/");
-        if (caminhoBase != null && !caminhoBase.endsWith(java.io.File.separator)) caminhoBase += java.io.File.separator;
+        if (caminhoBase != null && !caminhoBase.endsWith(java.io.File.separator))
+            caminhoBase += java.io.File.separator;
         util.XMLDoc.setContextoReal(caminhoBase);
 
         response.setContentType("application/json");
@@ -36,53 +45,78 @@ public class ServletGame extends HttpServlet {
 
         HttpSession sessao = request.getSession();
         String username = (String) sessao.getAttribute("username");
-        String password  = (String) sessao.getAttribute("password");
+        String password = (String) sessao.getAttribute("password");
 
         if (username == null || password == null) {
-            out.print("{\"erro\": \"Nao autenticado\"}"); return;
+            out.print("{\"erro\": \"Nao autenticado\"}");
+            return;
         }
 
-        Stub meuStub = (Stub) sessao.getAttribute("stubPontos");
+        // Identificador único desta partida — nome do adversário
+        String adversario = request.getParameter("adversario");
+        if (adversario == null || adversario.isBlank()) {
+            out.print("{\"erro\": \"Adversario nao especificado\"}");
+            return;
+        }
 
+        // Chaves de sessão específicas desta partida
+        String keyStub      = PREF_STUB      + adversario;
+        String keyVez       = PREF_VEZ       + adversario;
+        String keyObter     = PREF_OBTER     + adversario;
+        String keyTabuleiro = PREF_TABULEIRO + adversario;
+        String keyPendente  = PREF_PENDENTE  + adversario;
+
+        Stub meuStub = (Stub) sessao.getAttribute(keyStub);
+
+        // ----------------------------------------------------------------
+        // INICIALIZAÇÃO desta partida (se ainda não existe stub para este adversário)
+        // ----------------------------------------------------------------
         if (meuStub == null) {
             try {
                 Socket socket = new Socket("localhost", 25565);
                 meuStub = new Stub(socket);
                 char meuSimbolo = meuStub.iniciar(username, password);
-                sessao.setAttribute("stubPontos", meuStub);
-                sessao.setAttribute("minhaVez", (meuSimbolo == 'X'));
-                sessao.setAttribute("primeiroObterFeito", false);
-                sessao.setAttribute("ultimoTabuleiro", null);
-                sessao.setAttribute("obterPendente", false);
-                log(sessao, "INIT - simbolo=" + meuSimbolo);
+                sessao.setAttribute(keyStub,      meuStub);
+                sessao.setAttribute(keyVez,        (meuSimbolo == 'X'));
+                sessao.setAttribute(keyObter,      false);
+                sessao.setAttribute(keyTabuleiro,  null);
+                sessao.setAttribute(keyPendente,   false);
+                log(sessao, adversario, "INIT - simbolo=" + meuSimbolo);
             } catch (Exception e) {
                 System.err.println("[GAME] Falha TCP: " + e.getMessage());
-                out.print("{\"erro\": \"Falha de comunicacao\"}"); return;
+                out.print("{\"erro\": \"Falha de comunicacao com o servidor de jogo\"}");
+                return;
             }
         }
 
         String acao = request.getParameter("acao");
-        log(sessao, "PEDIDO acao=" + acao);
+        log(sessao, adversario, "PEDIDO acao=" + acao);
 
         try {
-            Boolean primeiroObterFeito = (Boolean) sessao.getAttribute("primeiroObterFeito");
+            // ----------------------------------------------------------------
+            // HANDSHAKE INICIAL
+            // ----------------------------------------------------------------
+            Boolean primeiroObterFeito = (Boolean) sessao.getAttribute(keyObter);
             if (primeiroObterFeito != null && !primeiroObterFeito) {
-                log(sessao, "HANDSHAKE - a fazer obter() inicial");
+                log(sessao, adversario, "HANDSHAKE - a fazer obter() inicial");
                 Element tabuleiro = meuStub.obter();
-                sessao.setAttribute("primeiroObterFeito", true);
-                boolean vezHandshake = (Boolean) sessao.getAttribute("minhaVez");
+                sessao.setAttribute(keyObter, true);
+                boolean vezHandshake = (Boolean) sessao.getAttribute(keyVez);
                 String json = gerarJson(tabuleiro, vezHandshake);
-                sessao.setAttribute("ultimoTabuleiro", json);
-                log(sessao, "HANDSHAKE - concluido, estado=" + tabuleiro.getAttribute("estado") + " minhaVez=" + vezHandshake);
-                out.print(json); return;
+                sessao.setAttribute(keyTabuleiro, json);
+                log(sessao, adversario, "HANDSHAKE concluido, estado=" + tabuleiro.getAttribute("estado"));
+                out.print(json);
+                return;
             }
 
+            // ----------------------------------------------------------------
+            // JOGAR
+            // ----------------------------------------------------------------
             if ("jogar".equals(acao)) {
-                boolean minhaVez = (Boolean) sessao.getAttribute("minhaVez");
-                log(sessao, "JOGAR - minhaVez=" + minhaVez);
-
+                boolean minhaVez = (Boolean) sessao.getAttribute(keyVez);
                 if (!minhaVez) {
-                    out.print("{\"erro\": \"Espera a tua vez!\"}"); return;
+                    out.print("{\"erro\": \"Espera a tua vez!\"}");
+                    return;
                 }
 
                 String linhaID = request.getParameter("linha");
@@ -98,82 +132,80 @@ public class ServletGame extends HttpServlet {
                     coord = (col+1) + " " + (lin+1) + " " + (col+1) + " " + (lin+2);
                 }
 
-                log(sessao, "JOGAR - coord=" + coord);
+                log(sessao, adversario, "JOGAR coord=" + coord);
                 Element tabuleiro = meuStub.jogar(coord);
                 String estado = tabuleiro.getAttribute("estado");
-                log(sessao, "JOGAR - resposta estado=" + estado);
+                log(sessao, adversario, "JOGAR resposta estado=" + estado);
 
                 if ("IV".equals(estado)) {
-                    // Jogada inválida: ainda é a nossa vez
                     out.print(gerarJson(tabuleiro, true));
                 } else if ("BO".equals(estado)) {
-                    String jsonBo = gerarJson(tabuleiro, true);
-                    sessao.setAttribute("ultimoTabuleiro", jsonBo);
-                    out.print(jsonBo);
+                    String json = gerarJson(tabuleiro, true);
+                    sessao.setAttribute(keyTabuleiro, json);
+                    out.print(json);
                 } else {
-                    sessao.setAttribute("minhaVez", false);
-                    sessao.setAttribute("obterPendente", false);
-                    String jsonNormal = gerarJson(tabuleiro, false);
-                    sessao.setAttribute("ultimoTabuleiro", jsonNormal);
-                    log(sessao, "JOGAR - vez passou para adversario");
-                    out.print(jsonNormal);
+                    sessao.setAttribute(keyVez, false);
+                    sessao.setAttribute(keyPendente, false);
+                    String json = gerarJson(tabuleiro, false);
+                    sessao.setAttribute(keyTabuleiro, json);
+                    log(sessao, adversario, "JOGAR vez passou para adversario");
+                    out.print(json);
                 }
 
+            // ----------------------------------------------------------------
+            // ESTADO (polling do jogador passivo)
+            // ----------------------------------------------------------------
             } else if ("estado".equals(acao)) {
-                boolean minhaVez = (Boolean) sessao.getAttribute("minhaVez");
-                Boolean obterPendente = (Boolean) sessao.getAttribute("obterPendente");
-
-                log(sessao, "ESTADO - minhaVez=" + minhaVez + " obterPendente=" + obterPendente);
+                boolean minhaVez  = (Boolean) sessao.getAttribute(keyVez);
+                Boolean pendente  = (Boolean) sessao.getAttribute(keyPendente);
 
                 if (minhaVez) {
-                    String ult = (String) sessao.getAttribute("ultimoTabuleiro");
-                    log(sessao, "ESTADO - ja e a minha vez, devolvo cache");
-                    out.print(ult != null ? ult : "{\"estado\": \"ND\", \"linhas\": [], \"caixas\": []}");
+                    // Já é a nossa vez — devolve cache
+                    String ult = (String) sessao.getAttribute(keyTabuleiro);
+                    out.print(ult != null ? ult
+                        : "{\"estado\": \"ND\", \"linhas\": [], \"caixas\": [], \"minhaVez\": true}");
                     return;
                 }
 
-                if (Boolean.TRUE.equals(obterPendente)) {
-                    String ult = (String) sessao.getAttribute("ultimoTabuleiro");
-                    log(sessao, "ESTADO - obter ja pendente, devolvo cache");
-                    out.print(ult != null ? ult : "{\"estado\": \"ND\", \"linhas\": [], \"caixas\": []}");
+                if (Boolean.TRUE.equals(pendente)) {
+                    // Já há um obter() em curso — devolve cache
+                    String ult = (String) sessao.getAttribute(keyTabuleiro);
+                    out.print(ult != null ? ult
+                        : "{\"estado\": \"ND\", \"linhas\": [], \"caixas\": [], \"minhaVez\": false}");
                     return;
                 }
 
-                sessao.setAttribute("obterPendente", true);
-                log(sessao, "ESTADO - a bloquear em obter() TCP...");
+                // Bloqueia até o adversário jogar
+                sessao.setAttribute(keyPendente, true);
+                log(sessao, adversario, "ESTADO a bloquear em obter() TCP...");
                 Element tabuleiro = meuStub.obter();
-                String json = gerarJson(tabuleiro);
-                String estado = tabuleiro.getAttribute("estado");
-                String jsonEstado = gerarJson(tabuleiro, true);
-                sessao.setAttribute("minhaVez", true);
-                sessao.setAttribute("ultimoTabuleiro", jsonEstado);
-                sessao.setAttribute("obterPendente", false);
-                log(sessao, "ESTADO - obter() respondeu! estado=" + estado + " -> agora e a minha vez");
-                out.print(jsonEstado);
+                String json = gerarJson(tabuleiro, true);
+                sessao.setAttribute(keyVez,       true);
+                sessao.setAttribute(keyTabuleiro, json);
+                sessao.setAttribute(keyPendente,  false);
+                log(sessao, adversario, "ESTADO obter() respondeu! estado=" + tabuleiro.getAttribute("estado"));
+                out.print(json);
             }
 
         } catch (Exception e) {
-            System.err.println("[GAME][" + username + "] EXCECAO em acao=" + acao + ": " + e.getMessage());
+            System.err.println("[GAME][" + username + " vs " + adversario + "] ERRO: " + e.getMessage());
             e.printStackTrace();
-            sessao.setAttribute("obterPendente", false);
-            String msg = (e.getMessage() != null) ? e.getMessage().replace("\"", "'") : "Erro desconhecido";
+            sessao.setAttribute(keyPendente, false);
+            String msg = (e.getMessage() != null)
+                ? e.getMessage().replace("\"", "'") : "Erro desconhecido";
             out.print("{\"erro\": \"" + msg + "\"}");
         }
         out.flush();
-    }
-
-    private String gerarJson(Element tab) {
-        return gerarJson(tab, null);
     }
 
     private String gerarJson(Element tab, Boolean minhaVez) {
         String estado = tab.getAttribute("estado");
         StringBuilder json = new StringBuilder();
         json.append("{\"estado\": \"").append(estado).append("\"");
-        if (minhaVez != null) {
+        if (minhaVez != null)
             json.append(", \"minhaVez\": ").append(minhaVez);
-        }
         json.append(", \"linhas\": [");
+
         NodeList l = tab.getElementsByTagName("linha");
         for (int i = 0; i < l.getLength(); i++) {
             Element el = (Element) l.item(i);
@@ -187,6 +219,7 @@ public class ServletGame extends HttpServlet {
             if (i > 0) json.append(",");
             json.append("{\"id\":\"").append(id).append("\"}");
         }
+
         json.append("], \"caixas\": [");
         NodeList c = tab.getElementsByTagName("caixa");
         for (int i = 0; i < c.getLength(); i++) {
@@ -196,6 +229,7 @@ public class ServletGame extends HttpServlet {
                 .append("\"x\":").append(el.getAttribute("x")).append(",")
                 .append("\"y\":").append(el.getAttribute("y")).append("}");
         }
+
         json.append("]}");
         return json.toString();
     }
