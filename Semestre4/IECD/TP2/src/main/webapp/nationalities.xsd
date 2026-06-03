@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+	<xs:include schemaLocation="nationality.xsd"/>
+	<xs:annotation>
+		<xs:appinfo>
+			<xs:documentation>
+			Valida as nacionalidades
+			</xs:documentation>
+		</xs:appinfo>
+	</xs:annotation>
+	<xs:element name="nationalities">
+	<xs:complexType>
+		<xs:sequence>
+			<xs:element name="nationality" type="nationalityType" minOccurs="180" maxOccurs="200"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:key name="pk_abbreviation">
+		<xs:selector xpath="nationality/abbreviation" />
+		<xs:field xpath="." />
+	</xs:key>
+	<xs:unique name="ak_name">
+		<xs:selector xpath="nationality/name" />
+		<xs:field xpath="." />
+	</xs:unique>
+	<xs:unique name="ak_official">
+		<xs:selector xpath="nationality/official" />
+		<xs:field xpath="." />
+	</xs:unique>
+	<xs:unique name="ak_pt-name">
+		<xs:selector xpath="nationality/pt-name" />
+		<xs:field xpath="." />
+	</xs:unique>
+</xs:element>
+</xs:schema>
+
+
+
+
+
+
+

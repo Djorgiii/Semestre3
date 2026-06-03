@@ -1,0 +1,2941 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><nationalities xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	
+	<nationality>
+		<abbreviation>AD</abbreviation>
+		<name>Andorra</name>
+		<official>The Principality of Andorra</official>
+		<pt-name>Andorra</pt-name>
+		<pt-nationality>andorrano(a)</pt-nationality>
+		<pt-male>andorrano</pt-male>
+		<pt-female>andorrana</pt-female>
+		<flag>iVBORw0KGgoAAAANSUhEUgAAAB0AAAAUCAYAAABxnDbHAAABiElEQVR42u3Uy0pCARAG4J6ie4su
+			K4mwAokKNMnAXAgSBlZWSAYRFkKBJUnahXQhkRXkiSKji2UqdiHFskWiZRgqKBRSGIREFNUiKPg7
+			9AJujrTIxb+Y2XzMMExWTdYCUiV5URr4vstGqrwYywKxQiZSJYP+c/Qjmv+boI0F76YAIQeTrPPw
+			eZOTHjTpL8G+QQrLNB8H8xI4DAM4NHRgR80j+10knks9+hoqxJ5KiIigDQmlDNdjTMSFDMSlVbDp
+			hHiLFFCPHi90YUspwtOkHM9zQ4ioOEi0VOOhlw7zRCdOiG7qUeciH3adFJeKVvgUIpxreAjJahEb
+			r4NV3wMP0UQ9GnaUY1tDrra9Eo/kdH49G4SQBr+2GOYpMW5ddOrRs9VG8oD6EBbV415SAZ+2Aeti
+			GjxqOhyz/TgjmqlHvSY23GsKuI1yuJbkcK4M43RjFG7TCHnFg/BtcahH36NFuNplwbPMhVUn/kUt
+			MyK4CR5iRwx8xdP8kYK71QjscBG2V2Z+bwb9O/QHdPAvf4w06m4AAAAASUVORK5CYII=</flag>
+	</nationality>
+
+	<nationality>
+		<abbreviation>AE</abbreviation>
+		<name>United Arab Emirates</name>
+		<official>The United Arab Emirates</official>
+		<pt-name>Emirados Árabes Unidos</pt-name>
+		<pt-nationality>emiradense</pt-nationality>
+		<pt-male>emiradense</pt-male>
+		<pt-female>emiradense</pt-female>
+		<flag>iVBORw0KGgoAAAANSUhEUgAAACgAAAAUCAYAAAD/Rn+7AAAASklEQVRIx2M8J6j2n4EIYNR5i2Eg
+			AOOoA0cdOOpAKjlw8Tbv44PagYbvbjKMOnDUgaMOHMoOjBRjHNzFjNH7wV6TjDpw1IEj1IEAol5N
+			N0OyZskAAAAASUVORK5CYII=</flag>
+	</nationality>
+
+	<nationality>
+		<abbreviation>AF</abbreviation>
+		<name>Afghanistan</name>
+		<official>The Islamic Republic of Afghanistan</official>
+		<pt-name>Afeganistão</pt-name>
+		<pt-nationality>afegã(o)</pt-nationality>
+		<pt-male>afegão</pt-male>
+		<pt-female>afegã</pt-female>
+		<flag>iVBORw0KGgoAAAANSUhEUgAAAB4AAAAUCAIAAAAVyRqTAAABHUlEQVRIx2NgwAv240UMM/GiUaMH
+			ndFHRERO6ekdFhI6yMVFTaOB5l6NiLiWkAAkb2dn30hLo47Re6zZjgWLH7dQOWWme8pI84Sp8pEw
+			8f2WbBQbzcFwqkz3ZJLunSkVT5b2P17cf2dyyck0/WP56kApiozea8B0uT/yXK3LpQ7f03UWJ8sM
+			L7T5nW/wvTYhAihFkdEnPDSu9EZdqgo4WmZ4doLT2WanYxXGl+oCX+xYfNJDlyKjDwgyHIjlOhom
+			fWty9oUJXhd63W/2pB2JkdkXzgmUojQaT/pq3JpfezbY4oq//5WAgNOBZvfmVZ8J0KdG4mNi2O/M
+			eHf57HtTJ97t77kze+I+V+pmGU3N4452J50dj6ipjZYhI8loAACZP3LdBZd/AAAAAElFTkSuQmCC</flag>
+	</nationality>
+
+	<nationality>
+		<abbreviation>AG</abbreviation>
+		<name>Antigua and Barbuda</name>
+		<official>Antigua and Barbuda</official>
+		<pt-name>Antígua e Barbuda</pt-name>
+		<pt-nationality>antiguano(a)</pt-nationality>
+		<pt-male>antiguano</pt-male>
+		<pt-female>antiguana</pt-female>
+		<flag>iVBORw0KGgoAAAANSUhEUgAAAB4AAAAUCAMAAACtdX32AAAAz1BMVEUAAAAAcsYBAQACAgAIAQEI
+			bsAODAERDgEdGAIdGAMiAwYiYqwmKi0pIgQqIwQtJQQuJQQxMy1GOgZHOgZHOwZIOwZIOwdMQAdN
+			PwdOBg5OTYpmVAlmVQlpVwlvYyZvZCV9aAuBCxiBNWKPGimWgSCmiQ6mig+sDiCsIUCvkQ+vkRC7
+			nR3GECXGFSzGpBHOESbPlabP5PTQGi/TshvVshrWOErXshPbthPcthPganfiuxTtpa3uxRXuxhXz
+			yhX32Nv6zxb70Bb80Rb99vb///9jWHqbAAAA0klEQVR42nXN1xKCMBRF0dgb9t4bCop67IoVy/9/
+			kzC5EhA8D5m5WQ+b1dn/mThLiivEolHzsZecMShh+6zGSsVYzT7DChjQpyuXyIx7vVE6nqWPPiwG
+			5YOT5nGxODSnQQqDM89XWoXT1TAup0KrzMPElG/vb4/n83Hbtyn8ZQwlKd+Vtc3W3EaTO3lJGkIw
+			GoGfNeDkecqtqbmLoUacGlHhZgycPMAvY7myt4SX1/c37b72YexeXF87+DF0zjr8GWdLz/CyyIuw
+			YJGnsD9D1933B6tuTM5E23jrAAAAAElFTkSuQmCC</flag>
+	</nationality>
+
+	<nationality>
+		<abbreviation>AL</abbreviation>
+		<name>Albania</name>
+
+		<official>The Republic of Albania</official>
+		<pt-name>Albânia</pt-name>
+		<pt-nationality>albanês(esa)</pt-nationality>
+		<pt-male>albanês</pt-male>
+		<pt-female>albanesa</pt-female>
+		<flag>iVBORw0KGgoAAAANSUhEUgAAABwAAAAUCAMAAACpgK3LAAAAilBMVEUAAAAEAAEJAQIKAQIOAQMj
+			AwYpAwgsBAgwBAkxBAk1BAo5BQo+BQtEBg1HBg1KBg5OBg5SBw9aBxFlCBNvCRRxCRV0ChV1ChaA
+			CxiBCxiCCxiGCxmHCxmTDBuVDBucDR2hDR6lDh6oDh+qDh+sDiCvDiCwDyCxDyG0DyG/ECPDECTH
+			ECXMESbOESZkvVteAAAAlklEQVQoz7XRNwKDMBBE0SVIZEQWOYso7n89F5QLruxpX/cHri+Dn+Bx
+			Xtd5PGHZbo7WtpqztSXCsXS9zDAyzy1HhD2jEAAEQFmPUMQEAACAxAIjozdShnHl1o0WXxEuTeir
+			AKofNgvCnYtKt229EnxHOEV5lhKSZnk04UL1PCSKkgxz/dy2M83uNbwsCvn+ipR/+BPtA6hnVOP0
+			aNCcAAAAAElFTkSuQmCC</flag>
+	</nationality>
+
+	<nationality>
+		<abbreviation>AM</abbreviation>
+		<name>Armenia</name>
+		<official>The Republic of Armenia</official>
+		<pt-name>Arménia</pt-name>
+		<pt-nationality>arménio(a)</pt-nationality>
+		<pt-male>arménio</pt-male>
+		<pt-female>arménia</pt-female>
+		<flag>iVBORw0KGgoAAAANSUhEUgAAACgAAAAUCAYAAAD/Rn+7AAAAQ0lEQVR42u3OQREAIAwDwdQGmlCF
+			AP5YQEg14CZI4FtmbhVsWLIKI0iQ4ENM9SwdlLYJEiT4c/CMlqWDXjJBggQ/Dl7UPSljkX8YPQAA
+			AABJRU5ErkJggg==</flag>
+	</nationality>
+
+	<nationality>
+		<abbreviation>AO</abbreviation>
+		<name>Angola</name>
+		<official>The Republic of Angola</official>
+		<pt-name>Angola</pt-name>
+		<pt-nationality>angolano(a)</pt-nationality>
+		<pt-male>angolano</pt-male>
+		<pt-female>angolana</pt-female>
+		<flag>iVBORw0KGgoAAAANSUhEUgAAAB4AAAAUCAIAAAAVyRqTAAAA/UlEQVRIx2M4J6hGI8QwavQgNfpe
+			pML7FVK3PBWpbPRFGdVrZspPa2S/7JcAWkA1o68aqDyrkQUiIOOqscrXg+K33BSpY/R5EdUP6yWB
+			CMgAcp9Uyn5YI0kdo295Kd6wVgaic0Ig7jVz5U+bJC8qqeIzmkjw/pxofCAHnGuoxXJmvZCYMBMD
+			5aAxn/vRIRFvR3YItz6X++hKQQZqgcRgzivbhIuTudSUmO/tF3axZqOCoZtnCaycxA80y9KAdXYb
+			35I+vq5yXuq419Gc9chKoTMbhIDhu2kmv5kea08Fj7M1K9UCBBhp8Hjj5GBsyOcO9+ZgoBHQUmFh
+			GAVEAwDhQl3VCgivpAAAAABJRU5ErkJggg==</flag>
+	</nationality>
+
+	<nationality>
+		<abbreviation>AR</abbreviation>
+		<name>Argentina</name>
+		<official>The Argentine Republic</official>
+		<pt-name>Argentina</pt-name>
+		<pt-nationality>argentino(a)</pt-nationality>
+		<pt-male>argentino</pt-male>
+		<pt-female>argentina</pt-female>
+		<flag>iVBORw0KGgoAAAANSUhEUgAAAB8AAAAUCAIAAAD6C3GtAAAAUklEQVRIx2MoXXWbdohh1PThaPrS
+			489phxj+0xKQZvqPj69pZfq7iys+b/MEkrQy/es2d1qZDgTHpubSKmR+fft6/+hG0kynbYocLQlG
+			TScRAQC2EpT0HdBODQAAAABJRU5ErkJggg==</flag>
+	</nationality>
+
+	<nationality>
+		<abbreviation>AT</abbreviation>
+		<name>Austria</name>
+		<official>The Republic of Austria</official>
+		<pt-name>Áustria</pt-name>
+		<pt-nationality>austríaco(a)</pt-nationality>
+		<pt-male>austríaco</pt-male>
+		<pt-female>austríaca</pt-female>
+		<flag>iVBORw0KGgoAAAANSUhEUgAAAB4AAAAUCAIAAAAVyRqTAAAALElEQVRIx2O8IcfKQBvAOGr0sDD6
+			aU40rYz+////qNGjRg9M4hvN6KNG4wUAcq4hH8Fy584AAAAASUVORK5CYII=</flag>
+	</nationality>
+
+	<nationality>
+		<abbreviation>AU</abbreviation>
+		<name>Australia</name>
+		<official>The Commonwealth of Australia</official>
+		<pt-name>Austrália</pt-name>
+		<pt-nationality>australiano(a)</pt-nationality>
+		<pt-male>australiano</pt-male>
+		<pt-female>australiana</pt-female>
+		<flag>iVBORw0KGgoAAAANSUhEUgAAACgAAAAUCAMAAADImI+JAAAAz1BMVEUAAIsBAYsCAowDA4wEBI0H
+			B44MDJAOAIMODpEPAIMQEJIREZMUFJQWFpUgIJohIZoiIpolJZwoKJ0pKZ5AAGhBAGhCAGdHR6tL
+			S61OTq5TU7FbW7RgYLdjY7hpabtqWqxqartubr18AEd+AEZ/AEaBgcaMjMuYmNCoqNepqdiwACux
+			ACu8gKTAepzBwePJyebKyufMvNjNzejW1uzc3O/h4PDh4fHtbnjz8/r3oqf7+/39/f7/AAD/UFD/
+			UVH/UlL/wMD/wsL/w8P/5OT///89AqS0AAAA4UlEQVR42rXQa3PBQBTG8ceK+yWIKpUKddtUaRCl
+			uqXlfP/P1Mhmwixm9k1/786Z/8yZOfj+8W0DABeCI5AbvNZxi7Pe/QZpFGb6kwfcYTjr/cG33SDM
+			vEwauMC6XRYPnHN3/nmkrRCr6RsPIZKdzbJxKG4AIrUaNEIFj3wIsSXavLvy9JnVMRGT73Ftn0g+
+			C6xUYgg9fz2qIYchUwCpxSKFUPEpeR1Cpqew15OhrlYLeqpVqCwLOgrD8XhYgIYR0Qgamh6R11SW
+			rFJhUJmeZ0KRXi7TUJXz+TIUiXY7gX/zB+lKJDlYs0pwAAAAAElFTkSuQmCC</flag>
+	</nationality>
+
+	<nationality>
+		<abbreviation>AZ</abbreviation>
+		<name>Azerbaijan</name>
+		<official>The Republic of Azerbaijan</official>
+		<pt-name>Azerbaijão</pt-name>
+		<pt-nationality>azeri</pt-nationality>
+		<pt-male>azeri</pt-male>
+		<pt-female>azeri</pt-female>
+		<flag>iVBORw0KGgoAAAANSUhEUgAAACgAAAAUCAIAAABwJOjsAAAAdklEQVRIx2NgmHR8YNCoxaMW0wwF
+			Jk4dEMTwisWcNMRu+TGk/MeavZ+ia1+LuZCsHYZItvhr85yfe069FgVZ+VbO+420J10s5rD6++z1
+			B49cCPdTZsffxy+A5DC2eMCCmoqJS2ZK+YAgBoZ1GQODRi0etZhWCABHQtF+Icj6swAAAABJRU5E
+			rkJggg==</flag>
+	</nationality>
+
+	<nationality>
+		<abbreviation>BA</abbreviation>
+		<name>Bosnia and Herzegovina</name>
+		<official>Bosnia and Herzegovina</official>
+		<pt-name>Bósnia e Herzegovina</pt-name>
+		<pt-nationality>bósnio(a)</pt-nationality>
+		<pt-male>bósnio</pt-male>
+		<pt-female>bósnia</pt-female>
+		<flag>iVBORw0KGgoAAAANSUhEUgAAACgAAAAUCAMAAADImI+JAAAAQlBMVEUXF5YbG5geHpkmJp0pJowx
+			LpA1NaRBQalHR6xOTq9SUrFeXrZhYbh0ZGF0dMCdhkq1td7Hx+XPsC3d3fD30Rf///9HYlPNAAAA
+			aklEQVR42oXPSQqAMBAF0TjPU6L3v6oBwUJc1N81PBoqPNv30Nbx/G0L3xVlNR9TExXmrdca8k+H
+			Yzf2PRL435DSkKVAigxSZJAigxQZpMggRQYpMkiRQoqAUgS0IqAVAa0IaEVAKVre8wbHrxPRixUn
+			nQAAAABJRU5ErkJggg==</flag>
+	</nationality>
+
+	<nationality>
+		<abbreviation>BB</abbreviation>
+		<name>Barbados</name>
+		<official>Barbados</official>
+		<pt-name>Barbados</pt-name>
+		<pt-nationality>barbadense</pt-nationality>
+		<pt-male>barbadense</pt-male>
+		<pt-female>barbadense</pt-female>
+		<flag>iVBORw0KGgoAAAANSUhEUgAAAB4AAAAUCAIAAAAVyRqTAAAAuklEQVRIx2NgUKvHg/4fV8OD8Otl
+			GDV6MBp9doE8EFHN6Lc7lR+sV4QY5GTCBUQQNlAQKEWR0f+OqZlocvTliz7coGSuzQFEQAaQCxQE
+			SlEaIOs6pGz0OYGM+mRhIAIygFygIBXCGug6dTm2X4dVIUYDGUAuUJA60Rhoz3N6nhzEaCADyKVa
+			CmlMFXY05tKQZwMiIAPIpZrR15YrLGmQiPfiAyIgA8ilcrqGRyP1s8zkYjEgGi1DRpjRAD6mVREZ
+			zTPoAAAAAElFTkSuQmCC</flag>
+	</nationality>
+
+	<nationality>
+		<abbreviation>BD</abbreviation>
+		<name>Bangladesh</name>
+		<official>The People's Republic of Bangladesh</official>
+		<pt-name>Bangladesh</pt-name>
+		<pt-nationality>bangladechiano(a)</pt-nationality>
+		<pt-male>bangladechiano</pt-male>
+		<pt-female>bangladechiana</pt-female>
+		<flag>iVBORw0KGgoAAAANSUhEUgAAACEAAAAUCAIAAACMMcMmAAAAj0lEQVRIx2NgyPKjORpJdujE+yQE
+			ePS7ujV6uAeGeomn+FLTDt40v+lObl+0HJHRS13HVH9PRqrYwZ/me9nYGc0COJrr6EYFOzB9gIaC
+			QrwossMw1hu/BUB0z8CJkRI7cvw8CNoBRMqJPuTbMc/BjRg7gkM8B7cd9AgresQ5PdIunfIgPcoS
+			OpWJo3UUEgIAUuQyY8VBI8wAAAAASUVORK5CYII=</flag>
+	</nationality>
+
+	<nationality>
+		<abbreviation>BE</abbreviation>
+		<name>Belgium</name>
+		<official>The Kingdom of Belgium</official>
+		<pt-name>Bélgica</pt-name>
+		<pt-nationality>belga</pt-nationality>
+		<pt-male>belga</pt-male>
+		<pt-female>belga</pt-female>
+		<flag>iVBORw0KGgoAAAANSUhEUgAAABcAAAAUCAYAAABmvqYOAAAAM0lEQVRIx2NgYGD4jwsXJjMc+3+P
+			4T8u/FGJ4dg7oDpcmGHU8FHDRw0fNXzU8FHDh6/hAHWQboquC5WwAAAAAElFTkSuQmCC</flag>
+	</nationality>
+
+	<nationality>
+		<abbreviation>BF</abbreviation>
+		<name>Burkina Faso</name>
+		<official>Burkina Faso</official>
+		<pt-name>Burquina Fasso</pt-name>
+		<pt-nationality>burquino(a)</pt-nationality>
+		<pt-male>burquino</pt-male>
+		<pt-female>burquina</pt-female>
+		<flag>iVBORw0KGgoAAAANSUhEUgAAAB4AAAAUCAIAAAAVyRqTAAAAfElEQVRIx2N4r61LI8QwavRIM1pf
+			B4RoYfSXdNWv6apUNVpH94MhCH1fJPtjkSyEDRSkjtHf2hV+Hxf/c1EMiICMb+2KRBnNMM+TGJSx
+			2QRidPpmEyK1EGv0xkNqe46o7DmivOGgGpWNDl5nCWGErLegstHkoFGjR43GiwDWSJjRocGnvgAA
+			AABJRU5ErkJggg==</flag>
+	</nationality>
+
+	<nationality>
+		<abbreviation>BG</abbreviation>
+		<name>Bulgaria</name>
+		<official>The Republic of Bulgaria</official>
+		<pt-name>Bulgária</pt-name>
+		<pt-nationality>búlgaro(a)</pt-nationality>
+		<pt-male>búlgaro</pt-male>
+		<pt-female>búlgara</pt-female>
+		<flag>iVBORw0KGgoAAAANSUhEUgAAACEAAAAUCAYAAAADU1RxAAAAQElEQVRIx2P8DwQMAwwYRx0x6ohB
+			6Yi+C/uPDbgjGKbl/R91xKgjRh2BzRHbzBUGPoteUxP6P+qIUUeMOgILAAAvtzUTyoSCcQAAAABJ
+			RU5ErkJggg==</flag>
+	</nationality>
+
+	<nationality>
+		<abbreviation>BH</abbreviation>
+		<name>Bahrain</name>
+		<official>The Kingdom of Bahrain</official>
+		<pt-name>Bahrein</pt-name>
+		<pt-nationality>barenita</pt-nationality>
+		<pt-male>barenita</pt-male>
+		<pt-female>barenita</pt-female>
+		<flag>iVBORw0KGgoAAAANSUhEUgAAACEAAAAUBAMAAADxfUlCAAAAG1BMVEXOESbOEifTKTzcU2Lmh5Hv
+			s7r55Ob++/z////tEnMkAAAAHUlEQVQY02PoAIIUBQYkABLpKDUkKIKpa9QcnLoAH+c7dTUtPvsA
+			AAAASUVORK5CYII=</flag>
+	</nationality>
+
+	<nationality>
+		<abbreviation>BI</abbreviation>
+		<name>Burundi</name>
+		<official>The Republic of Burundi</official>
+		<pt-name>Burundi</pt-name>
+		<pt-nationality>burundiano(a)</pt-nationality>
+		<pt-male>burundiano</pt-male>
+		<pt-female>burundiana</pt-female>
+		<flag>iVBORw0KGgoAAAANSUhEUgAAACEAAAAUCAMAAAA0jaRDAAAAw1BMVEUetToitj0jtz8muEE3vVA6
+			vlNcyXBiy3WE15SL2Zqgq4Shp4CiqIGiq4OjqoSjq4SotI+ptI6syKCuyaCvyqOwyqO05r276cTH
+			GSfKFSbLFCXLFCbMEiXOESbOEifOEyjRIjXUMELXPk/YQ1TZSFjZ897e9OLhbXridIDi8eLi9ebk
+			fYnqmKHq+O3roKjsoqrur7bx+vP0ys70/Pb1z9T3/Pj4/fr5/fv77O77/fv7/vz88PH++vv+/Pz+
+			//7//f3///9FUjzBAAAAzklEQVQoz4WSxw7CQAxETQ29d1hCL4HQW6jv/7+KAwJRFu27eiR7Zixw
+			GtlKjz06gfSBTVcr6G6Avvgia7jNWj/z1uwG64hPRIIl4DBsfsybwwNQCsqD8ABYdZRSvcl80lNK
+			dVbAICwv/NEtXKbtBSxh0Z5eYBv1yzuhMnCGbCUDZ6Ackm8sByDWSAI4lmgIuABjADcgWsWRJ8d/
+			il087eGlErt/CvdarwHV+lW/xXLY54seXiG31136dAto3b4lhjYxU+qm5sztmz/I+IV3GzlJ3gdQ
+			lP8AAAAASUVORK5CYII=</flag>
+	</nationality>
+
+	<nationality>
+		<abbreviation>BJ</abbreviation>
+		<name>Benin</name>
+		<official>The Republic of Benin</official>
+		<pt-name>Benim</pt-name>
+		<pt-nationality>benineseo(a)</pt-nationality>
+		<pt-male>benineseo</pt-male>
+		<pt-female>beninesea</pt-female>
+		<flag>iVBORw0KGgoAAAANSUhEUgAAAB4AAAAUCAIAAAAVyRqTAAAAK0lEQVRIx2NgaA8kiP5cFCMDMYwa
+			PWr0qNFUN/qFoC4ZaNToUaNHjSYJAQCFquzznkZ+hgAAAABJRU5ErkJggg==</flag>
+	</nationality>
+
+	<nationality>
+		<abbreviation>BN</abbreviation>
+		<name>Brunei Darussalam</name>
+		<official>The Nation of Brunei the Abode of Peace</official>
+		<pt-name>Brunei</pt-name>
+		<pt-nationality>bruneíno(a)</pt-nationality>
+		<pt-male>bruneíno</pt-male>
+		<pt-female>bruneína</pt-female>
+		<flag>iVBORw0KGgoAAAANSUhEUgAAACgAAAAUCAIAAABwJOjsAAADFklEQVRIx2P4/kB8QBDD7w8Tfr6K
+			//FYn94W/4eBf3+e//m67ff7tp8vQn88UqOfxajg37/fd/98WfPrbc3P597fH8pj6nx7UezdVepb
+			jAZ+//15+c/nRb/eFP145vj9gRRQ5/G5Yhsyxd5cpq3FaMHx7e+PkytLAme4aL27aUKmxZamgrnp
+			Zovm5t+8vvffv7/E2z7NL2xmeBzIGX/f//22//eHvp8v43481iXWYmQgwMfkZCdeXmi/ZnnN44fn
+			sNp3fNmq/ZUNBzzCdqmY7lI1O+AeerCm+cSKtUiJ9Nmfr1t/v2/5+SLk+yNVoixGAxJirD7uso3V
+			nts3de1fNv/doydAc2+dPrPUL3yhq/8q96ANvhHznX0Weofcv3YNKAVUcGbLNvRE+uvOny+rf72t
+			+vnc6/tDOaIsRgZOrDxZ/CJh/sqT3MzWT6788vnV8qTMNbklQLNv7Nl3oXPirx8/plq7rMwpxps4
+			fv39eenPp4W/3hQwzOjiS4niNNBhZWXBZ7EAI/N0XhkvNr5uQQkVZjZmZoZMIZEyJdmp/fGbemsO
+			ewedauvbomX59t4DIpMIA9zv72+KHVwv1NvAGxnIoabEwsiIbnc+p0g4u0Cfplg6jzCQW8Qlms0p
+			AmTk8oo0y4vmy4lP1ladPyv76qXtxCRSBlyR/+Ky2Lalgs3lPH7u7NKSzEALYtgFfdn4oiX5bjkq
+			JnMI5XOJ5HCKpPEJXTdVChbnBUoBFUCcyMfDZG8tWpJns3JJxf07x0mzGA09OC3aYy9SYs3vZsHe
+			Ly55w0T5urHyDXOlW7ZKtQJibAyMlqxcfmx8WKNJVITF01W6rsJty/rWl89vkmYxvJicbSWx30Z2
+			pbvEfEOpiWoS5VIiK9SkkzmFWBgYiUyn8rLswX6KpFl8ebXoyTrJJaaSh51lL5spn9dR2aUvt8RA
+			ZmOmWHcWf3IUp54WCwsLcfaTXcrf2iF2b58Ypvi7G2IH1gl11/FGBHCoKDIzMlLbYiLRi0tiW5cI
+			Npby+LqxS4oz0c9iNHTvpOiq2QJl2dwMA9X0AQCxsGSyTXOrWQAAAABJRU5ErkJggg==</flag>
+	</nationality>
+
+	<nationality>
+		<abbreviation>BO</abbreviation>
+		<name>Bolivia</name>
+		<official>The Plurinational State of Bolivia</official>
+		<pt-name>Bolívia</pt-name>
+		<pt-nationality>boliviano(a)</pt-nationality>
+		<pt-male>boliviano</pt-male>
+		<pt-female>boliviana</pt-female>
+		<flag>iVBORw0KGgoAAAANSUhEUgAAAB0AAAAUCAYAAABxnDbHAAAAPElEQVRIx2M8J6j2n4HOgHHU0lFL
+			qWLpw0z5Y3S39Oc1sf+jlo5aOjQtVeswp3+WYaiy/T9q6ailQ9JSAK99K6PA97AnAAAAAElFTkSu
+			QmCC</flag>
+	</nationality>
+
+	<nationality>
+		<abbreviation>BR</abbreviation>
+		<name>Brazil</name>
+		<official>The Federative Republic of Brazil</official>
+		<pt-name>Brasil</pt-name>
+		<pt-nationality>brasileiro(a)</pt-nationality>
+		<pt-male>brasileiro</pt-male>
+		<pt-female>brasileira</pt-female>
+		<flag>iVBORw0KGgoAAAANSUhEUgAAAB0AAAAUCAIAAAD+/qGQAAABe0lEQVQ4y2NgmGRPEzTA5vJMsUlZ
+			pgYkqWmuz0KdO/vYfxxmAJJANhXMlZxuuWKzCNBEZAQUAYqTaS7TZPuM5aqvDjC/38PanWkVbBVh
+			LJ8JJIFsoAhQHCgLVEOaubqzTQ7v4AM67eZKQSftRA2xfGQEFAGKA2WBaoAqiTKXc4ptyxrZL4cY
+			gdq+HmQMtQq31a/VlixEMxooDpQFqgGqBKoH6sJnrut83et7OODheHqFx+Jt+yct2jJn8861O45N
+			mLUps2R6oHM3xOgDU+TgKoG6gHqxmCs6zWrBJjG0+JlRbGavXwcxRVO8wM28uSRn0bLNB8taFmhJ
+			F0wvMkFTDzQBaA5hc4E6gSZqSRSYqlYAGeZqlRA7yvMXr91xdFadM2FzsYYD0Keupk2mKuVAs3Sk
+			i4AWQIwGBnewa8+ZFe6EwwFPvAHNtdaqBhpnrV1jIF8KRLa6tQluSSTEG8F0pi1VaCBXEmCdS3I6
+			o22+oGE+pm25Q9tychDVFwCRYEAA/9hJ4AAAAABJRU5ErkJggg==</flag>
+	</nationality>
+
+	<nationality>
+		<abbreviation>BS</abbreviation>
+		<name>Bahamas</name>
+		<official>The Commonwealth of The Bahamas</official>
+		<pt-name>Bahamas</pt-name>
+		<pt-nationality>baamiano(a)</pt-nationality>
+		<pt-male>baamiano</pt-male>
+		<pt-female>baamiana</pt-female>
+		<flag>iVBORw0KGgoAAAANSUhEUgAAACgAAAAUCAIAAABwJOjsAAAApElEQVRIx2NgMLRimLiKYfVJeiMQ
+			YGZh8IlkWLiX7hZDAJ8gQ3olw6rjdLcYAhTUGBqnD4TFEGDpzDBt40BYDASsbAzBSQxLDtDdYjDg
+			FBEwr0oO2zMzbO8s6iIGYoCFEf+xjSa/HjhRETEQCRgZGeJCJB+dtqG3xRDAw83cUq78+ZbDCLB4
+			YIJ6ABLXQGSngSlABqDIHIBKYgCqxYFpCAxQ0wcAfZD/dHeRkMoAAAAASUVORK5CYII=</flag>
+	</nationality>
+
+	<nationality>
+		<abbreviation>BT</abbreviation>
+		<name>Bhutan</name>
+		<official>The Kingdom of Bhutan</official>
+		<pt-name>Butão</pt-name>
+		<pt-nationality>butanês(esa)</pt-nationality>
+		<pt-male>butanês</pt-male>
+		<pt-female>butanesa</pt-female>
+		<flag>iVBORw0KGgoAAAANSUhEUgAAAB4AAAAUCAIAAAAVyRqTAAACdElEQVRIx2N4v0mX6ujdCt1nKVoM
+			VDf3dbf2Y3eNR7Ya1DH6+VqDW0sMII4FGgpBJBt9ZrZ+Y757S2nw5ikBrzdABbdP83vRqQVxLJlG
+			r+52n9efN7Gret2Kudu2rFswd/rcaa3Hl2b25CXOCfc7bqdDptGXFpotbXWoKEqdNKEnOzt76dKl
+			O3bsWL1w+uoli7eGety2RXEyya4+Otdt2tTJ/f39JXmJa5bNXjCppy4moig0cJKH3UY/J4qMXtwd
+			0lSZPmXKlMay7OkR3jdsNXtiwuYEeczLyzhvp02O0TumuG7sddg22f3Zap0FbRGLFsyfMXVqd0dH
+			f2P95MqypT2dM+urd0f7kWb0tcVGkxvCe9urZk6f3NlUPKMxa3JabE99LdDhC0oLuvKyN8SF7A10
+			PhLj/4jUsL63yqKjIW/qhNYJLQUTmuu6aqpmTJm8cOHChoaGA/4Oh211HmKYSJTR91foT26K6+nu
+			mlsXf8FT766t5g5fh4nh/o3Fhf2lhRBDr1qpkWP0g5VGM/uqFixYMDklbm550UFnY6CGTe5WPVlp
+			DXnZixIi9tSUTMtOu0280TeWWTxbo/tstfbkitjq4sIJLU29JYXre9o3VBRC9ADdC7RmSrj/oSUL
+			zmxafyLCk1ijl7XZd9XndbQ2l2Vlro4KmF5dsTAmZJej4U1HPWSdd2w1F2cl71q25HyUN2GjX67T
+			Xd3luHXxxIlVpTMzk09Fed+w0ZzhYQtMZLtTox7hjjHCRh+dZL6jOfsc2IPwqF9fX7m+v7snwPOO
+			tTqZRsPLWTR0KNh1ZX/POWdDclyNVs5ions26qSaCzIal2MpRwBHo6AMqN72dQAAAABJRU5ErkJg
+			gg==</flag>
+	</nationality>
+
+	<nationality>
+		<abbreviation>BW</abbreviation>
+		<name>Botswana</name>
+		<official>The Republic of Botswana</official>
+		<pt-name>Botswana</pt-name>
+		<pt-nationality>botsuano(a)</pt-nationality>
+		<pt-male>botsuano</pt-male>
+		<pt-female>botsuana</pt-female>
+		<flag>iVBORw0KGgoAAAANSUhEUgAAAB4AAAAUCAIAAAAVyRqTAAAAMElEQVRIx2MoXXWbRohh1OhRo/Eb
+			vevqWxohhnCaAYahCWgYIDSMxtEsM2r0QBkNAG/2EKEtWLomAAAAAElFTkSuQmCC</flag>
+	</nationality>
+
+	<nationality>
+		<abbreviation>BY</abbreviation>
+		<name>Belarus</name>
+		<official>The Republic of Belarus</official>
+		<pt-name>Bielorrússia</pt-name>
+		<pt-nationality>bielorrusso(a)</pt-nationality>
+		<pt-male>bielorrusso</pt-male>
+		<pt-female>bielorrussa</pt-female>
+		<flag>iVBORw0KGgoAAAANSUhEUgAAACgAAAAUCAYAAAD/Rn+7AAAA+klEQVR42u3WvwqCUBQG8PseDb2R
+			DdHS0GwQbUEQFBlESIIEDvUCbUGLg9Ik1BKIuxaamhZR0Z+h5QvX7uhyhoaz/zjnnnM/9glDnDQN
+			l/kc18UCvihiyxiZYs/NBlG3i0SWcZ7N6AHvpolEURD3+1kn6QHfjoNDq4XjcIh0MqEHvC6XSFUV
+			+1oNsSTRA75sG0GziajXy0ZN8A0aBpxCAa4gwKtU6AFvug6vXIZbKmVFs4NRp4Og0UAyHtMDPiwL
+			u2oVfr2ebfMfmHfE/yXJfWZGq7ZXlNiaSnGHWrREsCkjUr9f3WBADMiHBWJAPm4RA/KBlRyQi/zU
+			gF+qMdN+WrEm7wAAAABJRU5ErkJggg==</flag>
+	</nationality>
+
+	<nationality>
+		<abbreviation>BZ</abbreviation>
+		<name>Belize</name>
+		<official>Belize</official>
+		<pt-name>Belize</pt-name>
+		<pt-nationality>belizenho(a)</pt-nationality>
+		<pt-male>belizenho</pt-male>
+		<pt-female>belizenha</pt-female>
+		<flag>iVBORw0KGgoAAAANSUhEUgAAAB4AAAAUCAIAAAAVyRqTAAACtklEQVRIx2M4J6hGI8QQpR1LI8TA
+			YN+OH/F79UW3bOpdeXLP2bv7zz8EMoBcoCBBjQSM9ihdefjm+Zv3Ly49MHvdkSWbjiw/eWHPsWv7
+			bz19AZQi3+j2pcf33Nw1eUv7+Tsn15xeUb+1IG1GzNxDM24/utKwpuzzt09ABeQYDXTU2Udn5m2b
+			8P7D+8wpsVaNaq6Fxm4lhsb50tmzEt98eFO6NOvvnz/43I4rfG8/ezlzZ9/////7Kwut1fjzqpP0
+			gmS9O4yDQhWttRXryopffnrZsq7qyetPOMMdqygwotaeWn7k6r6SCL9uT5WpCdpx87yty5XMs+QC
+			Jzl4KoiHG6gWRAZcvnny6PX9QMUkGA1MBofObrvz9PbGrpKyIO2mfKOkOP/+xsbexojgABMfZfFw
+			E42ptZVnbhzfeXwNUDEJRgPT2cL9099/fw8MkIl9XT0dTcXxIROaWvtrQurz/Xo6m7vam4FSb7+9
+			rV9XBlRMgtHA9Dt9V/+D9w+A+tevX7906dL2qqretoYVMyK6cpQXL14MFARK3Xt37+DJzUDFpAXI
+			+cuHPnz/ANS/YsWKDRs2LFi6MiYtLzEzf8GMVCB35cqVQKmvP7+uODCXtAABxsymc2t3nt+05fK6
+			jPaI+EpXt1Jf46wck4y8gJqEoCz7mvbSVx9frj6++NCNfaRFIzA9AVPVgj1T556cXtwTPXFHU2RL
+			kFWxmm2pdkJ7ZPPanNAq+z03dl25eASYRklLfJAs8+zjs52HVu47t7ekpqe9o3vJkiWbNm1qbGqp
+			qO8/eunIwWMbDtw5QHKWgWf0s0/OXr90YtHh2Rt2nDh79db+s6fWbj+y9vjS5ftn33h1g8yMDnf7
+			g5fvTt07vvzgvK3HV/Vva39w8/KmS+uBwUVR8YRcqPasOLH7DImFKg2rAtpVYADQ1cj1AYeyogAA
+			AABJRU5ErkJggg==</flag>
+	</nationality>
+
+	<nationality>
+		<abbreviation>CA</abbreviation>
+		<name>Canada</name>
+		<official>Canada</official>
+		<pt-name>Canadá</pt-name>
+		<pt-nationality>canadiano(a)</pt-nationality>
+		<pt-male>canadiano</pt-male>
+		<pt-female>canadiana</pt-female>
+		<flag>iVBORw0KGgoAAAANSUhEUgAAACgAAAAUCAIAAABwJOjsAAAA9UlEQVR42sWWMQqDQBBFre2tTRWQ
+			NFbWOUGCWIXcwsYjeBKPYCdYBG1sLKw9gweITp6kiJDEBHRdGWT+zMPPLrOshhizseCZ//IC474n
+			dBgnCbG58f0u+z1BsqHx9SpB8ARIkFsZXy5TBqne+HYbByqOpwySIi0Fxl0nx6NEkex2EoaSplMG
+			SZEWABjwqit23VfR83h/lGBrb7XvI38G2KrGTSOm+Y8xGPCqKy4Ksax5GABMwVS3rTjON5IWgLLj
+			xMTa9jtGkZbKczwMcjiMo3s+j3N0OpEgKdLa6pKoa6kqHbdTWTJKOoyzTPJcz4qXbLW2X58H+Lxl
+			goMbl4EAAAAASUVORK5CYII=</flag>
+	</nationality>
+
+	<nationality>
+		<abbreviation>CD</abbreviation>
+		<name>Congo Democratic Republic</name>
+		<official>The Democratic Republic of the Congo</official>
+		<pt-name>República Democrática do Congo</pt-name>
+		<pt-nationality>congolês(a)</pt-nationality>
+		<pt-male>congolês</pt-male>
+		<pt-female>congolesa</pt-female>
+		<flag>iVBORw0KGgoAAAANSUhEUgAAAB4AAAAUCAMAAACtdX32AAAAvVBMVEUAo90Bo9wCo9sEpNoHpNgJ
+			pdYQptAWqMsZqMkeqcUlq8AurLkxrbYyrbU1rrM3rrE+sKxCsahOs55StJtUtJpjt45luI1suYZy
+			u4Jzu4GBvnaEvnSMwG2UwmelxVqtx1O1yE23yUvBy0PDy0LFy0DOECHOESHPEyHPFyHRHSDRzjbS
+			JCDSyzXULiDWOB/ZRR/cUh7dyizeXx3hbB3kehzlxiXm0ibnhxzplBvrwB/soRrtuBzurhv21hn3
+			1hgJP/XsAAAAwUlEQVR42nWPWRuBQBhGbZEISZJElmmxtKi0mv//s+TL9mTmXH3znps5DTrcunDh
+			mDX/JavlnoHg3I3qsqumVxOhUk/kxX0jz5kfyShRYCEEurPCGB8HX9mW/NAG6WTP9x7j8Uc2xXN8
+			AnlJDkI59G7Sdvm2wiG5gDzFZxF+POw3WtNK8nrmgLRDX2oTQkFaQaQwxNAS85qqXUooMrxcY2Ei
+			hbrFmoOJHKrz1UYPBSihdeihADW04hNK5hVKA0KpPABiViKsKtUyzgAAAABJRU5ErkJggg==</flag>
+	</nationality>
+
+	<nationality>
+		<abbreviation>CF</abbreviation>
+		<name>Central African Republic</name>
+		<official>The Central African Republic</official>
+		<pt-name>República Centro-Africana</pt-name>
+		<pt-nationality>centro-africano(a)</pt-nationality>
+		<pt-male>centro-africano</pt-male>
+		<pt-female>centro-africana</pt-female>
+		<flag>iVBORw0KGgoAAAANSUhEUgAAAB4AAAAUCAIAAAAVyRqTAAAAjElEQVRIx2NgMGiCI27zGiBCFoGg
+			TIXoSwImcATkYqrBgpA5ISnhQERloxkNG4vKPb6fZAEiIAPIpaarOUzrLm0SByIgg8oBImpbzm9Z
+			BURABnWM/k8EeNE+E9loIJcYXaNG09FojekaBFFtsB6y0UAuMbpGjaaj0f/PEUYv8qVQUki+FDG6
+			Ro2mn9EAj0uRLDYF888AAAAASUVORK5CYII=</flag>
+	</nationality>
+
+	<nationality>
+		<abbreviation>CG</abbreviation>
+		<name>Congo</name>
+		<official>The Republic of the Congo</official>
+		<pt-name>República do Congo</pt-name>
+		<pt-nationality>congolês(a)</pt-nationality>
+		<pt-male>congolês</pt-male>
+		<pt-female>congolesa</pt-female>
+		<flag>iVBORw0KGgoAAAANSUhEUgAAAB4AAAAUBAMAAABohZD3AAAAD1BMVEUAlUN+ukfcJB/rgTT73kqD
+			5DwiAAAAOklEQVR42l3JQQ2AMADAwOFhCk4CFsC/pm0fSNpfc+PrenfP//P8HRYWFhYWFhYWFhYW
+			FhYWFhYWtgAmbyaZJknktwAAAABJRU5ErkJggg==</flag>
+	</nationality>
+
+	<nationality>
+		<abbreviation>CH</abbreviation>
+		<name>Switzerland</name>
+		<official>The Swiss Confederation</official>
+		<pt-name>Suíça</pt-name>
+		<pt-nationality>suíço(a)</pt-nationality>
+		<pt-male>suíço</pt-male>
+		<pt-female>suíça</pt-female>
+		<flag>iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAIAAAAC64paAAAAMklEQVQ4y2O4IcdKNmIYfJo/bVoF
+			RyRr/o8Ehq1mYMD8JwIgh9+Q1zwS45maGWNwFwYAEAs+Hwj/gFMAAAAASUVORK5CYII=</flag>
+	</nationality>
+
+	<nationality>
+		<abbreviation>CI</abbreviation>
+		<name>Côte d'Ivoire</name>
+		<official>The Republic of Côte d'Ivoire</official>
+		<pt-name>Costa do Marfim</pt-name>
+		<pt-nationality>marfinense</pt-nationality>
+		<pt-male>marfinense</pt-male>
+		<pt-female>marfinense</pt-female>
+		<flag>iVBORw0KGgoAAAANSUhEUgAAAB4AAAAUCAIAAAAVyRqTAAAAKElEQVRIx2P8Xs+AB3A0/Mcjyzg/
+			EZ/sqNGjRo8aPWr0qNGjRg9FowF1HU/tkxkE3gAAAABJRU5ErkJggg==</flag>
+	</nationality>
+
+	<nationality>
+		<abbreviation>CL</abbreviation>
+		<name>Chile</name>
+		<official>The Republic of Chile</official>
+		<pt-name>Chile</pt-name>
+		<pt-nationality>chileno(a)</pt-nationality>
+		<pt-male>chileno</pt-male>
+		<pt-female>chilena</pt-female>
+		<flag>iVBORw0KGgoAAAANSUhEUgAAAB4AAAAUBAMAAABohZD3AAAAIVBMVEUANa0OQLISQ7NNcsZti9Cw
+			wObULhL6+/37/P78/f7///94pXrhAAAALUlEQVQY02NgAIFVcMCAyRdE47ug8lUrglD4jDMFUPjM
+			Lgb4zcfPT0MFg40PAJkSgJL66kKrAAAAAElFTkSuQmCC</flag>
+	</nationality>
+
+	<nationality>
+		<abbreviation>CM</abbreviation>
+		<name>Cameroon</name>
+		<official>The Republic of Cameroon</official>
+		<pt-name>Camarões</pt-name>
+		<pt-nationality>camaronês(esa)</pt-nationality>
+		<pt-male>camaronês</pt-male>
+		<pt-female>camaronesa</pt-female>
+		<flag>iVBORw0KGgoAAAANSUhEUgAAAB4AAAAUCAIAAAAVyRqTAAAAaklEQVRIx2NgqIrDg84JquFBfy6K
+			4UEMo0aPGk0toy8rqwARTYx+kif3JFeeykZf0VH5uETq93mx3+fEgAwgl5quvqym8ueCGBABGVQO
+			kAdxCk/z5Z7mywMZVDb6vKgqGmM0XY8aPXiNBgDB6fXllaZS5AAAAABJRU5ErkJggg==</flag>
+	</nationality>
+
+	<nationality>
+		<abbreviation>CN</abbreviation>
+		<name>China</name>
+		<official>The People's Republic of China</official>
+		<pt-name>China</pt-name>
+		<pt-nationality>chinês(esa)</pt-nationality>
+		<pt-male>chino</pt-male>
+		<pt-female>china</pt-female>
+		<flag>iVBORw0KGgoAAAANSUhEUgAAAB4AAAAUCAIAAAAVyRqTAAAAnUlEQVRIx2O4pylAI8SAR+5tBee7
+			eg7qGP0smAeIEEZXcr5vp5LRn6azARGaine1HG+rOMk3+mUa9++TTP/vMgARkPEynRuu4kM3+9sa
+			Topc/SyU5/89kNFABpWj8UMf++dZbJ9nsgEZyCqAwf2+hYMiox878qExoJFZy0lpgGBJfNWc75s4
+			aJOu6zjJCwrCRtMwN44aPWr0qNEYCADuepykH+FanwAAAABJRU5ErkJggg==</flag>
+	</nationality>
+
+	<nationality>
+		<abbreviation>CO</abbreviation>
+		<name>Colombia</name>
+		<official>The Republic of Colombia</official>
+		<pt-name>Colômbia</pt-name>
+		<pt-nationality>colombiano(a)</pt-nationality>
+		<pt-male>colombiano</pt-male>
+		<pt-female>colombiana</pt-female>
+		<flag>iVBORw0KGgoAAAANSUhEUgAAAB4AAAAUCAIAAAAVyRqTAAAAKklEQVRIx2P8c1GMgTaAcdToUaNH
+			jSbJaAaLyaNGD32jzwmqjRo95I0GANSPHAM4SOkcAAAAAElFTkSuQmCC</flag>
+	</nationality>
+
+	<nationality>
+		<abbreviation>CR</abbreviation>
+		<name>Costa Rica</name>
+		<official>The Republic of Costa Rica</official>
+		<pt-name>Costa Rica</pt-name>
+		<pt-nationality>costarriquenho(a)</pt-nationality>
+		<pt-male>costarriquenho</pt-male>
+		<pt-female>costarriquenha</pt-female>
+		<flag>iVBORw0KGgoAAAANSUhEUgAAACEAAAAUCAIAAACMMcMmAAAAO0lEQVRIx2Nk0K5noDFgHC52rNh+
+			meZ2/P//f1jY8W7tFprbcU5QbdSOUTuGZNodLvmcHmXiaB1FNAAAi90fJbdXtPoAAAAASUVORK5C
+			YII=</flag>
+	</nationality>
+
+	<nationality>
+		<abbreviation>CU</abbreviation>
+		<name>Cuba</name>
+		<official>The Republic of Cuba</official>
+		<pt-name>Cuba</pt-name>
+		<pt-nationality>cubano(a)</pt-nationality>
+		<pt-male>cubano</pt-male>
+		<pt-female>cubana</pt-female>
+		<flag>iVBORw0KGgoAAAANSUhEUgAAACgAAAAUCAIAAABwJOjsAAAA80lEQVRIx2OYIuWhoN7AoNVPb3Re
+			RPu0iG6xXDiPZie9LYagfWLGwYrpTFp99LYYglZI2Bmrlg2AxRB0P6no56On/2kJsFsMRBeljZ61
+			Tfr79Ru9LYagK7qO71Zv/v/vH80tflzSeEFCD03wlmfU13OXaWvx9+u374SmYnr9nIh2o0ygsEYb
+			9RPXy4lz/rz/CHLM37/frt684RSKaf1RUYMkhXg2zR4qp+pX0xYA7f335+9FeVOsUX5cVD9TPoad
+			6hZ/PnTiSVX7l1Pn70Zl0S+ogeiaiQcag36Ja8Cy0wAXIANQZA5AJTEA1eLANAQGqukDAB69qg8i
+			0mkvAAAAAElFTkSuQmCC</flag>
+	</nationality>
+
+	<nationality>
+		<abbreviation>CV</abbreviation>
+		<name>Cabo Verde</name>
+		<official>The Republic of Cabo Verde</official>
+		<pt-name>Cabo Verde</pt-name>
+		<pt-nationality>cabo-verdiano(a)</pt-nationality>
+		<pt-male>cabo-verdiano</pt-male>
+		<pt-female>cabo-verdiana</pt-female>
+		<flag>iVBORw0KGgoAAAANSUhEUgAAACIAAAAUCAIAAABnBnglAAAA80lEQVRIx2NgsJhMDzRqzag1RCgS
+			cemkoTVirh1Aktly4rqFtnZxJXARalrDaDlp4Sxnn7Q8IJvXoZfHvpfVesKO5RaGYVVU9g2nbT8Q
+			oYlwoIoQi/5jA/8+bPn3cTtWqf9/Pvx70fv/z7v/pACGd2u3YKKP2/o+bp2IVerdus1f9+YBSeyy
+			OBDDOUE1OiDsvvm0vfPT9i6sUu/Xr/qyu+T9hpWk+QZ73Hza8+/zARzh/Pfvs6b///6QFjd4koeg
+			UxdBESrkm/kzXVyTCuGlADDfbF5irRtSQ+V8I+TcLeDYjVwKiLp0ArMqrco0SCkwBEpoAJGVI0lj
+			zEUDAAAAAElFTkSuQmCC</flag>
+	</nationality>
+
+	<nationality>
+		<abbreviation>CY</abbreviation>
+		<name>Cyprus</name>
+		<official>The Republic of Cyprus</official>
+		<pt-name>Chipre</pt-name>
+		<pt-nationality>cipriota</pt-nationality>
+		<pt-male>cipriota</pt-male>
+		<pt-female>cipriota</pt-female>
+		<flag>iVBORw0KGgoAAAANSUhEUgAAACEAAAAUCAIAAACMMcMmAAABBElEQVRIx2P4T3vAMGoHCvj3/+9v
+			Wtnx7/e3HxcX/by66v+/PzSw49+fn1dXf14R+Ov2dqqF1dcdBd/2VP44PR2IvmxKedfC+XG+/d8P
+			D6kRH39+/n587N/3d+86BN42MCCjP29vUyHOfz848GV9HMjERmY0C4AIKEUFO6AWYKBPSzx/Xlvz
+			++Hh/39+UOyPZ2cwLfg4yxQoTs38AQyuz8v9P68Mfj9R6ce5uX+en6NhHvzz6gqt8vnvv3/uvHqO
+			VerBm1dAWer44/bLZ0Dy8bs3//79A2W+f/+AbLg41cLq4uP7lx4/ePbhLdBPQBLIBopQPz5+/P71
+			F+wPIAlkj9YftAAAe1pvOlxaUoQAAAAASUVORK5CYII=</flag>
+	</nationality>
+
+	<nationality>
+		<abbreviation>CZ</abbreviation>
+		<name>Czechia</name>
+		<official>The Czech Republic</official>
+		<pt-name>Chéquia</pt-name>
+		<pt-nationality>tcheco(a)</pt-nationality>
+		<pt-male>tcheco</pt-male>
+		<pt-female>tcheca</pt-female>
+		<flag>iVBORw0KGgoAAAANSUhEUgAAAB4AAAAUCAYAAACaq43EAAAAoElEQVRIx2PwLZn3+PWHL//pDRgE
+			Xev+Kwd3/N1w8Ar9LYbhhOaV/+nlexSLQVg1pPM/PXyPYTG9fI/TYlr7Hq/FtPQ9URbTwvdEW0xt
+			35NsMbV8T5bFio5l/6eqWP+/LiJFNibZ4mDT2P/HJZQospQki6nhS5ItppYvibaY2r4kymJa+BKv
+			xbT0JU6Lae1LDIvp5UsUi90tkl/Ry5fIGACwRleWx3yf/AAAAABJRU5ErkJggg==</flag>
+	</nationality>
+
+	<nationality>
+		<abbreviation>DE</abbreviation>
+		<name>Germany</name>
+		<official>The Federal Republic of Germany</official>
+		<pt-name>Alemanha</pt-name>
+		<pt-nationality>alemã(ão)</pt-nationality>
+		<pt-male>alemão</pt-male>
+		<pt-female>alemã</pt-female>
+		<flag>iVBORw0KGgoAAAANSUhEUgAAACEAAAAUCAIAAACMMcMmAAAAKklEQVRIx2NgGAWjgAbAh/aI4S7t
+			0agdI9COzx00Rwz/z9Ecjdox8uwAACkGSkKIaGlAAAAAAElFTkSuQmCC</flag>
+	</nationality>
+
+	<nationality>
+		<abbreviation>DJ</abbreviation>
+		<name>Djibouti</name>
+		<official>The Republic of Djibouti</official>
+		<pt-name>Djibouti</pt-name>
+		<pt-nationality>jibutiano(a)</pt-nationality>
+		<pt-male>jibutiano</pt-male>
+		<pt-female>jibutiana</pt-female>
+		<flag>iVBORw0KGgoAAAANSUhEUgAAAB4AAAAUCAIAAAAVyRqTAAABPElEQVRIx2O48vJH477XWZueUx0x
+			/P///8/f/3vvfine/oL6RkPA559/l138mL2ZBkZDwOOPv/qPvqWJ0RBw9un3mt2vaGI0EPz6+2/7
+			rc8FW19Q32gIeP/9z/yzH7JpYTQE3Hv3q/PQG4qNXr/+/58/mKb/+///+KNvFTtfkmX0v3//J078
+			r6LyPzj4/+XLWJ3/4/e/Ddc+5W15QbqrX736Lyb2Pz4eV8h8+f216Uq/5HpDobXaBBGq0ffv/3/7
+			9v/Zs9gC5N+yB+s1ttoTYyg2o3GAU28vOO8LJ95Qoox+9u1l+qly4bU6pJqLz+gff370XJ8hs9GE
+			DEPxGb3hyQ797a5kG4rd6EsfrvsejKfQUHSjX/94V3iuQWSdLlXMhRr96+/vabcXKmwyp5ahUKN3
+			vzhktsubuoZCEABO+20lvMM9IAAAAABJRU5ErkJggg==</flag>
+	</nationality>
+
+	<nationality>
+		<abbreviation>DK</abbreviation>
+		<name>Denmark</name>
+		<official>The Kingdom of Denmark</official>
+		<pt-name>Dinamarca</pt-name>
+		<pt-nationality>dinamarquês(esa)</pt-nationality>
+		<pt-male>dinamarquês</pt-male>
+		<pt-female>dinamarquesa)</pt-female>
+		<flag>iVBORw0KGgoAAAANSUhEUgAAABoAAAAUBAMAAABhbjCNAAAAFVBMVEXQDDPcSWbjb4bqk6Tsna30
+			xc7///9YSqhOAAAAI0lEQVQY02NgAAK3RAYkQFueEhCEJStBAEMaMkDjoaqkszsB1PUZK3FK3KYA
+			AAAASUVORK5CYII=</flag>
+	</nationality>
+
+	<nationality>
+		<abbreviation>DM</abbreviation>
+		<name>Dominica</name>
+		<official>The Commonwealth of Dominica</official>
+		<pt-name>Dominica</pt-name>
+		<pt-nationality>dominiquês(esa)</pt-nationality>
+		<pt-male>dominiquo</pt-male>
+		<pt-female>dominiqua</pt-female>
+		<flag>iVBORw0KGgoAAAANSUhEUgAAACgAAAAUCAIAAABwJOjsAAABWklEQVRIx2NgmOpMKmrYpPj/HAOb
+			BKeGtcH///8bTi0kwxCGUYtHLcaCZnSrfXRRO8RlcITX5GNw2Yy5nfSwOC/QdoKM7kUO4y4ZnVZZ
+			7b18hjNlDYCCJFsMDDfiEdCvL1nNO+R0TnMa94lazudxP8ZjPFVSFygIlCLJKAZgbBGP7jupVChr
+			P2Mxe8Vibq6saCdkcYrF+AmLaZa61hMnVZKMYtAw4SAeXeY07JbSBtoKRH1SVSz6Ylc4TYDsOaK6
+			VziNSDKKgU2Sn3h0kd1oroguxOKJEmm81vLe2qpAdpeU1kV2Y5KMYvhPCnjgn5+upfWUxewum3Ge
+			jC6/kbSZriKQW66ifd8/jySjGIC5kHgEzDkv2SymSetuEFGfKCvhpcFdLiHbLaMLFARKkWQUOdlp
+			kpz+ES6jdlmdTlmd0+xGU+TJyk5kFyD7OPWP8BrTrwAZrSRGLSYWAQDJLEHLBhsdGQAAAABJRU5E
+			rkJggg==</flag>
+	</nationality>
+
+	<nationality>
+		<abbreviation>DO</abbreviation>
+		<name>Dominican Republic</name>
+		<official>The Dominican Republic</official>
+		<pt-name>República Dominicana</pt-name>
+		<pt-nationality>dominicano(a)</pt-nationality>
+		<pt-male>dominicano</pt-male>
+		<pt-female>dominicana</pt-female>
+		<flag>iVBORw0KGgoAAAANSUhEUgAAACAAAAAUCAIAAABj86gYAAAAyUlEQVRIx2Ng0E0iBrmn9/1HAveD
+			cy8JmBCDGEYtGLWAcgvUfauIQSn1CwJi0tOLKnNKqwJj05/ktdw0DSYGMfwnDpy6cE4n2M7Ayi3c
+			ws4mwGbBpuVEaiTWgs7VUyWD5UM9/KP9giTCtdvWTqWyBfP2rBQOlnHzdbCyMecKVmtc3ktlCy6e
+			PxdlYxFubxFqa+pvZnju7GliLSAyru5lN/z48eP3n99//v75/ft3QtVMIlMHA5GpDZgukd0FTLVE
+			pu9RC0YtoNwCAH3woPBn45C4AAAAAElFTkSuQmCC</flag>
+	</nationality>
+
+	<nationality>
+		<abbreviation>DZ</abbreviation>
+		<name>Algeria</name>
+		<official>The People's Democratic Republic of Algeria</official>
+		<pt-name>Argélia</pt-name>
+		<pt-nationality>argelino(a)</pt-nationality>
+		<pt-male>argelino</pt-male>
+		<pt-female>argelina</pt-female>
+		<flag>iVBORw0KGgoAAAANSUhEUgAAAB4AAAAUCAIAAAAVyRqTAAAArElEQVRIx2NgaLMgHv0nBTCMGj24
+			jHZM1Fyrwn+Lm+UdH98nd/dfe/ZQx+gCN9m3DAyvGRkqnaR/nznz59Klnxs2/Jg3j1KjrVO0gOY+
+			ZWVySNKEB8jfN2/+ffr07/t3ioxepSYANHqxlhCE+2vz5r8fPnz29aVCgNzkYQUaHRGiDOH+mD37
+			LTPzWxaW7xMm/H3/nlZG/6PQaBoGCA2jkYaJj7ZZZrR4GgJGAwCInkae3DZMUwAAAABJRU5ErkJg
+			gg==</flag>
+	</nationality>
+
+	<nationality>
+		<abbreviation>EC</abbreviation>
+		<name>Ecuador</name>
+		<official>The Republic of Ecuador</official>
+		<pt-name>Equador</pt-name>
+		<pt-nationality>equatoriano(a)</pt-nationality>
+		<pt-male>equatoriano</pt-male>
+		<pt-female>equatoriana</pt-female>
+		<flag>iVBORw0KGgoAAAANSUhEUgAAACgAAAAUCAIAAABwJOjsAAABVElEQVRIx2P4c1FsQBDDqMWjFqOj
+			6nRBDydNDVWJ3FhxJ0s+QQEeFQWJBH9+Glr867zY0/2SXZWGkypFowNEitOi46Nc3a0Fm9KFm4qM
+			gFK/L9DMxz31Ho1uwtmpota2XAlR3sXZ3st6BJ3teOs9xSa1+tAwqD+elKjy5jC2smqqy8pLMSxI
+			1q8pS5DVFavyYv94QpyGFgNDe002R7S+X2Nr+dT5ix2rNkUW92hruAIFgVKkWcxgMZkkdKKR1Uml
+			qLw5s6KpMCY1LiTGX98g9kQTK6nmkG5xC6uWbkVdYopVsJeli1llfKq0Q9XxFtpbvDKQrTtP1VJT
+			xkBNyUBD2V5XdGU97+ogNtpaLGlTEqhqv86Wc54Nj6+dZLSv7FJ77tW2XM7qbjK2RTS0mMuiScy2
+			FsQ2bpMVdZSW8GUw7QVyhWzqeSwaSLP4nKDagKBRi4e/xQA67Dl4S3nBogAAAABJRU5ErkJggg==</flag>
+	</nationality>
+
+	<nationality>
+		<abbreviation>EE</abbreviation>
+		<name>Estonia</name>
+		<official>The Republic of Estonia</official>
+		<pt-name>Estónia</pt-name>
+		<pt-nationality>estoniano(a)</pt-nationality>
+		<pt-male>estoniano</pt-male>
+		<pt-female>estoniana</pt-female>
+		<flag>iVBORw0KGgoAAAANSUhEUgAAAB8AAAAUCAIAAAD6C3GtAAAAK0lEQVRIx2OwKj1CO8QwavpwNF3N
+			t4F2iGEUjAJSwQpaAob/tASjpg9H0wGY1ZQD4f8UtgAAAABJRU5ErkJggg==</flag>
+	</nationality>
+
+	<nationality>
+		<abbreviation>EG</abbreviation>
+		<name>Egypt</name>
+		<official>The Arab Republic of Egypt</official>
+		<pt-name>Egito</pt-name>
+		<pt-nationality>egípcio(a)</pt-nationality>
+		<pt-male>egípcio</pt-male>
+		<pt-female>egípcia</pt-female>
+		<flag>iVBORw0KGgoAAAANSUhEUgAAAB4AAAAUCAYAAACaq43EAAAAx0lEQVR42u3NwQoBURTG8XkFD8HI
+			AnkNomw8AFlIY2EpSsnCSsqjeIUxUlbDCjPMqMlOUdSc+7nXG8ytazZz6l+nU6eftktlEEcJnMDq
+			YH8wNWW6jcaWP5ysZf81SA4FC9BjBdmJDj83CE81kNsG8zogpwG8tuphui9Bdg7savyifVHc/gHP
+			wewsR7tgXg/skBe3P8DBDOxYBfP7HDb4Xhc39TA+F4ROE3Su8Mpgbgt4O9FhXddNmUqFtCWS/df4
+			II4SOIGV9QXCqUv7jzVOCgAAAABJRU5ErkJggg==</flag>
+	</nationality>
+
+	<nationality>
+		<abbreviation>ER</abbreviation>
+		<name>Eritrea</name>
+		<official>The State of Eritrea</official>
+		<pt-name>Eritreia</pt-name>
+		<pt-nationality>eritreu(ia)</pt-nationality>
+		<pt-male>eritreu</pt-male>
+		<pt-female>eritreia</pt-female>
+		<flag>iVBORw0KGgoAAAANSUhEUgAAACgAAAAUCAIAAABwJOjsAAAB3klEQVRIx2M4L2k608UoKU9fZ4aO
+			0FptuiGGVyzmcERPR6BYTE9H4LSY1o7AbvFrQbM3kqbvtIxfsZm/0zChhSPQLX4jbQpEv5dq/pyg
+			/U7d5Odk7d/LND6HGrzmN6NuSKBazGr+NVvva67uJ3/DNyKm34r1XnOavVU0/V6p+61UF8igYnSg
+			WPxe3/jXHK0vcQYgtonRpwCD3ws0gS54LWT2Z63Gj2YdYhIEkY5Asfijq9HvxZqvOMxfsZn9nq/5
+			o0v7R7vOawFQIH8OMfi7Q51Ii4lxBIrFn3wMf/ZqQ9gf7Ix+TdH6mq4HDQxj4z/rNd7rGZNhN1ZH
+			oFgMtObfPvVX7ObApPROzQTo6e9Vum+EQT7+mqf375D6Ox0TSiy+Kuqzyqy0IXx+WOVJVIvz9P6s
+			1Xwjavre0PjfbvVvRbqfggzeyoDS1PcaHaCPP1gbUWKZY+ddOEKx+K2SyZ81mr9maQHj9aOjEdC7
+			//arv5Ew/RxmAHTH1xw9Ci3DaTGwuPjka/hvp/r3eh1gGQLKQsomwOQNtPV7rQ5QlkLLcFsMKUMk
+			zL5m6X2v1f29SOtbvt6XBH1QCLNRwTICFsOLMGBhAszZVLSMKItpYRlRFtPCMpwW09oyFIvpaRky
+			AgBs4O85x81aIQAAAABJRU5ErkJggg==</flag>
+	</nationality>
+
+	<nationality>
+		<abbreviation>ES</abbreviation>
+		<name>Spain</name>
+		<official>The Kingdom of Spain</official>
+		<pt-name>Espanha</pt-name>
+		<pt-nationality>espanhol(a)</pt-nationality>
+		<pt-male>espanhol</pt-male>
+		<pt-female>espanhola</pt-female>
+		<flag>iVBORw0KGgoAAAANSUhEUgAAAB4AAAAUCAIAAAAVyRqTAAAA5klEQVRIx2M4xi1HI8QwajT9jP5/
+			hFYIp8Tn3QyTitkmFLEBGdQ0+vhMFn9jrigLtnAz9iATLiCXOkZn+zGHuzKH2bDoqzCbaTMHW7Nk
+			+DPlBTJRweiZdZLVqWLJqlyJapzJIaGxPr7t+bJtORJUMHpyvEKevaSbtpCDqqibseW+Wavq/OUb
+			A6WoYPTUFJU0J6lYTT5HDdkYR+WJ2Tx1Yar1QfJUMHpeo3p9lmKKBUeaJcf+Kez7+tln1Wl05itR
+			weikCOnoQOnuBKl0f736RKMdzXKxoTIxobJUS9dUyDKjxdNwMBoAc/z3YAcWdMQAAAAASUVORK5C
+			YII=</flag>
+	</nationality>
+
+	<nationality>
+		<abbreviation>ET</abbreviation>
+		<name>Ethiopia</name>
+		<official>The Federal Democratic Republic of Ethiopia</official>
+		<pt-name>Etiópia</pt-name>
+		<pt-nationality>etíope</pt-nationality>
+		<pt-male>etíope</pt-male>
+		<pt-female>etíope</pt-female>
+		<flag>iVBORw0KGgoAAAANSUhEUgAAACgAAAAUCAIAAABwJOjsAAABKklEQVRIx2NgyLYfGDRq8ajF2FBl
+			MsPkVQzzT4MQkAHkkmFI6CRDkpDu7EaeFRcZlt6WX3NYc91uIAPIBQqSag7Dz7tixKMDF52Zlt3k
+			WX5Jfd2ekB0zInZOAzKAXKAgUIoko0iz2G/bXI11e+w2rwraPrPiQE39oTIgw2zjRqU1B4BSNLRY
+			cvVxoP8K9zf6b58DtN5605qA7XOK9zeIrDwDlKKtxazLrmut29V6pAhoKxC1HSkEcoGCtLUYGJ5y
+			aw4zLr0FjN3sfa2VB2tid00EcoGCtA1qSOKSXn00Z2+b/JpDQASMaaBfyUlcr0qUSEI13ZXsy64C
+			c5H4qhNABGRwLLsKFCTVHIZHthqkovWhge4ti8VnnQQiIAPIJcMQciymChq1ePhbDADH+vtSzqev
+			GAAAAABJRU5ErkJggg==</flag>
+	</nationality>
+
+	<nationality>
+		<abbreviation>FI</abbreviation>
+		<name>Finland</name>
+		<official>The Republic of Finland</official>
+		<pt-name>Finlândia</pt-name>
+		<pt-nationality>finlandês(esa)</pt-nationality>
+		<pt-male>finlandês</pt-male>
+		<pt-female>finlandesa</pt-female>
+		<flag>iVBORw0KGgoAAAANSUhEUgAAACEAAAAUBAMAAADxfUlCAAAAFVBMVEUANYALPoUYSIwnVJNHbaNX
+			eqv///8I7wDgAAAAKElEQVQY02NIA4JkBoawNChIYKCniAsQODIwqLhAgQMDtQCmyQPqUwAp7Vn5
+			a34wrAAAAABJRU5ErkJggg==</flag>
+	</nationality>
+
+	<nationality>
+		<abbreviation>FJ</abbreviation>
+		<name>Fiji</name>
+		<official>The Republic of Fiji</official>
+		<pt-name>Fiji</pt-name>
+		<pt-nationality>fijiano(a)</pt-nationality>
+		<pt-male>fijiano</pt-male>
+		<pt-female>fijiana</pt-female>
+		<flag>iVBORw0KGgoAAAANSUhEUgAAACgAAAAUCAIAAABwJOjsAAACMElEQVRIx2N4EF3y5cjZOw/fJlSs
+			Z9FsZFCrh6AVWy9fEjABIiADLghUkF604nrlxAdRxV8On4mevpFsxJBeuBxkUEzJl2PnkK1Hsxgo
+			mAa0smrSg8iiL4dOQ1RSZDHUHxDrY0u/HD8PMXTltisQi4EMkJXVk4FWfj54CtlxFFkM9BAEAS04
+			dfTmi5Xbfz179f///9+//0Is/v3rz+e9x4EO+vz158mLT4DK4FooshhiOnkI07i4yeviJ69FQ0BB
+			mlt8zNzptrnmq3KJ26ZaN3V1bhlq37HSPKDmTiCogSEJDE9QqO49DgxhaFD//gsMeWD4A2MBGBf4
+			g/rp/KnPMmX/HGd+3y/4Ik/6wwShR2GKZz0tcSYuYHoBphpg2gGmIGA6AqYm5MQFkQU6CJj6gGkQ
+			mBJxJa5btVXXWnJvlTZf1/a+72V7sKHoRE3lweYsLBZDDT10GmRl1SSglbiyE1TlsXPAvAexHtO4
+			9ec3Tzo/q/vGsnvBufeDcxc82GqzJ+X4lcNYLAaWA8DSAGQQzEr8BQjU+iNngSUPpnFnzxx8d2bf
+			vauH7/lnAtHHd69vHt/46dJNLBZTkiUw0QFVd8w0CBSkucV7evq2TJqyuWfyJcuwW1YR75ZterN0
+			wtXmPppbPLd/xvYTe44cOXIfHMf/P278/6J2be8imlsM8vTcNefOnL0elA20+PPV+edWL8VeclHd
+			YiDqmrNpf0QxEHXNxl1k0sJiosrqUYuHvcUAI4If7jqY36gAAAAASUVORK5CYII=</flag>
+	</nationality>
+
+	<nationality>
+		<abbreviation>FM</abbreviation>
+		<name>Micronesia</name>
+		<official>The Federated States of Micronesia</official>
+		<pt-name>Estados Federados da Micronésia</pt-name>
+		<pt-nationality>micronésio(a)</pt-nationality>
+		<pt-male>micronésio</pt-male>
+		<pt-female>micronésia</pt-female>
+		<flag>iVBORw0KGgoAAAANSUhEUgAAACYAAAAUBAMAAAAToVI7AAAAFVBMVEV1st19tt+Uw+WUxOWq0Or1
+			+v33+v1H/1GQAAAAO0lEQVQY02NgIBUoYQqxhDpgCqZhCjEaCzCQBxxAGhlZkIWYwgyAJHOqAgEx
+			bHpJAFjdnEZkGCiRbB0AXeQFlWflpuIAAAAASUVORK5CYII=</flag>
+	</nationality>
+
+	
+
+	<nationality>
+		<abbreviation>GA</abbreviation>
+		<name>Gabon</name>
+		<official>The Gabonese Republic</official>
+		<pt-name>Gabão</pt-name>
+		<pt-nationality>gabonês(a)</pt-nationality>
+		<pt-male>gabonês</pt-male>
+		<pt-female>gabonesa</pt-female>
+		<flag>iVBORw0KGgoAAAANSUhEUgAAABsAAAAUCAYAAAB8gkaAAAAAPElEQVRIx2NkmJfwn4FOgHHUslHL
+			8FpWsNX+GN0s+3NR7P+oZaOWDQ7LwptX0S/pW5Ue+T9q2ahlg8IyALSQMG8eIBpVAAAAAElFTkSu
+			QmCC</flag>
+	</nationality>
+
+	<nationality>
+		<abbreviation>GB</abbreviation>
+		<name>United Kingdom of Great Britain and Northern Ireland</name>
+		<official>The United Kingdom of Great Britain and Northern Ireland</official>
+		<pt-name>Reino Unido</pt-name>
+		<pt-nationality>britânico(a)</pt-nationality>
+		<pt-male>britânico</pt-male>
+		<pt-female>britânica</pt-female>
+		<flag>iVBORw0KGgoAAAANSUhEUgAAACgAAAAUCAMAAADImI+JAAAAjVBMVEUAJH0OMIQPMYUQMoVYcKpi
+			eK9iea99j71+kL1/kb6Akr6erM6frM6frc6grc+suNTAyd/PFCvaTF7bTV/bTl/bUGHbUWLcVGTc
+			VWXgZXTmucPnipbni5bnjJfnusToj5nowMnpwMnw1tzzwsjzw8nzxsv0x8z14eb32Nz32d357vH5
+			7/H79fb8+Pn///8pdguvAAAA4ElEQVR42sXTyRKCMBBF0WZQAUENDogTggMo+v7/8yRpSRm0LHfe
+			9VkknQ7FB+AaWtTmQjTBpTZrsJqJxZmWQtHI/gxtTzGAglxTEzLbMauHRI6iR3kA24DM5ifJHCKS
+			dJ+IKVMNX1jEzKSjHsOe32Uu1x8XWbqugDvDcpNuL8Bt0n8CQjeGb5H4sT/Cny+jxzO5AZdtuikZ
+			3oFqnWbFWI9H5UQ1cJqL2c5vBz66AsepSPYBD9xk3usThh3qDDXrLAXTWCxzSSU7L5i9r1nU0IOi
+			xGzFzIAmJcUG375CqOgDi8Q+w2/CRkgAAAAASUVORK5CYII=</flag>
+	</nationality>
+
+	<nationality>
+		<abbreviation>GD</abbreviation>
+		<name>Grenada</name>
+		<official>Grenada</official>
+		<pt-name>Granada</pt-name>
+		<pt-nationality>granadino(a)</pt-nationality>
+		<pt-male>granadino</pt-male>
+		<pt-female>granadina</pt-female>
+		<flag>iVBORw0KGgoAAAANSUhEUgAAACEAAAAUCAMAAAA0jaRDAAAAw1BMVEUAel4Be14De10FfFwGfF0K
+			fVsTgVkXglgghVUwi1Axi1A4hk07jk1Hk0lSlkZUl0ZgnEJsnz+ONTeZrzKbRzShKDO0uCu2RCy3
+			RSy5SCu7TSu9Uiq9kyi+UyrAVynAvCfBWinHFynLwCTOESbOEibQGCXRHCXRHSXRHyXUwyLXNyPY
+			OiPYPCLaQiLbRyHdUSDdxx7gnh/hYR/jaR/neh3pyBvqhhzrixzumBrumRvwzBrxohr4vxj6yRf6
+			yxb7zhb80Rb/6FcBAAAA4klEQVR42o2S5w6CMBRGr4p74QDBAYqAWnDvhX3/p7Ij0EZN8Pz4bm57
+			kkJvYRqDfFaWLH2UrCeGdz+5pASvgKR7unuSMekZlNGIZn/QF43RmzBDK+v4N3pZ4wZAzcbf2DWA
+			2CDUnY99pw4gDEqmucCCRTMDssHJqhuMn5cnxhs1CyAb+U6R90prO9vPti2Ft8Io4GMJON1zdO4C
+			fBq527ABnPYu2rW/DahUlfiUtb8Wp6R/afrf/nlj6beePjkxfctkZczStOTpc7zrwSUFPRBJ93CV
+			XlBMiGjOV3NaUJisvwFH0FI9ROONGQAAAABJRU5ErkJggg==</flag>
+	</nationality>
+
+	<nationality>
+		<abbreviation>GE</abbreviation>
+		<name>Georgia</name>
+		<official>Georgia</official>
+		<pt-name>Geórgia</pt-name>
+		<pt-nationality>georgiano(a)</pt-nationality>
+		<pt-male>georgiano</pt-male>
+		<pt-female>georgiana</pt-female>
+		<flag>iVBORw0KGgoAAAANSUhEUgAAAB4AAAAUBAMAAABohZD3AAAAGFBMVEXoES3pGzbuUWX0k5/4uMD+
+			8vT+8/T///9TdKo8AAAAN0lEQVQY02MoB4MCBnYIg6G8vKwUyg9PB/NLRKB8R3cw34jJHMwvVlDG
+			ykdXj24eqn2UggF2PwDVJ1YR95PLWwAAAABJRU5ErkJggg==</flag>
+	</nationality>
+
+	<nationality>
+		<abbreviation>GH</abbreviation>
+		<name>Ghana</name>
+		<official>The Republic of Ghana</official>
+		<pt-name>Gana</pt-name>
+		<pt-nationality>ganês(a)</pt-nationality>
+		<pt-male>ganês</pt-male>
+		<pt-female>ganesa</pt-female>
+		<flag>iVBORw0KGgoAAAANSUhEUgAAAB4AAAAUCAMAAACtdX32AAAAPFBMVEVwmC3VLiRtkyzRLSNrkSsA
+			AAAAaz8KCAEMCgE2LQVJPQZWRwhpVwlsWQm5mRDOESbTrxLlvhTsxBX80RYJx7CiAAAABXRSTlPG
+			xsfHyHL8Id4AAABMSURBVHjazY05EsAgDAMdbsxN/v/XtBEzds128o5kGio36wewFjO9QO+YD12r
+			rFfJKeWypPZm73nL4y3GpvzmORn1H+OInIFTULlYf84YG42Ue8POAAAAAElFTkSuQmCC</flag>
+	</nationality>
+
+	<nationality>
+		<abbreviation>GM</abbreviation>
+		<name>Gambia</name>
+		<official>The Republic of The Gambia</official>
+		<pt-name>Gâmbia</pt-name>
+		<pt-nationality>gambiano(a)</pt-nationality>
+		<pt-male>gambiano</pt-male>
+		<pt-female>gambiana</pt-female>
+		<flag>iVBORw0KGgoAAAANSUhEUgAAAB4AAAAUCAYAAACaq43EAAAASElEQVRIx2M8J6j2n2EAAOOoxaMW
+			08ziJ9VtxwbE4v2HH14ZEIt5ZHr+j1o8vC3++OnHwCSuiB7PgclOVuUa/0ctHrV4WFkMANx5KY1b
+			494TAAAAAElFTkSuQmCC</flag>
+	</nationality>
+
+	<nationality>
+		<abbreviation>GN</abbreviation>
+		<name>Guinea</name>
+		<official>The Republic of Guinea</official>
+		<pt-name>Guiné</pt-name>
+		<pt-nationality>guineano(a)</pt-nationality>
+		<pt-male>guineano</pt-male>
+		<pt-female>guineana</pt-female>
+		<flag>iVBORw0KGgoAAAANSUhEUgAAAB4AAAAUAgMAAADnxWVXAAAACVBMVEUAlGDOESb80RaADeWBAAAA
+			E0lEQVQI12MIDY1atYoBCIYOAwCuyC7hcLeFEAAAAABJRU5ErkJggg==</flag>
+	</nationality>
+
+	<nationality>
+		<abbreviation>GQ</abbreviation>
+		<name>Equatorial Guinea</name>
+		<official>The Republic of Equatorial Guinea</official>
+		<pt-name>Guiné Equatorial</pt-name>
+		<pt-nationality>guinéu-equatoriano(a)</pt-nationality>
+		<pt-male>guinéu-equatoriano</pt-male>
+		<pt-female>guinéu-equatoriana</pt-female>
+		<flag>iVBORw0KGgoAAAANSUhEUgAAAB4AAAAUCAYAAACaq43EAAABDElEQVR42r3SMUvDQBjG8fsY3cRP
+			UAehIFic/QTi1KmCWwjiolRClIJgl056kOAQgtxRKKSgBecQih8iQhaHikIyhPAIWV6QLife+8B/
+			ueUHLye2bk7QvxfsCeG+gXBmmHB+mHB+mHB+mHBumNqbPhTe6/HKVgRvaPRc4Pe+v9ZYqBF0dI3Z
+			0y0W+gqf6w+YroVN8KZpsFy+wJMeBpMBZnOFuq7/BpviOtE4ONvH7vkOpJagWYTzPEeWZYgfJeSd
+			jzRN2zfrpw6CAHEcY+xd4sI5RRRFCMPQGDb+XFVVQSkF3/fbkiRBWZb/Bw+PxkXR665stRF2Dl28
+			b3esJthRgvlRggllhAnlhQnl7Qfpdatjo7p3zwAAAABJRU5ErkJggg==</flag>
+	</nationality>
+
+	<nationality>
+		<abbreviation>GR</abbreviation>
+		<name>Greece</name>
+		<official>The Hellenic Republic</official>
+		<pt-name>Grécia</pt-name>
+		<pt-nationality>grego(a)</pt-nationality>
+		<pt-male>grego</pt-male>
+		<pt-female>grega</pt-female>
+		<flag>iVBORw0KGgoAAAANSUhEUgAAAB4AAAAUCAMAAACtdX32AAAASFBMVEW2ttqbm83W1ut3d7vr6/Vc
+			XK4AAIAgIJBYWKxiYrFwcLh0dLqQkMioqNSvr9fExOLIyOTPz+fZ2ezg4PDh4fDy8vn19fr///+N
+			8oBjAAAABnRSTlPs7u7x8/XoJD7XAAAAa0lEQVR42o3PSQ6AMAgFUDo4VXCqyv1vKnHV1AZ8Sz7h
+			B+iFY+jb3jky/YiXrebLOPMHOETc+UAxp1qAYnVodAMRHXySmMZaZ3SX8Zpr0fjbiqPcuPjOTRFY
+			Bd2okMdUEJIiWN1+U3ij24gfg1Mb355OwQUAAAAASUVORK5CYII=</flag>
+	</nationality>
+
+	<nationality>
+		<abbreviation>GT</abbreviation>
+		<name>Guatemala</name>
+		<official>The Republic of Guatemala</official>
+		<pt-name>Guatemala</pt-name>
+		<pt-nationality>guatemalteco(a)</pt-nationality>
+		<pt-male>guatemalteco</pt-male>
+		<pt-female>guatemalteca</pt-female>
+		<flag>iVBORw0KGgoAAAANSUhEUgAAACAAAAAUCAYAAADskT9PAAAA3klEQVR42u3UvwqCUBQG8F6quak3
+			6AUaWlqicG2NniBaChoiwohSCCoDJ4MoioJEI42iP2AiNFRo3i/0CZwuCPfA4Ry+4fCbTqIyvyBK
+			SydHQcSqr+9K1LsMwADxBHieF07ifeG/nXB3XZce4Ho8QpZl+C8Lh1EGgtTDWdfpAT4nE7ZtgXzm
+			0DZdcLNkkNED2IYKQgj2ax4/c4zWLhtk9AAPfQOukMdiJWKnT1GqpoKMHmDYboDLpXF7apiZPIrl
+			JLrNGj3ARORhGwIsdYn9lodjDNDvNNkjYgAGiCfgD9KufAbrzlpAAAAAAElFTkSuQmCC</flag>
+	</nationality>
+
+	<nationality>
+		<abbreviation>GW</abbreviation>
+		<name>Guinea-Bissau</name>
+		<official>The Republic of Guinea-Bissau</official>
+		<pt-name>Guiné-Bissau</pt-name>
+		<pt-nationality>guineense</pt-nationality>
+		<pt-male>guineense</pt-male>
+		<pt-female>guineense</pt-female>
+		<flag>iVBORw0KGgoAAAANSUhEUgAAACgAAAAUCAYAAAD/Rn+7AAAAsUlEQVRIx2M4J6j2n1T8dYvEsT8X
+			xf7TAzOMOnDUgaMOJNOBhwVUBrcDfdn4/p8ZbA4EOeiEgOr/I8DQ42Zk+j+VRwbMPymoOjgcuJ1f
+			6b8BC+d/ZgbG/wwMDGAswcTyv5dHanBFsQYzO9hxTEC8X0AZQ16+0+UYwzzP/3TB6JafBWJxYKjF
+			cQj+FwXSk3mkB5cDtwGjeSGvHJh9HJj+Jg42BxKDRx046sBRB446kHgMAEh0BEwycyyAAAAAAElF
+			TkSuQmCC</flag>
+	</nationality>
+
+	<nationality>
+		<abbreviation>GY</abbreviation>
+		<name>Guyana</name>
+		<official>The Co-operative Republic of Guyana</official>
+		<pt-name>Guiana</pt-name>
+		<pt-nationality>guianês(esa)</pt-nationality>
+		<pt-male>guianês</pt-male>
+		<pt-female>guianesa</pt-female>
+		<flag>iVBORw0KGgoAAAANSUhEUgAAACEAAAAUCAIAAACMMcMmAAABl0lEQVRIx2Nw8nCu2jnNblsp83xv
+			hnmeNEH5nKKCHKxNVeHP399ZdGdv6L423sVBVLbjnKDadn4lZzYeNXmWHQss/r2a8vPbjV1Pz+Uc
+			nya/Kp5qdkDQFB5pWSbWEDf2h7tF/tyw+Pus/t+Xo5fe3Wm+sMxscwHjPC8q2AFEJwRV0zmFhbiY
+			Oot4fpwT+3NR7M8Vtb8PM/+93/Diy6PZN3f47m7gXOhPkR0QtJlf0YaVW0uZZf88QZA1EHRJ+u/d
+			kH+vZ33/fnfToxMpRyZILI8i3w4I6uWRkmBiifHheLpPBGETGP29af/3eeu/r2dOvrpec3aR3vos
+			Mu0AoqMCKgkcQsI8TBMreH+eF0OzCYSuav99XPDv4/aHnx5OvrbJdUcV2wJf0uyAoLV8CqYsXAYa
+			LEcXC2KxBhqSsn/vR/97u+jzt/ur7h+KPdgtvDScBDsgqJVbUoSZJTmI8+VBEZw2gZD431tu/170
+			/Pl26eDzyyWn5qitSRkcdtA2rGge57RNu7TNgzQvS2hbJtK8bKdHHUWHuhYAxwoeoPSK8W0AAAAA
+			SUVORK5CYII=</flag>
+	</nationality>
+
+	<nationality>
+		<abbreviation>HN</abbreviation>
+		<name>Honduras</name>
+		<official>The Republic of Honduras</official>
+		<pt-name>Honduras</pt-name>
+		<pt-nationality>hondurenho(a)</pt-nationality>
+		<pt-male>hondurenho</pt-male>
+		<pt-female>hondurenha</pt-female>
+		<flag>iVBORw0KGgoAAAANSUhEUgAAACgAAAAUCAIAAABwJOjsAAAAn0lEQVRIx2NgcN81MGjU4lGLaYbC
+			2y4NCGL4TzTYdfYNhQqQAbEWH7/+QSh0//0X33ApAEoBFRy/9pHKFn//+ffn779//v6Di2RMupY5
+			5TqcC5QCKgAqo7LFQPDy/U9kbsmsW8WzbuJRQB2Lz935JBq2//7z73iCGqgAqIzKFr/99GvFgefI
+			QY0GgFIrD74AKiPW4gHLTqNF5qjFw85iAFBBJDkxV0o0AAAAAElFTkSuQmCC</flag>
+	</nationality>
+
+	<nationality>
+		<abbreviation>HR</abbreviation>
+		<name>Croatia</name>
+		<official>The Republic of Croatia</official>
+		<pt-name>Croácia</pt-name>
+		<pt-nationality>croata</pt-nationality>
+		<pt-male>croata</pt-male>
+		<pt-female>croata</pt-female>
+		<flag>iVBORw0KGgoAAAANSUhEUgAAACgAAAAUCAYAAAD/Rn+7AAABzElEQVRIx2O4Jir+fzBjhhHhwOvi
+			kmD6ioLy/6vS8hBxMcmBd+Cq2Nz/8zKq/zc55v/vNYn9H9wz6X9gz4T/Ac7N/5Nd6/7PKWj+vz4+
+			Z+AcmLh69f+2g7H/+5W8/7cKO/5PDLf6H5Zi9z88RP5/Vmz0/2knC/9nb5wzcA7s7pj/v/jcrf9F
+			joX/8xXD//vHxP/3ryn7HxFg+78/KfV/upbu/80N3ZQ58K6d/Wly8U1P30urkgu/XUxI//Ciqvr9
+			HXv7x3dtbB+/qK55DxT7uDaz7PvVoPCrZNthY3eK4T+F4Jau/v/HcQlg9oOAwP/3PbzAbJAYSI5C
+			8INiB75buOj/657e/0/S0v+/mTzl/5up08BskNj7ZcsH3oE/79///2n7dnB6+Xr02P9vZ8+C2SCx
+			30+fDbwDB30Uv6ip/f+ysQkcYk+zc/4/zcgCs1/UN/wHZpaBd+CX/fv/fzlwACOKP+/cBRan2IHy
+			uk37KMFZPs0Xn/VP+gNy0IuqGnCIgtjP+ib9zfFruUSJ2XK6TXsZmISK/lOKvYzL/t9Ysfn/zeiE
+			/5diUv+fX7Pnv4d59X9qmE0VB8Iwq1DBf3YgpqaZVHUgLfCoA4e9AwHlPIoPJw983QAAAABJRU5E
+			rkJggg==</flag>
+	</nationality>
+
+	<nationality>
+		<abbreviation>HT</abbreviation>
+		<name>Haiti</name>
+		<official>The Republic of Haiti</official>
+		<pt-name>Haiti</pt-name>
+		<pt-nationality>haitiano(a)</pt-nationality>
+		<pt-male>haitiano</pt-male>
+		<pt-female>haitiana</pt-female>
+		<flag>iVBORw0KGgoAAAANSUhEUgAAACEAAAAUCAIAAACMMcMmAAAAqklEQVRIx2NgUJhPczRqx6gdA2iH
+			W+zOgqaTQBSXuyylYiuQARShsh0L1tz+//9/TGYSv6JY+6QeIBsoQn07nj28t3bDmSf3dy5bfebN
+			80ck2HFJwIQY9G7Z5sWLdhcWzP22vDIne9amzSeAIkTqJdaOl4tWNM/JSM1WaK03T06Vm7ym8e3i
+			1VS2ozsrMb4qNSw7KrEqLTQ7EsiekJVMZTsoQaN2jNpBCwQAtl+AEQh7SesAAAAASUVORK5CYII=</flag>
+	</nationality>
+
+	<nationality>
+		<abbreviation>HU</abbreviation>
+		<name>Hungary</name>
+		<official>Hungary</official>
+		<pt-name>Hungria</pt-name>
+		<pt-nationality>húngaro(a)</pt-nationality>
+		<pt-male>húngaro</pt-male>
+		<pt-female>húngara</pt-female>
+		<flag>iVBORw0KGgoAAAANSUhEUgAAACgAAAAUCAIAAABwJOjsAAAAOElEQVRIx2O8pKzDMBCAcdTiUYtp
+			ZvGj/NKBsfj///+jFo9aPMwsDt/SOjAWM/S6jVo8avHwshgAT5ohESWuYagAAAAASUVORK5CYII=</flag>
+	</nationality>
+
+	<nationality>
+		<abbreviation>ID</abbreviation>
+		<name>Indonesia</name>
+		<official>The Republic of Indonesia</official>
+		<pt-name>Indonésia</pt-name>
+		<pt-nationality>indonésia(o)</pt-nationality>
+		<pt-male>indonésio</pt-male>
+		<pt-female>indonésia</pt-female>
+		<flag>iVBORw0KGgoAAAANSUhEUgAAAB4AAAAUCAIAAAAVyRqTAAAAJElEQVRIx2M4J6hGI8QwavSo0aNG
+			k2T0f5qBUaNHjR41miQAAL9jspUi+gu2AAAAAElFTkSuQmCC</flag>
+	</nationality>
+
+	<nationality>
+		<abbreviation>IE</abbreviation>
+		<name>Ireland</name>
+		<official>Ireland</official>
+		<pt-name>Irlanda</pt-name>
+		<pt-nationality>irlandês(a)</pt-nationality>
+		<pt-male>irlandês</pt-male>
+		<pt-female>irlandesa</pt-female>
+		<flag>iVBORw0KGgoAAAANSUhEUgAAACgAAAAUCAYAAAD/Rn+7AAAAPklEQVRIx2NgmJX8n1R848PzY/9J
+			BcdXHvvfZPufVMww6sBRB446cNSBow4cdeCoA0cdOOrAUQeOOnA4OxAAt2sN9DbO3oAAAAAASUVO
+			RK5CYII=</flag>
+	</nationality>
+
+	<nationality>
+		<abbreviation>IL</abbreviation>
+		<name>Israel</name>
+		<official>The State of Israel</official>
+		<pt-name>Israel</pt-name>
+		<pt-nationality>israelense</pt-nationality>
+		<pt-male>israelita</pt-male>
+		<pt-female>israelita</pt-female>
+		<flag>iVBORw0KGgoAAAANSUhEUgAAABwAAAAUBAMAAABscEDKAAAAMFBMVEUAQMAqYMo0aM02aM1AcNBj
+			ithojtmBoeCWsOW/zu/X4fXf5/fh6fj4+v38/f7///8PP/VDAAAAQElEQVQY02P4jwIYdqMABpIA
+			xIi/96FGQajv9cjcU1M81yBxm0UDLZC4j/K/6eHmoilGMwrNIoQzSAJo3kcNHAA4B65jqvGgrwAA
+			AABJRU5ErkJggg==</flag>
+	</nationality>
+
+	<nationality>
+		<abbreviation>IN</abbreviation>
+		<name>India</name>
+		<official>The Republic of India</official>
+		<pt-name>Índia</pt-name>
+		<pt-nationality>indiano(a)</pt-nationality>
+		<pt-male>indiano</pt-male>
+		<pt-female>indiana</pt-female>
+		<flag>iVBORw0KGgoAAAANSUhEUgAAAB4AAAAUBAMAAABohZD3AAAAIVBMVEUTiAhMTJNksVyZmcKrq82u
+			rs7V1eb6+vz/mTP/vHn///9sYfvLAAAAL0lEQVQY02PoQAUM1ObPRAUMq8CgxNgdwoDy3UJTUPim
+			gsF4+ejqEeYpoQIGGgMAPJ5vorIgl94AAAAASUVORK5CYII=</flag>
+	</nationality>
+
+	<nationality>
+		<abbreviation>IQ</abbreviation>
+		<name>Iraq</name>
+		<official>The Republic of Iraq</official>
+		<pt-name>Iraque</pt-name>
+		<pt-nationality>iraquiano(a)</pt-nationality>
+		<pt-male>iraquiano</pt-male>
+		<pt-female>iraquiana</pt-female>
+		<flag>iVBORw0KGgoAAAANSUhEUgAAAB4AAAAUCAYAAACaq43EAAAAyUlEQVRIx2M4J6j2fyAww6jFoxbT
+			zOI/nz7fGQjM8H+AAMkWL7qzF6v4pXf3/x98fpk2Fp9+fev/kZdX///+++f/9Otb4eIg/tTrm/8n
+			Hu77339lPfUsBhl86vXN//57Gv9Purbxvx+Qzjw2BS6//N6B/xH7O8C498o66lkcdaALaGj7//Sj
+			k/+nHZ0EtqDh/JL/O5+cBcvnHJ8GFgPRIDUPv7yi3OIPP7/8P/Liyv/Pv75RN3GFhoYeGAjMAAT/
+			BwiPWjxqMW0wAE9scZE0GvmtAAAAAElFTkSuQmCC</flag>
+	</nationality>
+
+	<nationality>
+		<abbreviation>IR</abbreviation>
+		<name>Iran</name>
+		<official>The Islamic Republic of Iran</official>
+		<pt-name>Irão</pt-name>
+		<pt-nationality>iraniano(a)</pt-nationality>
+		<pt-male>iraniano</pt-male>
+		<pt-female>iraniana</pt-female>
+		<flag>iVBORw0KGgoAAAANSUhEUgAAACMAAAAUCAIAAACIxBMbAAABwElEQVR42u1Uu04cQRCcnsfOPu4O
+			icQhws6dOQSd5BD5V/gcRMYPIDJ+gA8gvMAJARG64Oy9PXbn1eNanDi8DUAOrqVtlXq6umoeWvpy
+			sxQfEhLfQen/V9LfPn3VUrnkNakMZZJDdFYXOeeUk1UFCfrt2iO7CBwjp0rbLDIAZ1ZSRY6KFAYR
+			kYuuNhWWhuTmpok57UJ/VMw4Z1T0j8/fMR0TW9+Vyhqp2/AXqCH6UlufAr05AFNLLYlCipUpt25n
+			lCrkSKx0CSLm1sZ6jjmzliZxAgtcFqxJizwl2Lm4Xv+6vkYGnsSdcE95GNaXl+nlpbu7QwZG5V1e
+			RHd7a05O5PGxrGtkYFTeRUnO51SW7vGR6hoZGJX96YQT3Pf0vN/d3/cPD+HpyZyeVufnzcUFFcXe
+			pz8pUhpWq+fl0q1WwJOotLm6ImwL1vpeSIkz4a4bnSqVncOVYCvsvZrN+PWVtMYSDwPqY5uUwtrc
+			9wBk7VhpmhyCCEGiv+8hoDABDwfE57MzVGEQfQAQ481GNg200UHGjPuOUaQ0yhMJ5pGmFG+3sIVV
+			ALlYoJLadrw579EPo7CFZmDYQqafhz/sQenf+APOVbHJ5ohMXwAAAABJRU5ErkJggg==</flag>
+	</nationality>
+
+	<nationality>
+		<abbreviation>IS</abbreviation>
+		<name>Iceland</name>
+		<official>Iceland</official>
+		<pt-name>Islândia</pt-name>
+		<pt-nationality>islandês(esa)</pt-nationality>
+		<pt-male>islando</pt-male>
+		<pt-female>islanda</pt-female>
+		<flag>iVBORw0KGgoAAAANSUhEUgAAABwAAAAUCAIAAAARPMquAAAAYUlEQVQ4y2NgsJiOiTTCl//78eO6
+			hgYQfb9+PaBsB1ZlONGooSPZUIuUdZgovGY3sqFlU49jVYYLMfx68gQr+nnvHsTQzwcP4lKDCzFA
+			dFIX0cZQmnifJhE1mqNGDaWuoQD6ca+D73Ha6QAAAABJRU5ErkJggg==</flag>
+	</nationality>
+
+	<nationality>
+		<abbreviation>IT</abbreviation>
+		<name>Italy</name>
+		<official>The Italian Republic</official>
+		<pt-name>Itália</pt-name>
+		<pt-nationality>italiano(a)</pt-nationality>
+		<pt-male>italiano</pt-male>
+		<pt-female>italiana</pt-female>
+		<flag>iVBORw0KGgoAAAANSUhEUgAAAB4AAAAUCAIAAAAVyRqTAAAAJ0lEQVRIx2NgmOSGB/3HC85pm+NB
+			DKNGjxo9avSo0aNGjxo9FI0GAJs77BZqPSxuAAAAAElFTkSuQmCC</flag>
+	</nationality>
+
+	<nationality>
+		<abbreviation>JM</abbreviation>
+		<name>Jamaica</name>
+		<official>Jamaica</official>
+		<pt-name>Jamaica</pt-name>
+		<pt-nationality>jamaicano(a)</pt-nationality>
+		<pt-male>jamaicano</pt-male>
+		<pt-female>jamaicana</pt-female>
+		<flag>iVBORw0KGgoAAAANSUhEUgAAACgAAAAUBAMAAAANaGKIAAAAG1BMVEUAAAAjHwAwiipMliSciQCu
+			vBD21wD32QD52gC0aMGzAAAATklEQVR42m3OQQ2AQBADwIo4BXhAwGnABBJQACeb12WyyfY5SdNm
+			fddRcj4r91b2ZmxlM6GMMsqKMspCWShrsK/3Q6y/ScMoo6woo2H0B1vIVJuzfRdZAAAAAElFTkSu
+			QmCC</flag>
+	</nationality>
+
+	<nationality>
+		<abbreviation>JO</abbreviation>
+		<name>Jordan</name>
+		<official>The Hashemite Kingdom of Jordan</official>
+		<pt-name>Jordânia</pt-name>
+		<pt-nationality>jordano(a)</pt-nationality>
+		<pt-male>jordano</pt-male>
+		<pt-female>jordana</pt-female>
+		<flag>iVBORw0KGgoAAAANSUhEUgAAACgAAAAUCAIAAABwJOjsAAAArUlEQVRIx2OYzStrwsLFQH9wTlAN
+			iAbAeojFA2A9ssV0tR7TYjpZj8timluP32II2qhsVObmHUFVQJTFEHTLJ+bz4ZP/qQSwWHxJ2YwO
+			1qNb/GLi7G9Xb15UMqW171EsPi+m9Wbhyq9nL17Rd6SrxUB0QUofiAYgqAcycWGixRp6XuF2cnlu
+			VESEChBtHZMEc4YqW+qjAbASl8U0txLTYjpZiWwxXa2EoAGwEowAhDQyfjzceQkAAAAASUVORK5C
+			YII=</flag>
+	</nationality>
+
+	<nationality>
+		<abbreviation>JP</abbreviation>
+		<name>Japan</name>
+		<official>Japan</official>
+		<pt-name>Japão</pt-name>
+		<pt-nationality>japonês(esa)</pt-nationality>
+		<pt-male>japonês</pt-male>
+		<pt-female>japonesa</pt-female>
+		<flag>iVBORw0KGgoAAAANSUhEUgAAAB4AAAAUBAMAAABohZD3AAAAGFBMVEW+ACbEGTvOQFzRTGflmqn4
+			5en//v7///+0cFItAAAAQ0lEQVQY02MoRwUMZPHLnAVN0pH4QQwMDKoIfpkCkM+UDueXMICAO5xf
+			DOabw/mFYL44Tj66enTz0O1Ddw+Ge8n3PwAZ23GxZKWojwAAAABJRU5ErkJggg==</flag>
+	</nationality>
+
+	<nationality>
+		<abbreviation>KE</abbreviation>
+		<name>Kenya</name>
+		<official>The Republic of Kenya</official>
+		<pt-name>Quênia</pt-name>
+		<pt-nationality>queniano(a)</pt-nationality>
+		<pt-male>queniano</pt-male>
+		<pt-female>queniana</pt-female>
+		<flag>iVBORw0KGgoAAAANSUhEUgAAAB4AAAAUCAIAAAAVyRqTAAAA0ElEQVR42u2TMQqDQBRERwtbkcAe
+			wX4LC5u04gU8gGiKgBAEwYPkAB5AL6DpkkCqFOlyGjMErP8mCkLI8JCZz/4pVsVfnyoIAmH4tYqi
+			0FrbQK0UoWHkEPPleV5VVSlwjyJCw8ghRI0GOrftyXGeZUloGE22MEDm+H4+koRMUcTsUAT0wNX3
+			Sc+4YPUGaICb1qRhXKN6/QuZ/xpHA126bpg+PhpGky1gJ5EjPsSpnn4ZDUbk8qJ8ItyHbubaOeqt
+			IjSMHC5QbWWWMBSqZ/Bb1S+MtYAoF7oOBAAAAABJRU5ErkJggg==</flag>
+	</nationality>
+
+	<nationality>
+		<abbreviation>KG</abbreviation>
+		<name>Kyrgyzstan</name>
+		<official>The Kyrgyz Republic</official>
+		<pt-name>Quirguistão</pt-name>
+		<pt-nationality>quirguiz</pt-nationality>
+		<pt-male>quirguiz</pt-male>
+		<pt-female>quirguiz</pt-female>
+		<flag>iVBORw0KGgoAAAANSUhEUgAAACEAAAAUCAMAAAA0jaRDAAAAwFBMVEXoES3oEi3oFSzpFi3pFy3p
+			GSzpHyzpIyvpJCvqICzqKyrqLinqLynqMinrMCnrMinrMynrNSjrNSnsOyjsQSjsQyfsRCjsTSXs
+			USXtQyftRSftSCftUSXtUiXuUSXuWyTuXSPvWyXvXSXvaCLvaCPwYyPwayPwbiLwbyHwbyLwdCHx
+			ayLxdCHxeSHxgCDxgSDxgiDyfCHygR/ygiDyhh/yiR/ziB/ziR/zix/zkR3zmh3zmh70lh70nB35
+			1Bb51hapAZO3AAAAmUlEQVQYGc3B5wJCUBgA0M9FRBGirLJl79V8/7fqBa7/zoFNQqwg8gyCVaQS
+			VnGRyQhWkHo+uRdnTA0K8LikNft3b5YJD1iEWp+eN/X6OvYaATi0v9hdfI87e/YowKG8WQqabxNI
+			i08DDqH1h2j4DZFQqwRg8Um5tz7Wrk04wKOMdHTO7pTrJKxAclY8qlAhYRVieFFgEWzRH401DqiI
+			VqjlAAAAAElFTkSuQmCC</flag>
+	</nationality>
+
+	<nationality>
+		<abbreviation>KH</abbreviation>
+		<name>Cambodia</name>
+		<official>The Kingdom of Cambodia</official>
+		<pt-name>Camboja</pt-name>
+		<pt-nationality>cambojano(a)</pt-nationality>
+		<pt-male>cambojano</pt-male>
+		<pt-female>cambojana</pt-female>
+		<flag>iVBORw0KGgoAAAANSUhEUgAAAB4AAAAUCAIAAAAVyRqTAAABXklEQVR42u2UvWrCUBiGIxQhuAtO
+			3oOSGwhOeguCizgJGp0cHCJObg4BDRp/wERUBBGCU65ABRdrK9ii1bbmR3sHfSXYDkJJhHYowkN4
+			v/PmPDmcIQRBlH+Jm/oP1WPCKjO3G1h+/8duSpLga1wGg8tQ6KK9Sr2gqHuKMvPE4dgkkwDBXJn7
+			/XOf7xr15O5uk0pt0umpy4VxFQ6/FQoAwTzyqWWYsdNpW/1A07oo6q0WTvoci6k8r3IcQMC4TiQ0
+			QdBqtQVN21avGUbrdIAhyx+KYoxGRq93HAwOsnxUFH04VCVJbbfX8bht9VM0ChFQSyWtWt1znN5o
+			GJK0LxZVQXjnuEO/j3YVidhTz7xerVLR63UTjefxNETx0O3iA/tyWcPiuZp5PFbVE5Lc5XKnYzab
+			AMEEt4zLPY/f7Y5lscWS+jEQeMlkwGs+DxBMttnslmURLltsufTcfk//Qv0JcXchVIi/c7kAAAAA
+			SUVORK5CYII=</flag>
+	</nationality>
+
+	<nationality>
+		<abbreviation>KI</abbreviation>
+		<name>Kiribati</name>
+		<official>The Republic of Kiribati</official>
+		<pt-name>Kiribati</pt-name>
+		<pt-nationality>quiribatiano(a)</pt-nationality>
+		<pt-male>quiribatiano</pt-male>
+		<pt-female>quiribatiana</pt-female>
+		<flag>iVBORw0KGgoAAAANSUhEUgAAACgAAAAUCAIAAABwJOjsAAABxElEQVRIx2M4J6g2IIiBJNVnvWQu
+			ZYtfy5a65CZ3TkT1srP8rTLJa1USF5MlTrvJ0NBiEBJVvVIhfmeqyL25oi/Xi16NkTmvo0hzH0P9
+			DbTbTf7BZLGb1RKXM6TOaynRyWK49UBEpziGoAsmihc9ZG+XSd0slbxoKw/k0t5iIbUL1vK3GySe
+			rBJ5vVvk1W6RR8tFbjdKXLCUB0rR0mI55XuTRF9tF357ROjTCREgAjKA3Dvt4kApGlp8KVzm6TLR
+			d0eEfl8Q+3MRhIAMIPfJEtHLYbTLTsDEnC31dKvwx5MiEFshCMgFCl7JkALmbBIs/vH81att+263
+			TDoblAZEQAaQCxTEIr5978/3L399ffH5xc6P97teX44GIiADyAUKAqWACogyByzO0L3ixMELj758
+			//UfDIAMIBcoiCb++dvPAxcedi0/QaR6guYw8Hn1Mdi3Mzl26CTM0U2cw+zYAeQCBfGLA7lAQeLF
+			Mc1h+Pv335X7r+dsuZDStQ2IgAwgFyiIR/zyvVezt1xIJlocqzkMRFpGdUcwUBJclAQ7Az0TFLI4
+			g3Ph8spZB9Yfvvn09WcgAjKAXKAgrcUZgH4fGDRQFgMA0hVxWLrYjwQAAAAASUVORK5CYII=</flag>
+	</nationality>
+
+	<nationality>
+		<abbreviation>KM</abbreviation>
+		<name>Comoros</name>
+		<official>The Union of the Comoros</official>
+		<pt-name>Comores</pt-name>
+		<pt-nationality>comoriano(a)</pt-nationality>
+		<pt-male>comoriano</pt-male>
+		<pt-female>comoriana</pt-female>
+		<flag>iVBORw0KGgoAAAANSUhEUgAAACEAAAAUCAIAAACMMcMmAAABgElEQVRIx2OomK/7fL/i/2NytEMM
+			tn3GLhOMFq7W+HWUlnZAUNQ0g1PbVWhrBwTVLdR5dUCBtnYAkdtEo+VrNf4cpYEdLpOsitfmTNzf
+			lbUiyW2SbfBsr2P3Dv2nBoDakbo09vH7h1eeXYyY5z/v2Ez3KbYQ8ZyVye++vqWCHT7TnYEGAZH3
+			NCcgN2lJlH2/KSLoptiuPb/y77+/FNmx5NQCIGvaoYlANtD0vr2dHlPs0CIJaPGVZ5fIt+Pco9NA
+			FjAaIMaVrMtF9gcc2fWZdO5q/vj9A6V2AE0vXZ/nNtkWmx3GZbF6h6XUzwmqkYTQwwqIeve2O0ww
+			Q7MgssxwnY4mqaYj7ECOc2CARMwLQA4rl07jiW46Z4TUyLMAagdy2g2f67fizGJ42k3I1z8oo062
+			6Sh2YOZB3wbDxWZaFJqObgcC9VpZNzRZlR6yKj1CFYRuh01bslXFVmqZjmFHl6d1zRzqmo5kR6+F
+			dWOtVdlBWlgAssOmLd6qYhONTIcgAFzSTC4jJJVLAAAAAElFTkSuQmCC</flag>
+	</nationality>
+
+	<nationality>
+		<abbreviation>KN</abbreviation>
+		<name>Saint Kitts and Nevis</name>
+		<official>Saint Kitts and Nevis</official>
+		<pt-name>São Cristóvão e Neves</pt-name>
+		<pt-nationality>são-cristovense</pt-nationality>
+		<pt-male>são-cristovense</pt-male>
+		<pt-female>são-cristovense</pt-female>
+		<flag>iVBORw0KGgoAAAANSUhEUgAAAB4AAAAUCAIAAAAVyRqTAAABPUlEQVRIx2NgmOdJCUrZZPruvOT2
+			GQJykswM6IBcQ+WWOG8/rPLumGhKMCcDdkB9x5JrNNyxqSHcuA1lAFtJrmNnz56tqqpaWVlpb2+P
+			Zi4wiIB2M5Adss3Nzf/+/fv06RMjIyOyY4EW/zwu/iBWgYG8kC0qKnr79u3///9///49ffp0ZMd+
+			mCt1RUP1nKAaA9nJgIWF5eHDh7a2trq6upoq/HDHAg2FIAZKkkF2djamYwkYTUSaRQ9ZZENxGk1c
+			msXpWOxGwx1bnKwgISEB1C8vL0+qY7EYjexYYBTdvn27s7Nzz549pDoWxWjMkJWRkfn+/Tswbc2d
+			O5dUxyKMxgxZUVHRpUuXAl0NzBGXL1/GnwzwGY0rGcjJyW3bto0MxyKMxpMMNDQ0yHAsUliTlWbJ
+			N5oSx+I0mnLHwhEASmH91Ay6QGMAAAAASUVORK5CYII=</flag>
+	</nationality>
+
+	<nationality>
+		<abbreviation>KP</abbreviation>
+		<name>Korea Democratic Republic</name>
+		<official>The Democratic People's Republic of Korea</official>
+		<pt-name>Coreia do Sul</pt-name>
+		<pt-nationality>sul-coreano(a)</pt-nationality>
+		<pt-male>sul-coreano</pt-male>
+		<pt-female>sul-coreana</pt-female>
+		<flag>iVBORw0KGgoAAAANSUhEUgAAACgAAAAUCAYAAAD/Rn+7AAABHklEQVRIx2Ng9l30fzBjhlEHUurA
+			s6fv7B7MmOGtrOr/wYxJcuA7LaP/n6IS/n8uLPv/0Tvw/1sFjcHjwM+5Rf//ffjw///fv/+/dfX9
+			B4Hf5y/+/+DgNvAO/Bga/f//v38QRx0/+f+dvtn//3/+gPl/Hz76/05db2Ad+HPdxv8/N24B488p
+			mWCxb5OnQ8Q2bf3/tb554Bz4TlX3//+vX/9/rWvGmiZ/bt76/+f2XQPswN+/wdH5fd5ChJyiBjh6
+			QWBAHQjCv8+eBzvka0vH/7dyasCM4Q4RP30WIt7WNTgyycfA8P+/Dh+F5ORJ0/5/be0cHJkEhD9l
+			5f//e//Bf2Twc9eewVHMoBfUX0oqB19BPWBV3aBvLIy2B4e7AwG0eS8bTXPM8wAAAABJRU5ErkJg
+			gg==</flag>
+	</nationality>
+
+	<nationality>
+		<abbreviation>KR</abbreviation>
+		<name>Korea</name>
+		<official>The Republic of Korea</official>
+		<pt-name>Coreia do Norte</pt-name>
+		<pt-nationality>norte-coreano(a)</pt-nationality>
+		<pt-male>norte-coreano</pt-male>
+		<pt-female>norte-coreana</pt-female>
+		<flag>iVBORw0KGgoAAAANSUhEUgAAAB4AAAAUCAIAAAAVyRqTAAAB0ElEQVRIx2P4TzPAgFX079+/xBuB
+			SzEWo58/f25vb3/x4kVizAUqAyoGaiHKaH9//+7ubktLy56enp8/f+IyFCjV29sLURYeHk7Y6MWL
+			F0dGRhoYGHR1dUVEROB3MlAl0Fyg4mXLlq1cuRKf0c+ePdPW1s7Ly6usrAQy3rx5AxH/tP/I3aiM
+			y+pWQHQvLufTweMQcaCC/v5+oGKgFi0tLaB2nEa/fv161apVpqamwcHB69evhwi+nLbgnKAaGgIK
+			QmTXrl0bGBgI1ALUCNROIKxv3rwJdAWE/XjnYUxzIQjoFYia3NzcGzduEJv44GBJdAWaiWeE1CEM
+			YBCRk67hwM+t6iySuZ0KboLW9RJWNeka4cBwp8hoUdf2dI2wbWKGe0X1XA3SGezbIYjRvn2urh9F
+			RvsULYWYxWTXBjcXgpoCy0k2Gjkad52+j2YiHB1Zu5+EaIQkPjMzM+TE17/6FKa5QEHkxAfUQiDx
+			QbJMfn7+lClTkLPM3rMPgmrXSQROAiK/qjVAryBnGaBioBYCWQaS0aOiogoLCzs7O4nJ6MDSBqh4
+			+fLlBDI6vHgCljsWFhbEFE9AZX19fUQVT/BC9dKlS8QUqkBlJBSqNKwKqAUANMnU13Rh6PAAAAAA
+			SUVORK5CYII=</flag>
+	</nationality>
+
+	<nationality>
+		<abbreviation>KW</abbreviation>
+		<name>Kuwait</name>
+		<official>The State of Kuwait</official>
+		<pt-name>Kuwait</pt-name>
+		<pt-nationality>kuwaitiano(a)</pt-nationality>
+		<pt-male>kuwaitiano</pt-male>
+		<pt-female>kuwaitiana</pt-female>
+		<flag>iVBORw0KGgoAAAANSUhEUgAAACgAAAAUCAYAAAD/Rn+7AAAAp0lEQVRIx2NgMNb4z9CT+59hZvng
+			xEDwn4GX6z9Dqv8gdiAMG6kPvtBEcSAI83AOrtDEcOBgC02cDoSHpt8gdiAUy5kavC08tvnYQGCi
+			HAjCAwVGHTjqwFEHUsOBlnzCb6+auh8bCIzXgQKMzP87uCX/nxNUGzCM04HObDz/9wgoD6jjsDoQ
+			FGqdAxxqOB3owsb7f+8gCDUMBwoOslBDcaDrIAw1ZAwAztxG2kTnI/MAAAAASUVORK5CYII=</flag>
+	</nationality>
+
+	<nationality>
+		<abbreviation>KZ</abbreviation>
+		<name>Kazakhstan</name>
+		<official>The Republic of Kazakhstan</official>
+		<pt-name>Cazaquistão</pt-name>
+		<pt-nationality>cazaque</pt-nationality>
+		<pt-male>cazaque</pt-male>
+		<pt-female>cazaque</pt-female>
+		<flag>iVBORw0KGgoAAAANSUhEUgAAACgAAAAUCAIAAABwJOjsAAAB6UlEQVRIx2Ng2HB8YBAQW25bGLGz
+			V2bzFnpbXLu3uGlvvtO2WfS2uGFvYc++zAGw2H/7pNzddSQFNevGI5KbtgG1ABnkW5y9q75/X7rt
+			tnlE6pHfvCliR6/t9gVO22eH7uhT2ryBTIsDdk5y2D5HafNGYjQIbNrjt31S1Z7Sl8e1Xx3Tqt9T
+			5LNjitCmPWT7OMNm23xiNPhun+y6bcb/kzJw5LZ9RuDOiTSPY5dts2r3lCBbXLe32HX7THIsbtxb
+			QEyqrttTDHSi946p1tvm/zspC7cYyPXfMSl4Z3/ZngqaWLz+YOCCA9FcGw+E7uxN3dVy6ajV5SOW
+			mbsbQ3b082zcv/FQ4NwDsaRZ7Ld9cu7ueulNW/Ernbk/cd3BIMfts8U2bQ/f0euwbTYwdoGpWnLT
+			dr8dk3cd8pq0L5U0i5N3tQKzk9W2BfiVym3afOiwa/GeqoAdk5g2HgUmb0Eg2ryndk9xwe6aLYf8
+			tbesIj077SAqOwGt7N6XFbmzB1jYNe4pyNzVMGd/XMauJmAUhG7vIzlxZe1u6CM6OwGR4dblmbub
+			dh/yKtpdXbm7bMmBCGA1Q06qDtwxsWB3NUlFJseGQ/m7aoARBEzJpluXkFlyAVN1776MAagkavaU
+			NO4rGACLB6whMCAIALdsr7z/QM+TAAAAAElFTkSuQmCC</flag>
+	</nationality>
+
+	<nationality>
+		<abbreviation>LA</abbreviation>
+		<name>Lao People's Democratic Republic</name>
+		<official>The Lao People's Democratic Republic</official>
+		<pt-name>Laos</pt-name>
+		<pt-nationality>laociano(a)</pt-nationality>
+		<pt-male>laociano</pt-male>
+		<pt-female>laociana</pt-female>
+		<flag>iVBORw0KGgoAAAANSUhEUgAAAB4AAAAUBAMAAABohZD3AAAAFVBMVEUAKGgaPnemtMrOESbm6vDq
+			7fP///87d1AcAAAANElEQVQY02MwRgUMlPKxAyEXRWQuY1haqgASnyktLU0Bic8C5Dvg4aOrRzcP
+			3T4kQGX/AgA9yCbJEcZ+pgAAAABJRU5ErkJggg==</flag>
+	</nationality>
+
+	<nationality>
+		<abbreviation>LB</abbreviation>
+		<name>Lebanon</name>
+		<official>The Lebanese Republic</official>
+		<pt-name>Líbano</pt-name>
+		<pt-nationality>libanês(a)</pt-nationality>
+		<pt-male>libanês</pt-male>
+		<pt-female>libanesa</pt-female>
+		<flag>iVBORw0KGgoAAAANSUhEUgAAAB4AAAAUCAIAAAAVyRqTAAABCklEQVRIx2P4aa9GI8QwajT9jP5P
+			NKg9N/fwi0vEqyfW6PUPDzPOcwAin90Vb398pJrRr79/sN6SrbomWnx5AJA8++YmdYwGujH+ULvm
+			ujj+JV7CS32VV0dGH2z5+OsLdYy22ZrDvtCFa5G7xPJAnsUeYssC6s/N//vvL0VGf/39verM7MC9
+			NUBzGebZM893BJoLdP7U6+spdfWjLy+9d5dzLnQDGgcME6b5jkDn66xPyDjWe+X9fYqMXnP/YN6J
+			STEHW/z3VAFdDURzb23tubwi81jf9icnqZP4qs/OgRi99fFxiMi3Pz8oNfr33z/rHhza8+zsp19f
+			my8smnB1NZBBVOIbLZ6Gg9EADDXAn5MhpWwAAAAASUVORK5CYII=</flag>
+	</nationality>
+
+	<nationality>
+		<abbreviation>LC</abbreviation>
+		<name>Saint Lucia</name>
+		<official>Saint Lucia</official>
+		<pt-name>Santa Lúcia</pt-name>
+		<pt-nationality>santa-luciense</pt-nationality>
+		<pt-male>santa-luciense</pt-male>
+		<pt-female>santa-luciense</pt-female>
+		<flag>iVBORw0KGgoAAAANSUhEUgAAACgAAAAUCAMAAADImI+JAAAAjVBMVEUAAAAHBwcJCQkLUaEOU6IP
+			VKIQVKMSVqQYFAIoZawqKSUqKiosaK4uaq81LAVPe5dVhr1ZiL9bW1tdjMFfTwhhYWFufmpxhHNz
+			lq+IqtGLi4uMrdORsdWSkpKYfg2Zhzq3zOO7u7y8z+W/0ebBwcLDoRHGx8fZ3uXZ3+fg2bHivBTx
+			yh/1yxX3zRb80RYbIWKhAAAAkUlEQVR42o3KRxKCQBAAwAFBcgbJOaf9//OkLOVkzU6fGx5E/6Ik
+			EaPrEmPT0KI2TRopplGUUqK8iOIiE6JXApQeIXYGgNHxoznAZTC5MfchDMHPefE5C/Zx2ML85MQg
+			UzfGNjULOLHXR3YZ9R6PVluxj6q10FjU7KsusKis5y+eq4LEZGe3PUGiE79usYNExBuQIhdF/jky
+			1gAAAABJRU5ErkJggg==</flag>
+	</nationality>
+
+	<nationality>
+		<abbreviation>LI</abbreviation>
+		<name>Liechtenstein</name>
+		<official>The Principality of Liechtenstein</official>
+		<pt-name>Liechtenstein</pt-name>
+		<pt-nationality>listenstainiano(a)</pt-nationality>
+		<pt-male>listenstainiano</pt-male>
+		<pt-female>listenstainiana</pt-female>
+		<flag>iVBORw0KGgoAAAANSUhEUgAAACEAAAAUCAIAAACMMcMmAAAAqUlEQVRIx2Ng0K6nOcIqyqpTSVs7
+			2HXL9G1caWUHq1qqpZ25qLqzkZmurI6drJ4rg1Y1le3Q1Fbqq1SuSJeJDxCvzZRrzJVjkPKjqh1a
+			tflJSrX58g2FCi3FiiWJcrmxUhb21lT2R3m2zo3tJh9OWx5foX99m/HxlQau/v5UtoPXoEBc04NB
+			0JiBT4tfwdrAIYCGaZce+YPK6JygGq3RqB2jdozaMbB2AADx5DM8bFRINwAAAABJRU5ErkJggg==</flag>
+	</nationality>
+
+	<nationality>
+		<abbreviation>LK</abbreviation>
+		<name>Sri Lanka</name>
+		<official>The Democratic Socialist Republic of Sri Lanka</official>
+		<pt-name>Sri Lanka</pt-name>
+		<pt-nationality>cingalês(a)</pt-nationality>
+		<pt-male>cingalês</pt-male>
+		<pt-female>cingalesa</pt-female>
+		<flag>iVBORw0KGgoAAAANSUhEUgAAACgAAAAUCAIAAABwJOjsAAACYElEQVRIx2P4f45hQBAIPzzMunwd
+			HzJatZ7v/3oGdHQEpPjuJJG7E0XJRncmiH7exQ61GGgTQ5EmMmIv1fhfzICO1oMUb3Q0OFsqt1DV
+			eo6cLaloX7TG3iiNuxNEybF4taXJ4zmCh5LUSLV1mYH5yxW8+6I1gf4mx+L5yiC/zlOygRi3UN0K
+			zsaPQMrkQQyKLIajgwlqcxVBFi/RsVjvYLjFS2+xluV2f51rLZKnCxXW2hphuoA6Fp+vlAWSJ3MV
+			700RAYbkiyX8Z4rkny4UADpohZHZNh9doGuW6plT3+LrrZJz5G12BWlfbpJ+vZrndp/4hSrZIymq
+			NzokrjZLnSuXu9wgvSdck/oWA20Cxtz9qSI3uyQezxV6sYTvaIbyYk1LYJgfTVe5VC8DDPCrrVJU
+			thgYr0/nCc5TtAEioAXvN3E9mC78cSsHWllxp1+MyhZvdDE4VyYLzNlAW/EUUsAooLbFTgbX2yU/
+			72C/0Snx7wzUmr+nGYHkj0MswCT2/yxIBJj0qGzxCmMzYDo6laf4YLrIi6V8QNmfR1g+buM4ma94
+			f5rwvzOMR9JUgOQmFwPqB/XNbvHlRmYrTU3X2Bj9PcW4L0oDUkoAU9a3vWyrzEzfb+S6VCdD/VQN
+			LcgUbc5XygEDdoe/DpC7WMfiaJrKs4UCxzKVv+1jO5ahTDWL0awHFpzAggJYBwAZIIu1Lbd66212
+			019nZwQsxSAFCEgLJUUmsF66UC1zJF2F1EoCmCBeLefdE0FuJQGsZB7OFF5pZkpGtbg3SnNXiBbC
+			YpIaArf7xChpCNxFbggMCAIAhR8Jmr9aNdcAAAAASUVORK5CYII=</flag>
+	</nationality>
+
+	<nationality>
+		<abbreviation>LR</abbreviation>
+		<name>Liberia</name>
+		<official>The Republic of Liberia</official>
+		<pt-name>Libéria</pt-name>
+		<pt-nationality>liberiano(a)</pt-nationality>
+		<pt-male>liberiano</pt-male>
+		<pt-female>liberiana</pt-female>
+		<flag>iVBORw0KGgoAAAANSUhEUgAAACYAAAAUCAMAAADWUb86AAAAflBMVEXytcHunq398vT98fPjXnff
+			R2TEHUDn6+4AJkkBJ0oCKEoEKUwLL1E4VnFHYnxnfpNof5NuhJhvhJh1ip17j6GdrLnEHUDKQ2DO
+			V3HV2+HXi5zYHD/Znq3fR2PjXHXl6ezn6+7tlaXwqrfy9Pb29/n66e36+/v76+78/P3////TYSLD
+			AAAACHRSTlPt7vb3+Pz+/upEbsYAAAB7SURBVCjPjc43FsIwFAXRJ2PBkHM0jgTj/W+Qxhwqyf/W
+			U4z4GWcRApgDnPMwL4AjQNVFCDb7z2E7496ESbB8du8VnIbero8SuNVhTjDdsV4Mv/UuRVj6z+Jv
+			k6r3asMSjVqDRJmJ0sIgVWciVxs465saA1nffG7gjW9f/ohYaykvH4gAAAAASUVORK5CYII=</flag>
+	</nationality>
+
+	<nationality>
+		<abbreviation>LS</abbreviation>
+		<name>Lesotho</name>
+		<official>The Kingdom of Lesotho</official>
+		<pt-name>Lesoto</pt-name>
+		<pt-nationality>lesotiano(a)</pt-nationality>
+		<pt-male>lesotiano</pt-male>
+		<pt-female>lesotiana</pt-female>
+		<flag>iVBORw0KGgoAAAANSUhEUgAAAB4AAAAUCAIAAAAVyRqTAAAAn0lEQVRIx2NgUJhPKzRq9LAw+j/R
+			oLOzs7+/n3j1xBp9+vRpoLlA0y9evEhlo2/dupWdnZ2UlPT48WMqGw0EOjo6Ghoaf//+pbLRXV1d
+			DGBQVVVFTaOXLVvGzc0NMZqdnX3GjBnUMfr+/fva2touLi6GYGBjY2NhYQEMeuq4+siRI729vZWV
+			lTU1NVOnTj127BhRrmaY6kwrNGr0cDAaACzCrsf2kWU0AAAAAElFTkSuQmCC</flag>
+	</nationality>
+
+	<nationality>
+		<abbreviation>LT</abbreviation>
+		<name>Lithuania</name>
+		<official>The Republic of Lithuania</official>
+		<pt-name>Lituânia</pt-name>
+		<pt-nationality>lituano(a)</pt-nationality>
+		<pt-male>lituano</pt-male>
+		<pt-female>lituana</pt-female>
+		<flag>iVBORw0KGgoAAAANSUhEUgAAACEAAAAUCAIAAACMMcMmAAAANElEQVRIx2P8u1OYgcaAcdSOkWfH
+			snkqNLeDIctl1I5RO6huR72dKc3tOKiuO2rHqB3UBgBSBxe3gsmmOAAAAABJRU5ErkJggg==</flag>
+	</nationality>
+
+	<nationality>
+		<abbreviation>LU</abbreviation>
+		<name>Luxembourg</name>
+		<official>The Grand Duchy of Luxembourg</official>
+		<pt-name>Luxemburgo</pt-name>
+		<pt-nationality>luxemburguês(a)</pt-nationality>
+		<pt-male>luxemburguês</pt-male>
+		<pt-female>luxemburguesa</pt-female>
+		<flag>iVBORw0KGgoAAAANSUhEUgAAACEAAAAUCAYAAAADU1RxAAAAQElEQVRIx2N8r637n2GAAeOoI0Yd
+			MSgd8dHb99iAO+I/EIw6YtQRo47A5ojCM28GPosyLL77f9QRo44YdQQWAAANpDnZuzW3HQAAAABJ
+			RU5ErkJggg==</flag>
+	</nationality>
+
+	<nationality>
+		<abbreviation>LV</abbreviation>
+		<name>Latvia</name>
+		<official>The Republic of Latvia</official>
+		<pt-name>Letônia</pt-name>
+		<pt-nationality>letã(o)</pt-nationality>
+		<pt-male>letão</pt-male>
+		<pt-female>letã</pt-female>
+		<flag>iVBORw0KGgoAAAANSUhEUgAAACgAAAAUAQMAAADFiO34AAAABlBMVEWGFiP///8wFwrqAAAAEklE
+			QVQI12NgIBH8BwEsJIkAAKwEE+3AWvguAAAAAElFTkSuQmCC</flag>
+	</nationality>
+
+	<nationality>
+		<abbreviation>LY</abbreviation>
+		<name>Libya</name>
+		<official>The State of Libya</official>
+		<pt-name>Líbia</pt-name>
+		<pt-nationality>líbio(a)</pt-nationality>
+		<pt-male>líbio</pt-male>
+		<pt-female>líbia</pt-female>
+		<flag>iVBORw0KGgoAAAANSUhEUgAAACgAAAAUCAIAAABwJOjsAAAAu0lEQVR42uXPMQqDQBCF4RdTpBNx
+			FwJikx3RxlOkSBVrr2DrETyBVdqttNqT2IleIZDKNp2QYCAHEHQQf77+zeAFwWKHw29IFnhCsMAZ
+			FgtsLN/3i6JIksS2bawWEbVtm+d5FEUAPM+TUjqOg6Wrqqqu6/8RTdMMw6CUwtIZY7TWmPo+3XXd
+			OI5EhKWL47jv+yzLfmNqSgiBFQqCoCzLNE1d18XGsk7HeQ4Tay5cHlcWCM2dBUjfWOxv+AOBu77q
+			YmBJ5AAAAABJRU5ErkJggg==</flag>
+	</nationality>
+
+	<nationality>
+		<abbreviation>MA</abbreviation>
+		<name>Morocco</name>
+		<official>The Kingdom of Morocco</official>
+		<pt-name>Marrocos</pt-name>
+		<pt-nationality>marroquino(a)</pt-nationality>
+		<pt-male>marroquino</pt-male>
+		<pt-female>marroquina</pt-female>
+		<flag>iVBORw0KGgoAAAANSUhEUgAAAB4AAAAUCAIAAAAVyRqTAAAA/ElEQVRIx2N4ziBMI8QwajTZRh/h
+			ELjNJEQTo5u0uGfI8NLEaHdfthhbDuobfYdJSCmCWT2E+RlVjL7JJFSpwVWhD0Kphhy2HqzmHqwZ
+			RpwQkVpVrkeUuHq1GJ90JpOOP4uzD1u0MXuAJbu7A5tSNLNqIvN2AX5KA+Qkh6B5EKu+O8sZVsFV
+			fHyqIcyuXmyXWQWpE9arBfkMvVisHVg1w5kV/JlPsQlSLRpLDLls7VllYpkM3Fks3Fk7lbmpZrRl
+			MKtyPPNWAf6VEnySWUx+rmzUMfoCq6CzM9slWCCc5BR0cGR9yChEBaMvMws+RRW5zyR0k0lotOQb
+			REYDAHdtNimGx99kAAAAAElFTkSuQmCC</flag>
+	</nationality>
+
+	<nationality>
+		<abbreviation>MC</abbreviation>
+		<name>Monaco</name>
+		<official>The Principality of Monaco</official>
+		<pt-name>Mónaco</pt-name>
+		<pt-nationality>monegasco(a)</pt-nationality>
+		<pt-male>monegasco</pt-male>
+		<pt-female>monegasca</pt-female>
+		<flag>iVBORw0KGgoAAAANSUhEUgAAABkAAAAUCAIAAAD3FQHqAAAAIUlEQVQ4y2M4J6hGLcQwataoWUPF
+			rP/UA6NmjZo1VMwCACKr6iIzH0CeAAAAAElFTkSuQmCC</flag>
+	</nationality>
+
+	<nationality>
+		<abbreviation>MD</abbreviation>
+		<name>Moldova</name>
+		<official>The Republic of Moldova</official>
+		<pt-name>Moldávia</pt-name>
+		<pt-nationality>moldavo(a)</pt-nationality>
+		<pt-male>moldavo</pt-male>
+		<pt-female>moldava</pt-female>
+		<flag>iVBORw0KGgoAAAANSUhEUgAAACgAAAAUCAIAAABwJOjsAAABHUlEQVRIx2NgYNhMDFrUZ/f9JgNB
+			9GEW22NFAWIQw6jFoxZjt/jGQYaJxTxnN3DSz+Lb+9nKE4Sfn2GYXiuyul/wzkHm6iTR56eYaW7x
+			1DpedzORNSViU+Ml56RKLMgVc9AX2TiTneYWr+znS/eTPx8ltsBDYKW34IkQqQR3+R3zaG9xbhJv
+			UajSkkSxvf18G9r4VqTI5AYoz2xnpbnFSTE8Sd6y1qV5MXUOHkV+FrnFQIvn9dDe4hkt/PbWgqU9
+			Dokt7sFVvoXN7mmBEtvmcdDc4jUTeQNdeY+0cUxrVl/UJ7Orkqs+hYcecfz0BOODHcxTmzhKIuXL
+			Y2QWdbG/PMz06BgjnQqQB0cYW/N5JtZwvzzLOFpWj1o8yCwGAAMajyjdHHhyAAAAAElFTkSuQmCC</flag>
+	</nationality>
+
+	<nationality>
+		<abbreviation>ME</abbreviation>
+		<name>Montenegro</name>
+		<official>Montenegro</official>
+		<pt-name>Montenegro</pt-name>
+		<pt-nationality>montenegrino(a)</pt-nationality>
+		<pt-male>montenegrino</pt-male>
+		<pt-female>montenegrina</pt-female>
+		<flag>iVBORw0KGgoAAAANSUhEUgAAACgAAAAUCAIAAABwJOjsAAABsUlEQVRIx2O4vM56QBADEB9h5qAz
+			GqIWc3AdFeKhu8USvCey1Y4XaRyR4aOHxUfFeI9Kgmw6ailxslP/RI/+cTspEJeH+5ihKK0sPszK
+			cTpe+YSd5DEbidMNusdjFI8nKJ2u1jpqJ3HMROxEjuoRQR6aWHxMQfD0RMNzXQaHlARO5aqdilQ8
+			nahypkQLyD3brHuyz/CYlghtLFYSOj3T+PxSizPZ6of9Fda326zvtD8QpXoqXAEoCJQ6qidKE4uP
+			yvCfnmp0AWhxtfbCCse8ggTnlIq0rKTT+RoXllucmmp0zFiMJhYf95U90axzeo7J+WXmRSXxG9qs
+			l7Y5VpdFAp1yerbJyQadwyy0SVzAXHvCX+5Eg86pWSYLG23baxw6qh3mN1mfnGl0okXnqJoQLbOT
+			twyI9JI+OddsZpvJ1FaTk3PMjobKHzSU2JRrQkOLgbn2VLLKyTrt42mqZ2ebABGQcbJTb1eDyYFu
+			Y2BZRjMf64ie6NY/ysV9Ok311GwTEIpROsLKeUxd6AgHJ42LTEleUNaykDg9wejUJCNgYULvSuKw
+			AM8REZ4RVS1SbvGAIADwnys3pNNckQAAAABJRU5ErkJggg==</flag>
+	</nationality>
+
+	<nationality>
+		<abbreviation>MG</abbreviation>
+		<name>Madagascar</name>
+		<official>The Republic of Madagascar</official>
+		<pt-name>Madagáscar</pt-name>
+		<pt-nationality>malgaxe</pt-nationality>
+		<pt-male>malgaxe</pt-male>
+		<pt-female>malgaxe</pt-female>
+		<flag>iVBORw0KGgoAAAANSUhEUgAAAB4AAAAUCAIAAAAVyRqTAAAALElEQVRIx2P8//8/A25wXkidgVzA
+			OGr0qNGjRlPRaMYdiaNGjxo9ajR9jAYAsShRLXsTjDQAAAAASUVORK5CYII=</flag>
+	</nationality>
+
+	<nationality>
+		<abbreviation>MH</abbreviation>
+		<name>Marshall Islands</name>
+		<official>The Republic of the Marshall Islands</official>
+		<pt-name>Ilhas Marshall</pt-name>
+		<pt-nationality>marshallês(esa)</pt-nationality>
+		<pt-male>marshallês</pt-male>
+		<pt-female>marshallesa</pt-female>
+		<flag>iVBORw0KGgoAAAANSUhEUgAAACYAAAAUCAIAAABu7dhfAAAC/ElEQVRIx2NgsJhMNyTgOGlBSy4D
+			Vjlep5nUtUzEeeKS1ux7DWJ3SxmwW6kTtYxalkm4TlzRlnmvXhhoGQShW8nlMF3KZ55vyRYZv/mc
+			9tMpsUzSbeLq9vR7dYJwy7BYqRC40D1/Y0Ttjt5l5zM69+vFLCPPVln3Ces7Uu7VCqBZ9qhL/cPB
+			XgZk/wHtm7z64st33779+H388vOSyUcMYpeTZJmC54SNnUn3aviQbbpXyfFyWfT3uwf/gwHCSmB4
+			Av0HtA8i8e/f/y1H7lulriHSoyo+/Vu7Eu7V8CJb9rhH68Oh/r9f3/5HAgyQ9KkbvQwYf8DwBPoP
+			Lnft/jtg8DpkrQMGOLPVFFyWafr17+iKu1fNjfBWFefL5bHf7x/+jw0gfAlML0ALgOEJ9B8Q/P7z
+			d86mq655G/D4Uiegf3d3NNAChLd6dT4cmfT32ztMm168/Qo00K90C8JKoNHA9AKMP2B4Av0HlA6u
+			3CYfsACrZQaBvft6IoGRBPMW16uVCd8fHMO06fLdN60LTpsnr2K0hGlHNghoKzC9AOMP6F2g/4D2
+			cdhNQ7PMJLj3QE/4vUp2qLf69D4enfL3+wdka379/rvn9OO8vkOKQQuxuBhTCGixfeY6zPC0DO85
+			1BNyr4IV5K1q7lerkn48PIFs07tPP5buvBles4PfBW/hhVUULTztIruP9gbeLWcBWvZkguHH49P/
+			fv8It+nOkw99y88DUxmL9VSi8hJWUXj6dIzuPt7rf7ec+X41z6s1qT8en4ZY8/fvv6OXnpVPPaoZ
+			sYTksgKXhHtc18le37tlTE8mGn88MfPvz89Am758+7XuwN2E5j2iHnPILwsxhXwSOk/3et2v5X+9
+			NuPHk7NAm568+jJ93WXPwk3sttOoUNYjcwKTOs71uj+ZbP7p5Jx/P7+cu/mqYc5Jo/gVVK44IVRo
+			SvvZiYGv12d/fnhu+/GHmV37gSUDrerq6PTWE/OKnx6cuWjT+aCKbTyOM2jePJg+a5V12hom3EUo
+			1REAlHWFJk3t5/EAAAAASUVORK5CYII=</flag>
+	</nationality>
+
+	<nationality>
+		<abbreviation>MK</abbreviation>
+		<name>North Macedonia</name>
+		<official>Republic of North Macedonia</official>
+		<pt-name>Macedônia do Norte</pt-name>
+		<pt-nationality>macedônico(a)</pt-nationality>
+		<pt-male>macedônico</pt-male>
+		<pt-female>macedônica</pt-female>
+		<flag>iVBORw0KGgoAAAANSUhEUgAAACgAAAAUCAMAAADImI+JAAAAbFBMVEXOICjPIijQIifQKSfQKifS
+			MibTNybUOyXYSSTZTSTZTiPbViPdXCHdXSHdYCLdYSLfYyDhciDjex/kex/mhB7qlRzqlhzsoBvu
+			phvuqBvuqRrvrRryuBjzuxn0vxj1xBj3zBf3zRf41Bb51haBH2CZAAAAs0lEQVR42o2TWQ6DMAxE
+			E/ay07CVLcDc/44VwQ0SqJL9Nda8KBrHEfEAAI0nbGlAX53XHP4QC3GiS2StDuhsEy0/TBC6K0md
+			At4kpdotdqFjcOoESE4VjDeM0LUwygd8I4qVsAdKmbSmFBZ7oiZT15kUhP1BeyWdsnSk6u/YNg9t
+			XeVx6BKaTsCUEuaGr7yq28+8CdiiI9mhM7Ivlw2yr+aE4Y+HP3D+E/KXgr9m7MVlf4UvdJMinRFp
+			4TsAAAAASUVORK5CYII=</flag>
+	</nationality>
+
+	<nationality>
+		<abbreviation>ML</abbreviation>
+		<name>Mali</name>
+		<official>The Republic of Mali</official>
+		<pt-name>Mali</pt-name>
+		<pt-nationality>malinês(esa)</pt-nationality>
+		<pt-male>malinês</pt-male>
+		<pt-female>malinesa</pt-female>
+		<flag>iVBORw0KGgoAAAANSUhEUgAAAB4AAAAUCAIAAAAVyRqTAAAAKUlEQVRIx2MQ2WqFB/25KIYHnRNU
+			w4MYRo0eNXrU6FGjR40eNXooGg0AAxkPxn4+ySwAAAAASUVORK5CYII=</flag>
+	</nationality>
+
+	<nationality>
+		<abbreviation>MM</abbreviation>
+		<name>Myanmar</name>
+		<official>The Republic of the Union of Myanmar</official>
+		<pt-name>Myanmar</pt-name>
+		<pt-nationality>birmanês(a)</pt-nationality>
+		<pt-male>birmanês</pt-male>
+		<pt-female>birmanesa</pt-female>
+		<flag>iVBORw0KGgoAAAANSUhEUgAAACQAAAAUCAIAAABqGAhiAAABF0lEQVRIx2NQcFqIidTcl2AVz7bK
+			vqUrQzZiQDPOInx1fuuh2oknHGLXN087reS8iFaWFXUc8U7bnFG/v3biybTafa5JG5umnlJ1W0x9
+			y3R8lgXnbk+v27/72OO2GafX7Lyzcutt26h1luFrqG+Zgf+KyKKdm/bdn7/uWn774YqeozuPPMps
+			2F/ccYT6lgF90Djl1Ob99+etvVbRf7y87/jeE4+TqvZ0zzlHfcuUXRY5xq3PbTl09fbb8u5jU5Ze
+			3LDnnnHQSqCPaZJAYkp3Ae3LajhQ1Xesqv+4edhqYAIBxiWtkj4wNWY2HGiZdto0eNXERRepnM8M
+			HaZiIgv3mSbO0zHFyyySKbKMEs2jlo1aNmrZCLcMALqjSdeB5lWEAAAAAElFTkSuQmCC</flag>
+	</nationality>
+
+	<nationality>
+		<abbreviation>MN</abbreviation>
+		<name>Mongolia</name>
+		<official>The State of Mongolia</official>
+		<pt-name>Mongólia</pt-name>
+		<pt-nationality>mongol</pt-nationality>
+		<pt-male>mongol</pt-male>
+		<pt-female>mongol</pt-female>
+		<flag>iVBORw0KGgoAAAANSUhEUgAAACgAAAAUCAIAAABwJOjsAAAA2klEQVRIx2O4Iy5DDKqqmuS+7jxB
+			BFRGpIEMg8jip0ESdyTobvE9BZnPm4WeeEsOgI9fZojfVZamt8VPfSW/XxR80yR6R4qOFgPD+W2X
+			6O9X/EC7H9lL0tHHkjJv2kTfTxV50yL62EWSrkH90FIS6OlnkRL0i2NgCH9YJPIsXPLbcaE3DWLP
+			08SBIs8TxOlkMRy96xelq8UPzKVe14s98ZcEWklXi7/uE/qyV+jbEcGXxWJ0tfjTGmFgyfX7JT+9
+			LX5gKvWqQuxZhAS9g3rAEtcAZKcR3BCgj8UA44w4cV/bPzsAAAAASUVORK5CYII=</flag>
+	</nationality>
+
+	<nationality>
+		<abbreviation>MR</abbreviation>
+		<name>Mauritania</name>
+		<official>The Islamic Republic of Mauritania</official>
+		<pt-name>Mauritânia</pt-name>
+		<pt-nationality>mauritano(a)</pt-nationality>
+		<pt-male>mauritano</pt-male>
+		<pt-female>mauritana</pt-female>
+		<flag>iVBORw0KGgoAAAANSUhEUgAAAB4AAAAUCAMAAACtdX32AAAAeFBMVEUetTogtjoktjkmtzgptzgq
+			tjgutjgyuDc0uDY0uDc7uTU+uTVCujRNuzJQuzJSuzFSuzJWvDFbvTBcvTBzwCx7wSuJwimJwyiM
+			wyikxiSuxyK8ySHIyx/VzBzdzRvizRrwzxj10Bf20Bf30Bf40Bf60Bb70Rb80RZVJfOcAAAAc0lE
+			QVQYGd3BSQ6CMABA0c9QUGaQKvMk0vvfUGKMi9K4dOF7/ND5xDe3K2YO4LXbo/UAB13CTtwXwS5B
+			J33gkmYF4Et0ueRD5ujcKeAtmFwO6j7iJeprjsQ4V7Ftx9U8CgzCTql1VaoLMbLKZhia0uIfPAHK
+			DwWJhwBecgAAAABJRU5ErkJggg==</flag>
+	</nationality>
+
+	<nationality>
+		<abbreviation>MT</abbreviation>
+		<name>Malta</name>
+		<official>The Republic of Malta</official>
+		<pt-name>Malta</pt-name>
+		<pt-nationality>maltês(a)</pt-nationality>
+		<pt-male>maltês</pt-male>
+		<pt-female>maltesa</pt-female>
+		<flag>iVBORw0KGgoAAAANSUhEUgAAAB4AAAAUBAMAAABohZD3AAAAJFBMVEWrpJ25tLK7trK7uLXAkJPB
+			kZTMzMzPFCvkoqrosbj87e7////LwTbBAAAAMElEQVQY02PYvXL1biDYXg4BDLvbulH4K4I8ViPz
+			pxmYzUaRD4xYjU8/hvkQMFz4AJWHsVOT5BTLAAAAAElFTkSuQmCC</flag>
+	</nationality>
+
+	<nationality>
+		<abbreviation>MU</abbreviation>
+		<name>Mauritius</name>
+		<official>The Republic of Mauritius</official>
+		<pt-name>Ilhas Maurícias</pt-name>
+		<pt-nationality>mauriciano(a)</pt-nationality>
+		<pt-male>mauriciano</pt-male>
+		<pt-female>mauriciana</pt-female>
+		<flag>iVBORw0KGgoAAAANSUhEUgAAAB4AAAAUCAIAAAAVyRqTAAAAMklEQVRIx2O4IyFHI8QwajT9jGbU
+			aqcRGjWajkb/ec1PIzRqNB2NFpsUTCM0ajT9jAYAIHPCLZjOBccAAAAASUVORK5CYII=</flag>
+	</nationality>
+
+	<nationality>
+		<abbreviation>MV</abbreviation>
+		<name>Maldives</name>
+		<official>The Republic of Maldives</official>
+		<pt-name>Maldivas</pt-name>
+		<pt-nationality>maldivo(a)</pt-nationality>
+		<pt-male>maldivo</pt-male>
+		<pt-female>maldiva</pt-female>
+		<flag>iVBORw0KGgoAAAANSUhEUgAAAB4AAAAUBAMAAABohZD3AAAAKlBMVEUAfjoBfzsFgT4NhEQTiEku
+			lV49nWlDoG5stY2Xyq+o07y+383SEDT3+/maYiRRAAAAMUlEQVQY02M4gwoYKOcfYIABHgRfNBmF
+			z7IDVZ5rAipftwA/H109unno9iG7h6r+BQDL0qQ3wHnfZAAAAABJRU5ErkJggg==</flag>
+	</nationality>
+
+	<nationality>
+		<abbreviation>MW</abbreviation>
+		<name>Malawi</name>
+		<official>The Republic of Malawi</official>
+		<pt-name>Malawi</pt-name>
+		<pt-nationality>malauiano(a)</pt-nationality>
+		<pt-male>malauiano</pt-male>
+		<pt-female>malauiana</pt-female>
+		<flag>iVBORw0KGgoAAAANSUhEUgAAAB4AAAAUCAIAAAAVyRqTAAAAzElEQVR42u2PvQrCMBRG722aJik2
+			WoiDi5O6qCCI4OzipKsgPoCgrYvPIz6Rz+RHQV1a0GoXaTjD/fk43NCbj4kkMWD63bMs1oE9GJdk
+			oEDbZPGtd+jrk3FbFc9liBqgQIsh6vLenlDnsL2QDcveyNc4OTVu7Gu0GGLVF6qMVxCn2d9D9q5R
+			9xYPnqDFECsEEPtYjeuOxnU8iese0hcYYoUAYoWKZRDlsgrsRrVQ7HScC1YIIFZkIJxQEbX6P9T7
+			ZFIRNL3MKqJW/4X6Dqh/tPx8rmjKAAAAAElFTkSuQmCC</flag>
+	</nationality>
+
+	<nationality>
+		<abbreviation>MX</abbreviation>
+		<name>Mexico</name>
+		<official>The United Mexican States</official>
+		<pt-name>México</pt-name>
+		<pt-nationality>mexicano(a)</pt-nationality>
+		<pt-male>mexicano</pt-male>
+		<pt-female>mexicana</pt-female>
+		<flag>iVBORw0KGgoAAAANSUhEUgAAACMAAAAUCAIAAACIxBMbAAAA/ElEQVRIx2PgLwxiyHDHg/ynN/wn
+			BO4nFZwTVMOPGEZtGrWJApt+/Pj88sbRdS3xLaFWZ7Yvp6FND29su7K2akNbfKmHdrK18q1Th2hi
+			06e3Ny5c2LZnXnVrmntXtFVTkG5vmi/1bXrw8OL3+7fvXVhxYk1td5pHXWro9qUzF/c137t/lso2
+			PXp0YsfhY3P2bL1zbM2ORZMrU/yn1OY/e3z39u1DVLbp6bMbt28eWHzqRNW27dlLZpYt6a1bt+nu
+			rUN375+hfjxdvrr37O1T8w9tXjkxfemuNQ8fnDp3cRut0t6rV7fPnN107fjBs2c3vn//bLSMGLVp
+			SNgEAEQ/EpHAYWyBAAAAAElFTkSuQmCC</flag>
+	</nationality>
+
+	<nationality>
+		<abbreviation>MY</abbreviation>
+		<name>Malaysia</name>
+		<official>Malaysia</official>
+		<pt-name>Malásia</pt-name>
+		<pt-nationality>malaio(a)</pt-nationality>
+		<pt-male>malaio</pt-male>
+		<pt-female>malaia</pt-female>
+		<flag>iVBORw0KGgoAAAANSUhEUgAAACgAAAAUCAIAAABwJOjsAAABZ0lEQVRIx2NgMF1LNrqjIk82YsA0
+			Ti+wL7c8uaE5LCC1nNViFR6LP8yfSzZCt7ilLfjlYf6onAIB+0Vsliv1A/tUvKdKu85mMV8F5KIp
+			/nX3DtkIxeLEwuyfZ1mAPoZwgZaJOc2Ly8vNLEmLzs3ntV3CbbOMJkF9bYfMvKlOcC6X9TKX+PoD
+			q7TfHOU9s0k5qTCb2Ww1svqvBw+QjRAWA6PzzwWmjJI0uAgwhNvag4Bh8P8iw78LjBP7vLX9J1Df
+			YiB6dYSvqTUUzlXxmZpXkfThBBfQ4u9nWIFSurBYoHJQL5zhcH2HNLvVCngYeCVXl9fFzJnq0toW
+			DGSjxTHVEpew44KH+0QWzbBHtsAjsdoivB3oe8ysRc3sBMxFUyd4HFmrMX2ie255inFoF1CQyXwN
+			PQoQ4tF/CgDDrthCstHr5kayEcNDV8cBQQz/BwgwPEuMHRA0cBYPWFAPWOKiJEtQlJ0GKqgBOQiH
+			Ee+Y9eYAAAAASUVORK5CYII=</flag>
+	</nationality>
+
+	<nationality>
+		<abbreviation>MZ</abbreviation>
+		<name>Mozambique</name>
+		<official>The Republic of Mozambique</official>
+		<pt-name>Moçambique</pt-name>
+		<pt-nationality>moçambicano(a)</pt-nationality>
+		<pt-male>moçambicano</pt-male>
+		<pt-female>moçambicana</pt-female>
+		<flag>iVBORw0KGgoAAAANSUhEUgAAAB4AAAAUCAIAAAAVyRqTAAABa0lEQVRIx2NoMvVgz0tjKMygProk
+			YLJG0VY+OYEmRgPRcVFzt8BwmhgNQRWWXqz56TQxGoiWqdpLpiXRxGggOixuYRsaSWWjb5lpQ9mC
+			pvtSy1ccOrDiyCGyEdTofXz6y0TUP63lPcZvOIdHfQ0vyI65POoiTKwMZAOgEdv5dCWZ2MIUeZdM
+			YnDn5Z/IrQL3B9BKUxZeMo2+rqFXH8FemshbXWSjoSayb43fu0PcrzrFLosbQUy/IGCcwiHJSJ6r
+			L0sY5YSZW1hYpKSklJeXbyzwQI4Aiowu4JQJsDCY2Jc3fXLRlvUdCUam1AkQoP4+buW3M4Te9Ivc
+			NNL+vInnWLj0EX5D6kTjJUGTez6qEGdeFja+56kGFLlTnP383vLnD1aQjbBkmavyBh+W8P95yEAh
+			Qjf6to3m9xNslJuLbvSTTLnfdxipYi7C6CvShu9mC1LLUITRwKLj2yEO6poLMvpRgsLvW0xUNxeI
+			AG5DmnAPjH4zAAAAAElFTkSuQmCC</flag>
+	</nationality>
+
+	<nationality>
+		<abbreviation>NA</abbreviation>
+		<name>Namibia</name>
+		<official>The Republic of Namibia</official>
+		<pt-name>Namíbia</pt-name>
+		<pt-nationality>namibiano(a)</pt-nationality>
+		<pt-male>namibiano</pt-male>
+		<pt-female>namibiana</pt-female>
+		<flag>iVBORw0KGgoAAAANSUhEUgAAAB4AAAAUCAMAAACtdX32AAAAUVBMVEUANYAAlUMLPHoPPngSQHcW
+			RosWnlMiSW9VaFVXuYNYe6x9f0KNiTqPijiakjOjly6tvtat3cPSEDTWI0TgXXXp2+Tp49/twwnv
+			rbnwrbr/zgDNqpk3AAAAdUlEQVR42m3OSRbAEBRE0RBpRaQn2f9Cw4Aa1K8Z79xDI6/b4nmkyXW+
+			r9RKNsNgiNbcWudsy/Q433welxCWken1TOlC+/X7Vq+J7r2CZqqUwttM0/BzpjnXMUVmisy0TqSY
+			SDGRYjJFFilyoRGUMihnvMr7AezhE00k67MGAAAAAElFTkSuQmCC</flag>
+	</nationality>
+
+	<nationality>
+		<abbreviation>NE</abbreviation>
+		<name>Niger</name>
+		<official>The Republic of the Niger</official>
+		<pt-name>Níger</pt-name>
+		<pt-nationality>nigerino(a)</pt-nationality>
+		<pt-male>nigerino</pt-male>
+		<pt-female>nigerina</pt-female>
+		<flag>iVBORw0KGgoAAAANSUhEUgAAABcAAAAUCAIAAADp3DFZAAAAXUlEQVQ4y2N4EMRGOWIYNYWWprzu
+			jaYcMfzHDf59//xp+/QX9e5AEsjGoxKfKa+6wuFuBrLJMeXP+xcPQrkQng/lAooMkCnU8RFpoZtw
+			uphyxMC7QZtyNGoKLU0BAOe36V6WlYMhAAAAAElFTkSuQmCC</flag>
+	</nationality>
+
+	<nationality>
+		<abbreviation>NG</abbreviation>
+		<name>Nigeria</name>
+		<official>The Federal Republic of Nigeria</official>
+		<pt-name>Nigéria</pt-name>
+		<pt-nationality>nigeriano(a)</pt-nationality>
+		<pt-male>nigeriano</pt-male>
+		<pt-female>nigeriana</pt-female>
+		<flag>iVBORw0KGgoAAAANSUhEUgAAACgAAAAUAgMAAACCKJcoAAAACVBMVEUAh1Go1sT///9VVME5AAAA
+			FUlEQVQI12NgYGCQWrVqCQMEDCsmALxfKWlrTwRxAAAAAElFTkSuQmCC</flag>
+	</nationality>
+
+	<nationality>
+		<abbreviation>NI</abbreviation>
+		<name>Nicaragua</name>
+		<official>The Republic of Nicaragua</official>
+		<pt-name>Nicarágua</pt-name>
+		<pt-nationality>nicaraguense</pt-nationality>
+		<pt-male>nicaraguense</pt-male>
+		<pt-female>nicaraguense</pt-female>
+		<flag>iVBORw0KGgoAAAANSUhEUgAAACEAAAAUCAMAAAA0jaRDAAAAeFBMVEWQsfgsi4wtb0cthn5Th/Rk
+			faCNiXaOi3uPjHWUkH2WkYGYk3+al4KhimOioJGt0KCyr6Oy1664tqq9u6/FwrjK5dPQ4tHT1MjU
+			083V6trX1c7b2dDe4tXh4Nvh4Nzl5eDs6+Tz8/H6+vn7+vj7+/v8+/b8/Pz///8tPA9VAAAAAXRS
+			TlPM0jRW/QAAAE9JREFUKM9jYCEEGIaOCsJAHQXICbHzyaMKoapQ5FTlVeZSwqNCWIKfVVBKBI8K
+			aRlmJkZxKTwqVDhEJcV41PCoUFfgFmCTRXMpYTCM4hYAlrIhjIGPis8AAAAASUVORK5CYII=</flag>
+	</nationality>
+
+	<nationality>
+		<abbreviation>NL</abbreviation>
+		<name>Netherlands</name>
+		<official>The Kingdom of the Netherlands</official>
+		<pt-name>Países Baixos</pt-name>
+		<pt-nationality>neerlandês(a)</pt-nationality>
+		<pt-male>neerlandês</pt-male>
+		<pt-female>neerlandesa</pt-female>
+		<flag>iVBORw0KGgoAAAANSUhEUgAAAB4AAAAUCAIAAAAVyRqTAAAAM0lEQVRIx2NYJ6NBI8QwavSwMPpU
+			VhGNEMN/moFRo4eH0bmtm2mEGBTdummERo0eFkYDAPSe0SzkjI/wAAAAAElFTkSuQmCC</flag>
+	</nationality>
+
+	<nationality>
+		<abbreviation>NO</abbreviation>
+		<name>Norway</name>
+		<official>The Kingdom of Norway</official>
+		<pt-name>Noruega</pt-name>
+		<pt-nationality>norueguês(esa)</pt-nationality>
+		<pt-male>norueguês</pt-male>
+		<pt-female>norueguesa</pt-female>
+		<flag>iVBORw0KGgoAAAANSUhEUgAAABwAAAAUBAMAAABscEDKAAAAJFBMVEUAKGhlfaSHmritus+/ydnn
+			6/HvKy31e3z3lZb6vb77xMX94uKXexcdAAAAMUlEQVQY02NIS0tLD2BalgYBDLTjdnR0dAYw7eiA
+			AAYXIDBgdIECBvwATTGaUfTyAgDtrF+DpuEjUQAAAABJRU5ErkJggg==</flag>
+	</nationality>
+
+	<nationality>
+		<abbreviation>NP</abbreviation>
+		<name>Nepal</name>
+		<official>The Federal Democratic Republic of Nepal</official>
+		<pt-name>Nepal</pt-name>
+		<pt-nationality>nepalês(a)</pt-nationality>
+		<pt-male>nepalês</pt-male>
+		<pt-female>nepalesa</pt-female>
+		<flag>iVBORw0KGgoAAAANSUhEUgAAABAAAAAUCAYAAACEYr13AAABsUlEQVQ4y2NgsJg8CYhFGMgFljpF
+			n9y1sr8BDYklywAvzcyv5wTV/k+Qcf0rY1h/HGiQAlkGgPBhIc3/oeopv5ksJpYADWIm2QAYnidp
+			81dVv/oW0BB9ogw4L6b5/6KiCQo+Lab1P0U19i+7WU830CAOvAbci8v9f0nZ7P/Txh4wBrFBYiDX
+			rBYz/WegW/YCaIgDTgNuuof/f9419f//f//AGMQGicG8dAaIS5RC//KZdCwBGiSANQzertjw/8/X
+			b2AMYqOHCwhvFdH/Z61d+BloSAjWQLwgpf9/v6zZ/34Zl7+4cK+sx38n7YL/QEM2ArE0RiyAnOuj
+			lQ1SUAX2N35siOoCCV0wBhnipZn1E6jAnOh0cDcq4//T+i4wBrFBhrhr5fwAGmJM0ICrRi7/367c
+			CI8FEBskdlpQ/b+Ldu53oCEGeA0A2fjl5Ln/MABig8RALjsFNMRRO+8r0BAdkl0AC5uTQEPsdAq+
+			AA3RJDoM0NPACaAh0DSghjMzwWIBWyIC4eNCGv+B5ccHoCHKeHMjPnwMmOXNdIrfwcsNSaPm2y5a
+			uV9IwaBSDGjAMSAWAgAhwa3RcaOnwgAAAABJRU5ErkJggg==</flag>
+	</nationality>
+
+	<nationality>
+		<abbreviation>NR</abbreviation>
+		<name>Nauru</name>
+		<official>The Republic of Nauru</official>
+		<pt-name>Nauru</pt-name>
+		<pt-nationality>nauruano(a)</pt-nationality>
+		<pt-male>nauruano</pt-male>
+		<pt-female>nauruana</pt-female>
+		<flag>iVBORw0KGgoAAAANSUhEUgAAACgAAAAUCAMAAADImI+JAAAANlBMVEUAK38HMYMIMoMgRo8qTpQs
+			UJUyVZhEZKFQbqdSb6hcd61rhLWfr8/P1+fYri3p7fT4+fv///9ibpwjAAAAQUlEQVR42u3KJxIA
+			IBAEsKUevfz/swwCzSoU0cH3WCPx8XDWOhB8rjV7Ipo+Zze4UmnHpHAlZYwiIIQYAyha460FTxcF
+			tzxKzWMAAAAASUVORK5CYII=</flag>
+	</nationality>
+
+	<nationality>
+		<abbreviation>NZ</abbreviation>
+		<name>New Zealand</name>
+		<official>New Zealand</official>
+		<pt-name>Nova Zelândia</pt-name>
+		<pt-nationality>neozelandês(esa)</pt-nationality>
+		<pt-male>neozelandês</pt-male>
+		<pt-female>neozelandesa</pt-female>
+		<flag>iVBORw0KGgoAAAANSUhEUgAAACgAAAAUCAMAAADImI+JAAAAt1BMVEUAJH0BJX4DJ38EJ38IK4EK
+			LYINL4QOMIQXOIkZOYoePowkPootSpMvSZExSpI3SY9KWJhQXpxUYp5jbaRmcadncKaEbpqHeqWL
+			kruLk7yMk7ymfZ2otNOptdOueZi8eZO/hJ3AepPKd43KzeDPFCvTeYvWfI3WfY7X2ujYT2HdWGjd
+			WmreW2vw0dfzxsvzxszzx8z0x8z0ys/0y9D03eH03eL03uP13uL67/H77O777e779PX++/wlKG3j
+			AAAA00lEQVR42t2QVw+CQBCET8+CihVRymFjKdJUUKr//3d5iIgmPJD45rzMZuZLNrvICW4iRggR
+			AEINLw3LQ3XiNMe/SrgAMa9bXiiiWrU5zfYjSQFQKHYJhXbV9fvVTAhRVPec3gHiU5KZCg3Kjtls
+			mDcINXqXsoyagd3u92ozS04xwD09u+prdaXpqDxGCC+WzufHSJFva9zrmHlhvcO+8xzE0KNY+R7p
+			6jsaR+PW+rgoyMm4cM8ylp8PF2+Bk+ez1RD9lwaDZhy73bLNyN3u99W/6wE8ehsVMZvregAAAABJ
+			RU5ErkJggg==</flag>
+	</nationality>
+
+	<nationality>
+		<abbreviation>OM</abbreviation>
+		<name>Oman</name>
+		<official>The Sultanate of Oman</official>
+		<pt-name>Omã</pt-name>
+		<pt-nationality>omanense</pt-nationality>
+		<pt-male>omanense</pt-male>
+		<pt-female>omanense</pt-female>
+		<flag>iVBORw0KGgoAAAANSUhEUgAAACgAAAAUCAYAAAD/Rn+7AAAAx0lEQVR42u3RzQqCQBSGYW+p1glB
+			qJFKWpCCYKQEteu/lkHRHXQxLbqmSsxRi750odtcBDOLGXgXc87mgSO8xfq9SqD0ciDy0kYNRJMQ
+			jxyQiY9Ek/HKZsWeKrCIrGYg03GWh3gzz2fsAG+nA567JR7eEKHvIlwvEBz37AAjy0Bg6ghUGYHc
+			Qqo0kRodtk4c9zNgT0VitBHbJlsnjlwbSVcpQYkuIXSs8v+5XmhUAJmNAzmQA/8GHGxFGlUHCucW
+			jTiQAznwV1+mhFlDAO6IpAAAAABJRU5ErkJggg==</flag>
+	</nationality>
+
+	<nationality>
+		<abbreviation>PA</abbreviation>
+		<name>Panama</name>
+		<official>The Republic of Panamá</official>
+		<pt-name>Panamá</pt-name>
+		<pt-nationality>panamenho(a)</pt-nationality>
+		<pt-male>panamenho</pt-male>
+		<pt-female>panamenha</pt-female>
+		<flag>iVBORw0KGgoAAAANSUhEUgAAAB4AAAAUCAIAAAAVyRqTAAAAi0lEQVRIx2P4Twq4JGBCPGKgt9GP
+			3v2kldGuE65S3+hFJ14pVJ1lyjgOJIFsKrs6eMZNhvRjQJL6AZK25O6tl9/TltwZailk0BsNjDHi
+			EUnuGNxG/3ryglZG3wvMpr7R75Zvva7nd1nQFEi+W7GVyq5+GFcGTAxAkvoB8iS/9cedR08KWoda
+			ChkAowGFELY6kJ6PMAAAAABJRU5ErkJggg==</flag>
+	</nationality>
+
+	<nationality>
+		<abbreviation>PE</abbreviation>
+		<name>Peru</name>
+		<official>The Republic of Perú</official>
+		<pt-name>Peru</pt-name>
+		<pt-nationality>peruano(a)</pt-nationality>
+		<pt-male>peruano</pt-male>
+		<pt-female>peruana</pt-female>
+		<flag>iVBORw0KGgoAAAANSUhEUgAAAB4AAAAUAQMAAACgZR+HAAAABlBMVEXMAAD////D80ESAAAAEElE
+			QVQI12NksN8owEhbAgDmVxQVXzlhAAAAAABJRU5ErkJggg==</flag>
+	</nationality>
+
+	<nationality>
+		<abbreviation>PG</abbreviation>
+		<name>Papua New Guinea</name>
+		<official>The Independent State of Papua New Guinea</official>
+		<pt-name>Papua-Nova Guiné</pt-name>
+		<pt-nationality>papua</pt-nationality>
+		<pt-male>papua</pt-male>
+		<pt-female>papua</pt-female>
+		<flag>iVBORw0KGgoAAAANSUhEUgAAABsAAAAUCAIAAADz4NHXAAAB80lEQVQ4y2PwYeM7KqByTlCNWogB
+			CBSY2VbyyVPTRCBgY2Ss4hInXttNO6Ur6qr4TIQAVzbeQ0SEwFUdld9nxW+7KxI2EQikmVgX88rh
+			NEtP+W6gwm1PxT/nxV42yj6MVyBsIhCwMDAWc4piKj0vqno/UuHDXKnfp8X+XASj82JACwibaGJi
+			AiRtWbn3CygjK/24SApqEBL6cUD8vIgqPhPl5eVv3LhRW1sLZIszsczjlYWouyij+iBW4VGy/PMa
+			WYhZXzZLvmyWed0tc0lJlYAbIyMjbWxsIGwmBoZsTpEzSBouSKi97pH5vl/i6wZJYDg8yZUDkgRM
+			hAMmJiYIw5yVazc/SgicF1Z7nCl/WVnlrr/iXX8F7CY6OjoiGycgIFBUVGRmZgYxV5iJeTqPDLLO
+			C+Jq90IVH8Qo3A/HZqKWltbr16/z8/MRMc7CcuTIkebmZoSTGRiSOYSQQwAYJ9dMlW+5KmExkZWV
+			1cPDQ0dHB9mZIiIiYmJiaEFhwMK5nR/JCGEi0iMQiIqKWltb4wpffkbmiTzSBPI1GhAUFASGAwNe
+			EM0heEpQlSgTgUmSgTigzcKxmV+RgIlA406cOJGXl0ekoTyMTJ3ckgTcWFVV5enpyUAKCGHnPyGg
+			SjiFkwRUmdnX8SlQ00Qg4GRkauKWAABNVUi/OxVw1QAAAABJRU5ErkJggg==</flag>
+	</nationality>
+
+	<nationality>
+		<abbreviation>PH</abbreviation>
+		<name>Philippines</name>
+		<official>The Republic of the Philippines</official>
+		<pt-name>Filipinas</pt-name>
+		<pt-nationality>filipino(a)</pt-nationality>
+		<pt-male>filipino</pt-male>
+		<pt-female>filipina</pt-female>
+		<flag>iVBORw0KGgoAAAANSUhEUgAAACgAAAAUCAIAAABwJOjsAAABu0lEQVR42r3USyhEURgHcLGVErGR
+			KIkVIclCCVE2RFmwoJAUNnYWbDwiFqKbLFAWxit5LjwnjyTNuB4jI8wMYe48mTHjzr3fd0zUacZj
+			Ze799++eTufUr77uvUGrB49JFatBWVNyl6Ag8JbhaTa8YF5e+F0rnid6n2Y739h3HJKtkAsmBJ2H
+			BJzkM2c39vymbZngn1lQPiSUL8sLw9vXynugd/IyLG9OHhhAX4cOJd0bre7arqPgbIVkMH8LN2Xo
+			UoOuHh07yDFgaKK8WmvLadiUBhZfkRsEfaN4Fg9XOeJ9i5cn/pnd0sWVLgUUFkxoHEDLmMhGi2yU
+			t3BXBc89aJujKlpnkBty857O8YvQ3NlAwUZ4bEfTiB/81I1WxTcY3l3P/cxJTKoqPPGf9R014zPq
+			ZnTsEf/YFtfOU3L/6dH6vlyl+KaCuxp07CI3DIYWSrpONdriyoB4tL99Ts59uhc4s765TRWRFCiP
+			9s8fCPIe4+AoG5tGr0oI09hXNi7SC6QhKSxYkGMIr/si3RrtdUk1PZYWhutCwt8LFpuhtUMdmSw1
+			SUcNKHg4ZoKNz5CDpPDLulKTWSSbR/sB3/I2OXBPBbAAAAAASUVORK5CYII=</flag>
+	</nationality>
+
+	<nationality>
+		<abbreviation>PK</abbreviation>
+		<name>Pakistan</name>
+		<official>The Islamic Republic of Pakistan</official>
+		<pt-name>Paquistão</pt-name>
+		<pt-nationality>paquistanês(a)</pt-nationality>
+		<pt-male>paquistanês</pt-male>
+		<pt-female>paquistanesa</pt-female>
+		<flag>iVBORw0KGgoAAAANSUhEUgAAAB4AAAAUCAIAAAAVyRqTAAABBklEQVRIx2P4jw3Ub6pnSGOgFI0a
+			TYnRPLk80XOiBQsEqWy0VafVvhv7gKbDRVgzWWXLZSk1WqxY7PXn124T3NDEb728teXSFr48PvKN
+			Xnpy6bdf39iz2OEibFls0w5M+/fv3+N3j5kzmMk0mjGd8eP3j5efXsbUv+DYAu0GbflKeTKNVqtV
+			Awp++PYBUz9nNidFYQ0xGgg06jSonPggAQIU335lOy6DhAuFyY9GiFTdpjqgTWiyQoVCytXKFCU+
+			iOy2y9scehwgqUWkSCRzaWb5unJKs8z9N/fhar7/+v7p+ydg4gMmQWDeoUJGb9rSdODmAWBqufni
+			5rJTy5z6nEYL1YE3GgATmNc2/QN3zQAAAABJRU5ErkJggg==</flag>
+	</nationality>
+
+	<nationality>
+		<abbreviation>PL</abbreviation>
+		<name>Poland</name>
+		<official>The Republic of Poland</official>
+		<pt-name>Polónia</pt-name>
+		<pt-nationality>polaco(a)</pt-nationality>
+		<pt-male>polaco</pt-male>
+		<pt-female>polaca</pt-female>
+		<flag>iVBORw0KGgoAAAANSUhEUgAAACAAAAAUAQMAAADWX60MAAAABlBMVEXcFDz////vuDXSAAAAEElE
+			QVQI12P4DwQMJBEkAwCtUSfZb7JSvgAAAABJRU5ErkJggg==</flag>
+	</nationality>
+
+	
+
+	<nationality>
+		<abbreviation>PW</abbreviation>
+		<name>Palau</name>
+		<official>The Republic of Palau</official>
+		<pt-name>Palau</pt-name>
+		<pt-nationality>palauano(a)</pt-nationality>
+		<pt-male>palauano</pt-male>
+		<pt-female>palauana</pt-female>
+		<flag>iVBORw0KGgoAAAANSUhEUgAAACAAAAAUBAMAAAAevyJ8AAAAGFBMVEVKrdZLrdVcssCSwIHJ0EDS
+			0Tbt2RX/3gAfmmgCAAAAP0lEQVQY02NgoBYQdksxROYzhZeXlyogCYiWA0EgkoA5SKAYScAdJFCC
+			JJAOEijDJ4ChBcNQDGsxHIbhdAoBADNTGcXM+PqYAAAAAElFTkSuQmCC</flag>
+	</nationality>
+
+	<nationality>
+		<abbreviation>PY</abbreviation>
+		<name>Paraguay</name>
+		<official>The Republic of Paraguay</official>
+		<pt-name>Paraguai</pt-name>
+		<pt-nationality>paraguaio(a)</pt-nationality>
+		<pt-male>paraguaio</pt-male>
+		<pt-female>paraguaia</pt-female>
+		<flag>iVBORw0KGgoAAAANSUhEUgAAACEAAAAUCAYAAAADU1RxAAAAq0lEQVRIx2M4J6j2f6Axw6gjRh0x
+			KB1x1dT92EBjhv8UgOfPn/+/d/40mKYEkO2IexfO/b9bXfD/Tnfd/8f15UD+efo64t+/f//vTW74
+			H9ru8X/x6vb/uw5u+n93UjNYnK6OuDuh/X840BFzNs79v3Ln3P93+jvo6whIdFz6f7+04f/x6nIw
+			DeLTPU3AEubdc+cpT5jqYVuPDTRmYLBY8X/A8agjRh0xGB0BAFDehaslmHHQAAAAAElFTkSuQmCC</flag>
+	</nationality>
+
+	<nationality>
+		<abbreviation>QA</abbreviation>
+		<name>Qatar</name>
+		<official>The State of Qatar</official>
+		<pt-name>Catar</pt-name>
+		<pt-nationality>catariano(a)</pt-nationality>
+		<pt-male>catariano</pt-male>
+		<pt-female>catariana</pt-female>
+		<flag>iVBORw0KGgoAAAANSUhEUgAAADMAAAAUCAIAAACvapLzAAAArElEQVRIx2P4TzT4/fPX1f0nVlT3
+			VpsH5Sra0xox/CcFfHn38dT6XfOy6/NVHAeRy75//rJ94oIOryQ6BBjJYQYErx48Wds0edCF2ZrG
+			SQVqLoM0zL59/DwYw2xdy9RKY//BGGZ///y5dfz88qqeQRdmR5ZunJFUXqTpNujC7MXtB7umL+0N
+			ysxTchh12VCPzcGbAwZvqTF4S9pBXTsN0hp98LaCBmnLkc6tbQA6Pf42FXBMYwAAAABJRU5ErkJg
+			gg==</flag>
+	</nationality>
+
+	<nationality>
+		<abbreviation>RO</abbreviation>
+		<name>Romania</name>
+		<official>Romania</official>
+		<pt-name>Roménia</pt-name>
+		<pt-nationality>romeno(a)</pt-nationality>
+		<pt-male>romeno</pt-male>
+		<pt-female>romena</pt-female>
+		<flag>iVBORw0KGgoAAAANSUhEUgAAAB4AAAAUCAIAAAAVyRqTAAAAKUlEQVRIx2Ng0K7Hg/5cFMODzgmq
+			4UEMo0aPGj1q9KjRo0aPGj0UjQYAXzHKL165l44AAAAASUVORK5CYII=</flag>
+	</nationality>
+
+	<nationality>
+		<abbreviation>RS</abbreviation>
+		<name>Serbia</name>
+		<official>The Republic of Serbia</official>
+		<pt-name>Sérvia</pt-name>
+		<pt-nationality>sérvio(a)</pt-nationality>
+		<pt-male>sérvio</pt-male>
+		<pt-female>sérvia</pt-female>
+		<flag>iVBORw0KGgoAAAANSUhEUgAAAB4AAAAUCAYAAACaq43EAAAB0klEQVRIx+2P70sTARyH7w8QinrR
+			mygkMe0HJAsi+mHSXogV3WJiYrQMxe0YK5Rc7pWka3KO5VZ04bGbduyYrXOvjIzepHJNqd5EL4qg
+			V0lkUEIkRPH0F+z2Yp32ogeed98PD1/h/c5aNkLhnw+/qa1Z3/C76jpyp5u4J+1FP3OC5wdczoff
+			Vu8m4W3CuHCQTLCBl/W7SPoaKbiPOf+x0rqD+7EqMrFN6DeqGO/diuXaU3lY3u+xSlmUIssL/r7P
+			1vVLa1a467vV3/lj/qq0uuQPfzJE6bXdtpxCzfGblHKh5SwFqZPsUDuzopdHk7cwT9Uz0z/A7cAo
+			dtty2oYfhiMUojHmXIeID0RId/fw7GQzhazhbNiQR1FVlTuilyfDUbT2DsZlGV3XGQuMOBc27ypo
+			mkbe08pyeoKnHRdJJ5OYpsmY5GB4Op4gPThI3tvGB1VjrjvARDCEmcuRkmQHP/YHeSAeJiV6KPaF
+			SR1tZPJyM0YgyFBPorKwNrVolfJxqOVnxreZGXcDqqqih66QPb+FnG8bpll8Zbctp4ANv1ZWmHfv
+			Y6rtHIqioEWHmT2yndX8NJUilDv4/fUbX0biFLv8fLwWYW3pBX8DgQ3if3jd+APNLEMvU7G/aAAA
+			AABJRU5ErkJggg==</flag>
+	</nationality>
+
+	<nationality>
+		<abbreviation>RU</abbreviation>
+		<name>Russian Federation</name>
+		<official>The Russian Federation</official>
+		<pt-name>Rússia</pt-name>
+		<pt-nationality>russo(a)</pt-nationality>
+		<pt-male>russo</pt-male>
+		<pt-female>russa</pt-female>
+		<flag>iVBORw0KGgoAAAANSUhEUgAAAB4AAAAUCAYAAACaq43EAAAAOUlEQVR42u3TUQ0AIAwD0aIGt5OF
+			Btx0mCBNljsD7+uWXwoEDPwPrvKJwJINDDwLvtqZnSwZGHgU3Kx2NIuI4wdUAAAAAElFTkSuQmCC</flag>
+	</nationality>
+
+	<nationality>
+		<abbreviation>RW</abbreviation>
+		<name>Rwanda</name>
+		<official>The Republic of Rwanda</official>
+		<pt-name>Ruanda</pt-name>
+		<pt-nationality>ruandês(a)</pt-nationality>
+		<pt-male>ruandês</pt-male>
+		<pt-female>ruandesa</pt-female>
+		<flag>iVBORw0KGgoAAAANSUhEUgAAAB4AAAAUCAIAAAAVyRqTAAAA5ElEQVRIx2NgaDlJFcTYcoK59TiQ
+			RAhSbijQROnOLQa9iz0n9hv2LmJrPUo1o5W71pbMzF2/xO7iKuXuudGOE6byte+jgtGcbYdip9af
+			XKl5eLneqZXql1YpT5ofKt+1gQpG87btD5zceXyF9vN1gq/W859eqTFtfpBK91rquDpqatPZVWqH
+			V+idWqVxfpUq0GjquBqINLpXls/K2rnM7Ppquanzg90mTqJOWAMRa+tRxa71xr0LgiZ3mPXN42g7
+			RLUUAkFMLSeAdjBRN13jRD+vidEIjRpNR6MZaiJphUaNppvRAAq4J32iS+csAAAAAElFTkSuQmCC</flag>
+	</nationality>
+
+	<nationality>
+		<abbreviation>SA</abbreviation>
+		<name>Saudi Arabia</name>
+		<official>The Kingdom of Saudi Arabia</official>
+		<pt-name>Arábia Saudita</pt-name>
+		<pt-nationality>árabe-saudita</pt-nationality>
+		<pt-male>árabe-saudita</pt-male>
+		<pt-female>árabe-saudita</pt-female>
+		<flag>iVBORw0KGgoAAAANSUhEUgAAAB4AAAAUCAIAAAAVyRqTAAABTUlEQVRIx2NgmGpAKzRq9AAbzT7D
+			LGRHSfCOYrdNmcarIvlmWwMZJUf78g53em3JCd1RCmR4bM7KP9zlvSXXbHUMCUYbrAyfdGl5+9l5
+			zhvTVJf4mayOitxVMfvqOuUlPlkH24Ds3EMduitCe84vsluf5LM1jwSjWaebAA313ZrfdHqW39Z8
+			o1WRrpsygM4vPNITvbvKfXNWzqEO+UWemQdbI3aVAx1OgtEcM8yAxgENBWqWmO8M1Fx6rH/34xP9
+			F5ZYr0sAchP21qks8Q3YVgg02mJNLGkBkryvoffCoqDtxVUnJgNNBAZuzcmpwAARnecIDHdgmADN
+			Bdphvz5ZaoEraSmEcaohMFiAJBDxzrKGeAUSVszTjCBqgAwmGHuEZxlIEJFvtPh8Z2D6rT4xBRiT
+			ZccmAFMekAtMM6n7m4AirWfmAHPNaPE03I0GAH92EMoomvZZAAAAAElFTkSuQmCC</flag>
+	</nationality>
+
+	<nationality>
+		<abbreviation>SB</abbreviation>
+		<name>Solomon Islands</name>
+		<official>The Solomon Islands</official>
+		<pt-name>Ilhas Salomão</pt-name>
+		<pt-nationality>salomonense</pt-nationality>
+		<pt-male>salomonense</pt-male>
+		<pt-female>salomonense</pt-female>
+		<flag>iVBORw0KGgoAAAANSUhEUgAAACgAAAAUCAMAAADImI+JAAAAbFBMVEUAUboDU7sGVbwKWL0OW74h
+			WzMpbcUtcMY1dck5eMk6ecpDc45Nhs9QiNBVi9Fbeytbj9NekdNilNVol9Z/qNybu+SeveWmwufB
+			sz3JtR3O3vLP3vLP3/LQ3/LY5PTe6Pbt8/rw9fv80Rb+/v9CnfESAAAAlUlEQVR42oXPNxLDMAxE
+			0SWtYMnK0VGJ97+jMYMC1Q4/iy3wGkK6Azqsx/O6gGzceg/4fhszyl4t4L6hg9SFn6MsTQFMTQ2p
+			bibOBGpFAXBmcDiOgTOF2nlyZvCGpCwTGcoUulmPs2NMYb6HxQN+CXtOmEKsnwpS9V4pU5jI06FM
+			Ij/l0BgpwizCCDTGMxbJWAwqi/cH9nYVhpePzfgAAAAASUVORK5CYII=</flag>
+	</nationality>
+
+	<nationality>
+		<abbreviation>SC</abbreviation>
+		<name>Seychelles</name>
+		<official>The Republic of Seychelles</official>
+		<pt-name>Seicheles</pt-name>
+		<pt-nationality>seichelense</pt-nationality>
+		<pt-male>seichelense</pt-male>
+		<pt-female>seichelense</pt-female>
+		<flag>iVBORw0KGgoAAAANSUhEUgAAACgAAAAUCAYAAAD/Rn+7AAABmklEQVR42r3RPUsCARzH8aPXkL0G
+			HQrnQh1r8AYfcGsM8mHSaCgoxaQ3EFluvYGgMp+WuDTdTBdP0rvd1KzwICW6tDwT/0H3g84//Ob/
+			B74MYzmUkems4XafdzXfqy5Z7aRrtsYvGoSKXi+jg4EVbj2P4BpBS3bwSCLPtQC69wMFtbB+ydkV
+			Vo05EESBaFo0qaZAPC2eFAfiafGkOBBPiyfFJzqdDwyaFk+Ko14zmZuPXk+QB8cAaTVLKjoctTFq
+			6hgkLZ4UR6kG8re/p22ESFIMlU4TFAz0Bv0FkrTslIQ1Y3YWKAqkaVsk6ZKhPiMUBdK0eFLRbv8X
+			VEt6fopX8+XtZJQzx3wcQ9KSpNqgmt1OW4GYYl5OF2GLc7uWR2bHJE9uDFxgwy0lrZRg6z9JKeol
+			lVJQqiBX/F1JgcxH2HsCoaPA6iAtSQqgGiPIVvJ4EtL8A6AO6Av580pSgnp7q09DLvncF2Tl1INC
+			8A3Tdi7Y4jCpaLPVFZQCCSSOviEHVgKZyWLBjfNoyBPfPNtLLp+4RxBzS5uH+D4BX3StAy9MibUA
+			AAAASUVORK5CYII=</flag>
+	</nationality>
+
+	<nationality>
+		<abbreviation>SD</abbreviation>
+		<name>Sudan</name>
+		<official>The Republic of the Sudan</official>
+		<pt-name>Sudão</pt-name>
+		<pt-nationality>sudanês(a)</pt-nationality>
+		<pt-male>sudanês</pt-male>
+		<pt-female>sudanesa</pt-female>
+		<flag>iVBORw0KGgoAAAANSUhEUgAAACgAAAAUCAYAAAD/Rn+7AAAA0ElEQVRIx2Pw89X9f0rE5P8lgcGJ
+			GRiKNP8rJ2n/X69gNHgdCMIceZr/m00NBq8DYXiwRTmGA+FRrmg0eB0Ii/KmQRDlOB0Iwx4lnq9u
+			VnWceFbVd2wgMEEHgrBmp/f/K89v/x8IQJQDQZirwvD/vJPrBq8DYThuWcX/Lz+/jTpweEXxoM4k
+			PNEar1S11U+oq6sfGwiM24F56v8ZtAWAPmAYYIzNcfFK/xmE2QeB47A50EPqPwML0yBxHLIDwVHK
+			P4gchuzAQRWl6HjQRSkqBgCbkJcknBjNrQAAAABJRU5ErkJggg==</flag>
+	</nationality>
+
+	<nationality>
+		<abbreviation>SE</abbreviation>
+		<name>Sweden</name>
+		<official>The Kingdom of Sweden</official>
+		<pt-name>Suécia</pt-name>
+		<pt-nationality>sueco(a)</pt-nationality>
+		<pt-male>sueco</pt-male>
+		<pt-female>sueca</pt-female>
+		<flag>iVBORw0KGgoAAAANSUhEUgAAACAAAAAUAQMAAADWX60MAAAABlBMVEULUIn/wQALm62UAAAAFklE
+			QVQI12NgsGEAAsLEfyBAJ4jUCwDa0ROx9tu+uQAAAABJRU5ErkJggg==</flag>
+	</nationality>
+
+	<nationality>
+		<abbreviation>SG</abbreviation>
+		<name>Singapore</name>
+		<official>The Republic of Singapore</official>
+		<pt-name>Singapura</pt-name>
+		<pt-nationality>singapurense</pt-nationality>
+		<pt-male>singapurense</pt-male>
+		<pt-female>singapurense</pt-female>
+		<flag>iVBORw0KGgoAAAANSUhEUgAAAB4AAAAUCAIAAAAVyRqTAAAAt0lEQVRIx2P4ouVII8SAzPmeUPhr
+			4eofeXVfTb2/6LpQzehfUxf8////R1EjkP3VxOv32m1fzX2oYPS30PT///79OXLqi67zN7/ELzpO
+			3+Pyv+iB2brOFBn9s3cm0Mk/+2cD3fvn4IkvRh4gcX3XP/uOfrUOoI7RUAk9V4jRVA0QINs7/tfS
+			9cAw+TV3xbfQDGpG41dz32/ecaDIdIv6ahtEg8RH3XRN5Szzn2Zg1OhRo0eNJgkAAPmQOlRpchmG
+			AAAAAElFTkSuQmCC</flag>
+	</nationality>
+
+	<nationality>
+		<abbreviation>SI</abbreviation>
+		<name>Slovenia</name>
+		<official>The Republic of Slovenia</official>
+		<pt-name>Eslovênia</pt-name>
+		<pt-nationality>esloveno(a)</pt-nationality>
+		<pt-male>esloveno</pt-male>
+		<pt-female>eslovena</pt-female>
+		<flag>iVBORw0KGgoAAAANSUhEUgAAACgAAAAUCAIAAABwJOjsAAAAu0lEQVRIx2P4P0CAYdRiMHj96sfy
+			7d+apl5rnnZ12bZvL1/8oJPFi6ZeZ9B7Jmh1Tdj6KpAxa8J1Olm8cf41oH0idi+ACMhYOZsGFgOD
+			FBN11553S3977MLPo+d/+ua+a62+gFUZJYgB6CFMJK91Cmjrl2//gOjstV9KWiewKqMI4ZJwD701
+			beXXqSu+ekTcpr6teCwW074YnX43Ou2OhNZ5ulpMczTyLF7u1zEgiOE/z8CgUYtHLaYZAgBzqFWn
+			9g3K6wAAAABJRU5ErkJggg==</flag>
+	</nationality>
+
+	<nationality>
+		<abbreviation>SK</abbreviation>
+		<name>Slovakia</name>
+		<official>The Slovak Republic</official>
+		<pt-name>Eslováquia</pt-name>
+		<pt-nationality>eslovaco(a)</pt-nationality>
+		<pt-male>eslovaco</pt-male>
+		<pt-female>eslovaca</pt-female>
+		<flag>iVBORw0KGgoAAAANSUhEUgAAAB4AAAAUCAMAAACtdX32AAAAjVBMVEUAOKgBOKgGPaoINqQfOJsk
+			QqMmVrUnOJYoV7Y4Yrk6Y7lDbL9Ebb9Hb8BIcMFYSpSIHlKPHU6QHU2QaJiQaJmlGUCnuuG5yOe6
+			yefGjKTOESbPGCzQHDDSJjrVM0XVNUfXO0zZRFXZTFzZY3LZZ3bcV2bfZHLjeoXoj5nrn6jtp6/z
+			xcr44OL54eT///9qwhsZAAAAg0lEQVR42sXJRxKCUBBF0SaJGQygPPhE+WT3vzxTObG7HOoZ3apL
+			16/+vzNAayDjO7w7KRRtW0Cdww/0sIoxjeOEeE2SbZLrrtN5shH3PK37YejrdCZuswSaBihNEkXB
+			znH2QUSyhWsZhuUu+fGfDjaRffQZwkvleRdw9A6lIG7mZ/sGeKg8DoeW6hkAAAAASUVORK5CYII=</flag>
+	</nationality>
+
+	<nationality>
+		<abbreviation>SL</abbreviation>
+		<name>Sierra Leone</name>
+		<official>The Republic of Sierra Leone</official>
+		<pt-name>Serra Leoa</pt-name>
+		<pt-nationality>serra-leonês(a)</pt-nationality>
+		<pt-male>serra-leonês</pt-male>
+		<pt-female>serra-leonesa</pt-female>
+		<flag>iVBORw0KGgoAAAANSUhEUgAAAB4AAAAUCAYAAACaq43EAAAAO0lEQVRIx2OU22r1n2EAAOOoxaMW
+			08zipmuTjg2Ixf+BYNTiUYuHl8Xq7ecHJjsxFB37P2rxqMXDymIAXTE2gktm+K8AAAAASUVORK5C
+			YII=</flag>
+	</nationality>
+
+	<nationality>
+		<abbreviation>SM</abbreviation>
+		<name>San Marino</name>
+		<official>The Republic of San Marino</official>
+		<pt-name>San Marino</pt-name>
+		<pt-nationality>são-marinhense</pt-nationality>
+		<pt-male>são-marinhense</pt-male>
+		<pt-female>são-marinhense</pt-female>
+		<flag>iVBORw0KGgoAAAANSUhEUgAAABsAAAAUCAIAAADz4NHXAAABJ0lEQVQ4y2P4T23AMGoiHvD7928q
+			m9jdWkA1E29eP1tRnubhpAEkgWxKTfz79+/xwxsrs03yM7UD3TWOHlz/798/8k0Ehl1mbcHBvRu8
+			nGSntnsGeSseOLDdLMnlzoO7ZJrYPW9iTEFyWICGdVyoZGKbdWRQfraJV6r//E3L8JnI0HQRO6o5
+			zBCSxGps5xpkoe0WZeSTrOUeEZfvwuFiwxBozZA3F6dGnBKNFxg8opgsjfwSrOV8NdgsFbSc5MOz
+			rLhM9BmiYnHqwmdiwzkG70QuGxcFY/PULH15M8HMdB0+Y2VWJyOWxCqyTKw/wxDToJ83KadrRkBo
+			eFC4W2Z+sX9OpUBSPkNaJVkmwpBI+RbNgHTR6BZt3yTW+lME1RM2kWQ0aiJVEADCGUrIpozXBAAA
+			AABJRU5ErkJggg==</flag>
+	</nationality>
+
+	<nationality>
+		<abbreviation>SN</abbreviation>
+		<name>Senegal</name>
+		<official>The Republic of Senegal</official>
+		<pt-name>Senegal</pt-name>
+		<pt-nationality>senegalês(esa)</pt-nationality>
+		<pt-male>senegalês</pt-male>
+		<pt-female>senegalesa</pt-female>
+		<flag>iVBORw0KGgoAAAANSUhEUgAAAB4AAAAUCAIAAAAVyRqTAAAAbklEQVRIx2NgaLXHg/6+d8KDHksr
+			40EMo0aPMKN/vgUhmhi945IjEFHT6D/vnb6+AaHk9Q5ABGH/oZbRXfsdWduhIkAGkPuHigEy+5gD
+			RATIoHJYZ210jF7tAERABpWN3nfFEY0xmmVGjR68RgMA2fgdUtZT3o0AAAAASUVORK5CYII=</flag>
+	</nationality>
+
+	<nationality>
+		<abbreviation>SO</abbreviation>
+		<name>Somalia</name>
+		<official>The Federal Republic of Somalia</official>
+		<pt-name>Somália</pt-name>
+		<pt-nationality>somali</pt-nationality>
+		<pt-male>somali</pt-male>
+		<pt-female>somali</pt-female>
+		<flag>iVBORw0KGgoAAAANSUhEUgAAAB4AAAAUCAMAAACtdX32AAAAM1BMVEVBid1Ei95FjN5Ijd5Okd9S
+			lOBjnuN0qOaszPCwzvHA2PTJ3fXL3/bW5vj2+f35+/7///8DzmnuAAAAOUlEQVQYGd3BBwEAIAwE
+			sWOWDf7VouARQMIvnOPFjJdakVKba82WEOI4Z0SksndB6zl3JB8geL5wAT6JARGjwUDYAAAAAElF
+			TkSuQmCC</flag>
+	</nationality>
+
+	<nationality>
+		<abbreviation>SR</abbreviation>
+		<name>Suriname</name>
+		<official>The Republic of Suriname</official>
+		<pt-name>Suriname</pt-name>
+		<pt-nationality>surinamês(a)</pt-nationality>
+		<pt-male>surinamês</pt-male>
+		<pt-female>surinamesa</pt-female>
+		<flag>iVBORw0KGgoAAAANSUhEUgAAAB4AAAAUCAIAAAAVyRqTAAAAlElEQVRIx2NgKNKkFRo1Gg39pxmg
+			pdGXBEyIRNeU9IGIePUkGP00Th6IaGL057m8QERNo+97qP7cyv57D+v/swxABGQAuUBB6rj6pq7O
+			j/Wc/88xABGQAeRSM0A+zeSHGP1pOj81w/qqrOGv3azAQHjgqQJkXJEypJrRN/V0rilCk911Fb0b
+			2rpEGT00c+NooUo3owFeAwpT9HVLJQAAAABJRU5ErkJggg==</flag>
+	</nationality>
+
+	<nationality>
+		<abbreviation>SS</abbreviation>
+		<name>South Sudan</name>
+		<official>The Republic of South Sudan</official>
+		<pt-name>Sudão do Sul</pt-name>
+		<pt-nationality>sudanês(a)</pt-nationality>
+		<pt-male>sudanês</pt-male>
+		<pt-female>sudanesa</pt-female>
+		<flag>iVBORw0KGgoAAAANSUhEUgAAACgAAAAUCAMAAADImI+JAAAArlBMVEUAAAAAAQEBAwgBBAoCCRUC
+			CxsEEisGHEYHhTcHhjUHiDEHiTAIJFoIKGEIf0MIgT8JeU8KL3UKb2MLM30LZHcLZ3EMOo4MXYUN
+			U5cNWosOQaEOTKUPRaoPRqwPR68PSK0PSasQR64WS6oZRaggUqMoWrc8O449ZI49ZI9DaItTcn9X
+			dH1bM3dlfnJ6K2CQmVWpveKwHTmxrT7HFyjUEx7aEhraxyH83Qn+/v/////17tgSAAAAhElEQVQo
+			z6XQRQ7DUBAE0R+GCTNWmBmd3P9iWURe2mrLtX7SaNo1M06LcTmlQRjkEhqETlaEUE+LkFEpqUFY
+			XT/f4BzAdvOn69srMAewe+8vS4DZ8REC54e7550AgMX5GR/KpyM8I88DMG0XLCwfdqtmAuzVzAQ4
+			bBRNgJNW3oRcv2JSP9SFSwkEzpbhAAAAAElFTkSuQmCC</flag>
+	</nationality>
+
+	<nationality>
+		<abbreviation>ST</abbreviation>
+		<name>Sao Tome and Principe</name>
+		<official>The Democratic Republic of São Tomé and Príncipe</official>
+		<pt-name>São Tomé e Príncipe</pt-name>
+		<pt-nationality>são-tomense</pt-nationality>
+		<pt-male>são-tomense</pt-male>
+		<pt-female>são-tomense</pt-female>
+		<flag>iVBORw0KGgoAAAANSUhEUgAAACgAAAAUCAIAAABwJOjsAAAAlklEQVRIx2MoijMQWqtNf8RwScBk
+			QOwGWTwgdkMtpr/dCIvpbDeKxUA0JVkrdJs8HRC6xUD0Il/q/zkGWiMsFhNp98NtIERli4mxu7cI
+			hKhvMR67L6xgMNNh4OYEISADyKWTxRC7IYA8W8kP6tm1DN0FIARk0DVxfTqMzqCCxQOTnQamABmY
+			InNgKomBqRYHpiEwUE0fAJa30GCW3S6/AAAAAElFTkSuQmCC</flag>
+	</nationality>
+
+	<nationality>
+		<abbreviation>SV</abbreviation>
+		<name>El Salvador</name>
+		<official>The Republic of El Salvador</official>
+		<pt-name>El Salvador</pt-name>
+		<pt-nationality>salvadorenho(a)</pt-nationality>
+		<pt-male>salvadorenho</pt-male>
+		<pt-female>salvadorenha</pt-female>
+		<flag>iVBORw0KGgoAAAANSUhEUgAAACMAAAAUCAIAAACIxBMbAAAAy0lEQVRIx2NkUJjPQBfAOGrTqE2o
+			NoXnHCBVDyvLrz9/Wf//ZyTNpv///5Og/Ndjhn/fv3xn5uFiZGDiZWAVpY1Nfz+++vjy4QOOmyf7
+			tKxLZaQ+iglIMLAI0cCmXw/6Vp1TZzvv4pK4aduq1xwaWf76DKyKNLDpz+uaaYv4mc7wC7PevMsq
+			IWNRGhPAwCJKA5v+fT94cd3pcx84/op8YX5layJurePOwMxPmxTx++nJWxdfv+WXlPhlrKDEwCZP
+			21Q+WkaM2jS0bAIAYx5Y/duCaO8AAAAASUVORK5CYII=</flag>
+	</nationality>
+
+	<nationality>
+		<abbreviation>SY</abbreviation>
+		<name>Syrian Arab Republic</name>
+		<official>The Syrian Arab Republic</official>
+		<pt-name>Síria</pt-name>
+		<pt-nationality>sírio(a)</pt-nationality>
+		<pt-male>sírio</pt-male>
+		<pt-female>síria</pt-female>
+		<flag>iVBORw0KGgoAAAANSUhEUgAAAB4AAAAUBAMAAABohZD3AAAAKlBMVEUAAAAcqXExsX9XV1eb2cHH
+			6tzI6t3M7N/OESbfYnDp9/H9/v7+//7///+iqyWzAAAAPElEQVQY02PoQAUM1ObPRAUMd4HgzF04
+			CeaHgfmpMP4VJV84CeLfFtwLJ0H8W+Vr4SRYPxJgMEYFDDQGAN7ogqDbnYIeAAAAAElFTkSuQmCC</flag>
+	</nationality>
+
+	<nationality>
+		<abbreviation>SZ</abbreviation>
+		<name>Eswatini</name>
+		<official>The Kingdom of Eswatini</official>
+		<pt-name>Essuatíni</pt-name>
+		<pt-nationality>essuatiniano(a)</pt-nationality>
+		<pt-male>essuatinianoo</pt-male>
+		<pt-female>essuatinianoa</pt-female>
+		<flag>iVBORw0KGgoAAAANSUhEUgAAAB4AAAAUCAIAAAAVyRqTAAAB4ElEQVRIx2Owi9tJI8QwNI2ePCWD
+			Rojh/01aIYaNPDzEoOV8fH2amiuMjVcIChKphbDRE9XUTI2d+ISk8/Ly/v////bVqzNr1qyytyfH
+			6JXc3MvAaCk3d6yFBQe3gK1vp5Nbvb2Dy9+/f/+DwZ8/f3Z3dCzh44OrXGlktFpYGJ/RS1U4Zziy
+			zfJgneHOGuBopqenZ2JqbuuQYuaYr6WtU1RUdPz48QMHDuzdu/fixYv7lkyY4cnR4SY6Iyd8XX7+
+			cgsLLEZvAIamLsc8fa4FjmwLnNnmOHN42poyMDCYm5s7OzuHhYWZm1sD2cbGxjt37tyyZcuGDRtO
+			nDgBdP6BxRN6nSXWZAbOt5Oea8C1yohjrTA3utGFFnYOvh3RFk5A6WVGXF5WKEbb2NgA2aamprt3
+			70Y2+vDcCSuMuYFaJhuKOfs0hNqGrkEzGojiVWy8giZlazhDuOt5eELMzYEBYmFh4eXlBXSvgYEB
+			0FDkADk6adI6fn6I+ipZXXe/HmfTuA2YYQ00q1DRfBGfAFwEqCjewoKVlZUBDNjZ2bu6uuDRuK+j
+			A24uEK3m4W2S0Z0kJEla4rMzMODg4GBkZIyNjX3y8CH5iQ9XlunU0GhUV58nIEBslqFhRqdh8TRa
+			FaAiALgy44AjbA97AAAAAElFTkSuQmCC</flag>
+	</nationality>
+
+	<nationality>
+		<abbreviation>TD</abbreviation>
+		<name>Chad</name>
+		<official>The Republic of Chad</official>
+		<pt-name>Chade</pt-name>
+		<pt-nationality>chadiano(a)</pt-nationality>
+		<pt-male>chadiano</pt-male>
+		<pt-female>chadiana</pt-female>
+		<flag>iVBORw0KGgoAAAANSUhEUgAAAB4AAAAUCAIAAAAVyRqTAAAAKUlEQVRIx2NgUM3Eg/6fY8CDLgmY
+			4EEMo0aPGj1q9KjRo0aPGj0UjQYAstmwZ9qYtCwAAAAASUVORK5CYII=</flag>
+	</nationality>
+
+	<nationality>
+		<abbreviation>TG</abbreviation>
+		<name>Togo</name>
+		<official>The Togolese Republic</official>
+		<pt-name>Togo</pt-name>
+		<pt-nationality>togolês(a)</pt-nationality>
+		<pt-male>togolês</pt-male>
+		<pt-female>togolesa</pt-female>
+		<flag>iVBORw0KGgoAAAANSUhEUgAAACAAAAAUCAIAAABj86gYAAAAsElEQVRIx2O4JGCCH+2QNmfI8iMf
+			0duCOy6JVxWcaGjBu8Ubn1X2Ut+CG4YBtx1ib9lG/X755vulm0DGHef46xqeQKnr6nr/zzGQjaAW
+			AIPly/Hz/37/+Q8G/378/Lj1wGUxS6pZAEEft+yHWPCydx5ckJoW/Hzw9Mfth79fvv1y7Bz1Lbiu
+			4/N23ppLQmaXxa3eLd8CJIdmPhiCFlASgURF8qgFBC2gKAKJQaMWEEIAsYsDkOhbzp8AAAAASUVO
+			RK5CYII=</flag>
+	</nationality>
+
+	<nationality>
+		<abbreviation>TH</abbreviation>
+		<name>Thailand</name>
+		<official>The Kingdom of Thailand</official>
+		<pt-name>Tailândia</pt-name>
+		<pt-nationality>tailandês(a)</pt-nationality>
+		<pt-male>tailando</pt-male>
+		<pt-female>tailanda</pt-female>
+		<flag>iVBORw0KGgoAAAANSUhEUgAAAB4AAAAUCAIAAAAVyRqTAAAAOklEQVRIx2O8JyDBQBvAODSN/rJ2
+			A62M/v///xA0evnmS7QymkGldtToUaMHJvENzdxIw+JptCpABQA76x7teG8pjQAAAABJRU5ErkJg
+			gg==</flag>
+	</nationality>
+
+	<nationality>
+		<abbreviation>TJ</abbreviation>
+		<name>Tajikistan</name>
+		<official>The Republic of Tajikistan</official>
+		<pt-name>Tajiquistão</pt-name>
+		<pt-nationality>tajique</pt-nationality>
+		<pt-male>tajique</pt-male>
+		<pt-female>tajique</pt-female>
+		<flag>iVBORw0KGgoAAAANSUhEUgAAACgAAAAUCAYAAAD/Rn+7AAAA4klEQVR42u2TPQrCQBSE03gNwWt4
+			B09gm97OwhNY2FrpKSxsLQQbo7HQgKggSDTRhA3R/Jpk9AVyg4XdIgMDy8wWH+/xFLPRhsyuAWtA
+			4YBWs6PJbAUcVeRxaZ7iAviNn/AfM0TejkxvyuQAjH0DWeqWkwvdFSKm0Zsy6mQAPCBPPVow2HXy
+			95RiyqgTC1jkCd7WHJUCZ4mQrVGJOvojdIJJcAGJ1mvv+7CNASK2qTo5jiT5nPE6DnHXVZhbFc5p
+			hDS8yXPFJDqOLGXIEgeRp4OXlLHR02S20l20ILNrwBpQtH8yDhWc89HQ3AAAAABJRU5ErkJggg==</flag>
+	</nationality>
+
+	<nationality>
+		<abbreviation>TL</abbreviation>
+		<name>Timor-Leste</name>
+		<official>The Democratic Republic of Timor-Leste</official>
+		<pt-name>Timor-Leste</pt-name>
+		<pt-nationality>timorense</pt-nationality>
+		<pt-male>timorense</pt-male>
+		<pt-female>timorense</pt-female>
+		<flag>iVBORw0KGgoAAAANSUhEUgAAACgAAAAUCAIAAABwJOjsAAAA9UlEQVRIx2OIsea946VwR0WezogB
+			CLQU2c62yj31VaS3xUDAxcE4v0bi23wVulnPgAzivfi+7lelj/UMaAAY7FeWKvw/rkZr6xkwATDY
+			51VLAO2mqfUMuECcJ9+XfSq0sx5hU0ZGhpiYGJAhLS0tKysLZGgqQIOdFtYjLM7Ozr579+6kSZNu
+			3rzJxsaGGezUtR5qKzc395QpU/6DQU1NDZ5gp5b1IHNFRUXnzZt3/fp1iMWfP3/28PCgh8VwcOvW
+			rfz8fA0NDQcHB2ZmZnoENQR0dXXBY5d+iQsIODg4BiA7DXABMjBF5gBUEgNTLQ5MQ2Cgmj4AlcJJ
+			94zFsScAAAAASUVORK5CYII=</flag>
+	</nationality>
+
+	<nationality>
+		<abbreviation>TM</abbreviation>
+		<name>Turkmenistan</name>
+		<official>Turkmenistan</official>
+		<pt-name>Turquemenistão</pt-name>
+		<pt-nationality>turquemeno(a)</pt-nationality>
+		<pt-male>turquemeno</pt-male>
+		<pt-female>turquemena</pt-female>
+		<flag>iVBORw0KGgoAAAANSUhEUgAAAB4AAAAUCAIAAAAVyRqTAAACA0lEQVRIx2NgyPKDoLgQ6y3K+ou0
+			7DZZmS2Q1DtopA2XIhPBWX4+jttDkg+VR8yryD7Q5LpaTh8uxZTtT5HRvj5OhwNMu6uSdxWkX6lN
+			XqZkDJdyn1Kv3pgpW53sNrmOHKPjgq3XKevsdVA4WZS51jH0gAE0QPiLI90n10tUxLPkBFZsXMhb
+			FE6y0fHB1jvVDNYpmOwx1NkoY3LIRAsoyJwTYNtXYddXCVGTvXKG7/Rmko0O8nOYrGM13dt0bYDh
+			LCeTdSrQABEoieLMDwEy2PKCTty7yVMYRo7R07WtpviYrQ/Sn+VsskHFCC7lMbmhcO2cNeeOekxp
+			ICes40Osd2vob5Ex2aOlv1na5LCpJtUSX2ywzQJZHWcRCQdpqRhB6f36OlQz2sfbKVNZzVNHeYen
+			q72iyEolU6oZHRVo2y2uqS8qZiUnZ8UvslPDgGpGA9P1Xh1dYChvljEBkketNKhmdGSg7XITw+wA
+			y9Qwozpf013aelQzOsDXocfd2D7J3iLG0jnRbquuPtWMTgyx2qVusM5Qf5GD/kZNw0OmWlQzOibQ
+			ZpuS4baa5J3dCWvdXfcb6FCzUD00u/jZgbmL0mPfrY9bY+tANaM9vZx31oW+X2R3cmHzyxOLt9mY
+			U9PoQ8Zaa4ztVvh4bFMx2qenQ1VXqxocMdc8bKZx1EIDmLQpNBoAjhHn9EHRvVYAAAAASUVORK5C
+			YII=</flag>
+	</nationality>
+
+	<nationality>
+		<abbreviation>TN</abbreviation>
+		<name>Tunisia</name>
+		<official>The Republic of Tunisia</official>
+		<pt-name>Tunísia</pt-name>
+		<pt-nationality>tunisiano(a)</pt-nationality>
+		<pt-male>tunisiano</pt-male>
+		<pt-female>tunisiana</pt-female>
+		<flag>iVBORw0KGgoAAAANSUhEUgAAAB4AAAAUCAIAAAAVyRqTAAAAs0lEQVRIx2N4ziBMI8QwavTgMvqN
+			lef39Vv/Pn0OREAGkEsdoz9VNP3//fvb7EXvI1KACMgAcoGClBoNdCDQoHde4c9ZJT4k5v46efbX
+			6fNf+qcDBQm6nYDRQO8DnQlkAM39////p5K6/3///r519+fBo0ApiowGBi4wEIAMoHu/r9n0glv2
+			Bbvkj/Vb/9y9D5SiotGbXwKN5pCijtFYA+QPVQKEhtFIw8RH2ywzWjwNAaMBO1WwAnOphK4AAAAA
+			SUVORK5CYII=</flag>
+	</nationality>
+
+	<nationality>
+		<abbreviation>TO</abbreviation>
+		<name>Tonga</name>
+		<official>The Kingdom of Tonga</official>
+		<pt-name>Tonga</pt-name>
+		<pt-nationality>tonganês(esa)</pt-nationality>
+		<pt-male>tonganês</pt-male>
+		<pt-female>tonganesa</pt-female>
+		<flag>iVBORw0KGgoAAAANSUhEUgAAACgAAAAUBAMAAAANaGKIAAAALVBMVEXBAADFERHHFxfQPz/TTU3V
+			UVHaZ2fjjY3ml5fqqKjvv7/55eX55+f++fn///+h5mw9AAAAMklEQVQY02N4BwUTGJAAkP/UHIvg
+			IzZMwV0LWVbdQxdsAJLniBLEqh2rRdidhOn4YQcAOOJCaynsmtQAAAAASUVORK5CYII=</flag>
+	</nationality>
+
+	<nationality>
+		<abbreviation>TR</abbreviation>
+		<name>Turkey</name>
+		<official>The Republic of Turkey</official>
+		<pt-name>Turquia</pt-name>
+		<pt-nationality>turco(a)</pt-nationality>
+		<pt-male>turco</pt-male>
+		<pt-female>turca</pt-female>
+		<flag>iVBORw0KGgoAAAANSUhEUgAAAB4AAAAUCAIAAAAVyRqTAAAArElEQVRIx2N4zCVOI8QwavQAG/3S
+			yefbpm1/nj0HIiADyKWO0R9qW/7//fvvx88PNc3P9a2eSqi+8gh6m5JDqdFABwLN/f/nzys3fxQp
+			XqnnRrZPBGWfiCqSaTTQ+/////8ydxGm0qfSGk8l1YAKnspqvnIPJNloYOACjX6bkIGp9LmO+efJ
+			M0Fh9eXrcz1LGhj979+/r9/IMZqGAULDaKRh4qNtlhktnoae0QCFLqqTaGfd3gAAAABJRU5ErkJg
+			gg==</flag>
+	</nationality>
+
+	<nationality>
+		<abbreviation>TT</abbreviation>
+		<name>Trinidad and Tobago</name>
+		<official>The Republic of Trinidad and Tobago</official>
+		<pt-name>Trinidad e Tobago</pt-name>
+		<pt-nationality>trinitário(a)-tobagense</pt-nationality>
+		<pt-male>trinitário-tobagense</pt-male>
+		<pt-female>trinitária-tobagense</pt-female>
+		<flag>iVBORw0KGgoAAAANSUhEUgAAACEAAAAUCAMAAAA0jaRDAAAA21BMVEUAAAABAQECAgIICAgJCQkK
+			CgoTExMUFBQWFhYiIiIlJSUnJyc3Nzc6OjpNTU1QUFBUVFRqampubm5ycnKLi4uPj4+Tk5Oqqqqt
+			ra2wsLDExMTHx8fJycnOESbOEifPFyvPGCzQGC3RIDTRIjXSIzbULkDUMELVMkTYQFHYQlPZRVbZ
+			2dnb29vcV2bdWmjeXWve3t7icn/jdYHjeYTokJrplJ3q6urr6+vuqrLurbTvsbjzw8nzxsv0yc71
+			8/P29PT32Nv32t343OD66ev69PT76uz76+379PT89PW5Mqx+AAAA3ElEQVQoz23KxYFCARQEwcYW
+			d5fB3d3h45B/RJvAq3OxusYACM/3NVnQ7JUEIFA5Ne2h4SfjAvAVbx17qPfIewDcuWffHmpfSn8A
+			pH8Te6hxHAUBSDgLe6i62UYAiO7WVXNISycOQGh8qNtD028KAH/53LKHBu+sG8BbuHftoe694AVw
+			Z98De6h1LvsBSH2n9lD9MA4BEHeW9lB1vYsCENluquaQFk4CgODo2LCHJr80AH+lS9se6j9zbgBP
+			/tGzhzq3og/AlfkM7aHmqRIAIPma2UO1/TwMQOy6+gffZkRnsF2X/AAAAABJRU5ErkJggg==</flag>
+	</nationality>
+
+	<nationality>
+		<abbreviation>TV</abbreviation>
+		<name>Tuvalu</name>
+		<official>Tuvalu</official>
+		<pt-name>Tuvalu</pt-name>
+		<pt-nationality>tuvaluano(a)</pt-nationality>
+		<pt-male>tuvaluano</pt-male>
+		<pt-female>tuvaluana</pt-female>
+		<flag>iVBORw0KGgoAAAANSUhEUgAAACgAAAAUCAMAAADImI+JAAABVlBMVEUAJn8EKYFbl7Fcl7BcmLBd
+			l69emK5fmK1geK9gmatgmaximalkmqdmcqhmm6VmnKVncadncqhnm6Vom6NpnKJqnKBqnKFrnKBt
+			nZ5unZxvnptwnppxnplynplzn5d1n5V1oJV3oZJ4oJJ4oZJ5oZF6oZB7oY5+o4t+o4yBpIiCpIeE
+			pYWFpoSIp4CMp3ySqXaUqnSWq3KZrG6arG2grmakr2KosV6otdOpttSts1mus1extFS0tVG6t0q9
+			uEfAuUTCuULGuz3HuzzJvDrJxdnJ0eTKxdnMvTjNvTbNvjXSEDTTvzDXeZHXepLXe5PawSjcwiXc
+			wybc4e3ewyTfwyLgWXLgWnPgW3TgXHTgXXXgwyHhxCHixR/kxR3nxhroqLfoqbfuyBPyyg7zvcfz
+			wcrz9fn0wsv0w8z0xM30xs70x8/1ywv3ywj65ur7+vz7+/3+zgH///9i6V0tAAABTklEQVR42oWQ
+			Z1PCQBCGLxsMEYwGNIoiIth7QxK7qCicATEaigULPQrI///iJcOIZiC+N3P7zs2zu7eLMlWFpRBC
+			IsYiCZRLTlegixAvZ2s6aoAUl1DLCmuGmB0AUoOXc5rCShhLXFIt6kkmznv9EaKRKIrS5Wu91cS4
+			UdBKUYk8gEmHZ1OAcBf9hnzuRegnxxoUGPf057FhjdbRklZoYNxs1V8u/rQ+fRraSoXHDRBRrFJU
+			k5w+DKtoOZnvDOOP5bch2F4Pq5TVBNdeD0mqZWX+p6J9rb0fAlbSsquzcB2tZsAkZ5iA8L+8qa8Q
+			3RN0BIKMYdYB9g9mele0Pd/TJPTtvp0INNC9wZVIZEmPgcc9clv9URAAZofHRuhRa9Ax6WPg/H2Q
+			WAtwwQnwcAv+o5tNS3Dj7mpuNR5fBts8WIL2fAzA49GtNTg4MAFmfQM6xkPjpsWwzQAAAABJRU5E
+			rkJggg==</flag>
+	</nationality>
+
+	<nationality>
+		<abbreviation>TZ</abbreviation>
+		<name>Tanzania</name>
+		<official>The United Republic of Tanzania</official>
+		<pt-name>Tanzânia</pt-name>
+		<pt-nationality>tanzaniano(a)</pt-nationality>
+		<pt-male>tanzaniano</pt-male>
+		<pt-female>tanzaniana</pt-female>
+		<flag>iVBORw0KGgoAAAANSUhEUgAAAB4AAAAUCAMAAACtdX32AAAAPFBMVEUAAAAAo90BAQABo9wetTof
+			qcUftTohGwM5uDZmto1ntoxpVwl5wCu6xUq8nBDCyh/vzyDwxxXxyBXx0BjyW1O/AAAAYUlEQVR4
+			2n3NyQqAMBRD0bw6VK1T9f//VUE0LkKyvRyCVm3Yakm4p3I/n2vGM0OZNU0FhuZ1h6HH0sHQsQkY
+			GhEwlFlRZkGZFWUWlFlSZkmZJWX+0+mlzB+tpJx85eQrdwHaWAmH+UyVNAAAAABJRU5ErkJggg==</flag>
+	</nationality>
+
+	<nationality>
+		<abbreviation>UA</abbreviation>
+		<name>Ukraine</name>
+		<official>Ukraine</official>
+		<pt-name>Ucrânia</pt-name>
+		<pt-nationality>ucraniano(a)</pt-nationality>
+		<pt-male>ucraniano</pt-male>
+		<pt-female>ucraniana</pt-female>
+		<flag>iVBORw0KGgoAAAANSUhEUgAAAB4AAAAUAQMAAACgZR+HAAAABlBMVEU6dcT53RayzM22AAAAEklE
+			QVQI12NgIBn8////D0kEAOHoJ7uJYmEzAAAAAElFTkSuQmCC</flag>
+	</nationality>
+
+	<nationality>
+		<abbreviation>UG</abbreviation>
+		<name>Uganda</name>
+		<official>The Republic of Uganda</official>
+		<pt-name>Uganda</pt-name>
+		<pt-nationality>ugandense</pt-nationality>
+		<pt-male>ugandense</pt-male>
+		<pt-female>ugandense</pt-female>
+		<flag>iVBORw0KGgoAAAANSUhEUgAAAB4AAAAUCAIAAAAVyRqTAAAAvklEQVRIx2NgGAWoYMUMWiGG/89p
+			hWhp9O5yZiLR9jJ2ICJePcM9Sw6C6IaD8PWu4vr8iCWdlUAGkEuMLqKMBhr359ef6OiwL5++/P/7
+			H8iljtE3rHle3bj6/et3d2/3yVMmP75/H8gFChI2miBgYWG5cukK0LGVlZXRPm5z7DWAXKAgddJ+
+			fn7+xfMXa2tqGxsa55flAblUy1Y8PDxA43q6eupq6oAMIJfKuXHpVBYgGs2NZCOisgx5aGgaDQAr
+			pGuB1q8doAAAAABJRU5ErkJggg==</flag>
+	</nationality>
+
+	<nationality>
+		<abbreviation>US</abbreviation>
+		<name>United States of America</name>
+		<official>The United States of America</official>
+		<pt-name>Estados Unidos</pt-name>
+		<pt-nationality>norte-americano(a)</pt-nationality>
+		<pt-male>norte-americano</pt-male>
+		<pt-female>norte-americana</pt-female>
+		<flag>iVBORw0KGgoAAAANSUhEUgAAACYAAAAUCAIAAABu7dhfAAAB+0lEQVR42sWWSS8DYRjHX7vYHewR
+RIilq9bFVAQNYokixBo73bRTqlVtUbGXiERiJ5QKRQ8+gIOTgzg4ODn5IPxrnCRO04zJ/zC/yeR9
+nt/7zExLQvlacfMiyVOKFAsRIl0ITyNpWQby6ucjxfrgQrX0GwvqHLHFhoM46iFCxDIkIF/VrNtL
+okw1Q1vxxYaEEmPT2G5KqVnev5lMmXGdQVmXM7Vs6l67+m7bYhkCg2gJrZxzx0gN+XVztSPbwNHZ
+C2CW3Nao2WEQirjz5e3jk/VBwoVj+qXrMIF20OqCEwroFq9wsdt0nFlpjSrS00vXwFZ6Hw0dp8kf
+k2Us47PEwIxrt6F8jVCxgKWBE6s3aCKnegaFGQwXaHGnt9PyNmxnGZ8lveLBRIft57BEJWgFFqj6
+LKcZFdPoY3zlBtg+fghL/2wsekemNrxYF5YdE0dA8/pdUKEalijMIFxx4hK0PgkVLOOzNDnvsJza
+cQlLvDOTzlvgkM2FWaIS6gF7TCd4TzwNutc2mmV+LFEVlryG+U7jEYOwzK6y/7L0z8ZieIZlD1ZU
+OdyJ1CSk8bAAB6xn6eUWzJJBtJJbM+umep/LeliG8AWj4iI1jz8iFCkRnEikmr/QK/NHyU/OD4J5
+chyCp5bj/MfG4gvEcQi+sxznPzYWv5kch+CfAcf5Ap97Cqiq6b86AAAAAElFTkSuQmCC</flag>
+	</nationality>
+
+	<nationality>
+		<abbreviation>UY</abbreviation>
+		<name>Uruguay</name>
+		<official>The Oriental Republic of Uruguay</official>
+		<pt-name>Uruguai</pt-name>
+		<pt-nationality>uruguaio(a)</pt-nationality>
+		<pt-male>uruguaio</pt-male>
+		<pt-female>uruguaia</pt-female>
+		<flag>iVBORw0KGgoAAAANSUhEUgAAAB4AAAAUCAIAAAAVyRqTAAABWklEQVRIx2P4TzPAAGd9//7906cP
+			d+9c+fPnz9u3r6lm9NMnD758+bxifvHC6dmLZ2R9//7t/t0bEKmAssPmybvJQCCjf/z48fPnj646
+			nyV9unPbVTfMdprc7v/61ZNv374BZeUDNjNYrCAHATW/f/dmwdS0zfN9FrYJ7ZkruLJHcEmP+tJZ
+			Wa9fPQPKzt18r3/FTTIQyGhg+ALDYX6H8v6Fgje3iBxdJDS7RXbBlNTLF45RIawP7Zq0pE9rwySh
+			jZP4d88R3DLPae6E2M+fPgClNh1+unzXQzIQyOjXr1/eunFuYqvvulluc1pkVk5Umd3j8/XLp5cv
+			nlEa1kAATA/v372YPzl+3qTk3Rubb984d+v6OYiUddoeoOlkIES6BqaTx4/uAcMXmK6BaZGaWYb6
+			uZE8zxIVIGRGETGIvIRFbOKjVViTl4mJyug0DGvyCkxiC1Wa1zJUBwDMsfZR/91q9wAAAABJRU5E
+			rkJggg==</flag>
+	</nationality>
+
+	<nationality>
+		<abbreviation>UZ</abbreviation>
+		<name>Uzbekistan</name>
+		<official>The Republic of Uzbekistan</official>
+		<pt-name>Uzbequistão</pt-name>
+		<pt-nationality>usbeque</pt-nationality>
+		<pt-male>usbeque</pt-male>
+		<pt-female>usbeque</pt-female>
+		<flag>iVBORw0KGgoAAAANSUhEUgAAACgAAAAUCAYAAAD/Rn+7AAAA90lEQVRIx2NgmLn1PzoWXbj7PzZx
+			ltnbsdI0xcgcqcV7/+99+ub/zsev/ztsOvFfZsleFMXZR67+Z5q17X/24SsQPpSmmwNbz935//7n
+			r/9cc3egKOKYAwkpTqg4jIaJ082Bq+4++3/l3WcMRemHLv9nnb3tfxYwxBjBIQkNwSN0DkGnzSf+
+			g0DsvgvgqFRZvh9MiwDTJMhhYosgaVN80R68aZVmDgRhtRUH/teevvnfZP3R/6G7z/3nnbcT7GBm
+			oEMT9l8Eq0GnaYoXlbZtH8yY4f8gB6MOHHXgqAMJOTCv1W3bYMYMclut/g9mPOrAUQeOOpAABgA/
+			MJCEVjOmSAAAAABJRU5ErkJggg==</flag>
+	</nationality>
+
+	<nationality>
+		<abbreviation>VC</abbreviation>
+		<name>Saint Vincent and the Grenadines</name>
+		<official>Saint Vincent and the Grenadines</official>
+		<pt-name>São Vicente e Granadinas</pt-name>
+		<pt-nationality>são-vicentino(a)</pt-nationality>
+		<pt-male>são-vicentino</pt-male>
+		<pt-female>são-vicentina</pt-female>
+		<flag>iVBORw0KGgoAAAANSUhEUgAAAB4AAAAUCAIAAAAVyRqTAAAAtElEQVRIx2NgKDqGieoW5f25KEYk
+			qttuzTAvAQsaNXrEGP3+nNRvGPs3mEs1o2u226w4oA9hAxlALnWMfnNOmm9BjNaykF8XxIEIyABy
+			gYJUMBquc9kBfSCCsIGC1DR66QH9pdQ1Gh4gK/YbABE1AwQSjcsP6OssDwai5VSMRkjiWwELCiCD
+			mokPiFp2WkE0ABlUzo3vzksJLowGIiCD+hm9focVENGkDHl7TvotUsIYpiUfANaZZADs3D5QAAAA
+			AElFTkSuQmCC</flag>
+	</nationality>
+
+	<nationality>
+		<abbreviation>VE</abbreviation>
+		<name>Venezuela</name>
+		<official>The Bolivarian Republic of Venezuela</official>
+		<pt-name>Venezuela</pt-name>
+		<pt-nationality>venezuelano(a)</pt-nationality>
+		<pt-male>venezuelano</pt-male>
+		<pt-female>venezuelana</pt-female>
+		<flag>iVBORw0KGgoAAAANSUhEUgAAAB4AAAAUCAMAAACtdX32AAAAQlBMVEWaHEwAM6sKO64OPrARQbET
+			QrEXRbMfTLUqVbkrVbk0XbxGa8JKbsNNccRbfMlmhc1ohs1/mdWart6imkrPFCv30Rfv3UDDAAAA
+			AXRSTlPhl+sKiAAAAFNJREFUeNrNyUkKwCAQRFHbeWyHJPe/agghIiidrX9TBY9dZDvzQcZgLHof
+			YWzkghgCYlmySs4+a11SC9ZNvEc0PbOp/Lu8mollhl6WnX86yTbmG6LGIQ9pENykAAAAAElFTkSu
+			QmCC</flag>
+	</nationality>
+
+	<nationality>
+		<abbreviation>VN</abbreviation>
+		<name>Viet Nam</name>
+		<official>The Socialist Republic of Viet Nam</official>
+		<pt-name>Vietname</pt-name>
+		<pt-nationality>vietnamita</pt-nationality>
+		<pt-male>vietnamita</pt-male>
+		<pt-female>vietnamita</pt-female>
+		<flag>iVBORw0KGgoAAAANSUhEUgAAAB4AAAAUCAMAAACtdX32AAAAY1BMVEXOESbPFiXPFibQFybQGyXR
+			GyXRHSXSIiXTIyTUJyTbRyHcTSHgXCDjZx/kbx/lbx7sjBzsjRzskBvskBztkxvulRvyqxnzqhnz
+			qhr3vRf3vRj5xRf6yhb6yxb7zhb7zhf80RaGS/nYAAAAZElEQVQYGc3BRw6AMAwEwIVQQu+9xP9/
+			JRbiBCZHxAw+pDVsihw2wwgLfzc+RE7AUqI0YA7uVL3SZW0UnuKFTksMUdgT60O8qIiVeOFuNM20
+			uZAlpvW81iSQdRlY1kEW4RThHw7stwaBtv/S0QAAAABJRU5ErkJggg==</flag>
+	</nationality>
+
+	<nationality>
+		<abbreviation>VU</abbreviation>
+		<name>Vanuatu</name>
+		<official>The Republic of Vanuatu</official>
+		<pt-name>Vanuatu</pt-name>
+		<pt-nationality>vanuatuense</pt-nationality>
+		<pt-male>vanuatuense</pt-male>
+		<pt-female>vanuatuense</pt-female>
+		<flag>iVBORw0KGgoAAAANSUhEUgAAACEAAAAUCAIAAACMMcMmAAAB40lEQVR42rWVTUgUYRjHf+87H87s
+			zs6Mtai0LYgSZqbWuvSxZRqiiFAHoy4dFKRDFEWZSBYU2cE+tAgkuxiEBEnsxSBkEaE2CoKiDnUJ
+			pEN08pAeuvZCiVYWrDv753d4Z+bh/TEzzzzDDj0y4VS/95OFg8OtCEGT4T+O1BTK8THNm4d07EVA
+			u7luyt0avEOTdB9k7gnZcfYlkIhOMzrt1gXp+BnT4MQRvmaYHiW5BRNxtKhk1qsPyrGckEV/N/Oz
+			pIepqcQWsscqy3rbg3RoEsBzuHKcb894MEhFDEdoJ63YKy+Rr6OzxXz7yPuS8ccvh0OWAKI+w2dZ
+			yHJ3gFgJxULvs+Ov12QCcMPiQ9rraDRT9frkdedOf4ilqN3HLrD4gptnUFYDEZNFtVo4JwC2VWnX
+			TofaUsb5HjuxWX836fF7KjcycZXvL1G9d6uXoVM5sdRUM/ci7SljV52ubuL5fTd4BxAvlX1dVmYs
+			8vmprxb/elZokvU25W5urMynKf/iMVtK/n7nOCaHNnF7P6MtObMyQqzSu9g6ByoYaVbVa+N/3yCm
+			Rls5N5pUXT6sPkvQJc1xhhpVRf78ORORgtQGBveoa0GxPNsR0FDKpd3qbLD8+kdRG2VgpzouCFQV
+			cy6pVoXjB3JZDFgDcNNAAAAAAElFTkSuQmCC</flag>
+	</nationality>
+
+	<nationality>
+		<abbreviation>WS</abbreviation>
+		<name>Samoa</name>
+		<official>The Independent State of Samoa</official>
+		<pt-name>Samoa</pt-name>
+		<pt-nationality>samoano(a)</pt-nationality>
+		<pt-male>samoano</pt-male>
+		<pt-female>samoana</pt-female>
+		<flag>iVBORw0KGgoAAAANSUhEUgAAACgAAAAUCAIAAABwJOjsAAAAn0lEQVRIx2NgMG3AhXjt24AIj4JL
+			AiZkIwZchjKaNUxccQKIgAy6WgxEasGTgQjCFnHtoq3FTOaNGe1bfAqXIQumtGxauPUCUIq2Pi7q
+			35nQuAFZRMa7T96vn35BDQmA3O5tLBZNdI1jCFINmkTXxMVq2WSeOBuIgAy6Wsxh3bL39D0gAjLo
+			nZ30o6YDEa0KEEo0j1o8avGoxaMWDwgCAG82KgUeRNy9AAAAAElFTkSuQmCC</flag>
+	</nationality>
+
+	<nationality>
+		<abbreviation>YE</abbreviation>
+		<name>Yemen</name>
+		<official>The Republic of Yemen</official>
+		<pt-name>Iêmen</pt-name>
+		<pt-nationality>iemenita</pt-nationality>
+		<pt-male>iemenita</pt-male>
+		<pt-female>iemenita</pt-female>
+		<flag>iVBORw0KGgoAAAANSUhEUgAAAB4AAAAUCAYAAACaq43EAAAAOUlEQVRIx2N8r637n2EAAOOoxaMW
+			08zib51dxwbE4v9AMGrxqMXDy2J1dfWByU5A/H/U4lGLh5XFAP73L6WgKeOYAAAAAElFTkSuQmCC</flag>
+	</nationality>
+
+	<nationality>
+		<abbreviation>ZA</abbreviation>
+		<name>South Africa</name>
+		<official>The Republic of South Africa</official>
+		<pt-name>África do Sul</pt-name>
+		<pt-nationality>sul-africano(a)</pt-nationality>
+		<pt-male>sul-africano</pt-male>
+		<pt-female>sul-africana</pt-female>
+		<flag>iVBORw0KGgoAAAANSUhEUgAAAB4AAAAUCAIAAAAVyRqTAAAA7klEQVRIx2NgqImEIN7mxBmn9vz7
+			9+/bwV1P/awf2WpQiBjgRkOQ87zWB+9f//3w7k19IaVGO3W7o5lOLecz/N4qMnWeAU99GNWdzxBm
+			x/5iudCddbKO1HY+AxCICTCtquIFOn8KVZ3PAAehtoSd//PapXfddW8aiohBDMhAlJ9pZSUB5/8n
+			GjBgghAb9ufLQM53wHA+aQgrADp/Bdj5k+caYjp/UBpNkwChVTQSk/jOnH+eW7YrPnMzMYjYLPPm
+			7Tegah6ZHuIRURl947ZbigbTSDIXZDT+4okMxyKMdqK2YxFGU92xWIymlmPhCAB53qvKpwvL0gAA
+			AABJRU5ErkJggg==</flag>
+	</nationality>
+
+	<nationality>
+		<abbreviation>ZM</abbreviation>
+		<name>Zambia</name>
+		<official>The Republic of Zambia</official>
+		<pt-name>Zâmbia</pt-name>
+		<pt-nationality>zambiano(a)</pt-nationality>
+		<pt-male>zambiano</pt-male>
+		<pt-female>zambiana</pt-female>
+		<flag>iVBORw0KGgoAAAANSUhEUgAAAB4AAAAUCAIAAAAVyRqTAAAAv0lEQVRIx2OQ7GKgEaJAczuDfC1O
+			KclWCoxWzmAIs2AoCmDITGbwKmQoCmfQLWQIiGFICGXIdmew9WagyMu6OQyZgQx1zgxT/RiOZzOU
+			OTFkWzDkuTBE+zKoVTBQHKadDPp5DK5xDLVeDOHmDG52DJollIc1EpJpYrBzZrAJo1Y0oqFWkA+o
+			Y3RtCMcuE14g2mLGyyrJAEEeQQwn6qGIfKOnunPdUxAAopvKAgww4OXK8L4WikaNHjV61OgRYDQA
+			9tiXOpvP8h0AAAAASUVORK5CYII=</flag>
+	</nationality>
+
+	<nationality>
+		<abbreviation>ZW</abbreviation>
+		<name>Zimbabwe</name>
+		<official>The Republic of Zimbabwe</official>
+		<pt-name>Zimbabwe</pt-name>
+		<pt-nationality>zimbabuano(a)</pt-nationality>
+		<pt-male>zimbabuano</pt-male>
+		<pt-female>zimbabuana</pt-female>
+		<flag>iVBORw0KGgoAAAANSUhEUgAAACgAAAAUCAIAAABwJOjsAAABd0lEQVRIx2NYsHCBWgy/4SQOOiOG
+			////X7161SJYV6+L7hYDwdevX9NzEx3r2ALnsNMHQS2GgMWLFsxs4Pp/iYEOCMViSLAXpWp/PEZH
+			i589uPjn189HNnrAYC/LTzrWyPJtASvtENTiu9dPXFqqcLbX4p6CwI9zp0DBvnBhm6wIkEsjhPDx
+			1e2pN5eJHnLjf2il8//fP6DItWvXMkz0L8nx08Ti3w/vP/GwfqAjdyZd6NMe8d+HJE6mCt5QEXxo
+			oPg8NvDz+7c5SUkpfOw1QpzURSAf/7x+9ZGF1vEM/rc7xC8uFrm1SvRiu9DVcKu/H95DAmPhwoXc
+			3NwM1AUQo3/9+La/U/TKUpHF9XwHpwmfniu8e3EkPBZoafGvH4cnScws459fIzC7gm9du8CVo7Mh
+			BQsNgxoE/v0736awe6LgmfnCJ+cKbesRfProFm0TF9Ter1/fXzj7HgZeHNxLv+wEB3QtQAayyByY
+			SmJgqsWBaQgMVNMHAJnyAp0YwZNVAAAAAElFTkSuQmCC</flag>
+	</nationality>
+	
+<nationality><abbreviation>PT</abbreviation><name>Portugal</name><official>The Portuguese Republic</official><pt-name>Portugal</pt-name><pt-nationality>português(esa)</pt-nationality><pt-male>português</pt-male><pt-female>portuguesa</pt-female><flag>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</flag></nationality><nationality><abbreviation>FR</abbreviation><name>France</name><official>The French Republic</official><pt-name>França</pt-name><pt-nationality>francês(esa)</pt-nationality><pt-male>francês</pt-male><pt-female>francesa</pt-female><flag>iVBORw0KGgoAAAANSUhEUgAAAiYAAAFvBAMAAACMXx1MAAAAD1BMVEUAIJ+os970KkH7tb3///9BOOAdAAAByElEQVR42u3QMREAIAwEsFIpSEAD/jWxd/9jSSSkK2fdnLNzupicOHHixIkTJ06cOHHixIkTJzhx4sSJEydOnDhx4sSJEyc4ceLEiRMnTpw4ceLEiRMnOHHixIkTJ06cOHHixIkTJ05w4sSJEydOnDhx4sSJEydOcOLEiRMnTpw4ceLEiRMnTnDixIkTJ06cOHHixIkTJ06c4MSJEydOnDhx4sSJEydOnODEiRMnTpw4ceLEiRMnTpzgxIkTJ06cOHHixIkTJ06cOMGJEydOnDhx4sSJEydOnDjBiRMnTpw4ceLEiRMnTpw4wYkTJ06cOHHixIkTJ06cOHGCEydOnDhx4sSJEydOnDhxghMnTpw4ceLEiRMnTpw4cYITJ06cOHHixIkTJ06cOHHiBCdOnDhx4sSJEydOnDhx4gQnTpw4ceLEiRMnTpw4ceIEJ06cOHHixIkTJ06cOHHixAlOnDhx4sSJEydOnDhx4sQJTpw4ceLEiRMnTpw4ceLECU6cOHHixIkTJ06cOHHixIkTnDhx4sSJEydOnDhx4sSJE5w4ceLEiRMnTpw4ceLEiROcOHHixIkTJ06cOHHixIkTJzhx4sSJEye/PL4iJ1QRtw4wAAAAAElFTkSuQmCC</flag></nationality></nationalities>
