@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+    <xs:element name="resultados" type="resultadosType"/>
+
+    <xs:complexType name="resultadosType">
+        <xs:sequence>
+            <xs:element name="jogo" type="jogoType" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="jogoType">
+        <xs:sequence>
+            <xs:element name="jogadorX" type="xs:string"/>
+            <xs:element name="jogadorO" type="xs:string"/>
+            <xs:element name="vencedor" type="vencedorType"/>
+            <xs:element name="duracaoSegundos" type="xs:nonNegativeInteger"/>
+            <xs:element name="data"     type="xs:dateTime"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <!-- Vencedor pode ser X, O ou EM (empate) -->
+    <xs:simpleType name="vencedorType">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="X"/>
+            <xs:enumeration value="O"/>
+            <xs:enumeration value="EM"/>
+            <xs:enumeration value="TO"/> <!-- timeout -->
+        </xs:restriction>
+    </xs:simpleType>
+
+</xs:schema>

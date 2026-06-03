@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<resultados>
+    
+    <jogo>
+        <jogadorX>Alice</jogadorX>
+        <jogadorO>Alice</jogadorO>
+        <vencedor>TO</vencedor>
+        <duracaoSegundos>0</duracaoSegundos>
+        <data>2026-06-03T20:19:17.022485300Z</data>
+    </jogo>
+</resultados>
