@@ -73,8 +73,12 @@ public class ServletGame extends HttpServlet {
         // ----------------------------------------------------------------
         if (meuStub == null) {
             try {
-                Socket socket = new Socket("localhost", 25565);
-                meuStub = new Stub(socket);
+            	String servidorHost = getServletContext().getInitParameter("servidorHost");
+            	String servidorPortoStr = getServletContext().getInitParameter("servidorPorto");
+            	if (servidorHost == null || servidorHost.isBlank()) servidorHost = "localhost";
+            	int servidorPorto = (servidorPortoStr != null) ? Integer.parseInt(servidorPortoStr) : 25565;
+            	Socket socket = new Socket(servidorHost, servidorPorto);
+            	meuStub = new Stub(socket);
                 char meuSimbolo = meuStub.iniciar(username, password);
                 sessao.setAttribute(keyStub,      meuStub);
                 sessao.setAttribute(keyVez,        (meuSimbolo == 'X'));
