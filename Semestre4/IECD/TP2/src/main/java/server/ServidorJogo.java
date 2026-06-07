@@ -1,12 +1,15 @@
 package server;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.net.SocketTimeoutException;
 import java.time.Instant;
+import java.time.LocalDateTime;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import util.XMLDoc;
@@ -15,6 +18,19 @@ class ServidorDedicado extends Thread {
 
     // Tempo máximo (em milissegundos) que cada jogador tem para jogar
     private static final int TIMEOUT_JOGADA_MS = 30_000;
+
+    /** Regista uma mensagem no protocolo.log no formato do protocolo. */
+    private static synchronized void registaLog(String prefixo, String mensagem) {
+        // Remove quebras de linha da mensagem para manter uma entrada por linha
+        String linha = mensagem == null ? "null" : mensagem.replaceAll("[\r\n]", "");
+        String entrada = LocalDateTime.now() + " - " + prefixo + "{" + linha + "}";
+        try (PrintWriter escritor = new PrintWriter(new BufferedWriter(
+                new FileWriter(XMLDoc.getContexto() + "protocolo.log", true)))) {
+            escritor.println(entrada);
+        } catch (IOException e) {
+            System.err.println("[LOG] Nao foi possivel escrever no protocolo.log: " + e.getMessage());
+        }
+    }
 
     private Socket connectionX = null;
     private Socket connectionO = null;
@@ -34,7 +50,7 @@ class ServidorDedicado extends Thread {
     public void run() {
         // Instante de início do jogo para calcular duração
         Instant inicio = Instant.now();
-        String vencedor = "TO"; // por omissão: timeout/abandono
+        String vencedor = "AB"; // por omissão: abandono
 
         try (
             BufferedReader isX = new BufferedReader(new InputStreamReader(connectionX.getInputStream()));
@@ -67,12 +83,15 @@ class ServidorDedicado extends Thread {
                 while (jogadaFeita == null) {
                     String linha = isAtivo.readLine();
                     if (linha == null) throw new Exception("Ligação perdida (" + turno + ")");
+                    registaLog("Servidor", linha);
 
                     Document doc = XMLDoc.parseString(linha);
 
                     if (doc.getElementsByTagName("obter").getLength() > 0) {
                         // Envia o tabuleiro actual
-                        osAtivo.println("<metodo><obter>" + jogo.tabuleiroToXML() + "</obter></metodo>");
+                        String respostaObter = "<metodo><obter>" + jogo.tabuleiroToXML() + "</obter></metodo>";
+                        registaLog("Cliente", respostaObter);
+                        osAtivo.println(respostaObter);
 
                         // Activa o timeout após o jogador receber o tabuleiro pela 1ª vez
                         if (!timerIniciado) {
@@ -95,7 +114,9 @@ class ServidorDedicado extends Thread {
                         }
 
                         // Responde com o tabuleiro actualizado
-                        osAtivo.println("<metodo><obter>" + jogo.tabuleiroToXML() + "</obter></metodo>");
+                        String respostaJogar = "<metodo><obter>" + jogo.tabuleiroToXML() + "</obter></metodo>";
+                        registaLog("Cliente", respostaJogar);
+                        osAtivo.println(respostaJogar);
                         jogadaFeita = jogo.getEstado();
 
                     } else {
@@ -110,11 +131,12 @@ class ServidorDedicado extends Thread {
                     // Determinar vencedor para gravar no resultado
                     vencedor = jogadaFeita; // VX, VO ou EM
 
-                    // Notifica o jogador passivo com o estado final
-                    String linhaPassivo = isPassivo.readLine();
-                    if (linhaPassivo != null) {
-                        osPassivo.println("<metodo><obter>" + jogo.tabuleiroToXML() + "</obter></metodo>");
-                    }
+                    // Notificar o jogador passivo com o estado final.
+                    // O passivo está bloqueado em obter() — já enviou o <obter> e aguarda resposta.
+                    // Enviamos o tabuleiro final directamente sem esperar outra linha.
+                    String respostaFinal = "<metodo><obter>" + jogo.tabuleiroToXML() + "</obter></metodo>";
+                    registaLog("Cliente", respostaFinal);
+                    osPassivo.println(respostaFinal);
                     System.out.println("Jogo terminado! Estado final: " + vencedor);
                     break;
                 }
@@ -137,7 +159,11 @@ class ServidorDedicado extends Thread {
                 // -------------------------------------------------------
                 String linhaPassivo = isPassivo.readLine();
                 if (linhaPassivo == null) throw new Exception("Ligação perdida (passivo)");
-                osPassivo.println("<metodo><obter>" + jogo.tabuleiroToXML() + "</obter></metodo>");
+                char passivo = (turno == 'X') ? 'O' : 'X';
+                registaLog("Servidor", linhaPassivo);
+                String respostaPassivo = "<metodo><obter>" + jogo.tabuleiroToXML() + "</obter></metodo>";
+                registaLog("Cliente", respostaPassivo);
+                osPassivo.println(respostaPassivo);
             }
 
         } catch (SocketTimeoutException e) {
@@ -146,6 +172,15 @@ class ServidorDedicado extends Thread {
             vencedor = "TO";
         } catch (Exception e) {
             System.out.println("Servidor dedicado: terminou o jogo (" + e.getMessage() + ")!");
+            vencedor = "AB"; // ligação perdida = abandono
+            // Tentar notificar o jogador que ainda está ligado com estado de abandono.
+            // Isto permite que o browser do passivo receba "AB" e mostre mensagem adequada.
+            try {
+                String msgAbandono = "<metodo><obter><tabuleiro estado='AB'></tabuleiro></obter></metodo>";
+                // Enviar para ambos (um deles pode já estar desligado — ignorar erro)
+                try { new java.io.PrintWriter(connectionX.getOutputStream(), true).println(msgAbandono); } catch (Exception ex) {}
+                try { new java.io.PrintWriter(connectionO.getOutputStream(), true).println(msgAbandono); } catch (Exception ex) {}
+            } catch (Exception ex) { /* ignora */ }
         } finally {
             // Calcular duração em segundos
             long duracaoSeg = Instant.now().getEpochSecond() - inicio.getEpochSecond();

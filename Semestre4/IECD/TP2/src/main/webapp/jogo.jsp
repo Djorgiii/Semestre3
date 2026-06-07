@@ -222,6 +222,14 @@
             } else if (estado === "BO") {
                 status.innerText = "🔥 Bónus! Fechaste uma caixa — joga outra vez!";
                 status.style.color = MINHA_COR;
+            } else if (estado === "AB") {
+                status.innerText = "🏳️ O adversário abandonou o jogo.";
+                status.style.color = "#718096";
+                jogoTerminado = true;
+            } else if (estado === "FIM") {
+                status.innerText = "⚠️ Ligação perdida com o servidor.";
+                status.style.color = "#718096";
+                jogoTerminado = true;
             }
         }
 

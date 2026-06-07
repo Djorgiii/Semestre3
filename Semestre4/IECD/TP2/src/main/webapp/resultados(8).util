@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<resultados>
+                             
+    
+    
+    
+    <jogo>
+                                                
+        
+        
+        
+        
+        <jogadorX>Alice</jogadorX>
+                                                
+        
+        
+        
+        
+        <jogadorO>Bob</jogadorO>
+                                                
+        
+        
+        
+        
+        <vencedor>TO</vencedor>
+                                                
+        
+        
+        
+        
+        <duracaoSegundos>0</duracaoSegundos>
+                                                
+        
+        
+        
+        
+        <data>2026-06-03T20:23:14.904025Z</data>
+                                            
+    
+    
+    
+    
+    </jogo>
+            
+    
+    
+    <jogo>
+                        
+        
+        <jogadorX>Alice</jogadorX>
+                        
+        
+        <jogadorO>Bob</jogadorO>
+                        
+        
+        <vencedor>O</vencedor>
+                        
+        
+        <duracaoSegundos>52</duracaoSegundos>
+                        
+        
+        <data>2026-06-06T16:53:49.131772500Z</data>
+                    
+    
+    </jogo>
+        
+    
+    <jogo>
+                
+        <jogadorX>Bob</jogadorX>
+                
+        <jogadorO>Alice</jogadorO>
+                
+        <vencedor>O</vencedor>
+                
+        <duracaoSegundos>72</duracaoSegundos>
+                
+        <data>2026-06-07T12:44:45.576932600Z</data>
+            
+    </jogo>
+    
+    <jogo>
+        <jogadorX>Alice</jogadorX>
+        <jogadorO>Bob</jogadorO>
+        <vencedor>TO</vencedor>
+        <duracaoSegundos>112</duracaoSegundos>
+        <data>2026-06-07T13:11:04.096122800Z</data>
+    </jogo>
+</resultados>
