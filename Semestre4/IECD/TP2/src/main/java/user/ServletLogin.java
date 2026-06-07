@@ -1,5 +1,21 @@
 package user;
 
+/**
+ * ServletLogin — trata a autenticação dos jogadores na versão web.
+ *
+ * Recebe as credenciais do formulário login.jsp (POST), calcula o hash SHA-256
+ * da password, pesquisa o utilizador em users.xml e, em caso de sucesso,
+ * cria uma sessão HTTP com os atributos necessários para o jogo:
+ *   - username  — nome de utilizador
+ *   - userid    — identificador UUID
+ *   - corFundo  — cor de fundo preferida do tabuleiro
+ *   - password  — password em texto simples (necessária para o Stub.iniciar())
+ *
+ * Em caso de erro, redireciona para login.jsp com mensagem de erro.
+ *
+ * Endpoint: POST /ServletLogin
+ */
+
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;

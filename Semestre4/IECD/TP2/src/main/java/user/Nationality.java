@@ -1,5 +1,18 @@
 package user;
 
+/**
+ * Nationality — representa uma nacionalidade e a sua bandeira.
+ *
+ * Carrega o ficheiro nationalities.xml em memória estática e disponibiliza
+ * métodos de pesquisa por abreviatura ISO-2 ou nome em português.
+ * A bandeira é guardada como MyImage (Base64) dentro do XML.
+ *
+ * Métodos principais:
+ *   getByAbbreviation(String) — pesquisa por código ISO (ex: "PT")
+ *   getByPtName(String)       — pesquisa pelo nome em português (ex: "Portugal")
+ *   pt(String gender)         — devolve o adjectivo de nacionalidade no género correcto
+ */
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -182,6 +195,12 @@ public class Nationality {
     }
 
 
+     /**
+      * Devolve o adjectivo de nacionalidade no género correcto.
+      *
+      * @param gender "M" (masculino), "F" (feminino), outro (neutro)
+      * @return adjectivo de nacionalidade em português
+      */
      public String pt(String gender) {
 	if(gender==null)
 	    return "";
@@ -257,6 +276,12 @@ public class Nationality {
 	}
     }
 
+    /**
+     * Preenche os campos desta instância a partir de um elemento XML <nationality>.
+     * Usado ao carregar o ficheiro nationalities.xml.
+     *
+     * @param nationalityElement elemento XML com os dados da nacionalidade
+     */
     public void fromElement(Element nationalityElement) {
 	abbreviation = nationalityElement.getElementsByTagName("abbreviation").item(0).getTextContent();
 	name = nationalityElement.getElementsByTagName("name").item(0).getTextContent();
@@ -275,6 +300,12 @@ public class Nationality {
     }
     
 
+    /**
+     * Pesquisa uma nacionalidade no XML por XPath.
+     *
+     * @param xpath expressão XPath para localizar o elemento <nationality>
+     * @return instância preenchida ou null se não encontrar
+     */
     public static Nationality getNationality(String xpath) throws XPathExpressionException {
 	NodeList l = XMLDoc.getXPath(xpath, doc);
 	if(l.getLength()==1) {
@@ -286,11 +317,23 @@ public class Nationality {
     }
     
 
+    /**
+     * Obtém uma nacionalidade pelo código ISO-2 (ex: "PT", "CK").
+     *
+     * @param abbreviation código ISO de 2 letras
+     * @return instância ou null se não encontrar
+     */
     public static Nationality getByAbbreviation(String abbreviation) throws XPathExpressionException {
 	return getNationality("/nationalities/nationality[abbreviation/text()='"+abbreviation+"']");
     }
     
 
+    /**
+     * Obtém uma nacionalidade pelo nome em português (ex: "Portugal").
+     *
+     * @param ptName nome do país em português
+     * @return instância ou null se não encontrar
+     */
     public static Nationality getByPtName(String ptName) throws XPathExpressionException {
 	return getNationality("/nationalities/nationality[pt-name/text()='"+ptName+"']");
     }

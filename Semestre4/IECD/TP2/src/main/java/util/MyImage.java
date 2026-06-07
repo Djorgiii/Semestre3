@@ -1,5 +1,20 @@
 package util;
 
+/**
+ * MyImage — utilitário para gestão de imagens no sistema.
+ *
+ * Encapsula operações de leitura, escrita, conversão Base64 e visualização
+ * de imagens. Suporta serialização Java para envio via socket.
+ *
+ * Funcionalidades:
+ *   - Carregar imagem de ficheiro (load)
+ *   - Converter para/de Base64 (getBase64/setBase64) — formato usado no XML
+ *   - Guardar no disco com backup automático (save)
+ *   - Visualizar em janela Swing (view)
+ *   - Descarregar de URL (descarregar)
+ *   - Serializar/deserializar via socket Java (serializar/deserializar)
+ */
+
 import java.awt.BorderLayout;
 import java.awt.image.BufferedImage;
 import java.io.*;

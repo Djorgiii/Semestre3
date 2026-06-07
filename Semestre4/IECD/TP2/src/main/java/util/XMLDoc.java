@@ -55,8 +55,26 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 
+/**
+ * XMLDoc — utilitário central para operações sobre documentos XML.
+ *
+ * Agrupa todas as operações de baixo nível necessárias ao sistema:
+ *   - Parsing de XML (de ficheiro ou de String)
+ *   - Validação contra XSD ou DTD
+ *   - Serialização (Document → String ou ficheiro)
+ *   - Pesquisa por XPath (retorna NodeList, inteiro ou String)
+ *   - Transformações XSLT
+ *   - Gravação segura com lock de ficheiro e backup automático por versão
+ *   - Gestão do contexto do sistema de ficheiros (CLI vs Tomcat)
+ *   - Hash SHA-256 de strings (usado para guardar passwords)
+ *   - Utilitários de strings para nomes de ficheiro e entidades XML
+ *
+ * O contexto (getContexto/setContextoReal) resolve automaticamente o caminho
+ * correcto conforme o ambiente de execução: Eclipse CLI ou Tomcat.
+ */
 public class XMLDoc {
 
+	/** Serializa um Document DOM para String XML formatada. */
 	public static final String documentToString(Document xmlDoc)
 			throws TransformerFactoryConfigurationError, TransformerException {
 		if (xmlDoc == null) {
@@ -82,6 +100,7 @@ public class XMLDoc {
 		return out.toString();
 	}
 
+	/** Gera um nome de ficheiro de backup com timestamp completo (até milissegundos). */
 	public static String gerarNomeFBackupInstant(String caminho) {
 		Instant dataHoraAtual = Instant.now();
 
@@ -99,6 +118,7 @@ public class XMLDoc {
 				minuto, segundo, milissegundo);
 	}
 
+	/** Gera um nome de ficheiro de backup com número de versão incremental (ex: users(3).util). */
 	public static String gerarNomeFBackupVersao(String nomeFicheiro) {
 		int numeroVersaoFicheiroMaisRecente = obterNumeroVersao(nomeFicheiro);
 
@@ -112,11 +132,17 @@ public class XMLDoc {
 	
 	private static String contextoReal = null;
 
+	/** Define o caminho real da webapp quando executado no Tomcat (chamado pelo JSP). */
 	public static void setContextoReal(String path) {
 	    contextoReal = path;
 	}
 	
-	public static final String getContexto() {
+	/**
+     * Devolve o caminho base para os ficheiros XML/XSD do sistema.
+     * Usa o caminho real do Tomcat se disponível; caso contrário tenta
+     * os caminhos padrão do Eclipse (WebContent/ ou src/main/webapp/).
+     */
+    public static final String getContexto() {
 	    // Se o JSP já nos deu o caminho real do Tomcat, usamos esse!
 	    if (contextoReal != null) {
 	        return contextoReal;
@@ -140,14 +166,28 @@ public class XMLDoc {
 	    return workingDir;
 	}
 
-	public static final NodeList getXPath(final String expression, final Document doc) throws XPathExpressionException {
+	/**
+     * Executa uma expressão XPath sobre um documento e devolve os nós resultantes.
+     *
+     * @param expression expressão XPath (ex: "/users/user[username='Alice']")
+     * @param doc        documento XML onde pesquisar
+     * @return NodeList com os nós encontrados (pode estar vazia)
+     */
+    public static final NodeList getXPath(final String expression, final Document doc) throws XPathExpressionException {
 		XPath xpath = XPathFactory.newInstance().newXPath();
 		NodeList nodes;
 		nodes = (NodeList) xpath.evaluate(expression, doc, XPathConstants.NODESET);
 		return nodes;
 	}
 
-	public static final int getXPathN(final String expression, final Document doc) throws XPathExpressionException {
+	/**
+     * Executa uma expressão XPath numérica (ex: count(...)) sobre um documento.
+     *
+     * @param expression expressão XPath que devolve um número
+     * @param doc        documento XML onde pesquisar
+     * @return resultado como inteiro
+     */
+    public static final int getXPathN(final String expression, final Document doc) throws XPathExpressionException {
 		XPath xpath = XPathFactory.newInstance().newXPath();
 		return ((Double) xpath.evaluate(expression, doc, XPathConstants.NUMBER)).intValue();
 	}
@@ -167,7 +207,17 @@ public class XMLDoc {
 		return nodes.item(0).getNodeValue();
 	}
 
-	public synchronized static void gravarLock(Document documento, String ficheiroOriginal, String ficheiroBackup)
+	/**
+     * Grava um Document XML no disco de forma segura.
+     * Antes de escrever, renomeia o ficheiro original para o nome de backup
+     * (preservação em caso de falha — Req. 5). Usa FileLock para garantir
+     * exclusividade de escrita em ambiente concorrente (múltiplos jogos).
+     *
+     * @param documento        documento XML a gravar
+     * @param ficheiroOriginal caminho do ficheiro de destino
+     * @param ficheiroBackup   caminho para o backup do ficheiro anterior
+     */
+    public synchronized static void gravarLock(Document documento, String ficheiroOriginal, String ficheiroBackup)
 			throws TransformerFactoryConfigurationError, TransformerException, IOException {
 
 		renomear(ficheiroOriginal, ficheiroBackup);
@@ -281,7 +331,13 @@ public class XMLDoc {
 		return 0;
 	}
 
-	public static final Document parseFile(final String fileName) {
+	/**
+     * Carrega e faz parse de um ficheiro XML do disco.
+     *
+     * @param fileName caminho absoluto do ficheiro XML
+     * @return Document DOM ou null se o ficheiro não existir ou for inválido
+     */
+    public static final Document parseFile(final String fileName) {
 		DocumentBuilder docBuilder;
 		Document doc = null;
 		DocumentBuilderFactory docBuilderFactory = DocumentBuilderFactory.newInstance();
@@ -304,7 +360,15 @@ public class XMLDoc {
 		return doc;
 	}
 
-	public static Document parseString(String xmlStr) throws Exception {
+	/**
+     * Faz parse de uma String XML e devolve o Document DOM resultante.
+     * Usado para processar as mensagens do protocolo TCP.
+     *
+     * @param xmlStr String com conteúdo XML bem formado
+     * @return Document DOM
+     * @throws Exception se o XML estiver mal formado
+     */
+    public static Document parseString(String xmlStr) throws Exception {
 
 		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 
@@ -371,7 +435,14 @@ public class XMLDoc {
 		raiz.removeAttribute("xsi:noNamespaceSchemaLocation");
 	}
 
-	public static void renomear(String ficheiroAntigo, String ficheiroNovo) {
+	/**
+     * Renomeia um ficheiro no disco. Usado internamente pelo gravarLock
+     * para criar o backup antes de escrever a nova versão.
+     *
+     * @param ficheiroAntigo caminho do ficheiro a renomear
+     * @param ficheiroNovo   novo nome/caminho do ficheiro
+     */
+    public static void renomear(String ficheiroAntigo, String ficheiroNovo) {
 		File ficheiroBack = new File(ficheiroNovo);
 
 		File original = new File(ficheiroAntigo);
@@ -454,7 +525,8 @@ public class XMLDoc {
 	}
 
 	
-	public static final String tempoDif(LocalDateTime inicio) {
+	/** Calcula e formata o tempo decorrido desde um instante até agora. */
+    public static final String tempoDif(LocalDateTime inicio) {
 		return tempoDif(inicio,LocalDateTime.now());
 	}
 
@@ -582,7 +654,14 @@ public class XMLDoc {
 		validDoc(xmlFileName, vFileName, XMLConstants.XML_DTD_NS_URI);
 	}
 
-	public static void validDocXSD(Document xmlDoc, String vFileName) throws SAXException, IOException {
+	/**
+     * Valida um Document DOM contra um ficheiro XSD.
+     * Lança SAXException se o documento violar o schema.
+     *
+     * @param xmlDoc    documento a validar
+     * @param vFileName caminho do ficheiro XSD
+     */
+    public static void validDocXSD(Document xmlDoc, String vFileName) throws SAXException, IOException {
 		validDoc(xmlDoc, vFileName, XMLConstants.W3C_XML_SCHEMA_NS_URI);
 	}
 
@@ -630,7 +709,14 @@ public class XMLDoc {
 	}
 
 
-	public static String xmlEntitiesFromCharacters(String str) {
+	/**
+     * Escapa os caracteres especiais XML de uma string (< > & ' ").
+     * Útil ao inserir texto livre em atributos ou conteúdo de elementos XML.
+     *
+     * @param str string com possíveis caracteres especiais
+     * @return string com entidades XML escapadas
+     */
+    public static String xmlEntitiesFromCharacters(String str) {
 		Map<Character, String> entidades = new HashMap<>();
 		entidades.put('&', "&amp;");
 		entidades.put('\'', "&apos;");
@@ -652,7 +738,13 @@ public class XMLDoc {
 		return sb.toString();
 	}
 
-	public static String xmlEntitiesToCharacters(String str) {
+	/**
+     * Converte entidades XML (&amp; &lt; etc.) de volta para os caracteres originais.
+     *
+     * @param str string com entidades XML
+     * @return string com os caracteres originais
+     */
+    public static String xmlEntitiesToCharacters(String str) {
 		Map<String, String> entidades = new HashMap<>();
 		entidades.put("&amp;", "&");
 		entidades.put("&apos;", "'");
@@ -834,6 +926,13 @@ public class XMLDoc {
 		return null;
     }
 
+    /**
+     * Calcula o hash SHA-256 de uma string e devolve-o em hexadecimal minúsculo.
+     * Usado para guardar e verificar passwords dos utilizadores.
+     *
+     * @param str string a codificar (ex: password em texto simples)
+     * @return hash SHA-256 de 64 caracteres hexadecimais
+     */
     public static String SHA256(String str) throws NoSuchAlgorithmException {
         MessageDigest md = MessageDigest.getInstance("SHA-256");
         md.update(str.getBytes());

@@ -1,6 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="java.io.*, java.util.*, org.w3c.dom.*, javax.xml.parsers.*"%>
 <%
+    /*
+     * lobby.jsp — página principal após autenticação.
+     *
+     * Funcionalidades:
+     *   - Lista todos os utilizadores registados (excepto o próprio).
+     *   - AutoComplete: campo de pesquisa que filtra a lista em tempo real
+     *     pelo nome completo (firstnames + lastnames) do jogador.
+     *   - Botão "Desafiar" que abre o jogo.jsp numa nova aba, passando
+     *     o username do adversário como parâmetro.
+     *   - Acesso ao perfil, quadro de honra e logout.
+     */
+
     // 1. VERIFICAÇÃO DE SEGURANÇA (O Cão de Guarda da Sessão)
     // Se alguém tentar aceder ao lobby sem fazer login, é expulso para o login!
     String meuUsername = (String) session.getAttribute("username");
@@ -12,7 +24,8 @@
         return; // Pára a execução da página aqui
     }
 
-    // 2. LER OS ADVERSÁRIOS DO XML
+    // 2. LER A LISTA DE ADVERSÁRIOS DO FICHEIRO users.xml
+    // Exclui o próprio utilizador da lista para não poder desafiar-se a si mesmo
     List<Element> adversarios = new ArrayList<>();
     try {
         String xmlPath = application.getRealPath("/users.xml");
@@ -118,9 +131,17 @@
     <script>
         const corDestaque = "<%= corDestaque %>";
 
+        /**
+         * Filtra a lista de jogadores com base no texto introduzido.
+         * Compara com o atributo data-nome de cada item, que contém
+         * o nome completo e o username em minúsculas.
+         *
+         * @param {string} termo - texto introduzido no campo de pesquisa
+         */
         function filtrar(termo) {
             const t = termo.trim().toLowerCase();
             document.querySelectorAll("#listaJogadores .player-item").forEach(item => {
+                // Mostrar o item se o termo estiver contido no nome completo ou username
                 item.style.display = t === "" || item.dataset.nome.includes(t) ? "" : "none";
             });
         }

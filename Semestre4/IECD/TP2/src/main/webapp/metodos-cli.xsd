@@ -1,4 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!--
+    metodos-cli.xsd — Schema XML dos métodos do protocolo de jogo (perspectiva cliente).
+
+    Define a estrutura das mensagens trocadas entre o Stub (cliente) e o Skeleton (servidor):
+      - <iniciar>  autenticação e início de jogo; inclui atributo "adversario" (extensão web)
+      - <obter>    pedido do tabuleiro actual; resposta inclui <tabuleiro> com linhas e caixas
+      - <jogar>    envio de uma jogada com as coordenadas "x1 y1 x2 y2"
+
+    Estados do tabuleiro (estadoType):
+      ND — em curso (nenhuma jogada especial)
+      BO — bónus (o jogador fechou uma caixa e joga outra vez)
+      IV — jogada inválida
+      VX — vitória do jogador X
+      VO — vitória do jogador O
+      EM — empate
+      AB — abandono (um dos jogadores saiu) [extensão desta implementação]
+-->
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
 	<xs:element name="metodo" type="metodoType"/>
 	<xs:complexType name="metodoType">
@@ -14,6 +31,8 @@
 		</xs:sequence>
 		<xs:attribute type="xs:string" name="nickname" use="required"/>
 		<xs:attribute type="xs:string" name="senha" use="required"/>
+		<!-- Adversario: extensão para suporte a jogos simultâneos na versão web.
+		     Permite ao servidor emparelhar jogadores específicos em vez de FIFO cega. -->
 		<xs:attribute type="xs:string" name="adversario" use="optional"/>
 	</xs:complexType>
 	<xs:complexType name="obterType">
@@ -32,7 +51,7 @@
 			<xs:enumeration value="IV"/>
 			<xs:enumeration value="ND"/>
 			<xs:enumeration value="BO"/>
-			<xs:enumeration value="AB"/>
+			<xs:enumeration value="AB"/> <!-- Abandono: extensão desta implementação -->
 		</xs:restriction>
 	</xs:simpleType>
 	<xs:complexType name="linhaType">

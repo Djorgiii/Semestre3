@@ -1,5 +1,20 @@
 package server;
 
+/**
+ * JogoXML — extensão de Jogo com suporte ao protocolo XML e gestão de estados.
+ *
+ * Adiciona à lógica base de Jogo:
+ *   - Serialização do tabuleiro para XML (usado nas mensagens TCP).
+ *   - Gestão do estado actual do jogo segundo o protocolo:
+ *       ND — em curso (Normal)
+ *       IV — jogada Inválida
+ *       BO — Bónus (fechou caixa, joga outra vez)
+ *       VX — Vitória de X
+ *       VO — Vitória de O
+ *       EM — EMpate
+ *   - Override de joga() para actualizar o estado após cada jogada.
+ */
+
 
 public class JogoXML extends Jogo {
 
@@ -18,6 +33,13 @@ public class JogoXML extends Jogo {
     
 
 
+    /**
+     * Serializa o estado actual do tabuleiro para XML.
+     * Produz um elemento <tabuleiro estado='...'> com todos os segmentos
+     * (<linha>) e caixas fechadas (<caixa>) registados até ao momento.
+     *
+     * @return String XML do tabuleiro pronta a inserir numa mensagem de protocolo
+     */
     public String tabuleiroToXML() {
         StringBuilder tab = new StringBuilder("<tabuleiro estado='" + estado + "'>");
         
@@ -102,6 +124,11 @@ public class JogoXML extends Jogo {
         return true;
     }
 
+    /**
+     * Indica se o jogo chegou a um estado terminal (vitória ou empate).
+     *
+     * @return true se o estado for VX, VO ou EM
+     */
     public boolean terminou() {
         return estado.equals("VX") || estado.equals("VO") || estado.equals("EM");
     }

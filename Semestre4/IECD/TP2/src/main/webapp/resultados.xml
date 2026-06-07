@@ -1,292 +1,161 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <resultados>
-                                                                                                 
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     <jogo>
-                                                                                                                                                                                        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
         <jogadorX>Alice</jogadorX>
-                                                                                                                                                                                        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
         <jogadorO>Bob</jogadorO>
-                                                                                                                                                                                        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
         <vencedor>TO</vencedor>
-                                                                                                                                                                                        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
         <duracaoSegundos>0</duracaoSegundos>
-                                                                                                                                                                                        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
         <data>2026-06-03T20:23:14.904025Z</data>
-                                                                                                                                                                                    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     </jogo>
-                                                                                
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     <jogo>
-                                                                                                                                                                
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
         <jogadorX>Alice</jogadorX>
-                                                                                                                                                                
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
         <jogadorO>Bob</jogadorO>
-                                                                                                                                                                
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
         <vencedor>O</vencedor>
-                                                                                                                                                                
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
         <duracaoSegundos>52</duracaoSegundos>
-                                                                                                                                                                
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
         <data>2026-06-06T16:53:49.131772500Z</data>
-                                                                                                                                                            
-    
-    
-    
-    
-    
+    </jogo>
+    <jogo>
+        <jogadorX>Bob</jogadorX>
+        <jogadorO>Alice</jogadorO>
+        <vencedor>O</vencedor>
+        <duracaoSegundos>72</duracaoSegundos>
+        <data>2026-06-07T12:44:45.576932600Z</data>
+    </jogo>
+    <jogo>
+        <jogadorX>Alice</jogadorX>
+        <jogadorO>Bob</jogadorO>
+        <vencedor>TO</vencedor>
+        <duracaoSegundos>112</duracaoSegundos>
+        <data>2026-06-07T13:11:04.096122800Z</data>
+    </jogo>
+    <jogo>
+        <jogadorX>Alice</jogadorX>
+        <jogadorO>Bob</jogadorO>
+        <vencedor>O</vencedor>
+        <duracaoSegundos>36</duracaoSegundos>
+        <data>2026-06-07T13:21:33.037070600Z</data>
+    </jogo>
+    <jogo>
+        <jogadorX>Alice</jogadorX>
+        <jogadorO>Charlie</jogadorO>
+        <vencedor>O</vencedor>
+        <duracaoSegundos>36</duracaoSegundos>
+        <data>2026-06-07T13:27:46.264997100Z</data>
+    </jogo>
+    <jogo>
+        <jogadorX>Charlie</jogadorX>
+        <jogadorO>Charlie</jogadorO>
+        <vencedor>TO</vencedor>
+        <duracaoSegundos>0</duracaoSegundos>
+        <data>2026-06-07T13:28:24.866475600Z</data>
+    </jogo>
+    <jogo>
+        <jogadorX>Alice</jogadorX>
+        <jogadorO>Bob</jogadorO>
+        <vencedor>TO</vencedor>
+        <duracaoSegundos>5</duracaoSegundos>
+        <data>2026-06-07T13:36:41.611567Z</data>
+    </jogo>
+    <jogo>
+        <jogadorX>Alice</jogadorX>
+        <jogadorO>Charlie</jogadorO>
+        <vencedor>TO</vencedor>
+        <duracaoSegundos>8</duracaoSegundos>
+        <data>2026-06-07T13:37:12.999478Z</data>
+    </jogo>
+    <jogo>
+        <jogadorX>Alice</jogadorX>
+        <jogadorO>Alice</jogadorO>
+        <vencedor>TO</vencedor>
+        <duracaoSegundos>0</duracaoSegundos>
+        <data>2026-06-07T13:37:31.600568Z</data>
+    </jogo>
+    <jogo>
+        <jogadorX>Alice</jogadorX>
+        <jogadorO>Alice</jogadorO>
+        <vencedor>TO</vencedor>
+        <duracaoSegundos>0</duracaoSegundos>
+        <data>2026-06-07T13:46:00.839241600Z</data>
+    </jogo>
+    <jogo>
+        <jogadorX>Bob</jogadorX>
+        <jogadorO>Alice</jogadorO>
+        <vencedor>TO</vencedor>
+        <duracaoSegundos>280</duracaoSegundos>
+        <data>2026-06-07T14:03:02.533108700Z</data>
+    </jogo>
+    <jogo>
+        <jogadorX>Alice</jogadorX>
+        <jogadorO>Charlie</jogadorO>
+        <vencedor>TO</vencedor>
+        <duracaoSegundos>8</duracaoSegundos>
+        <data>2026-06-07T14:04:33.262970100Z</data>
+    </jogo>
+    <jogo>
+        <jogadorX>Bob</jogadorX>
+        <jogadorO>Alice</jogadorO>
+        <vencedor>TO</vencedor>
+        <duracaoSegundos>0</duracaoSegundos>
+        <data>2026-06-07T14:04:51.895205200Z</data>
+    </jogo>
+    <jogo>
+        <jogadorX>Bob</jogadorX>
+        <jogadorO>Alice</jogadorO>
+        <vencedor>TO</vencedor>
+        <duracaoSegundos>253</duracaoSegundos>
+        <data>2026-06-07T14:09:31.068630100Z</data>
+    </jogo>
+    <jogo>
+        <jogadorX>Alice</jogadorX>
+        <jogadorO>Bob</jogadorO>
+        <vencedor>TO</vencedor>
+        <duracaoSegundos>24</duracaoSegundos>
+        <data>2026-06-07T14:11:11.261715500Z</data>
+    </jogo>
+    <jogo>
+        <jogadorX>Alice</jogadorX>
+        <jogadorO>Charlie</jogadorO>
+        <vencedor>TO</vencedor>
+        <duracaoSegundos>20</duracaoSegundos>
+        <data>2026-06-07T14:11:12.147076300Z</data>
+    </jogo>
+    <jogo>
+        <jogadorX>Bob</jogadorX>
+        <jogadorO>Alice</jogadorO>
+        <vencedor>TO</vencedor>
+        <duracaoSegundos>2</duracaoSegundos>
+        <data>2026-06-07T14:18:18.455878200Z</data>
+    </jogo>
+    <jogo>
+        <jogadorX>Alice</jogadorX>
+        <jogadorO>Bob</jogadorO>
+        <vencedor>AB</vencedor>
+        <duracaoSegundos>0</duracaoSegundos>
+        <data>2026-06-07T14:19:54.946344200Z</data>
+    </jogo>
+    <jogo>
+        <jogadorX>Alice</jogadorX>
+        <jogadorO>Bob</jogadorO>
+        <vencedor>AB</vencedor>
+        <duracaoSegundos>3</duracaoSegundos>
+        <data>2026-06-07T14:22:34.412464300Z</data>
+    </jogo>
+    <jogo>
+        <jogadorX>Alice</jogadorX>
+        <jogadorO>Charlie</jogadorO>
+        <vencedor>AB</vencedor>
+        <duracaoSegundos>5</duracaoSegundos>
+        <data>2026-06-07T14:23:17.590053300Z</data>
+    </jogo>
+    <jogo>
+        <jogadorX>Alice</jogadorX>
+        <jogadorO>Bob</jogadorO>
+        <vencedor>AB</vencedor>
+        <duracaoSegundos>3</duracaoSegundos>
+        <data>2026-06-07T19:03:47.622733600Z</data>
+    </jogo>
+</resultados>
+  
     
     
     
