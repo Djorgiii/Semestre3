@@ -25,6 +25,7 @@ import util.XMLDoc;
  *   - Jogador passivo aguarda bloqueado em <obter/> até o adversário jogar.
  *   - No final do jogo, o resultado é gravado em resultados.xml com backup.
  */
+@SuppressWarnings("resource")
 class ServidorDedicado extends Thread {
 
     /** Tempo máximo (em milissegundos) que cada jogador tem para efectuar uma jogada. */
@@ -95,7 +96,7 @@ class ServidorDedicado extends Thread {
             BufferedReader isO = new BufferedReader(new InputStreamReader(connectionO.getInputStream()));
             PrintWriter    osO = new PrintWriter(connectionO.getOutputStream(), true);
         ) {
-            System.out.println("Iniciou a Thread (" + this.getId() + ") do servidor dedicado! "
+            System.out.println("Iniciou a Thread (" + this.threadId() + ") do servidor dedicado! "
                 + nomeX + "(X) vs " + nomeO + "(O)");
 
             JogoXML jogo = new JogoXML(); // estado do tabuleiro
@@ -232,7 +233,7 @@ class ServidorDedicado extends Thread {
             try { if (connectionX != null) connectionX.close(); } catch (IOException e) {}
             try { if (connectionO != null) connectionO.close(); } catch (IOException e) {}
         }
-        System.out.println("Servidor dedicado: terminou a Thread (" + this.getId() + ")!");
+        System.out.println("Servidor dedicado: terminou a Thread (" + this.threadId() + ")!");
     }
 
     /**
