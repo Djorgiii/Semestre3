@@ -25,7 +25,7 @@ import util.XMLDoc;
  *   - Jogador passivo aguarda bloqueado em <obter/> até o adversário jogar.
  *   - No final do jogo, o resultado é gravado em resultados.xml com backup.
  */
-@SuppressWarnings("resource")
+@SuppressWarnings("resource") // isAtivo/osAtivo/isPassivo/osPassivo são aliases dos streams do try-with-resources
 class ServidorDedicado extends Thread {
 
     /** Tempo máximo (em milissegundos) que cada jogador tem para efectuar uma jogada. */
@@ -237,6 +237,23 @@ class ServidorDedicado extends Thread {
     }
 
     /**
+     * Remove recursivamente nós de texto com apenas espaços/quebras de linha.
+     * Necessário para evitar que a indentação se acumule a cada gravação do XML
+     * (o Transformer com INDENT=yes reindenta o que já estava indentado).
+     */
+    private static void limparNosTextoVazios(org.w3c.dom.Node node) {
+        org.w3c.dom.NodeList filhos = node.getChildNodes();
+        for (int i = filhos.getLength() - 1; i >= 0; i--) {
+            org.w3c.dom.Node filho = filhos.item(i);
+            if (filho.getNodeType() == org.w3c.dom.Node.TEXT_NODE) {
+                if (filho.getNodeValue().trim().isEmpty()) node.removeChild(filho);
+            } else if (filho.getNodeType() == org.w3c.dom.Node.ELEMENT_NODE) {
+                limparNosTextoVazios(filho);
+            }
+        }
+    }
+
+    /**
      * Grava o resultado do jogo no ficheiro resultados.xml.
      *
      * Para garantir a preservação dos dados em caso de falha (Req. 5),
@@ -270,9 +287,9 @@ class ServidorDedicado extends Thread {
             Element raiz  = doc.getDocumentElement();
             Element jogo  = doc.createElement("jogo");
 
-            Element eX    = doc.createElement("jogadorX");      eX.setTextContent(jogX);
-            Element eO    = doc.createElement("jogadorO");      eO.setTextContent(jogO);
-            Element eVenc = doc.createElement("vencedor");      eVenc.setTextContent(vencedorSimples);
+            Element eX    = doc.createElement("jogadorX");       eX.setTextContent(jogX);
+            Element eO    = doc.createElement("jogadorO");       eO.setTextContent(jogO);
+            Element eVenc = doc.createElement("vencedor");       eVenc.setTextContent(vencedorSimples);
             Element eDur  = doc.createElement("duracaoSegundos"); eDur.setTextContent(String.valueOf(duracaoSeg));
             Element eData = doc.createElement("data");
             eData.setTextContent(java.time.ZonedDateTime.now(java.time.ZoneOffset.UTC)
@@ -285,7 +302,10 @@ class ServidorDedicado extends Thread {
             jogo.appendChild(eData);
             raiz.appendChild(jogo);
 
-            // Gravar com backup automático (Req. 5 — preservação em caso de falha)
+            // Remover nós de texto vazios acumulados de gravações anteriores
+            limparNosTextoVazios(doc.getDocumentElement());
+
+            // Gravar com backup (Req. 5 — preservação em caso de falha)
             String backup = XMLDoc.gerarNomeFBackupVersao(ficheiroRes);
             XMLDoc.gravarLock(doc, ficheiroRes, backup);
 
