@@ -1,4 +1,24 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%--
+    jogo.jsp — interface web do jogo Pontos e Caixas.
+
+    Arquitectura:
+      - O tabuleiro é desenhado em SVG com linhas clicáveis.
+      - Um temporizador de 30 segundos é apresentado quando é a vez do jogador.
+      - O polling ao ServletGame (acao=estado) verifica periodicamente se o
+        adversário jogou, actualizando o tabuleiro sem recarregar a página.
+      - Toda a comunicação com o servidor é feita via fetch() em JSON.
+
+    Estados do tabuleiro tratados:
+      ND — em curso (Normal ou aguardar adversário)
+      BO — bónus (fechou caixa, joga outra vez)
+      IV — jogada inválida
+      VX — vitória de X
+      VO — vitória de O
+      EM — empate
+      AB — abandono (adversário saiu)
+      FIM — ligação perdida com o servidor
+--%>
 <%
     String meuUsername = (String) session.getAttribute("username");
     String minhaCor = (String) session.getAttribute("corFundo");

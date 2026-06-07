@@ -1,5 +1,21 @@
 package user;
 
+/**
+ * UserServlet — gere as operações de criação e edição de perfis de utilizador.
+ *
+ * Trata dois modos de operação através do parâmetro "action":
+ *   action=save + userid vazio  → cria novo utilizador (registo)
+ *   action=save + userid        → actualiza utilizador existente (edição de perfil)
+ *
+ * Valida os dados recebidos do formulário, converte a fotografia para Base64,
+ * aplica hash SHA-256 à password e grava no users.xml. Valida o documento
+ * contra o users.xsd antes de escrever no disco.
+ *
+ * Suporta upload de imagem via multipart/form-data (@MultipartConfig).
+ *
+ * Endpoint: POST /UserServlet?action=save[&userid=UUID]
+ */
+
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.annotation.WebServlet;

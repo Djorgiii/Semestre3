@@ -1,5 +1,17 @@
 package client;
 
+/**
+ * Jogador — cliente de consola do jogo Pontos e Caixas.
+ *
+ * Ponto de entrada do cliente em modo texto (CLI). Apresenta um menu
+ * com as opções de jogar, registar nova conta e alterar perfil.
+ * Toda a comunicação com o servidor é feita através do Stub via TCP.
+ *
+ * Argumentos de linha de comandos (opcionais):
+ *   args[0] — host do servidor (por omissão: localhost)
+ *   args[1] — porto TCP       (por omissão: 25565)
+ */
+
 import java.net.Socket;
 import java.time.LocalDateTime;
 import java.util.Scanner;
@@ -14,6 +26,7 @@ public class Jogador {
     public Jogador() {}
     
 
+    /** Lê e valida uma jogada do jogador (4 números separados por espaços). */
     private static String readJogada(Scanner leitor) {
         while (true) {
             String entrada = leitor.nextLine().trim();
@@ -26,6 +39,7 @@ public class Jogador {
         }
     }
     
+    /** Lê a senha de forma segura: usa System.console() se disponível, Scanner caso contrário. */
     private static String leSenha(String prompt, Scanner s) {
         String senha = null;
         if(System.console() != null)
@@ -77,6 +91,7 @@ public class Jogador {
         leitor.close();
     }
 
+    /** Inicia uma partida: autentica o jogador, entra no ciclo de jogo e trata os estados até o jogo terminar. */
     private static void jogarPartida(String host, int port, Scanner leitor) {
         try (Socket socket = new Socket(host, port);
              Stub stub = new Stub(socket)) {
@@ -122,6 +137,7 @@ public class Jogador {
         }
     }
 
+    /** Recolhe os dados necessários e envia o pedido de registo de nova conta ao servidor. */
     private static void registarConta(String host, int port, Scanner leitor) {
         try (Socket socket = new Socket(host, port);
              Stub stub = new Stub(socket)) {
@@ -183,6 +199,7 @@ public class Jogador {
         }
     }
 
+    /** Permite ao jogador alterar a senha e/ou fotografia de perfil via TCP. */
     private static void alterarConta(String host, int port, Scanner leitor) {
         try (Socket socket = new Socket(host, port);
              Stub stub = new Stub(socket)) {

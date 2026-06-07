@@ -1,4 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!--
+    resultados.xsd — Schema XML do ficheiro de resultados dos jogos.
+
+    Valida o ficheiro resultados.xml que guarda o histórico de todas as partidas.
+    Cada <jogo> regista os dois jogadores, o vencedor, a duração e a data/hora.
+
+    Valores do campo <vencedor>:
+      X  — venceu o jogador X
+      O  — venceu o jogador O
+      EM — empate
+      TO — timeout (jogador não jogou nos 30 segundos)
+      AB — abandono (um dos jogadores saiu)
+-->
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
 
     <xs:element name="resultados" type="resultadosType"/>
@@ -25,7 +38,8 @@
             <xs:enumeration value="X"/>
             <xs:enumeration value="O"/>
             <xs:enumeration value="EM"/>
-            <xs:enumeration value="TO"/> <!-- timeout -->
+            <xs:enumeration value="TO"/> <!-- timeout: jogador não jogou a tempo -->
+            <xs:enumeration value="AB"/> <!-- abandono: jogador saiu da partida -->
         </xs:restriction>
     </xs:simpleType>
 

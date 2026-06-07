@@ -1,4 +1,20 @@
 package user;
+
+/**
+ * User — modelo de dados de um utilizador do sistema.
+ *
+ * Carrega e mantém o ficheiro users.xml em memória estática (Document doc).
+ * Cada instância representa um utilizador com todos os seus atributos.
+ *
+ * Responsabilidades principais:
+ *   - Validação e encapsulamento dos dados do utilizador.
+ *   - Autenticação via XPath sobre o XML (username + SHA-256 da password).
+ *   - Serialização para XML (toXMLString) para envio no protocolo TCP.
+ *   - Operações de gestão: alterar foto, alterar senha, bloquear/desbloquear.
+ *   - Persistência: gravar o users.xml com backup (via XMLDoc.gravarLock).
+ *
+ * A password é sempre guardada como hash SHA-256 — nunca em texto simples.
+ */
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 import java.time.LocalDate;
@@ -69,6 +85,10 @@ public class User {
 	_load();
     }
 
+    /**
+     * (Re)carrega o ficheiro users.xml em memória e valida contra o users.xsd.
+     * Deve ser chamado após qualquer alteração ao ficheiro XML.
+     */
     public static void _load() {
 	Document d = XMLDoc.parseFile(XMLDoc.getContexto() + file + ".xml");
 	try {
@@ -535,6 +555,13 @@ public class User {
     }
 
 
+    /**
+     * Serializa os dados do utilizador para XML, incluindo o perfil completo
+     * e os dados da nacionalidade. Usado pelo Skeleton para responder ao <iniciar>.
+     *
+     * @param simbolo símbolo atribuído ao jogador ('X' ou 'O')
+     * @return String XML com o elemento <jogador> completo
+     */
     public String toXMLString(char simbolo) throws ParserConfigurationException {
 	String ret = "<jogador simbolo='"+simbolo+"'>"
 		+ "<userid>"+getUserId().toString()+"</userid>"
@@ -573,6 +600,12 @@ public class User {
     }
 
 
+    /**
+     * Preenche os campos desta instância a partir de um elemento XML <user>.
+     * Usado ao carregar utilizadores do ficheiro users.xml.
+     *
+     * @param userElement elemento XML com os dados do utilizador
+     */
     public void fromElement(Element userElement) throws Exception {
 	setUserId(UUID.fromString(userElement.getElementsByTagName("userid").item(0).getTextContent()));
 	setUpdated(xsdToLocalDateTime(userElement.getElementsByTagName("updated").item(0).getTextContent()));
@@ -885,6 +918,14 @@ public class User {
     }
 
 
+    /**
+     * Autentica um utilizador pelo username e password.
+     * Usa XPath para verificar username + hash SHA-256 da password + não bloqueado.
+     *
+     * @param username nome de utilizador
+     * @param password senha em texto simples (convertida para SHA-256 internamente)
+     * @return instância User se autenticado com sucesso, null caso contrário
+     */
     public static User _authenticate(String username, String password) throws Exception {
 
 
@@ -900,6 +941,14 @@ public class User {
     }
 
 
+    /**
+     * Altera a senha de um utilizador, verificando primeiro a senha antiga.
+     *
+     * @param username    nome de utilizador
+     * @param senhaAntiga senha actual (verificada contra o hash guardado)
+     * @param senhaNova   nova senha (será guardada como SHA-256)
+     * @return true se a alteração foi bem-sucedida
+     */
     public static boolean _chgPass(String username, String senhaAntiga, String senhaNova)
 	    throws XPathExpressionException, NoSuchAlgorithmException {
 
@@ -1003,6 +1052,10 @@ public class User {
 	_save();
     }
 
+    /**
+     * Valida o documento XML contra o XSD e grava-o no disco com backup automático.
+     * Deve ser chamado após qualquer alteração ao documento em memória.
+     */
     public static void _save()
 	    throws SAXException, IOException, TransformerFactoryConfigurationError, TransformerException {
 

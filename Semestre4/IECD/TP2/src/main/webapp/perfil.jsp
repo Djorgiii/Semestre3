@@ -1,4 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%--
+    perfil.jsp — página de edição do perfil do jogador.
+
+    Permite ao jogador:
+      - Alterar a senha de acesso.
+      - Actualizar a fotografia de perfil (upload de imagem convertida para Base64).
+      - Definir a cor de fundo preferida para o ecrã de jogo.
+
+    A alteração é enviada ao servidor TCP via Stub.alterar() e gravada no users.xml.
+    A cor de fundo é guardada localmente no users.xml e carregada na sessão HTTP
+    no próximo login.
+--%>
 <%@ page import="java.io.*, java.util.*, org.w3c.dom.*, javax.xml.parsers.*"%>
 <%
     // Verificação de sessão — redireciona para login se não autenticado

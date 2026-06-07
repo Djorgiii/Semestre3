@@ -1,5 +1,17 @@
 package user;
 
+/**
+ * ServletAutoComplete — fornece sugestões de utilizadores para o campo de pesquisa do lobby.
+ *
+ * Recebe o parâmetro "q" (texto escrito pelo utilizador) e devolve um XML com
+ * os jogadores cujo nome completo (firstnames + lastnames) contenha esse texto.
+ *
+ * A resposta é em XML (Req. 6 — suporte a XML/XSD) e é consumida pelo JavaScript
+ * do lobby.jsp para filtrar a lista de adversários em tempo real.
+ *
+ * Endpoint: GET /ServletAutoComplete?q=texto
+ */
+
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
