@@ -156,6 +156,7 @@ public class Skeleton {
         x.getElementsByTagName("iniciar").item(0).appendChild(cloneElement);
         
         String msg = XMLDoc.documentToString(x).replaceAll("\\r\\n|\\r|\\n", "");
+        registaLog("Cliente{" + msg + "}");
         os.println(msg);
     }
     
@@ -165,7 +166,9 @@ public class Skeleton {
         
         getMethod(obter, "obter");
 
-        os.println("<metodo><obter>" + jogo.tabuleiroToXML() + "</obter></metodo>");
+        String msgObter = "<metodo><obter>" + jogo.tabuleiroToXML() + "</obter></metodo>";
+        registaLog("Cliente{" + msgObter + "}");
+        os.println(msgObter);
     }
 
 
@@ -190,8 +193,9 @@ public class Skeleton {
             System.err.println("Erro na jogada do Skeleton: " + e.getMessage());
         }
 
-        // Responde com <obter> + tabuleiro (o XSD do cliente aceita tabuleiro em <obter>)
-        os.println("<metodo><obter>" + jogo.tabuleiroToXML() + "</obter></metodo>");
+        String msg = "<metodo><obter>" + jogo.tabuleiroToXML() + "</obter></metodo>";
+        registaLog("Cliente{" + msg + "}");
+        os.println(msg);
         return jogo;
     }
 
@@ -212,7 +216,11 @@ public class Skeleton {
     }
     
 
-    private static void registaLog(String evento) throws IOException {
-        adicionarStringFicheiro(XMLDoc.getContexto() + "protocolo.log", LocalDateTime.now() + " - " + evento.replaceAll("\n", ""));
+    private static void registaLog(String evento) {
+        try {
+            adicionarStringFicheiro(XMLDoc.getContexto() + "protocolo.log", LocalDateTime.now() + " - " + evento.replaceAll("\n", "").replaceAll("\r", ""));
+        } catch (IOException e) {
+            System.err.println("[LOG] Erro ao escrever protocolo.log: " + e.getMessage());
+        }
     }
 }

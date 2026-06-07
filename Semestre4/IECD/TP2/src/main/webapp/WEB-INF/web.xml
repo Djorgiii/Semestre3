@@ -30,7 +30,7 @@
         <param-name>servidorPorto</param-name>
         <param-value>25565</param-value>
     </context-param>
-
+	
     <welcome-file-list>
         <welcome-file>login.jsp</welcome-file>
         <welcome-file>index.html</welcome-file>

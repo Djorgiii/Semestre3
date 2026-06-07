@@ -6,6 +6,7 @@
     String meuUsername = (String) session.getAttribute("username");
     String minhaCor = (String) session.getAttribute("corFundo");
     
+    String corDestaque = (minhaCor != null && !minhaCor.isBlank()) ? minhaCor : "#319795";
     if (meuUsername == null) {
         response.sendRedirect("login.jsp?msgErro=" + java.net.URLEncoder.encode("Acesso negado! Inicia sessão primeiro.", "UTF-8"));
         return; // Pára a execução da página aqui
@@ -72,28 +73,59 @@
 
     <div class="lobby-container">
         <h2 style="margin-bottom: 20px; border-bottom: 2px solid #edf2f7; padding-bottom: 10px;">Escolhe um Adversário</h2>
-        
-        <ul class="player-list">
+
+        <!-- Pesquisa por nome completo — filtra a lista em tempo real -->
+        <div style="margin-bottom: 20px;">
+            <input type="text" id="campoPesquisa" placeholder="Procurar jogador pelo nome completo..."
+                autocomplete="new-password"
+                style="width: 100%; padding: 10px 14px; border: 2px solid #e2e8f0; border-radius: 8px;
+                       font-size: 1em; box-sizing: border-box; outline: none; transition: border 0.2s;"
+                onfocus="this.style.borderColor=corDestaque"
+                onblur="this.style.borderColor='#e2e8f0'"
+                oninput="filtrar(this.value)">
+        </div>
+
+        <!-- Lista completa (filtrada por JS) -->
+        <ul class="player-list" id="listaJogadores">
             <% if (adversarios.isEmpty()) { %>
                 <li style="text-align: center; color: #a0aec0; padding: 20px;">Não há outros jogadores registados de momento.</li>
             <% } else { 
                 for (Element adv : adversarios) { 
-                    String nomeAdv = adv.getElementsByTagName("username").item(0).getTextContent();
-                    String natAdv = (adv.getElementsByTagName("nationality").getLength() > 0) ? adv.getElementsByTagName("nationality").item(0).getTextContent() : "";
-                    String corAdv = (adv.getElementsByTagName("corFundo").getLength() > 0) ? adv.getElementsByTagName("corFundo").item(0).getTextContent() : "#FFFFFF";
+                    String nomeAdv    = adv.getElementsByTagName("username").item(0).getTextContent();
+                    String firstnames = adv.getElementsByTagName("firstnames").getLength() > 0 ? adv.getElementsByTagName("firstnames").item(0).getTextContent().trim() : "";
+                    String lastnames  = adv.getElementsByTagName("lastnames").getLength()  > 0 ? adv.getElementsByTagName("lastnames").item(0).getTextContent().trim()  : "";
+                    String nomeCompleto = (firstnames + " " + lastnames).trim();
+                    if (nomeCompleto.isEmpty()) nomeCompleto = nomeAdv;
+                    String natAdv  = adv.getElementsByTagName("nationality").getLength() > 0 ? adv.getElementsByTagName("nationality").item(0).getTextContent() : "";
+                    String corAdv  = adv.getElementsByTagName("corFundo").getLength()    > 0 ? adv.getElementsByTagName("corFundo").item(0).getTextContent()    : "#FFFFFF";
             %>
-                <li class="player-item">
+                <li class="player-item" data-nome="<%= nomeCompleto.toLowerCase() %> <%= nomeAdv.toLowerCase() %>">
                     <div class="player-info">
                         <div class="color-dot" style="background-color: <%= corAdv %>;" title="Cor do adversário"></div>
-                        <strong><%= nomeAdv %></strong>
+                        <span>
+                            <strong><%= nomeCompleto %></strong>
+                            <span style="color:#a0aec0; font-size:0.85em;"> (@<%= nomeAdv %>)</span>
+                        </span>
                         <span style="color: #718096; font-size: 0.85em;"><%= natAdv %></span>
                     </div>
-                    <a href="jogo.jsp?adversario=<%= nomeAdv %>" target="_blank" class="btn btn-play">Desafiar ⚔️</a>
+                    <a href="jogo.jsp?adversario=<%= nomeAdv %>" class="btn btn-play" target="_blank">Desafiar ⚔️</a>
                 </li>
             <%  } 
                } %>
         </ul>
     </div>
+
+    <script>
+        const corDestaque = "<%= corDestaque %>";
+
+        function filtrar(termo) {
+            const t = termo.trim().toLowerCase();
+            document.querySelectorAll("#listaJogadores .player-item").forEach(item => {
+                item.style.display = t === "" || item.dataset.nome.includes(t) ? "" : "none";
+            });
+        }
+    </script>
+
 
 </body>
 </html>

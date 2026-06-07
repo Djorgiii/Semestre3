@@ -73,13 +73,14 @@ public class ServletGame extends HttpServlet {
         // ----------------------------------------------------------------
         if (meuStub == null) {
             try {
-            	String servidorHost = getServletContext().getInitParameter("servidorHost");
-            	String servidorPortoStr = getServletContext().getInitParameter("servidorPorto");
-            	if (servidorHost == null || servidorHost.isBlank()) servidorHost = "localhost";
-            	int servidorPorto = (servidorPortoStr != null) ? Integer.parseInt(servidorPortoStr) : 25565;
-            	Socket socket = new Socket(servidorHost, servidorPorto);
-            	meuStub = new Stub(socket);
-                char meuSimbolo = meuStub.iniciar(username, password);
+                // Ler o IP e porto do servidor TCP a partir dos parâmetros do web.xml
+                String servidorHost = getServletContext().getInitParameter("servidorHost");
+                String servidorPortoStr = getServletContext().getInitParameter("servidorPorto");
+                if (servidorHost == null || servidorHost.isBlank()) servidorHost = "localhost";
+                int servidorPorto = (servidorPortoStr != null) ? Integer.parseInt(servidorPortoStr) : 25565;
+                Socket socket = new Socket(servidorHost, servidorPorto);
+                meuStub = new Stub(socket, caminhoBase);
+                char meuSimbolo = meuStub.iniciar(username, password, adversario);
                 sessao.setAttribute(keyStub,      meuStub);
                 sessao.setAttribute(keyVez,        (meuSimbolo == 'X'));
                 sessao.setAttribute(keyObter,      false);
@@ -105,7 +106,8 @@ public class ServletGame extends HttpServlet {
                 log(sessao, adversario, "HANDSHAKE - a fazer obter() inicial");
                 Element tabuleiro = meuStub.obter();
                 sessao.setAttribute(keyObter, true);
-                boolean vezHandshake = (Boolean) sessao.getAttribute(keyVez);
+                Boolean vezHandshake = (Boolean) sessao.getAttribute(keyVez);
+                if (vezHandshake == null) { out.print("{\"estado\": \"FIM\", \"linhas\": [], \"caixas\": []}"); return; }
                 String json = gerarJson(tabuleiro, vezHandshake);
                 sessao.setAttribute(keyTabuleiro, json);
                 log(sessao, adversario, "HANDSHAKE concluido, estado=" + tabuleiro.getAttribute("estado"));
@@ -117,8 +119,8 @@ public class ServletGame extends HttpServlet {
             // JOGAR
             // ----------------------------------------------------------------
             if ("jogar".equals(acao)) {
-                boolean minhaVez = (Boolean) sessao.getAttribute(keyVez);
-                if (!minhaVez) {
+                Boolean minhaVez = (Boolean) sessao.getAttribute(keyVez);
+                if (!Boolean.TRUE.equals(minhaVez)) {
                     out.print("{\"erro\": \"Espera a tua vez!\"}");
                     return;
                 }
@@ -160,10 +162,16 @@ public class ServletGame extends HttpServlet {
             // ESTADO (polling do jogador passivo)
             // ----------------------------------------------------------------
             } else if ("estado".equals(acao)) {
-                boolean minhaVez  = (Boolean) sessao.getAttribute(keyVez);
+                Boolean minhaVez  = (Boolean) sessao.getAttribute(keyVez);
                 Boolean pendente  = (Boolean) sessao.getAttribute(keyPendente);
 
-                if (minhaVez) {
+                // Atributos podem ser null se a sessão foi limpa por um erro concorrente
+                if (minhaVez == null) {
+                    out.print("{\"estado\": \"FIM\", \"linhas\": [], \"caixas\": []}");
+                    return;
+                }
+
+                if (Boolean.TRUE.equals(minhaVez)) {
                     // Já é a nossa vez — devolve cache
                     String ult = (String) sessao.getAttribute(keyTabuleiro);
                     out.print(ult != null ? ult
@@ -193,11 +201,53 @@ public class ServletGame extends HttpServlet {
 
         } catch (Exception e) {
             System.err.println("[GAME][" + username + " vs " + adversario + "] ERRO: " + e.getMessage());
-            e.printStackTrace();
-            sessao.setAttribute(keyPendente, false);
-            String msg = (e.getMessage() != null)
-                ? e.getMessage().replace("\"", "'") : "Erro desconhecido";
-            out.print("{\"erro\": \"" + msg + "\"}");
+            // Só imprimir stack trace para erros inesperados, não para ligações perdidas normais
+            String msgParaLog = e.getMessage() != null ? e.getMessage() : "";
+            boolean erroEsperado = e instanceof java.net.SocketException
+                || e instanceof java.io.IOException
+                || msgParaLog.contains("cancelada") || msgParaLog.contains("anulada")
+                || msgParaLog.contains("closed") || msgParaLog.contains("reset");
+            if (!erroEsperado) e.printStackTrace();
+            // Limpar o stub desta partida para forçar nova ligação TCP.
+            // IMPORTANTE: só limpamos se o stub na sessão ainda é o mesmo que
+            // usámos neste pedido — evita apagar o estado de um novo jogo já iniciado
+            // em paralelo (condição de corrida entre requests concorrentes).
+            // Considerar como "ligação perdida" qualquer erro de socket ou
+            // de leitura TCP (inclui abandono do adversário, timeout, reset).
+            String msgErro = e.getMessage() != null ? e.getMessage() : "";
+            boolean ligacaoPerdida = e instanceof java.net.SocketException
+                || e instanceof java.io.IOException
+                || (e.getCause() instanceof java.net.SocketException)
+                || msgErro.contains("cancelada")
+                || msgErro.contains("cancelled")
+                || msgErro.contains("closed")
+                || msgErro.contains("reset")
+                || msgErro.contains("anulada");
+            if (ligacaoPerdida) {
+                // Ligação TCP perdida — marcar o jogo como terminado na sessão.
+                // Isto evita que requests paralelas continuem a tentar usar o socket morto.
+                if (sessao.getAttribute(keyStub) == meuStub) {
+                    // Guardar "FIM" como último tabuleiro para que o próximo polling
+                    // devolva FIM imediatamente sem tentar reconectar.
+                    sessao.setAttribute(keyObter,      true);
+                    sessao.setAttribute(keyVez,        true);
+                    sessao.setAttribute(keyPendente,   false);
+                    sessao.setAttribute(keyTabuleiro,  "{\"estado\": \"FIM\", \"linhas\": [], \"caixas\": []}");
+                    sessao.removeAttribute(keyStub); // força novo INIT se o jogador tentar outra partida
+                }
+                out.print("{\"estado\": \"FIM\", \"linhas\": [], \"caixas\": []}");
+            } else {
+                if (sessao.getAttribute(keyStub) == meuStub) {
+                    sessao.removeAttribute(keyStub);
+                    sessao.removeAttribute(keyVez);
+                    sessao.removeAttribute(keyObter);
+                    sessao.removeAttribute(keyTabuleiro);
+                    sessao.removeAttribute(keyPendente);
+                }
+                String msg = (e.getMessage() != null)
+                    ? e.getMessage().replace("\"", "'") : "Erro desconhecido";
+                out.print("{\"erro\": \"" + msg + "\"}");
+            }
         }
         out.flush();
     }

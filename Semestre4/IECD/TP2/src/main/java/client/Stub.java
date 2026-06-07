@@ -17,11 +17,25 @@ import util.XMLDoc;
 public class Stub implements AutoCloseable {
     private BufferedReader is = null;
     private PrintWriter os = null;
-    private Document registo=null;
+    private Document registo = null;
+    /** Caminho absoluto para o protocolo.log. Definido no construtor. */
+    private String caminhoLog = null;
 
+    /** Construtor original — usa XMLDoc.getContexto() como antes (CLI). */
     public Stub(Socket sk) throws IOException {
         is = new BufferedReader(new InputStreamReader(sk.getInputStream()));
         os = new PrintWriter(sk.getOutputStream(), true);
+        // caminhoLog fica null; registaLog usará XMLDoc.getContexto() como fallback
+    }
+
+    /**
+     * Construtor para uso no Tomcat — recebe o caminho real da webapp
+     * para que o log seja escrito no sítio certo independentemente do
+     * estado do contexto estático XMLDoc.
+     */
+    public Stub(Socket sk, String caminhoWebapp) throws IOException {
+        this(sk);
+        this.caminhoLog = caminhoWebapp;
     }
     
     @Override
@@ -123,10 +137,18 @@ public class Stub implements AutoCloseable {
         }
     }
     
-    private static void registaLog(String evento) {
-        try (PrintWriter escritor = new PrintWriter(new BufferedWriter(new FileWriter(XMLDoc.getContexto()+"protocolo.log", true)))) {
-            escritor.println(LocalDateTime.now() + " - " + evento.replaceAll("\n",""));
-        } catch (IOException e) {}
+    private void registaLog(String evento) {
+        // Usa o caminho de instância (Tomcat) ou o contexto estático (CLI)
+        String caminho = (caminhoLog != null && !caminhoLog.isEmpty())
+                ? caminhoLog
+                : XMLDoc.getContexto();
+        if (caminho == null || caminho.isEmpty()) return;
+        try (PrintWriter escritor = new PrintWriter(new BufferedWriter(
+                new FileWriter(caminho + "protocolo.log", true)))) {
+            escritor.println(LocalDateTime.now() + " - " + evento.replaceAll("\n","").replaceAll("\r",""));
+        } catch (IOException e) {
+            System.err.println("[PROTOCOLO] " + LocalDateTime.now() + " - " + evento);
+        }
     }
     
     public void print() {
@@ -153,10 +175,17 @@ public class Stub implements AutoCloseable {
         }
     }
 
+    /** Compatibilidade CLI — sem adversário específico. */
     public char iniciar(final String user, final String pass) throws Exception {
-        os.println("<metodo><iniciar nickname='" + user + "' senha='" + pass + "'/></metodo>");
+        return iniciar(user, pass, "");
+    }
+
+    public char iniciar(final String user, final String pass, final String adversario) throws Exception {
+        String pedido = "<metodo><iniciar nickname='" + user + "' senha='" + pass + "' adversario='" + adversario + "'/></metodo>";
+        registaLog("ENVIO{" + pedido + "}");
+        os.println(pedido);
         String resposta = is.readLine();
-        registaLog("Cliente{"+resposta+"}");
+        registaLog("RECEP{" + resposta + "}");
         if(resposta==null) throw new Exception("Ligação cancelada!");
         registo = XMLDoc.parseString(resposta);
         validXSD(registo);
@@ -165,9 +194,11 @@ public class Stub implements AutoCloseable {
     }
 
     public Element obter() throws Exception {
-        os.println("<metodo><obter/></metodo>");
+        String pedido = "<metodo><obter/></metodo>";
+        registaLog("ENVIO{" + pedido + "}");
+        os.println(pedido);
         String resposta=is.readLine();
-        registaLog("Cliente{"+resposta+"}");
+        registaLog("RECEP{" + resposta + "}");
         if(resposta==null) throw new Exception("Ligação cancelada!");
         Document d = XMLDoc.parseString(resposta);
         validXSD(d);
@@ -177,11 +208,11 @@ public class Stub implements AutoCloseable {
  // Dentro do teu Stub.java atual, substitui o método jogar:
 
     public Element jogar(final String coordenadas) throws Exception {
-        // O protocolo do professor para Pontos e Caixas espera quatro números
-        os.println("<metodo><jogar jogada='" + coordenadas + "'/></metodo>");
-        
+        String pedido = "<metodo><jogar jogada='" + coordenadas + "'/></metodo>";
+        registaLog("ENVIO{" + pedido + "}");
+        os.println(pedido);
         String resposta = is.readLine();
-        registaLog("Cliente{"+resposta+"}");
+        registaLog("RECEP{" + resposta + "}");
         
         if(resposta == null) throw new Exception("Ligação cancelada!");
         

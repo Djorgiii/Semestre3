@@ -27,32 +27,8 @@ public class Servidor {
         
         FIFOJogador fIFOJogador = new Servidor().new FIFOJogador();
 
-        new Thread(() -> { 
-            for(;;) { 
-                String[] entrada1 = null;
-                String[] entrada2 = null;
-                try {
-                    entrada1 = fIFOJogador.remove();
-                    entrada2 = fIFOJogador.remove();
-                    Socket sk1   = fIFOJogador.getSocket(entrada1);
-                    Socket sk2   = fIFOJogador.getSocket(entrada2);
-                    String nome1 = fIFOJogador.getNome(entrada1);
-                    String nome2 = fIFOJogador.getNome(entrada2);
-
-                    System.out.println("🤝 Par encontrado! A iniciar Servidor Dedicado...");
-                    Thread jogo = new ServidorDedicado(sk1, sk2, nome1, nome2);
-                    jogo.start(); 
-
-                    if (single) { 
-                        try { jogo.join(); } catch (InterruptedException e) {}
-                        System.out.println("👋 Modo single-game terminado. A sair...");
-                        System.exit(0);
-                    }	
-                } catch (Exception e) {
-                    System.out.println("❌ Erro na tarefa de gestão de fila: " + e.getMessage());
-                }
-            }
-        }).start();
+        // O emparelhamento e lançamento do ServidorDedicado é feito dentro de FIFOJogador.add()
+        // O modo single não é suportado com emparelhamento por nome (ignorado).
 
         try (ServerSocket serverSocket = new ServerSocket(port)) {
             System.out.println("🌍 Servidor TCP à escuta no porto: " + port);
@@ -67,13 +43,17 @@ public class Servidor {
                     try {
                         BufferedReader is = new BufferedReader(new InputStreamReader(newSock.getInputStream()));
                         String primeiraLinha = is.readLine();
-                        
+
                         if (primeiraLinha != null) {
                             Document docPedido = XMLDoc.parseString(primeiraLinha);
                             
                             if (docPedido.getElementsByTagName("iniciar").getLength() > 0) {
                                 System.out.println("   ➡️ Pedido de Jogo (Login). A enviar para a fila...");
-                                fIFOJogador.add(newSock, docPedido);
+                                // Ler adversario directamente do XML (atributo opcional)
+                                org.w3c.dom.Element elIniciar = (org.w3c.dom.Element)
+                                    docPedido.getElementsByTagName("iniciar").item(0);
+                                String adversarioHint = elIniciar.getAttribute("adversario");
+                                fIFOJogador.add(newSock, docPedido, adversarioHint);
                                 
                             } else if (docPedido.getElementsByTagName("alterar").getLength() > 0) {
                                 System.out.println("   ➡️ Pedido de Alteração de Perfil.");
@@ -100,26 +80,82 @@ public class Servidor {
         }
     }
 
+    /**
+     * Emparelha jogadores pelo par (nomeA, nomeB).
+     * O primeiro a chegar fica à espera numa SynchronousQueue dedicada ao par.
+     * O segundo a chegar entrega o seu socket a essa queue e lança o jogo.
+     */
     private final class FIFOJogador {
-        // Cada entrada é um array: [0]=socket, [1]=nome do jogador
-        private final BlockingQueue<String[]> queue = new LinkedBlockingQueue<>();
-        private char proximoSimbolo = 'X';
 
-        public synchronized void add(Socket element, Document docPedido) throws InterruptedException {
+        // Chave: "nomeMin_nomeMax" — simétrico (A vs B == B vs A)
+        // Valor: queue onde o primeiro jogador deposita o seu socket após autenticação
+        private final java.util.Map<String, java.util.concurrent.SynchronousQueue<Socket>> salas =
+            new java.util.concurrent.ConcurrentHashMap<>();
+
+        private String chave(String a, String b) {
+            return a.compareTo(b) <= 0 ? a + "_" + b : b + "_" + a;
+        }
+
+        public void add(Socket element, Document docPedido, String adversario) {
             new Thread(() -> {
                 try {
-                    char atribuido = proximoSimbolo;
+                    org.w3c.dom.Element el = (org.w3c.dom.Element)
+                        docPedido.getElementsByTagName("iniciar").item(0);
+                    String meuNome = el.getAttribute("nickname");
 
-                    // Autenticar e obter o nome do jogador
-                    String nomeJogador = getMethod(docPedido, "iniciar").getAttribute("nickname");
-                    Skeleton.runIniciar(element, atribuido, docPedido);
+                    // Compatibilidade CLI: sem adversario, usa FIFO global
+                    final String adv = (adversario == null || adversario.isBlank())
+                        ? "__qualquer__" : adversario;
 
-                    // Guardar socket e nome juntos na fila
-                    String[] entrada = new String[]{ element.toString(), nomeJogador };
-                    // Guardar o socket num mapa indexado pelo toString
-                    socketMap.put(element.toString(), element);
-                    queue.put(entrada);
-                    proximoSimbolo = (atribuido == 'X' ? 'O' : 'X');
+                    String key = chave(meuNome, adv);
+                    System.out.println("   ➡️ " + meuNome + " quer jogar com " + adv);
+
+                    java.util.concurrent.SynchronousQueue<Socket> sala;
+                    boolean souPrimeiro;
+
+                    synchronized (salas) {
+                        if (!salas.containsKey(key)) {
+                            // Primeiro a chegar — cria a sala e fica à espera
+                            sala = new java.util.concurrent.SynchronousQueue<>();
+                            salas.put(key, sala);
+                            souPrimeiro = true;
+                        } else {
+                            // Segundo a chegar — vai usar a sala existente
+                            sala = salas.remove(key);
+                            souPrimeiro = false;
+                        }
+                    }
+
+                    // Timeout de espera pelo adversário (60 segundos)
+                    final int TIMEOUT_ESPERA_S = 60;
+
+                    if (souPrimeiro) {
+                        // Autenticar como X e depositar o socket na sala com timeout
+                        Skeleton.runIniciar(element, 'X', docPedido);
+                        System.out.println("   ⏳ " + meuNome + " (X) aguarda " + adv + " (max " + TIMEOUT_ESPERA_S + "s)...");
+                        boolean emparelhado = sala.offer(element, TIMEOUT_ESPERA_S, java.util.concurrent.TimeUnit.SECONDS);
+                        if (!emparelhado) {
+                            // O adversário não apareceu — limpar a sala e fechar ligação
+                            System.out.println("   ⏰ Timeout: " + adv + " não apareceu. A fechar ligação de " + meuNome + ".");
+                            salas.remove(key); // garantir limpeza mesmo que já tenha sido removido
+                            element.close();
+                        }
+                    } else {
+                        // Autenticar como O, retirar o socket de X e lançar o jogo
+                        Skeleton.runIniciar(element, 'O', docPedido);
+                        // poll com timeout — se X entretanto desistiu, skX pode ser null
+                        Socket skX = sala.poll(5, java.util.concurrent.TimeUnit.SECONDS);
+                        if (skX == null) {
+                            System.out.println("   ⏰ Timeout: X já não está disponível. A fechar ligação de " + meuNome + ".");
+                            element.close();
+                        } else {
+                            Socket skO = element;
+                            String nX = adv.equals("__qualquer__") ? "X" : adv;
+                            String nO = adv.equals("__qualquer__") ? "O" : meuNome;
+                            System.out.println("🤝 Par encontrado! A iniciar Servidor Dedicado...");
+                            new ServidorDedicado(skX, skO, nX, nO).start();
+                        }
+                    }
 
                 } catch (Exception e) {
                     System.out.println("⚠️ Falha na inicialização do jogador: " + e.getMessage());
@@ -128,26 +164,6 @@ public class Servidor {
             }).start();
         }
 
-        public String[] remove() throws InterruptedException {
-            return queue.take();
-        }
-
-        public Socket getSocket(String[] entrada) {
-            return socketMap.remove(entrada[0]);
-        }
-
-        public String getNome(String[] entrada) {
-            return entrada[1];
-        }
-
-        // Mapa temporário para recuperar o Socket a partir do toString
-        private final java.util.concurrent.ConcurrentHashMap<String, Socket> socketMap =
-            new java.util.concurrent.ConcurrentHashMap<>();
-
-        private org.w3c.dom.Element getMethod(Document doc, String method) throws Exception {
-            org.w3c.dom.NodeList items = doc.getElementsByTagName(method);
-            if (items.getLength() != 1) throw new Exception("Método não encontrado: " + method);
-            return (org.w3c.dom.Element) items.item(0);
-        }
+        public Socket remove() throws InterruptedException { return null; }
     }
 }

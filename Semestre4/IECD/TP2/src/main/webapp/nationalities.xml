@@ -170,7 +170,21 @@
 			B49cCPdTZsffxy+A5DC2eMCCmoqJS2ZK+YAgBoZ1GQODRi0etZhWCABHQtF+Icj6swAAAABJRU5E
 			rkJggg==</flag>
 	</nationality>
-
+	
+	<nationality>
+	    <abbreviation>CK</abbreviation>
+	    <name>Cook Islands</name>
+	    <official>The Cook Islands</official>
+	    <pt-name>Ilhas Cook</pt-name>
+	    <pt-nationality>cookiano(a)</pt-nationality>
+	    <pt-male>cookiano</pt-male>
+	    <pt-female>cookiana</pt-female>
+	    <flag>iVBORw0KGgoAAAANSUhEUgAAACgAAAAUCAIAAABwJOjsAAAAhElEQVR42uWVSw7A
+	        IAhEOVaP3MP0TnRhtA1VHMywsWRWir4w+BGtIcfZVEYukSIzy5GOIxf8LpEI7hpp
+	        wcSKHf8WrZ7upVg8S9ruC3LA03F+xWjLnW6NwOFz1M0EwYiZWeBvz1LAzCv7U7Dt
+	        EeXhRdg2ZxNw4KITf7rAQ70JGHQ+EYzoBpuJdnjD2Y0WAAAAAElFTkSuQmCC</flag>
+	</nationality>
+	
 	<nationality>
 		<abbreviation>BA</abbreviation>
 		<name>Bosnia and Herzegovina</name>
