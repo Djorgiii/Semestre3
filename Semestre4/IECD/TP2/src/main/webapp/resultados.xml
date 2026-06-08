@@ -154,4 +154,53 @@
         <duracaoSegundos>3</duracaoSegundos>
         <data>2026-06-07T14:22:34.412464300Z</data>
     </jogo>
+    <jogo>
+        <jogadorX>Bob</jogadorX>
+        <jogadorO>Alice</jogadorO>
+        <vencedor>AB</vencedor>
+        <duracaoSegundos>57</duracaoSegundos>
+        <data>2026-06-08T15:56:35.160237200Z</data>
+    </jogo>
+    <jogo>
+        <jogadorX>Alice</jogadorX>
+        <jogadorO>Bob</jogadorO>
+        <vencedor>O</vencedor>
+        <duracaoSegundos>48</duracaoSegundos>
+        <data>2026-06-08T15:57:41.024581500Z</data>
+    </jogo>
+    <jogo>
+        <jogadorX>Bob</jogadorX>
+        <jogadorO>Alice</jogadorO>
+        <vencedor>O</vencedor>
+        <duracaoSegundos>33</duracaoSegundos>
+        <data>2026-06-08T19:11:49.391672Z</data>
+    </jogo>
+    <jogo>
+        <jogadorX>Bob</jogadorX>
+        <jogadorO>Alice</jogadorO>
+        <vencedor>AB</vencedor>
+        <duracaoSegundos>0</duracaoSegundos>
+        <data>2026-06-08T19:13:17.619571800Z</data>
+    </jogo>
+    <jogo>
+        <jogadorX>Bob</jogadorX>
+        <jogadorO>Alice</jogadorO>
+        <vencedor>AB</vencedor>
+        <duracaoSegundos>0</duracaoSegundos>
+        <data>2026-06-08T19:19:16.397931300Z</data>
+    </jogo>
+    <jogo>
+        <jogadorX>Alice</jogadorX>
+        <jogadorO>Bob</jogadorO>
+        <vencedor>AB</vencedor>
+        <duracaoSegundos>32</duracaoSegundos>
+        <data>2026-06-08T19:23:57.898658500Z</data>
+    </jogo>
+    <jogo>
+        <jogadorX>Alice</jogadorX>
+        <jogadorO>Bob</jogadorO>
+        <vencedor>AB</vencedor>
+        <duracaoSegundos>15</duracaoSegundos>
+        <data>2026-06-08T19:46:24.151887700Z</data>
+    </jogo>
 </resultados>

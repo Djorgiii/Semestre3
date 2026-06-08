@@ -152,9 +152,13 @@ public class Servidor {
                         docPedido.getElementsByTagName("iniciar").item(0);
                     String meuNome = el.getAttribute("nickname");
 
-                    // Clientes CLI sem adversário usam a chave global "__qualquer__"
-                    final String adv = (adversario == null || adversario.isBlank())
-                        ? "__qualquer__" : adversario;
+                    // Adversário é obrigatório — sem adversário não há jogo
+                    if (adversario == null || adversario.isBlank()) {
+                        System.out.println("   ⚠️ Adversário não especificado. A fechar ligação.");
+                        element.close();
+                        return;
+                    }
+                    final String adv = adversario;
 
                     String key = chave(meuNome, adv);
                     System.out.println("   ➡️ " + meuNome + " quer jogar com " + adv);
@@ -204,8 +208,8 @@ public class Servidor {
                         } else {
                             // Par completo — lançar o ServidorDedicado para esta partida
                             Socket skO = element;
-                            String nX = adv.equals("__qualquer__") ? "X" : adv;     // nome do jogador X
-                            String nO = adv.equals("__qualquer__") ? "O" : meuNome; // nome do jogador O
+                            String nX = adv;      // nome do jogador X (adversário do segundo)
+                            String nO = meuNome;  // nome do jogador O (segundo a chegar)
                             System.out.println("🤝 Par encontrado! A iniciar Servidor Dedicado...");
                             new ServidorDedicado(skX, skO, nX, nO).start();
                         }

@@ -102,7 +102,11 @@ public class Jogador {
             
             String senha = leSenha("<<< ***** Indique a sua senha:", leitor);
            
-            char simbolo = stub.iniciar(nome, senha);
+            System.out.println("<<< ***** Indique o nome do adversário:");
+            String adversarioCLI = "";
+            while (adversarioCLI.isBlank()) { adversarioCLI = leitor.nextLine().trim(); }
+
+            char simbolo = stub.iniciar(nome, senha, adversarioCLI);
             stub.print();
 
             if (simbolo == 'O') {
